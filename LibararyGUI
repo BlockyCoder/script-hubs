@@ -281,7 +281,7 @@ ImageButtonKCorner.Parent = ImageButtonK
 
 	-- Assume Tabs is a folder in the ScreenGui of the LocalPlayer
 
-	function xTabs:Tab(Name, xVisible)
+	function xTabs.Tab(Name, xVisible)
 		local TabDisplay = Instance.new("ImageButton")
 		local Seperator = Instance.new("Frame")
 		local Title = Instance.new("TextLabel")
