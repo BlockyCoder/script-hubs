@@ -7,7 +7,6 @@ local LibraryName = tostring(math.random(100000,200000))..tostring(math.random(1
 
 local TweenService = game:GetService("TweenService")
 
-
 function Library:Drag(obj)
 	local UserInputService = game:GetService("UserInputService")
 
@@ -1015,7 +1014,9 @@ function Elements:Dropdown(Name, Listx, Callback)
 
 	return DropdownFunction
 end
-
-return Elements
+	return {
+		xTabs = xTabs,
+		Elements = Elements
+	}
 end
 return Library
