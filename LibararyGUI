@@ -277,55 +277,80 @@ ImageButtonKCorner.Parent = ImageButtonK
 	addDropShadow(Main)
 
 -- Functions:
+	local xTabs = {}
 
-local xTabs = {}
+	-- Assume Tabs is a folder in the ScreenGui of the LocalPlayer
 
-function xTabs:Tab(Name, xVisible)
-	local TabDisplay = Instance.new("ImageButton")
-	local Seperator = Instance.new("Frame")
-	local Title = Instance.new("TextLabel")
-	local UIPadding = Instance.new("UIPadding")
-	local UICorner = Instance.new("UICorner")
+	function xTabs:Tab(Name, xVisible)
+		local TabDisplay = Instance.new("ImageButton")
+		local Seperator = Instance.new("Frame")
+		local Title = Instance.new("TextLabel")
+		local UIPadding = Instance.new("UIPadding")
+		local UICorner = Instance.new("UICorner")
 
-	Name = Name or "Tab"
-	xVisible = xVisible or true
+		Name = Name or "Tab"
+		xVisible = xVisible == nil and true or xVisible
 
-	-- Properties:
-	TabDisplay.Name = "TabDisplay"
-	TabDisplay.Parent = Tabs
-	TabDisplay.Active = false
-	TabDisplay.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TabDisplay.Position = UDim2.new(0.0286853034, 0, 0.204402521, 0)
-	TabDisplay.Selectable = false
-	TabDisplay.Size = UDim2.new(0, 0, 0, 36)
-	TabDisplay.Visible = xVisible
+		-- Properties:
+		TabDisplay.Name = "TabDisplay"
+		TabDisplay.Parent = ActualSide
+		TabDisplay.Active = false
+		TabDisplay.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TabDisplay.Position = UDim2.new(0.0286853034, 0, 0.204402521, 0)
+		TabDisplay.Selectable = false
+		TabDisplay.Size = UDim2.new(0, 0, 0, 36)
+		TabDisplay.Visible = xVisible
 
-	Seperator.Name = "Seperator"
-	Seperator.Parent = TabDisplay
-	Seperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
-	Seperator.BorderSizePixel = 0
-	Seperator.Position = UDim2.new(0.989860594, 0, 0, 0)
-	Seperator.Size = UDim2.new(0, 1, 0, 36)
+		Seperator.Name = "Seperator"
+		Seperator.Parent = TabDisplay
+		Seperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
+		Seperator.BorderSizePixel = 0
+		Seperator.Position = UDim2.new(0.989860594, 0, 0, 0)
+		Seperator.Size = UDim2.new(0, 1, 0, 36)
 
-	Title.Name = "Title"
-	Title.Parent = TabDisplay
-	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Title.BackgroundTransparency = 1.000
-	Title.Position = UDim2.new(6.63723185e-05, 0, 0, 0)
-	Title.Size = UDim2.new(0, 6, 0, 36)
-	Title.Font = Enum.Font.GothamMedium
-	Title.Text = Name
-	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
-	Title.TextScaled = true
-	Title.TextSize = 12.000
-	Title.TextWrapped = true
+		Title.Name = "Title"
+		Title.Parent = TabDisplay
+		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Title.BackgroundTransparency = 1.000
+		Title.Position = UDim2.new(6.63723185e-05, 0, 0, 0)
+		Title.Size = UDim2.new(0, 6, 0, 36)
+		Title.Font = Enum.Font.GothamMedium
+		Title.Text = Name
+		Title.TextColor3 = xVisible and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(190, 190, 190)
+		Title.TextScaled = true
+		Title.TextSize = 12.000
+		Title.TextWrapped = true
 
-	UIPadding.Parent = Title
-	UIPadding.PaddingLeft = UDim.new(0, 10)
-	UIPadding.PaddingRight = UDim.new(0, 10)
+		UIPadding.Parent = Title
+		UIPadding.PaddingLeft = UDim.new(0, 10)
+		UIPadding.PaddingRight = UDim.new(0, 10)
 
-	UICorner.Parent = TabDisplay
-end
+		UICorner.Parent = TabDisplay
+
+		-- Set button style based on xVisible
+		if xVisible then
+			Tabholder.Visible = true
+			TabDisplay.BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+		else
+			Tabholder.Visible = false
+			TabDisplay.BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+		end
+
+		-- Connect click event
+		TabDisplay.MouseButton1Down:Connect(function()
+			print("Tab clicked: " .. Name)
+			
+			for _, v in pairs(Tabholder:GetChildren()) do
+				v.Visible = false
+			end
+			Tabholder.Visible = true
+		end)
+
+
+		return TabDisplay
+	end
+
+
 
 
 
@@ -828,7 +853,7 @@ function Elements:ColorPicker(colText, defcolor, callback)
 	HexBox.Position = UDim2.new(0.598958313, 0, 0.366591543, 0)
 	HexBox.Size = UDim2.new(0, 70, 0, 28)
 	HexBox.ClearTextOnFocus = false
-	HexBox.Font =     HexBox.Font = Enum.Font.Gotham
+	HexBox.Font = Enum.Font.Gotham
 	HexBox.PlaceholderColor3 = Color3.fromRGB(193, 193, 193)
 	HexBox.PlaceholderText = "Hex"
 	HexBox.Text = string.format("#%02X%02X%02X", math.floor(defcolor.R * 255), math.floor(defcolor.G * 255), math.floor(defcolor.B * 255))
