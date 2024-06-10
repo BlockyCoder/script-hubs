@@ -265,13 +265,11 @@ ImageButtonKCorner.Name = "ImageButtonKCorner"
 ImageButtonKCorner.Parent = ImageButtonK
 
 
-	Library:Drag(Main)
+	Library:Drag(Main, Headerframe)
 	addDropShadow(Main)
 
 -- Functions:
 	local xTabs = {}
-
-	-- Assume Tabs is a folder in the ScreenGui of the LocalPlayer
 
 	function xTabs.Tab(Name, xVisible)
 		local TabDisplay = Instance.new("ImageButton")
@@ -331,20 +329,15 @@ ImageButtonKCorner.Parent = ImageButtonK
 		-- Connect click event
 		TabDisplay.MouseButton1Down:Connect(function()
 			print("Tab clicked: " .. Name)
-			
-			for _, v in pairs(Tabholder:GetChildren()) do
-				v.Visible = false
-			end
-			Tabholder.Visible = true
-		end)
 
+			for _, v in pairs(ActualSide:GetChildren()) do
+				v.Visible = v.Name == Name
+			end
+		end)
 
 		return TabDisplay
 	end
-
-
-
-
+	
 
 local Elements = {}
 
