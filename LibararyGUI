@@ -70,7 +70,7 @@ end
 
 
 function Library:Create(XNmae)
-	local XNmae = XNmae or "UI Library"
+	local XNmae = XNmae or "ERROR!"
 
 local ScreenScript = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
@@ -745,27 +745,22 @@ function Elements:ColorPicker(colText, defcolor, callback)
 	local ColorPicker = Instance.new("Frame")
 	local UICorner = Instance.new("UICorner")
 	local Title = Instance.new("TextLabel")
-	local ColorBox = Instance.new("TextButton")
-	local ColorBoxCorner = Instance.new("UICorner")
-	local PickerFrame = Instance.new("Frame")
+	local ColorFrame = Instance.new("Frame")
+	local ColorPreview = Instance.new("Frame")
 	local UICorner_2 = Instance.new("UICorner")
-	local HueBox = Instance.new("Frame")
-	local UICorner_3 = Instance.new("UICorner")
-	local Picker = Instance.new("TextButton")
-	local PickerCorner = Instance.new("UICorner")
+	local ColorValue = Instance.new("TextLabel")
 	local UIPadding = Instance.new("UIPadding")
-	local PickerLabel = Instance.new("TextLabel")
-	local HexBox = Instance.new("TextBox")
-	local UICorner_4 = Instance.new("UICorner")
-	local UIPadding_2 = Instance.new("UIPadding")
-	local ColorPickerUIScale = Instance.new("UIScale")
-	local UIColorPicker = Instance.new("ColorPickerFrame")
+	local UICorner_3 = Instance.new("UICorner")
+	local RedSlider = Elements:Slider("Red", 0, 255)
+	local GreenSlider = Elements:Slider("Green", 0, 255)
+	local BlueSlider = Elements:Slider("Blue", 0, 255)
+	local ConfirmButton = Elements:Button("Confirm")
 
+	-- Properties:
 	ColorPicker.Name = "ColorPicker"
 	ColorPicker.Parent = Tabholder
 	ColorPicker.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-	ColorPicker.Position = UDim2.new(0.0175054704, 0, 0.515669465, 0)
-	ColorPicker.Size = UDim2.new(0, 326, 0, 93)
+	ColorPicker.Size = UDim2.new(0, 327, 0, 200)
 
 	UICorner.CornerRadius = UDim.new(0, 5)
 	UICorner.Parent = ColorPicker
@@ -774,127 +769,86 @@ function Elements:ColorPicker(colText, defcolor, callback)
 	Title.Parent = ColorPicker
 	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Title.BackgroundTransparency = 1.000
-	Title.Position = UDim2.new(0.0306748476, 0, 0, 0)
-	Title.Size = UDim2.new(0, 89, 0, 23)
+	Title.Size = UDim2.new(0, 294, 0, 31)
 	Title.Font = Enum.Font.GothamMedium
 	Title.Text = colText
 	Title.TextColor3 = Color3.fromRGB(193, 193, 193)
 	Title.TextSize = 12.000
 	Title.TextWrapped = true
+	Title.TextXAlignment = Enum.TextXAlignment.Left
 
-	ColorBox.Name = "ColorBox"
-	ColorBox.Parent = ColorPicker
-	ColorBox.BackgroundColor3 = defcolor or Color3.fromRGB(255, 255, 255)
-	ColorBox.Position = UDim2.new(0.0306748476, 0, 0.573119342, 0)
-	ColorBox.Size = UDim2.new(0, 30, 0, 30)
-	ColorBox.AutoButtonColor = false
-	ColorBox.Text = ""
-	ColorBox.ZIndex = 3
+	ColorFrame.Name = "ColorFrame"
+	ColorFrame.Parent = ColorPicker
+	ColorFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+	ColorFrame.Position = UDim2.new(0.0145772592, 0, 0.180000007, 0)
+	ColorFrame.Size = UDim2.new(0, 311, 0, 48)
 
-	ColorBoxCorner.CornerRadius = UDim.new(0, 5)
-	ColorBoxCorner.Parent = ColorBox
-
-	PickerFrame.Name = "PickerFrame"
-	PickerFrame.Parent = ColorPicker
-	PickerFrame.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-	PickerFrame.BorderSizePixel = 0
-	PickerFrame.Position = UDim2.new(0.20368059, 0, 0, 0)
-	PickerFrame.Size = UDim2.new(0, 192, 0, 93)
+	ColorPreview.Name = "ColorPreview"
+	ColorPreview.Parent = ColorFrame
+	ColorPreview.BackgroundColor3 = defcolor or Color3.fromRGB(255, 255, 255)
+	ColorPreview.Position = UDim2.new(0.779033303, 0, 0, 0)
+	ColorPreview.Size = UDim2.new(0, 66, 0, 48)
 
 	UICorner_2.CornerRadius = UDim.new(0, 5)
-	UICorner_2.Parent = PickerFrame
+	UICorner_2.Parent = ColorPreview
 
-	HueBox.Name = "HueBox"
-	HueBox.Parent = PickerFrame
-	HueBox.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-	HueBox.Position = UDim2.new(0.020833333, 0, 0.182795703, 0)
-	HueBox.Size = UDim2.new(0, 8, 0, 47)
+	ColorValue.Name = "ColorValue"
+	ColorValue.Parent = ColorFrame
+	ColorValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ColorValue.BackgroundTransparency = 1.000
+	ColorValue.Position = UDim2.new(0.0546748016, 0, 0, 0)
+	ColorValue.Size = UDim2.new(0, 215, 0, 48)
+	ColorValue.Font = Enum.Font.GothamMedium
+	ColorValue.Text = tostring(defcolor and math.floor(defcolor.R * 255) or 255) .. ", " .. tostring(defcolor and math.floor(defcolor.G * 255) or 255) .. ", " .. tostring(defcolor and math.floor(defcolor.B * 255) or 255)
+	ColorValue.TextColor3 = Color3.fromRGB(193, 193, 193)
+	ColorValue.TextSize = 12.000
+	ColorValue.TextXAlignment = Enum.TextXAlignment.Left
 
-	UICorner_3.CornerRadius = UDim.new(0, 3)
-	UICorner_3.Parent = HueBox
+	UIPadding.Parent = ColorValue
+	UIPadding.PaddingLeft = UDim.new(0, 10)
 
-	Picker.Name = "Picker"
-	Picker.Parent = HueBox
-	Picker.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Picker.Position = UDim2.new(0.5, -5, 0, 0)
-	Picker.Size = UDim2.new(0, 10, 0, 10)
-	Picker.AutoButtonColor = false
-	Picker.Text = ""
-	Picker.ZIndex = 3
+	UICorner_3.CornerRadius = UDim.new(0, 5)
+	UICorner_3.Parent = ColorValue
 
-	PickerCorner.CornerRadius = UDim.new(1, 0)
-	PickerCorner.Parent = Picker
+	RedSlider.Parent = ColorPicker
+	GreenSlider.Parent = ColorPicker
+	BlueSlider.Parent = ColorPicker
 
-	UIPadding.Parent = HueBox
-	UIPadding.PaddingTop = UDim.new(0, 5)
+	ConfirmButton.Parent = ColorPicker
 
-	PickerLabel.Name = "PickerLabel"
-	PickerLabel.Parent = PickerFrame
-	PickerLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	PickerLabel.BackgroundTransparency = 1.000
-	PickerLabel.Position = UDim2.new(0.395833313, 0, 0.182795703, 0)
-	PickerLabel.Size = UDim2.new(0, 46, 0, 47)
-	PickerLabel.Font = Enum.Font.GothamMedium
-	PickerLabel.Text = "Brightness"
-	PickerLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-	PickerLabel.TextSize = 12.000
+	RedSlider.Value = defcolor and math.floor(defcolor.R * 255) or 255
+	GreenSlider.Value = defcolor and math.floor(defcolor.G * 255) or 255
+	BlueSlider.Value = defcolor and math.floor(defcolor.B * 255) or 255
 
-	HexBox.Name = "HexBox"
-	HexBox.Parent = PickerFrame
-	HexBox.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-	HexBox.Position = UDim2.new(0.598958313, 0, 0.366591543, 0)
-	HexBox.Size = UDim2.new(0, 70, 0, 28)
-	HexBox.ClearTextOnFocus = false
-	HexBox.Font = Enum.Font.Gotham
-	HexBox.PlaceholderColor3 = Color3.fromRGB(193, 193, 193)
-	HexBox.PlaceholderText = "Hex"
-	HexBox.Text = string.format("#%02X%02X%02X", math.floor(defcolor.R * 255), math.floor(defcolor.G * 255), math.floor(defcolor.B * 255))
-	HexBox.TextColor3 = Color3.fromRGB(193, 193, 193)
-	HexBox.TextSize = 14.000
-	HexBox.ZIndex = 2
+	RedSlider.Position = UDim2.new(0.0546748, 0, 0.393846035, 0)
+	GreenSlider.Position = UDim2.new(0.0546748, 0, 0.528460562, 0)
+	BlueSlider.Position = UDim2.new(0.0546748, 0, 0.661168635, 0)
 
-	UICorner_4.CornerRadius = UDim.new(0, 5)
-	UICorner_4.Parent = HexBox
+		ConfirmButton.Position = UDim2.new(0.0546748, 0, 0.794315696, 0)
 
-	UIPadding_2.Parent = HexBox
-	UIPadding_2.PaddingTop = UDim.new(0, 5)
+		RedSlider.OnValueChanged:Connect(function(value)
+			ColorPreview.BackgroundColor3 = Color3.fromRGB(value, GreenSlider.Value, BlueSlider.Value)
+			ColorValue.Text = tostring(math.floor(value)) .. ", " .. tostring(math.floor(GreenSlider.Value)) .. ", " .. tostring(math.floor(BlueSlider.Value))
+		end)
 
-	ColorPickerUIScale.Parent = ColorPicker
+		GreenSlider.OnValueChanged:Connect(function(value)
+			ColorPreview.BackgroundColor3 = Color3.fromRGB(RedSlider.Value, value, BlueSlider.Value)
+			ColorValue.Text = tostring(math.floor(RedSlider.Value)) .. ", " .. tostring(math.floor(value)) .. ", " .. tostring(math.floor(BlueSlider.Value))
+		end)
 
-	UIColorPicker.Name = "UIColorPicker"
-	UIColorPicker.Parent = ColorPicker
-	UIColorPicker.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	UIColorPicker.Position = UDim2.new(0, 0, 1, 0)
-	UIColorPicker.Size = UDim2.new(0, 192, 0, 200)
-	UIColorPicker.Visible = false
-	UIColorPicker.BorderSizePixel = 0
-	UIColorPicker.AnchorPoint = Vector2.new(0.5, 1)
-	UIColorPicker.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-	UIColorPicker.ZIndex = 3
+		BlueSlider.OnValueChanged:Connect(function(value)
+			ColorPreview.BackgroundColor3 = Color3.fromRGB(RedSlider.Value, GreenSlider.Value, value)
+			ColorValue.Text = tostring(math.floor(RedSlider.Value)) .. ", " .. tostring(math.floor(GreenSlider.Value)) .. ", " .. tostring(math.floor(value))
+		end)
 
-	UIColorPicker.MouseEnter:Connect(function()
-		TweenService:Create(ColorPicker, TweenInfo.new(0.3), {Position = UDim2.new(0.0175054704, 0, 0.498162538, 0)}):Play()
-	end)
+		ConfirmButton.MouseButton1Click:Connect(function()
+			callback(ColorPreview.BackgroundColor3)
+			ColorPicker:Destroy()
+		end)
 
-	UIColorPicker.MouseLeave:Connect(function()
-		TweenService:Create(ColorPicker, TweenInfo.new(0.3), {Position = UDim2.new(0.0175054704, 0, 0.515669465, 0)}):Play()
-	end)
-
-	ColorBox.MouseButton1Click:Connect(function()
-		UIColorPicker.Visible = not UIColorPicker.Visible
-	end)
-
-	local function updateColor()
-		local newColor = UIColorPicker.Color
-		ColorBox.BackgroundColor3 = newColor
-		HexBox.Text = string.format("#%02X%02X%02X", math.floor(newColor.R * 255), math.floor(newColor.G * 255), math.floor(newColor.B * 255))
-		callback(newColor)
+		return ColorPicker
 	end
 
-	UIColorPicker.ColorChanged:Connect(updateColor)
-
-	return ColorPicker
-end
 
 -- Assume TweenService is defined elsewhere in your code
 local TweenService = game:GetService("TweenService")
