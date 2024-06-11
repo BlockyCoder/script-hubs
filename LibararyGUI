@@ -361,42 +361,31 @@ function Emptyness.CreateLib(kavName, themeList)
 		local UIPadding = Instance.new("UIPadding")
 		local UICorner = Instance.new("UICorner")
 
-		-- Apply theme colors
-
-		TabDisplay.BackgroundColor3 = themes.Background
-
-		Seperator.BackgroundColor3 = themes.ElementColor
-
-		Title.TextColor3 = themes.TextColor
-
-		--Properties:
-
 		TabDisplay.Name = "TabDisplay"
 		TabDisplay.Parent = ActualSide
-		TabDisplay.Active = true -- This should be a boolean value, either true or false, to indicate whether the button is active or not
-		TabDisplay.BackgroundColor3 = themes.Background
-		TabDisplay.Position = UDim2.new(0.0286853034, 0, 0.204402521, 0)
+		TabDisplay.Active = true
+		TabDisplay.BackgroundColor3 = themeList.Background
 		TabDisplay.Selectable = false
 		TabDisplay.Size = UDim2.new(0, 0, 0, 36)
 
 		Seperator.Name = "Seperator"
 		Seperator.Parent = TabDisplay
-		Seperator.BackgroundColor3 = themes.ElementColor
+		Seperator.BackgroundColor3 = themeList.ElementColor
 		Seperator.BorderSizePixel = 0
 		Seperator.Position = UDim2.new(0.989860594, 0, 0, 0)
 		Seperator.Size = UDim2.new(0, 1, 0, 36)
 
 		Title.Name = "Title"
 		Title.Parent = TabDisplay
-		Title.BackgroundColor3 = themes.Background
-		Title.BackgroundTransparency = 1.000
+		Title.BackgroundColor3 = themeList.Background
+		Title.BackgroundTransparency = 1
 		Title.Position = UDim2.new(6.63723185e-05, 0, 0, 0)
 		Title.Size = UDim2.new(0, 6, 0, 36)
 		Title.Font = Enum.Font.GothamMedium
 		Title.Text = Name
-		Title.TextColor3 = themes.TextColor
+		Title.TextColor3 = themeList.TextColor
 		Title.TextScaled = true
-		Title.TextSize = 12.000
+		Title.TextSize = 12
 		Title.TextWrapped = true
 
 		UIPadding.Parent = Title
@@ -404,7 +393,18 @@ function Emptyness.CreateLib(kavName, themeList)
 		UIPadding.PaddingRight = UDim.new(0, 10)
 
 		UICorner.Parent = TabDisplay
-
+		
+		if xVisible == false then
+			TabDisplay.Visible = false
+		end
+		
+		TabDisplay.MouseButton1Down:Connect(function()
+			if Tabholder.Visible then
+				TabDisplay.BackgroundColor3 = themes.SchemeColor -- Change to desired color
+			else
+				TabDisplay.BackgroundColor3 = themes.Background -- Change to desired color
+			end
+		end)
 		-- Return the TabDisplay object
 		return TabDisplay
 	end
@@ -412,9 +412,6 @@ function Emptyness.CreateLib(kavName, themeList)
 	local Elements = {}
 
 	function Elements:Button(Name, Callback)
-		local Name = Name or "Button"
-		local Callback = Callback or function() end
-
 		local Button = Instance.new("TextButton")
 		local UICorner = Instance.new("UICorner")
 		local TextLabel = Instance.new("TextLabel")
@@ -423,20 +420,19 @@ function Emptyness.CreateLib(kavName, themeList)
 		local ImageLabel = Instance.new("ImageLabel")
 		local UIScale = Instance.new("UIScale")
 
-		-- Set up button properties
 		Button.Name = "Button"
-		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Button.Parent = Tabholder
+		Button.Active = true
+		Button.BackgroundColor3 = themeList.ElementColor
 		Button.Position = UDim2.new(-0.115991771, 0, -0.00923603307, 0)
 		Button.Selectable = false
 		Button.Size = UDim2.new(0, 373, 0, 31)
 		Button.AutoButtonColor = false
 		Button.Text = ""
 
-		-- Add a corner to the button for rounded edges
 		UICorner.CornerRadius = UDim.new(0, 5)
 		UICorner.Parent = Button
 
-		-- Set up the text label
 		TextLabel.Parent = Button
 		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		TextLabel.BackgroundTransparency = 1.000
@@ -444,11 +440,10 @@ function Emptyness.CreateLib(kavName, themeList)
 		TextLabel.Size = UDim2.new(0, 316, 0, 31)
 		TextLabel.Font = Enum.Font.GothamMedium
 		TextLabel.Text = Name
-		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TextLabel.TextSize = 12.000
+		TextLabel.TextColor3 = themeList.TextColor
+		TextLabel.TextSize = 12
 		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		-- Set up the status indicator frame
 		Status.Name = "Status"
 		Status.Parent = Button
 		Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -456,7 +451,6 @@ function Emptyness.CreateLib(kavName, themeList)
 		Status.Position = UDim2.new(0.839826822, 0, 0, 0)
 		Status.Size = UDim2.new(0, 37, 0, 31)
 
-		-- Set up the actual status indicator
 		ActualThing.Name = "ActualThing"
 		ActualThing.Parent = Status
 		ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -465,25 +459,22 @@ function Emptyness.CreateLib(kavName, themeList)
 		ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
 		ActualThing.Size = UDim2.new(0, 20, 0, 20)
 
-		-- Set up the image label within the status indicator
 		ImageLabel.Parent = ActualThing
 		ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
 		ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		ImageLabel.BackgroundTransparency = 1.000
+		ImageLabel.Backgroundtransparency = 1.000
 		ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
 		ImageLabel.Size = UDim2.new(0, 20, 0, 20)
 		ImageLabel.Image = "rbxassetid://7734010488"
-		ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
-
-		-- Set up optional UI scale
+		ImageLabel.ImageColor3 = themeList.SchemeColor
+		
 		UIScale.Parent = ImageLabel
 		UIScale.Scale = 0.800
 
-		-- Attach the callback function to the button's MouseButton1Click event
 		Button.MouseButton1Click:Connect(Callback)
 
-		-- Return the button object
 		return Button
+
 	end
 	return Elements, xTabs
 end
