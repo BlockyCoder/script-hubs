@@ -398,18 +398,23 @@ function Emptyness.CreateLib(kavName, themeList)
 			TabDisplay.Visible = false
 		end
 		
-		TabDisplay.MouseButton1Down:Connect(function()
-			if Tabholder.Visible then
-				TabDisplay.BackgroundColor3 = themes.SchemeColor -- Change to desired color
-			else
-				TabDisplay.BackgroundColor3 = themes.Background -- Change to desired color
+		TabDisplay.MouseButton1Click:Connect(function()
+			for i,v in next, ActualSide:GetChildren() do
+				v.Visible = false
 			end
+			for i,v in pairs(Tabholder:GetChildren()) do
+				v.Visible = false
+			end
+
+			Tabholder.Visible = true
 		end)
+
 		-- Return the TabDisplay object
 		return TabDisplay
 	end
 
 	local Elements = {}
+
 
 	function Elements:Button(Name, Callback)
 		local Button = Instance.new("TextButton")
