@@ -216,6 +216,7 @@ function Emptyness.CreateLib(kavName, themeList)
 	Main.BorderSizePixel = 0
 	Main.Position = UDim2.new(0.272804052, 0, 0.243107766, 0)
 	Main.Size = UDim2.new(0, 525, 0, 318)
+	Main.Visible = true
 
 	Headerframe.Name = "Headerframe"
 	Headerframe.Parent = Main
