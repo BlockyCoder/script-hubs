@@ -43,8 +43,9 @@ function Emptyness:DraggingEnabled(frame, parent)
 end
 
 function Utility:TweenObject(obj, properties, duration, ...)
-	tween:Create(obj, tweeninfo(duration, ...), properties):Play()
+	tween:Create(obj, TweenInfo.new(duration, ...), properties):Play()
 end
+
 
 
 
@@ -130,20 +131,6 @@ local themeStyles = {
 	}
 }
 
-local oldTheme = ""
-
-local SettingsT = {}
-
-local Name = "EmptynessHub"
-
-pcall(function()
-	if not pcall(function() readfile(Name) end) then
-		writefile(Name, game:service'HttpService':JSONEncode(SettingsT))
-	end
-
-	Settings = game:service'HttpService':JSONEncode(readfile(Name))
-end)
-
 local LibName = tostring(math.random(1, 100))..tostring(math.random(1,50))..tostring(math.random(1, 100))
 
 function Emptyness.CreateLib(kavName, themeList)
@@ -188,11 +175,6 @@ function Emptyness.CreateLib(kavName, themeList)
 	local selectedTab 
 	kavName = kavName or "Library"
 	table.insert(Emptyness, kavName)
-	for i,v in pairs(game.CoreGui:GetChildren()) do
-		if v:IsA("ScreenGui") and v.Name == kavName then
-			v:Destroy()
-		end
-	end
 	-- GUI creation code goes here
 	-- Instances:
 	local ScreenScript = Instance.new("ScreenGui")
@@ -392,7 +374,6 @@ function Emptyness.CreateLib(kavName, themeList)
 		TabDisplay.Name = "TabDisplay"
 		TabDisplay.Parent = ActualSide
 		TabDisplay.Active = true -- This should be a boolean value, either true or false, to indicate whether the button is active or not
-		TabDisplay.AnchorPoint = Vector2.new(0.5, 0)
 		TabDisplay.BackgroundColor3 = themes.Background
 		TabDisplay.Position = UDim2.new(0.0286853034, 0, 0.204402521, 0)
 		TabDisplay.Selectable = false
