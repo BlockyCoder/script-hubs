@@ -169,18 +169,18 @@ function Library:Create(xHubName, xThemeList)
 		local Name = Name or "Tab"
 		local xVisible = xVisible or true
 
-		local Tab = Instance.new("Frame")
+		local Tabf = Instance.new("Frame")
 		local TabButton = Instance.new("TextButton")
 		local TabUICorner = Instance.new("UICorner")
 
 		-- Properties
-		Tab.Name = Name
-		Tab.Parent = Tabs
-		Tab.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-		Tab.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Tab.BorderSizePixel = 0
-		Tab.Size = UDim2.new(0, 200, 0, 50)
-		Tab.Visible = xVisible
+		Tabf.Name = Name
+		Tabf.Parent = Tabs
+		Tabf.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+		Tabf.BorderColor3 = Color3.fromRGB(27, 42, 53)
+		Tabf.BorderSizePixel = 0
+		Tabf.Size = UDim2.new(0, 200, 0, 50)
+		Tabf.Visible = xVisible
 
 		TabButton.Name = "TabButton"
 		TabButton.Parent = ActualSide
@@ -195,9 +195,9 @@ function Library:Create(xHubName, xThemeList)
 		TabButton.TextWrapped = true
 
 		TabUICorner.CornerRadius = UDim.new(0, 5)
-		TabUICorner.Parent = Tab
+		TabUICorner.Parent = Tabf
 
-		return Tab
+		return Tabf
 	end
 
 	-- Elements table for creating UI elements
