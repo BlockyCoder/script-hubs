@@ -177,6 +177,7 @@ function Library:Create(xHubName, xThemeList)
 		Tabf.Name = Name
 		Tabf.Parent = Tabs
 		Tabf.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+		Tabf.BackgroundTransparency = 1
 		Tabf.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		Tabf.BorderSizePixel = 0
 		Tabf.Size = UDim2.new(0, 200, 0, 50)
@@ -196,7 +197,34 @@ function Library:Create(xHubName, xThemeList)
 
 		TabUICorner.CornerRadius = UDim.new(0, 5)
 		TabUICorner.Parent = Tabf
-
+		
+		
+		TabButton.MouseButton1Down:Connect(function()
+			-- Hide all content frames in Tabs except for this one
+			for _, tab in pairs(Tabs:GetChildren()) do
+				if tab:IsA("Frame") and tab.Name ~= Name then
+					tab.Visible = false
+				end
+			end
+			-- Show this tab's content
+			Tabholder.Visible = true
+		end)
+		
+		if xVisible then
+			-- Ensure all other tabs are hidden initially
+			for _, tab in pairs(Tabs:GetChildren()) do
+				if tab:IsA("Frame") and tab.Name ~= Name then
+					tab.Visible = false
+					-- Also hide their content frames
+					tab.Content.Visible = false
+				end
+			end
+		else
+			-- If xVisible is false, hide this tab and its content
+			TabButton.Visible = false
+			Tabholder.Visible = false
+		end
+		
 		return Tabf
 	end
 
@@ -204,6 +232,7 @@ function Library:Create(xHubName, xThemeList)
 	local Elements = {}
 
 	function Elements:Button(Name, Callback)
+		local ButtonFunction = {}
 		local Name = Name or "Button"
 		local ButtonInstance = Instance.new("TextButton")
 
@@ -241,10 +270,14 @@ function Library:Create(xHubName, xThemeList)
 				Callback()
 			end
 		end)
+		
+		-- Function to update button properties
+		function ButtonFunction:UpdateButton(newName)
+			ButtonInstance.Text = newName
+		end
 
-		return ButtonInstance
+		return ButtonFunction
 	end
-
 	
 	
 	
