@@ -164,25 +164,17 @@ function Library:Create(xHubName, xThemeList)
 	-- Define the xTabs table for tab management
 	local xTabs = {}
 
+	-- Define Elements for creating UI elements
+	local Elements = {}
+
 	-- Continued Create function
 	function xTabs:Tab(Name, xVisible)
 		local Name = Name or "Tab"
 		local xVisible = xVisible or true
 
-		local Tabf = Instance.new("Frame")
 		local TabButton = Instance.new("TextButton")
 		local TabUICorner = Instance.new("UICorner")
-
-		-- Properties
-		Tabf.Name = Name
-		Tabf.Parent = Tabs
-		Tabf.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-		Tabf.BackgroundTransparency = 1
-		Tabf.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Tabf.BorderSizePixel = 0
-		Tabf.Size = UDim2.new(0, 200, 0, 50)
-		Tabf.Visible = xVisible
-
+		
 		TabButton.Name = "TabButton"
 		TabButton.Parent = ActualSide
 		TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -196,13 +188,13 @@ function Library:Create(xHubName, xThemeList)
 		TabButton.TextWrapped = true
 
 		TabUICorner.CornerRadius = UDim.new(0, 5)
-		TabUICorner.Parent = Tabf
+		TabUICorner.Parent = TabButton
 		
 		
 		TabButton.MouseButton1Down:Connect(function()
 			-- Hide all content frames in Tabs except for this one
-			for _, tab in pairs(Tabs:GetChildren()) do
-				if tab:IsA("Frame") and tab.Name ~= Name then
+			for _, tab in pairs(ActualSide:GetChildren()) do
+				if tab:IsA("TextButton") and tab.Name ~= Name then
 					tab.Visible = false
 				end
 			end
@@ -212,8 +204,8 @@ function Library:Create(xHubName, xThemeList)
 		
 		if xVisible then
 			-- Ensure all other tabs are hidden initially
-			for _, tab in pairs(Tabs:GetChildren()) do
-				if tab:IsA("Frame") and tab.Name ~= Name then
+			for _, tab in pairs(ActualSide:GetChildren()) do
+				if tab:IsA("TextButton") and tab.Name ~= Name then
 					tab.Visible = false
 					-- Also hide their content frames
 					tab.Content.Visible = false
@@ -225,11 +217,8 @@ function Library:Create(xHubName, xThemeList)
 			Tabholder.Visible = false
 		end
 		
-		return Tabf
+		return TabButton
 	end
-
-	-- Elements table for creating UI elements
-	local Elements = {}
 
 	function Elements:Button(Name, Callback)
 		local ButtonFunction = {}
@@ -313,12 +302,22 @@ function Library:Create(xHubName, xThemeList)
 		sound.Parent = Button
 
 		-- Event handling
-		Button.MouseButton1Click:Connect(function()
+		Button.MouseButton1Down:Connect(function()
 			sound:Play()
-			if Callback then
-				Callback()
-			end
+			pcall(Callback)
 		end)
+		
+		Button.MouseEnter:Connect(function()
+			game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+				BackgroundColor3 = Color3.fromRGB(48, 51, 70)
+			}):Play()
+		end)
+		Button.MouseLeave:Connect(function()
+			game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+				BackgroundColor3 = Color3.fromRGB(40, 42, 60)
+			}):Play()
+		end)
+		
 		
 		-- Function to update button properties
 		function ButtonFunction:UpdateButton(newName)
