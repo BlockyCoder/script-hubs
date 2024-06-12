@@ -233,38 +233,87 @@ function Library:Create(xHubName, xThemeList)
 
 	function Elements:Button(Name, Callback)
 		local ButtonFunction = {}
-		local Name = Name or "Button"
-		local ButtonInstance = Instance.new("TextButton")
+		local Callback = Callback or function () end
+		-- Instances:
+		local Button = Instance.new("TextButton")
+		local UICorner = Instance.new("UICorner")
+		local TextLabel = Instance.new("TextLabel")
+		local UIPadding = Instance.new("UIPadding")
+		local Status = Instance.new("Frame")
+		local ActualThing = Instance.new("Frame")
+		local ImageLabel = Instance.new("ImageLabel")
+		local UIScale = Instance.new("UIScale")
 
-		-- Properties
-		ButtonInstance.Name = Name
-		ButtonInstance.Parent = Tabholder -- Assuming `Main` is the parent frame where you want to place buttons
-		ButtonInstance.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		ButtonInstance.BackgroundTransparency = 1.000
-		ButtonInstance.Position = UDim2.new(0, 0, 0, 0)
-		ButtonInstance.Size = UDim2.new(0, 100, 0, 40)
-		ButtonInstance.Font = Enum.Font.SourceSans
-		ButtonInstance.Text = Name
-		ButtonInstance.TextColor3 = Color3.fromRGB(255, 255, 255)
-		ButtonInstance.TextSize = 14.000
-		ButtonInstance.TextWrapped = true
+		-- Properties:
 
-		-- Add animations
-		local function animateButton()
-			local originalSize = ButtonInstance.Size
-			ButtonInstance.Size = UDim2.new(0, originalSize.X.Scale * 1.1, 0, originalSize.Y.Scale * 1.1)
-			wait(0.1)
-			ButtonInstance.Size = originalSize
-		end
+		-- Button properties
+		Button.Name = "Button"
+		Button.Parent = Tabholder
+		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Button.Position = UDim2.new(0.5, -186, 0.5, -15)  -- Adjusted position to center within Tabholder
+		Button.Size = UDim2.new(0, 373, 0, 31)
+		Button.AutoButtonColor = false
+		Button.Text = ""
+
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = Button
+
+		-- TextLabel properties
+		TextLabel.Parent = Button
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.BackgroundTransparency = 1.000
+		TextLabel.Position = UDim2.new(0, 10, 0, 0)  -- Adjusted position for padding
+		TextLabel.Size = UDim2.new(0, 316, 0, 31)
+		TextLabel.Font = Enum.Font.GothamMedium
+		TextLabel.Text = "Infinite Money"
+		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+		TextLabel.TextSize = 12.000
+		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+		UIPadding.Parent = TextLabel
+		UIPadding.PaddingLeft = UDim.new(0, 10)
+
+		-- Status properties
+		Status.Name = "Status"
+		Status.Parent = Button
+		Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Status.BackgroundTransparency = 1.000
+		Status.Position = UDim2.new(1, -37, 0, 0)  -- Adjusted position for status frame
+		Status.Size = UDim2.new(0, 37, 0, 31)
+
+		-- ActualThing properties
+		ActualThing.Name = "ActualThing"
+		ActualThing.Parent = Status
+		ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
+		ActualThing.BackgroundColor3 = Color3.fromRGB(106, 0, 255)
+		ActualThing.BackgroundTransparency = 1.000
+		ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
+		ActualThing.Size = UDim2.new(0, 20, 0, 20)
+
+		-- ImageLabel properties
+		ImageLabel.Parent = ActualThing
+		ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+		ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		ImageLabel.BackgroundTransparency = 1.000
+		ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+		ImageLabel.Size = UDim2.new(0, 20, 0, 20)
+		ImageLabel.Image = "rbxassetid://7734010488"
+		ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
+
+		-- UIScale properties
+		UIScale.Parent = ImageLabel
+		UIScale.Scale = 0.800
+
+
+		
 
 		-- Play sound effect (replace with your sound ID)
 		local sound = Instance.new("Sound")
 		sound.SoundId = "rbxassetid://8816939097" -- Replace with your sound ID
-		sound.Parent = ButtonInstance
+		sound.Parent = Button
 
 		-- Event handling
-		ButtonInstance.MouseButton1Click:Connect(function()
-			animateButton()
+		Button.MouseButton1Click:Connect(function()
 			sound:Play()
 			if Callback then
 				Callback()
@@ -273,7 +322,7 @@ function Library:Create(xHubName, xThemeList)
 		
 		-- Function to update button properties
 		function ButtonFunction:UpdateButton(newName)
-			ButtonInstance.Text = newName
+			Button.Text = newName
 		end
 
 		return ButtonFunction
