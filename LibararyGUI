@@ -265,7 +265,7 @@ function Library:Create(xHubName, xThemeList)
 		TextLabel.Position = UDim2.new(0, 10, 0, 0)  -- Adjusted position for padding
 		TextLabel.Size = UDim2.new(0, 316, 0, 31)
 		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = "Infinite Money"
+		TextLabel.Text = Name
 		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
 		TextLabel.TextSize = 12.000
 		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -323,6 +323,7 @@ function Library:Create(xHubName, xThemeList)
 		-- Function to update button properties
 		function ButtonFunction:UpdateButton(newName)
 			Button.Text = newName
+			TextLabel.Text = newName
 		end
 
 		return ButtonFunction
