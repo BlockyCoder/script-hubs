@@ -1,8 +1,8 @@
 local Library = {}
 
-function Library:Create(xHubName, xthemelist)
+function Library:Create(xHubName, xThemeList)
 	local xHubName = xHubName or "UI Library"
-	local xthemelist = xthemelist or "Dark"
+	local xThemeList = xThemeList or "Dark"
 
 	-- Instances:
 	local ScreenScript = Instance.new("ScreenGui")
@@ -59,9 +59,7 @@ function Library:Create(xHubName, xthemelist)
 	Close.MouseButton1Click:Connect(function()
 		ScreenScript:Destroy()
 	end)
-	
-	
-	
+
 	UICorner.CornerRadius = UDim.new(0, 4)
 	UICorner.Parent = Close
 
@@ -163,9 +161,10 @@ function Library:Create(xHubName, xthemelist)
 	ImageButtonKCorner.Name = "ImageButtonKCorner"
 	ImageButtonKCorner.Parent = ImageButtonK
 
+	-- Define the xTabs table for tab management
+	local xTabs = {}
 
-local xTabs = {}
-
+	-- Continued Create function
 	function xTabs:Tab(Name, xVisible)
 		local Name = Name or "Tab"
 		local xVisible = xVisible or true
@@ -201,31 +200,9 @@ local xTabs = {}
 		return Tab
 	end
 
+	-- Elements table for creating UI elements
+	local Elements = {}
 
-
-local Elements = {}
-
-function Elements:Label(Name)
-	local Name = Name or "Label"
-	local LabelInstance = Instance.new("TextLabel")
-
-	-- Properties
-	LabelInstance.Name = Name
-	LabelInstance.Parent = Tabholder -- Assuming `Main` is the parent frame where you want to place labels
-	LabelInstance.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	LabelInstance.BackgroundTransparency = 1.000
-	LabelInstance.Position = UDim2.new(0, 0, 0, 0)
-	LabelInstance.Size = UDim2.new(0, 100, 0, 20)
-	LabelInstance.Font = Enum.Font.SourceSans
-	LabelInstance.Text = Name
-	LabelInstance.TextColor3 = Color3.fromRGB(255, 255, 255)
-	LabelInstance.TextSize = 14.000
-	LabelInstance.TextWrapped = true
-
-	return LabelInstance
-end
-	
-	
 	function Elements:Button(Name, Callback)
 		local Name = Name or "Button"
 		local ButtonInstance = Instance.new("TextButton")
@@ -251,9 +228,9 @@ end
 			ButtonInstance.Size = originalSize
 		end
 
-		-- Play sound effect
+		-- Play sound effect (replace with your sound ID)
 		local sound = Instance.new("Sound")
-		sound.SoundId = "rbxassetid://INSERT_SOUND_ID_HERE" -- Replace with your sound ID
+		sound.SoundId = "rbxassetid://8816939097" -- Replace with your sound ID
 		sound.Parent = ButtonInstance
 
 		-- Event handling
@@ -268,13 +245,11 @@ end
 		return ButtonInstance
 	end
 
-
-	
-	
 	-- Return modules
 	return {
-		Library = Library,
 		xTabs = xTabs,
 		Elements = Elements
 	}
-	end
+end
+
+return Library
