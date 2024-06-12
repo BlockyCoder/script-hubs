@@ -166,40 +166,41 @@ function Library:Create(xHubName, xthemelist)
 
 local xTabs = {}
 
-function xTabs:Tab(Name, xVisible)
-	local Name = Name or "Tab"
-	local xVisible = xVisible or true
+	function xTabs:Tab(Name, xVisible)
+		local Name = Name or "Tab"
+		local xVisible = xVisible or true
 
-	local Tab = Instance.new("Frame")
-	local TabButton = Instance.new("TextButton")
-	local TabUICorner = Instance.new("UICorner")
+		local Tab = Instance.new("Frame")
+		local TabButton = Instance.new("TextButton")
+		local TabUICorner = Instance.new("UICorner")
 
-	-- Properties
-	Tab.Name = Name
-	Tab.Parent = Tabs
-	Tab.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-	Tab.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Tab.BorderSizePixel = 0
-	Tab.Size = UDim2.new(0, 200, 0, 50)
-	Tab.Visible = xVisible
+		-- Properties
+		Tab.Name = Name
+		Tab.Parent = Tabs
+		Tab.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+		Tab.BorderColor3 = Color3.fromRGB(27, 42, 53)
+		Tab.BorderSizePixel = 0
+		Tab.Size = UDim2.new(0, 200, 0, 50)
+		Tab.Visible = xVisible
 
-	TabButton.Name = "TabButton"
-	TabButton.Parent = ActualSide
-	TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TabButton.BackgroundTransparency = 1.000
-	TabButton.Size = UDim2.new(0, 200, 0, 50)
-	TabButton.Font = Enum.Font.SourceSans
-	TabButton.Text = Name
-	TabButton.TextColor3 = Color3.fromRGB(0, 255, 157)
-	TabButton.TextScaled = true
-	TabButton.TextSize = 14.000
-	TabButton.TextWrapped = true
+		TabButton.Name = "TabButton"
+		TabButton.Parent = ActualSide
+		TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TabButton.BackgroundTransparency = 1.000
+		TabButton.Size = UDim2.new(0, 200, 0, 50)
+		TabButton.Font = Enum.Font.SourceSans
+		TabButton.Text = Name
+		TabButton.TextColor3 = Color3.fromRGB(0, 255, 157)
+		TabButton.TextScaled = true
+		TabButton.TextSize = 14.000
+		TabButton.TextWrapped = true
 
-	TabUICorner.CornerRadius = UDim.new(0, 5)
-	TabUICorner.Parent = Tab
+		TabUICorner.CornerRadius = UDim.new(0, 5)
+		TabUICorner.Parent = Tab
 
-	return Tab
-end
+		return Tab
+	end
+
 
 
 local Elements = {}
@@ -266,6 +267,7 @@ end
 
 		return ButtonInstance
 	end
+
 
 	
 	
