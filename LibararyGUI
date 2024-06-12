@@ -245,11 +245,48 @@ function Library:Create(xHubName, xThemeList)
 		return ButtonInstance
 	end
 
-	-- Return modules
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	-- Return the created instances and functions
 	return {
+		ScreenScript = ScreenScript,
+		Main = Main,
+		Headerframe = Headerframe,
+		Close = Close,
+		UICorner = UICorner,
+		ImageLabel = ImageLabel,
+		UIScale = UIScale,
+		Title = Title,
+		UIPadding = UIPadding,
+		FirstSeperator = FirstSeperator,
+		Siderframe = Siderframe,
+		ActualSide = ActualSide,
+		ActualSideListLayout = ActualSideListLayout,
+		Tabholder = Tabholder,
+		Tabs = Tabs,
+		UICorner_2 = UICorner_2,
+		UICorner_3 = UICorner_3,
+		TabLayout = TabLayout,
+		ImageButtonK = ImageButtonK,
+		ImageButtonKCorner = ImageButtonKCorner,
 		xTabs = xTabs,
 		Elements = Elements
 	}
 end
 
-return Library
+-- Return the Library table as a callable function
+return setmetatable(Library, {
+	__call = function(_, ...)
+		return Library.Create(...)
+	end
+})
