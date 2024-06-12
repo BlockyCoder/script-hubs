@@ -1,181 +1,9 @@
-local Emptyness = {}
+local Library = {}
 
-local tween = game:GetService("TweenService")
-local tweeninfo = TweenInfo.new
-local input = game:GetService("UserInputService")
-local run = game:GetService("RunService")
-local Utility = {}
-local Objects = {}
-function Emptyness:DraggingEnabled(frame, parent)
+function Library:Create(xHubName, xthemelist)
+	local xHubName = xHubName or "UI Library"
+	local xthemelist = xthemelist or "Dark"
 
-	parent = parent or frame
-
-	-- stolen from wally or kiriot, kek
-	local dragging = false
-	local dragInput, mousePos, framePos
-
-	frame.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			dragging = true
-			mousePos = input.Position
-			framePos = parent.Position
-
-			input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragging = false
-				end
-			end)
-		end
-	end)
-
-	frame.InputChanged:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-			dragInput = input
-		end
-	end)
-
-	input.InputChanged:Connect(function(input)
-		if input == dragInput and dragging then
-			local delta = input.Position - mousePos
-			parent.Position  = UDim2.new(framePos.X.Scale, framePos.X.Offset + delta.X, framePos.Y.Scale, framePos.Y.Offset + delta.Y)
-		end
-	end)
-end
-
-function Utility:TweenObject(obj, properties, duration, ...)
-	tween:Create(obj, TweenInfo.new(duration, ...), properties):Play()
-end
-
-
-
-
-
-local themes = {
-	SchemeColor = Color3.fromRGB(74, 99, 135),
-	Background = Color3.fromRGB(36, 37, 43),
-	Header = Color3.fromRGB(28, 29, 34),
-	TextColor = Color3.fromRGB(255,255,255),
-	ElementColor = Color3.fromRGB(32, 32, 38)
-}
-
-local themeStyles = {
-	DarkTheme = {
-		SchemeColor = Color3.fromRGB(64, 64, 64),
-		Background = Color3.fromRGB(0, 0, 0),
-		Header = Color3.fromRGB(0, 0, 0),
-		TextColor = Color3.fromRGB(255,255,255),
-		ElementColor = Color3.fromRGB(20, 20, 20)
-	},
-	LightTheme = {
-		SchemeColor = Color3.fromRGB(150, 150, 150),
-		Background = Color3.fromRGB(255,255,255),
-		Header = Color3.fromRGB(200, 200, 200),
-		TextColor = Color3.fromRGB(0,0,0),
-		ElementColor = Color3.fromRGB(224, 224, 224)
-	},
-	BloodTheme = {
-		SchemeColor = Color3.fromRGB(227, 27, 27),
-		Background = Color3.fromRGB(10, 10, 10),
-		Header = Color3.fromRGB(5, 5, 5),
-		TextColor = Color3.fromRGB(255,255,255),
-		ElementColor = Color3.fromRGB(20, 20, 20)
-	},
-	GrapeTheme = {
-		SchemeColor = Color3.fromRGB(166, 71, 214),
-		Background = Color3.fromRGB(64, 50, 71),
-		Header = Color3.fromRGB(36, 28, 41),
-		TextColor = Color3.fromRGB(255,255,255),
-		ElementColor = Color3.fromRGB(74, 58, 84)
-	},
-	Ocean = {
-		SchemeColor = Color3.fromRGB(86, 76, 251),
-		Background = Color3.fromRGB(26, 32, 58),
-		Header = Color3.fromRGB(38, 45, 71),
-		TextColor = Color3.fromRGB(200, 200, 200),
-		ElementColor = Color3.fromRGB(38, 45, 71)
-	},
-	Midnight = {
-		SchemeColor = Color3.fromRGB(26, 189, 158),
-		Background = Color3.fromRGB(44, 62, 82),
-		Header = Color3.fromRGB(57, 81, 105),
-		TextColor = Color3.fromRGB(255, 255, 255),
-		ElementColor = Color3.fromRGB(52, 74, 95)
-	},
-	Sentinel = {
-		SchemeColor = Color3.fromRGB(230, 35, 69),
-		Background = Color3.fromRGB(32, 32, 32),
-		Header = Color3.fromRGB(24, 24, 24),
-		TextColor = Color3.fromRGB(119, 209, 138),
-		ElementColor = Color3.fromRGB(24, 24, 24)
-	},
-	Synapse = {
-		SchemeColor = Color3.fromRGB(46, 48, 43),
-		Background = Color3.fromRGB(13, 15, 12),
-		Header = Color3.fromRGB(36, 38, 35),
-		TextColor = Color3.fromRGB(152, 99, 53),
-		ElementColor = Color3.fromRGB(24, 24, 24)
-	},
-	Serpent = {
-		SchemeColor = Color3.fromRGB(0, 166, 58),
-		Background = Color3.fromRGB(31, 41, 43),
-		Header = Color3.fromRGB(22, 29, 31),
-		TextColor = Color3.fromRGB(255,255,255),
-		ElementColor = Color3.fromRGB(22, 29, 31)
-	},
-	Kiwi = {
-		SchemeColor = Color3.fromRGB(17, 255, 13),
-		Background = Color3.fromRGB(23, 23, 22),
-		Header = Color3.fromRGB(23, 23, 22),
-		TextColor = Color3.fromRGB(255,255,255),
-		ElementColor = Color3.fromRGB(55, 59, 55)
-	}
-}
-
-local LibName = tostring(math.random(1, 100))..tostring(math.random(1,50))..tostring(math.random(1, 100))
-
-function Emptyness.CreateLib(kavName, themeList)
-	if not themeList then
-		themeList = themes
-	end
-	if themeList == "DarkTheme" then
-		themeList = themeStyles.DarkTheme
-	elseif themeList == "LightTheme" then
-		themeList = themeStyles.LightTheme
-	elseif themeList == "BloodTheme" then
-		themeList = themeStyles.BloodTheme
-	elseif themeList == "GrapeTheme" then
-		themeList = themeStyles.GrapeTheme
-	elseif themeList == "Ocean" then
-		themeList = themeStyles.Ocean
-	elseif themeList == "Midnight" then
-		themeList = themeStyles.Midnight
-	elseif themeList == "Sentinel" then
-		themeList = themeStyles.Sentinel
-	elseif themeList == "Synapse" then
-		themeList = themeStyles.Synapse
-	elseif themeList == "Serpent" then
-		themeList = themeStyles.Serpent
-	elseif themeList == "Kiwi" then
-		themeList = themeStyles.Kiwi
-	else
-		if themeList.SchemeColor == nil then
-			themeList.SchemeColor = Color3.fromRGB(74, 99, 135)
-		elseif themeList.Background == nil then
-			themeList.Background = Color3.fromRGB(36, 37, 43)
-		elseif themeList.Header == nil then
-			themeList.Header = Color3.fromRGB(28, 29, 34)
-		elseif themeList.TextColor == nil then
-			themeList.TextColor = Color3.fromRGB(255,255,255)
-		elseif themeList.ElementColor == nil then
-			themeList.ElementColor = Color3.fromRGB(32, 32, 38)
-		end
-	end
-
-	themeList = themeList or {}
-	local selectedTab 
-	kavName = kavName or "Library"
-	table.insert(Emptyness, kavName)
-	-- GUI creation code goes here
 	-- Instances:
 	local ScreenScript = Instance.new("ScreenGui")
 	local Main = Instance.new("Frame")
@@ -190,19 +18,13 @@ function Emptyness.CreateLib(kavName, themeList)
 	local Siderframe = Instance.new("Frame")
 	local ActualSide = Instance.new("ScrollingFrame")
 	local ActualSideListLayout = Instance.new("UIListLayout")
-	local TextButton = Instance.new("TextButton")
-	local UICorner_2 = Instance.new("UICorner")
 	local Tabholder = Instance.new("ScrollingFrame")
 	local Tabs = Instance.new("Folder")
+	local UICorner_2 = Instance.new("UICorner")
 	local UICorner_3 = Instance.new("UICorner")
 	local TabLayout = Instance.new("UIListLayout")
 	local ImageButtonK = Instance.new("ImageButton")
 	local ImageButtonKCorner = Instance.new("UICorner")
-
-	-- Theme:
-
-
-	Emptyness:DraggingEnabled(Headerframe, Main)
 
 	-- Properties:
 	ScreenScript.Name = "ScreenScript"
@@ -211,65 +33,63 @@ function Emptyness.CreateLib(kavName, themeList)
 
 	Main.Name = "Main"
 	Main.Parent = ScreenScript
-	Main.BackgroundColor3 = themes.Background
-	Main.BorderColor3 = themes.SchemeColor
+	Main.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+	Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
 	Main.BorderSizePixel = 0
 	Main.Position = UDim2.new(0.272804052, 0, 0.243107766, 0)
 	Main.Size = UDim2.new(0, 525, 0, 318)
-	Main.Visible = true
 
 	Headerframe.Name = "Headerframe"
 	Headerframe.Parent = Main
-	Headerframe.BackgroundColor3 = themes.Header
+	Headerframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Headerframe.BackgroundTransparency = 1.000
+	Headerframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Headerframe.BorderSizePixel = 0
-	Headerframe.Size = UDim2.new(1, 0, 0, 37)
+	Headerframe.Size = UDim2.new(0, 525, 0, 37)
 
 	Close.Name = "Close"
 	Close.Parent = Headerframe
-	Close.AnchorPoint = Vector2.new(1, 0)
-	Close.Position = UDim2.new(1, -5, 0, 5)
-	Close.Size = UDim2.new(0, 27, 0, 27)
-	Close.Image = "http://www.roblox.com/asset/?id=5856353827"
-	Close.BackgroundTransparency = 1
+	Close.Active = false
+	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Close.BackgroundTransparency = 1.000
+	Close.Position = UDim2.new(0.917412579, 0, 0.167417377, 0)
+	Close.Selectable = false
+	Close.Size = UDim2.new(0, 33, 0, 22)
+	Close.Image = "rbxassetid://7743878857"
 	Close.MouseButton1Click:Connect(function()
-		game.TweenService:Create(Close, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
-			ImageTransparency = 1
-		}):Play()
-		wait()
-		game.TweenService:Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-			Size = UDim2.new(0,0,0,0),
-			Position = UDim2.new(0, Main.AbsolutePosition.X + (Main.AbsoluteSize.X / 2), 0, Main.AbsolutePosition.Y + (Main.AbsoluteSize.Y / 2))
-		}):Play()
-		wait(1)
 		ScreenScript:Destroy()
 	end)
-
-
-
+	
+	
+	
 	UICorner.CornerRadius = UDim.new(0, 4)
 	UICorner.Parent = Close
 
 	ImageLabel.Parent = Close
 	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
 	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	ImageLabel.BackgroundTransparency = 1
-	ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-	ImageLabel.Size = UDim2.new(1, 0, 1, 0)
-	ImageLabel.Image = "http://www.roblox.com/asset/?id=5856361683"
-	ImageLabel.ScaleType = Enum.ScaleType.Fit
+	ImageLabel.BackgroundTransparency = 1.000
+	ImageLabel.Position = UDim2.new(0.500000775, 1, 0.545454264, 0)
+	ImageLabel.Size = UDim2.new(0, 21, 0, 21)
+	ImageLabel.Image = "rbxassetid://7743878857"
 
 	UIScale.Parent = ImageLabel
-	UIScale.Scale = 0.7
+	UIScale.Scale = 0.700
 
 	Title.Name = "Title"
 	Title.Parent = Headerframe
-	Title.BackgroundTransparency = 1
-	Title.Size = UDim2.new(1, -60, 1, 0)
-	Title.Position = UDim2.new(0, 10, 0, 0)
-	Title.Font = Enum.Font.SourceSans
-	Title.Text = kavName
-	Title.TextColor3 = themes.TextColor
-	Title.TextSize = 18
+	Title.Active = false
+	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title.BackgroundTransparency = 1.000
+	Title.Position = UDim2.new(0.00192685076, 0, 0, 0)
+	Title.Selectable = false
+	Title.Size = UDim2.new(0, 323, 0, 36)
+	Title.Font = Enum.Font.GothamMedium
+	Title.Text = xHubName
+	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
+	Title.TextScaled = true
+	Title.TextSize = 13.000
+	Title.TextWrapped = true
 	Title.TextXAlignment = Enum.TextXAlignment.Left
 
 	UIPadding.Parent = Title
@@ -279,48 +99,44 @@ function Emptyness.CreateLib(kavName, themeList)
 	FirstSeperator.Parent = Main
 	FirstSeperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
 	FirstSeperator.BorderSizePixel = 0
-	FirstSeperator.Position = UDim2.new(0, 0, 0, 37)
-	FirstSeperator.Size = UDim2.new(1, 0, 0, 1)
+	FirstSeperator.Position = UDim2.new(-2.58091513e-05, 0, 0.116352201, 0)
+	FirstSeperator.Size = UDim2.new(0, 525, 0, 1)
+	FirstSeperator.ZIndex = 5
 
 	Siderframe.Name = "Siderframe"
 	Siderframe.Parent = Main
-	Siderframe.BackgroundColor3 = themes.Background
+	Siderframe.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+	Siderframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Siderframe.BorderSizePixel = 0
-	Siderframe.Position = UDim2.new(0, 0, 0, 38)
-	Siderframe.Size = UDim2.new(0, 200, 1, -38)
+	Siderframe.Position = UDim2.new(-0.00190476188, 0, 0.119496852, 0)
+	Siderframe.Size = UDim2.new(0, 199, 0, 280)
 
 	ActualSide.Name = "ActualSide"
 	ActualSide.Parent = Siderframe
-	ActualSide.BackgroundTransparency = 1
+	ActualSide.Active = true
+	ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ActualSide.BackgroundTransparency = .000
+	ActualSide.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	ActualSide.BorderSizePixel = 0
-	ActualSide.Size = UDim2.new(1, 0, 1, 0)
+	ActualSide.Size = UDim2.new(0, 198, 0, 239)
 	ActualSide.ScrollBarThickness = 2
-	ActualSide.CanvasSize = UDim2.new(0, 0, 0, 0)
 
 	ActualSideListLayout.Name = "ActualSideListLayout"
 	ActualSideListLayout.Parent = ActualSide
-	ActualSideListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	ActualSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	ActualSideListLayout.Padding = UDim.new(0, 10)
-
-	TextButton.Parent = Siderframe
-	TextButton.BackgroundColor3 = themes.ElementColor
-	TextButton.BorderSizePixel = 0
-	TextButton.Size = UDim2.new(1, 0, 0, 40)
-	TextButton.Font = Enum.Font.SourceSans
-	TextButton.Text = "Button"
-	TextButton.TextColor3 = themes.TextColor
-	TextButton.TextSize = 16
 
 	UICorner_2.CornerRadius = UDim.new(0, 5)
-	UICorner_2.Parent = TextButton
+	UICorner_2.Parent = Main
 
 	Tabholder.Name = "Tabholder"
 	Tabholder.Parent = Main
-	Tabholder.BackgroundColor3 = themes.Background
+	Tabholder.Active = true
+	Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Tabholder.BackgroundTransparency = 1.000
+	Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Tabholder.BorderSizePixel = 0
-	Tabholder.Position = UDim2.new(0, 200, 0, 38)
-	Tabholder.Size = UDim2.new(1, -200, 1, -38)
+	Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
+	Tabholder.Size = UDim2.new(0, 327, 0, 280)
 	Tabholder.ScrollBarThickness = 5
 
 	Tabs.Name = "Tabs"
@@ -331,157 +147,132 @@ function Emptyness.CreateLib(kavName, themeList)
 
 	TabLayout.Name = "TabLayout"
 	TabLayout.Parent = Tabholder
-	TabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	TabLayout.Padding = UDim.new(0, 10)
 
 	ImageButtonK.Name = "ImageButtonK"
 	ImageButtonK.Parent = ScreenScript
-	ImageButtonK.AnchorPoint = Vector2.new(0.5, 0.5)
-	ImageButtonK.BackgroundColor3 = themes.Background
-	ImageButtonK.Position = UDim2.new(0.15, 0, 0.0619834736, 0)
+	ImageButtonK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageButtonK.BackgroundTransparency = 1.000
+	ImageButtonK.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ImageButtonK.BorderSizePixel = 0
+	ImageButtonK.Position = UDim2.new(0.219957083, 0, 0.0619834736, 0)
 	ImageButtonK.Size = UDim2.new(0, 73, 0, 52)
 	ImageButtonK.Image = "rbxassetid://15771991482"
 
 	ImageButtonKCorner.CornerRadius = UDim.new(0, 12)
+	ImageButtonKCorner.Name = "ImageButtonKCorner"
 	ImageButtonKCorner.Parent = ImageButtonK
 
-	local xTabs = {}
 
-	function xTabs:Tab(Name, xVisible)
-		local Name = Name or "Tab"
+local xTabs = {}
 
-		-- Gui to Lua
-		-- Version: 3.2
+function xTabs:Tab(Name, xVisible)
+	local Name = Name or "Tab"
+	local xVisible = xVisible or true
 
-		-- Instances:
+	local Tab = Instance.new("Frame")
+	local TabButton = Instance.new("TextButton")
+	local TabUICorner = Instance.new("UICorner")
 
-		local TabDisplay = Instance.new("ImageButton")
-		local Seperator = Instance.new("Frame")
-		local Title = Instance.new("TextLabel")
-		local UIPadding = Instance.new("UIPadding")
-		local UICorner = Instance.new("UICorner")
+	-- Properties
+	Tab.Name = Name
+	Tab.Parent = Tabs
+	Tab.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+	Tab.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Tab.BorderSizePixel = 0
+	Tab.Size = UDim2.new(0, 200, 0, 50)
+	Tab.Visible = xVisible
 
-		TabDisplay.Name = "TabDisplay"
-		TabDisplay.Parent = ActualSide
-		TabDisplay.Active = true
-		TabDisplay.BackgroundColor3 = themeList.Background
-		TabDisplay.Selectable = false
-		TabDisplay.Size = UDim2.new(0, 0, 0, 36)
+	TabButton.Name = "TabButton"
+	TabButton.Parent = ActualSide
+	TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TabButton.BackgroundTransparency = 1.000
+	TabButton.Size = UDim2.new(0, 200, 0, 50)
+	TabButton.Font = Enum.Font.SourceSans
+	TabButton.Text = Name
+	TabButton.TextColor3 = Color3.fromRGB(0, 255, 157)
+	TabButton.TextScaled = true
+	TabButton.TextSize = 14.000
+	TabButton.TextWrapped = true
 
-		Seperator.Name = "Seperator"
-		Seperator.Parent = TabDisplay
-		Seperator.BackgroundColor3 = themeList.ElementColor
-		Seperator.BorderSizePixel = 0
-		Seperator.Position = UDim2.new(0.989860594, 0, 0, 0)
-		Seperator.Size = UDim2.new(0, 1, 0, 36)
+	TabUICorner.CornerRadius = UDim.new(0, 5)
+	TabUICorner.Parent = Tab
 
-		Title.Name = "Title"
-		Title.Parent = TabDisplay
-		Title.BackgroundColor3 = themeList.Background
-		Title.BackgroundTransparency = 1
-		Title.Position = UDim2.new(6.63723185e-05, 0, 0, 0)
-		Title.Size = UDim2.new(0, 6, 0, 36)
-		Title.Font = Enum.Font.GothamMedium
-		Title.Text = Name
-		Title.TextColor3 = themeList.TextColor
-		Title.TextScaled = true
-		Title.TextSize = 12
-		Title.TextWrapped = true
+	return Tab
+end
 
-		UIPadding.Parent = Title
-		UIPadding.PaddingLeft = UDim.new(0, 10)
-		UIPadding.PaddingRight = UDim.new(0, 10)
 
-		UICorner.Parent = TabDisplay
-		
-		if xVisible == false then
-			TabDisplay.Visible = false
+local Elements = {}
+
+function Elements:Label(Name)
+	local Name = Name or "Label"
+	local LabelInstance = Instance.new("TextLabel")
+
+	-- Properties
+	LabelInstance.Name = Name
+	LabelInstance.Parent = Tabholder -- Assuming `Main` is the parent frame where you want to place labels
+	LabelInstance.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	LabelInstance.BackgroundTransparency = 1.000
+	LabelInstance.Position = UDim2.new(0, 0, 0, 0)
+	LabelInstance.Size = UDim2.new(0, 100, 0, 20)
+	LabelInstance.Font = Enum.Font.SourceSans
+	LabelInstance.Text = Name
+	LabelInstance.TextColor3 = Color3.fromRGB(255, 255, 255)
+	LabelInstance.TextSize = 14.000
+	LabelInstance.TextWrapped = true
+
+	return LabelInstance
+end
+	
+	
+	function Elements:Button(Name, Callback)
+		local Name = Name or "Button"
+		local ButtonInstance = Instance.new("TextButton")
+
+		-- Properties
+		ButtonInstance.Name = Name
+		ButtonInstance.Parent = Tabholder -- Assuming `Main` is the parent frame where you want to place buttons
+		ButtonInstance.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		ButtonInstance.BackgroundTransparency = 1.000
+		ButtonInstance.Position = UDim2.new(0, 0, 0, 0)
+		ButtonInstance.Size = UDim2.new(0, 100, 0, 40)
+		ButtonInstance.Font = Enum.Font.SourceSans
+		ButtonInstance.Text = Name
+		ButtonInstance.TextColor3 = Color3.fromRGB(255, 255, 255)
+		ButtonInstance.TextSize = 14.000
+		ButtonInstance.TextWrapped = true
+
+		-- Add animations
+		local function animateButton()
+			local originalSize = ButtonInstance.Size
+			ButtonInstance.Size = UDim2.new(0, originalSize.X.Scale * 1.1, 0, originalSize.Y.Scale * 1.1)
+			wait(0.1)
+			ButtonInstance.Size = originalSize
 		end
-		
-		TabDisplay.MouseButton1Click:Connect(function()
-			for i,v in next, ActualSide:GetChildren() do
-				v.Visible = false
-			end
-			for i,v in pairs(Tabholder:GetChildren()) do
-				v.Visible = false
-			end
 
-			Tabholder.Visible = true
+		-- Play sound effect
+		local sound = Instance.new("Sound")
+		sound.SoundId = "rbxassetid://INSERT_SOUND_ID_HERE" -- Replace with your sound ID
+		sound.Parent = ButtonInstance
+
+		-- Event handling
+		ButtonInstance.MouseButton1Click:Connect(function()
+			animateButton()
+			sound:Play()
+			if Callback then
+				Callback()
+			end
 		end)
 
-		-- Return the TabDisplay object
-		return TabDisplay
+		return ButtonInstance
 	end
 
-	local Elements = {}
-
-
-	function Elements:Button(Name, Callback)
-		local Button = Instance.new("TextButton")
-		local UICorner = Instance.new("UICorner")
-		local TextLabel = Instance.new("TextLabel")
-		local Status = Instance.new("Frame")
-		local ActualThing = Instance.new("Frame")
-		local ImageLabel = Instance.new("ImageLabel")
-		local UIScale = Instance.new("UIScale")
-
-		Button.Name = "Button"
-		Button.Parent = Tabholder
-		Button.Active = true
-		Button.BackgroundColor3 = themeList.ElementColor
-		Button.Position = UDim2.new(-0.115991771, 0, -0.00923603307, 0)
-		Button.Selectable = false
-		Button.Size = UDim2.new(0, 373, 0, 31)
-		Button.AutoButtonColor = false
-		Button.Text = ""
-
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Button
-
-		TextLabel.Parent = Button
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.Position = UDim2.new(4.90899367e-07, 0, 0, 0)
-		TextLabel.Size = UDim2.new(0, 316, 0, 31)
-		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = Name
-		TextLabel.TextColor3 = themeList.TextColor
-		TextLabel.TextSize = 12
-		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-		Status.Name = "Status"
-		Status.Parent = Button
-		Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Status.BackgroundTransparency = 1.000
-		Status.Position = UDim2.new(0.839826822, 0, 0, 0)
-		Status.Size = UDim2.new(0, 37, 0, 31)
-
-		ActualThing.Name = "ActualThing"
-		ActualThing.Parent = Status
-		ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
-		ActualThing.BackgroundColor3 = Color3.fromRGB(106, 0, 255)
-		ActualThing.BackgroundTransparency = 1.000
-		ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
-		ActualThing.Size = UDim2.new(0, 20, 0, 20)
-
-		ImageLabel.Parent = ActualThing
-		ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-		ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		ImageLabel.Backgroundtransparency = 1.000
-		ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-		ImageLabel.Size = UDim2.new(0, 20, 0, 20)
-		ImageLabel.Image = "rbxassetid://7734010488"
-		ImageLabel.ImageColor3 = themeList.SchemeColor
-		
-		UIScale.Parent = ImageLabel
-		UIScale.Scale = 0.800
-
-		Button.MouseButton1Click:Connect(Callback)
-
-		return Button
-
+	
+	
+	-- Return modules
+	return {
+		Library = Library,
+		xTabs = xTabs,
+		Elements = Elements
+	}
 	end
-	return Elements, xTabs
-end
-return Emptyness
