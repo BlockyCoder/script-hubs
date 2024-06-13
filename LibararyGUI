@@ -180,8 +180,7 @@ function Library:Create(xHubName)
 	ImageButtonKCorner.CornerRadius = UDim.new(0, 12)
 	ImageButtonKCorner.Name = "ImageButtonKCorner"
 	ImageButtonKCorner.Parent = ImageButtonK
-	
-	
+
 	
 	
 	
@@ -235,7 +234,10 @@ function Library:Create(xHubName)
 			end
 		end)
 	end
-
+	
+	Library:Drag(Main, Headerframe)
+	
+	
 	-- Function to create tabs within the ActualSide scrolling frame
 	local xTabs = {}
 
