@@ -1,10 +1,15 @@
+-- Library object to hold all functions and data
 local Library = {}
 
-function Library:Create(xHubName, xThemeList)
-	local xHubName = xHubName or "UI Library"
-	local xThemeList = xThemeList or "Dark"
+-- Random UI Name generation for the library instance
+local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
 
-	-- Instances:
+-- Function to create the GUI with specified xHubName
+function Library:Create(xHubName)
+	-- Default to "UI Library" if xHubName is not provided
+	xHubName = xHubName or "UI Library"
+
+	-- Instances creation (based on previous code)
 	local ScreenScript = Instance.new("ScreenGui")
 	local Main = Instance.new("Frame")
 	local Headerframe = Instance.new("Frame")
@@ -18,16 +23,17 @@ function Library:Create(xHubName, xThemeList)
 	local Siderframe = Instance.new("Frame")
 	local ActualSide = Instance.new("ScrollingFrame")
 	local ActualSideListLayout = Instance.new("UIListLayout")
+	local TextButton = Instance.new("TextButton")
+	local UICorner_2 = Instance.new("UICorner")
 	local Tabholder = Instance.new("ScrollingFrame")
 	local Tabs = Instance.new("Folder")
-	local UICorner_2 = Instance.new("UICorner")
 	local UICorner_3 = Instance.new("UICorner")
 	local TabLayout = Instance.new("UIListLayout")
 	local ImageButtonK = Instance.new("ImageButton")
 	local ImageButtonKCorner = Instance.new("UICorner")
 
-	-- Properties:
-	ScreenScript.Name = "ScreenScript"
+	-- Properties setup (based on previous code)
+	ScreenScript.Name = LibraryName
 	ScreenScript.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -38,7 +44,11 @@ function Library:Create(xHubName, xThemeList)
 	Main.BorderSizePixel = 0
 	Main.Position = UDim2.new(0.272804052, 0, 0.243107766, 0)
 	Main.Size = UDim2.new(0, 525, 0, 318)
+	-- ... (other properties omitted for brevity)
 
+	
+	
+	
 	Headerframe.Name = "Headerframe"
 	Headerframe.Parent = Main
 	Headerframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -55,10 +65,6 @@ function Library:Create(xHubName, xThemeList)
 	Close.Position = UDim2.new(0.917412579, 0, 0.167417377, 0)
 	Close.Selectable = false
 	Close.Size = UDim2.new(0, 33, 0, 22)
-	Close.Image = "rbxassetid://7743878857"
-	Close.MouseButton1Click:Connect(function()
-		ScreenScript:Destroy()
-	end)
 
 	UICorner.CornerRadius = UDim.new(0, 4)
 	UICorner.Parent = Close
@@ -83,7 +89,7 @@ function Library:Create(xHubName, xThemeList)
 	Title.Selectable = false
 	Title.Size = UDim2.new(0, 323, 0, 36)
 	Title.Font = Enum.Font.GothamMedium
-	Title.Text = xHubName
+	Title.Text = "Zen X's Library"
 	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
 	Title.TextScaled = true
 	Title.TextSize = 13.000
@@ -113,7 +119,7 @@ function Library:Create(xHubName, xThemeList)
 	ActualSide.Parent = Siderframe
 	ActualSide.Active = true
 	ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	ActualSide.BackgroundTransparency = .000
+	ActualSide.BackgroundTransparency = 1.000
 	ActualSide.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	ActualSide.BorderSizePixel = 0
 	ActualSide.Size = UDim2.new(0, 198, 0, 239)
@@ -122,6 +128,20 @@ function Library:Create(xHubName, xThemeList)
 	ActualSideListLayout.Name = "ActualSideListLayout"
 	ActualSideListLayout.Parent = ActualSide
 	ActualSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	TextButton.Parent = Siderframe
+	TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextButton.BackgroundTransparency = 1.000
+	TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextButton.BorderSizePixel = 0
+	TextButton.Position = UDim2.new(-0.00502512557, 0, 0.853571415, 0)
+	TextButton.Size = UDim2.new(0, 200, 0, 41)
+	TextButton.Font = Enum.Font.SourceSans
+	TextButton.Text = "Place ID"
+	TextButton.TextColor3 = Color3.fromRGB(0, 255, 157)
+	TextButton.TextScaled = true
+	TextButton.TextSize = 14.000
+	TextButton.TextWrapped = true
 
 	UICorner_2.CornerRadius = UDim.new(0, 5)
 	UICorner_2.Parent = Main
@@ -160,215 +180,212 @@ function Library:Create(xHubName, xThemeList)
 	ImageButtonKCorner.CornerRadius = UDim.new(0, 12)
 	ImageButtonKCorner.Name = "ImageButtonKCorner"
 	ImageButtonKCorner.Parent = ImageButtonK
+	
+	
+	
+	
+	
+	
+	
+	-- Function to toggle visibility of the GUI
+	function Library:Toggle()
+		local gui = game.CoreGui:FindFirstChild(LibraryName)
+		if gui then
+			gui.Enabled = not gui.Enabled
+		end
+	end
 
-	-- Define the xTabs table for tab management
+	-- Function to allow dragging of the GUI
+	function Library:Drag(obj)
+		local UserInputService = game:GetService("UserInputService")
+		local gui = obj
+		local dragging
+		local dragInput
+		local dragStart
+		local startPos
+
+		local function update(input)
+			local delta = input.Position - dragStart
+			gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		end
+
+		gui.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragging = true
+				dragStart = input.Position
+				startPos = gui.Position
+
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end)
+			end
+		end)
+
+		gui.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				dragInput = input
+			end
+		end)
+
+		UserInputService.InputChanged:Connect(function(input)
+			if input == dragInput and dragging then
+				update(input)
+			end
+		end)
+	end
+
+	-- Function to create tabs within the ActualSide scrolling frame
 	local xTabs = {}
 
-	-- Define Elements for creating UI elements
-	local Elements = {}
+	function xTabs:Tab(TabName, xVisible)
+		local TabFolder = Instance.new("Folder")
+		TabFolder.Name = TabName
+		TabFolder.Parent = ActualSide -- Parent each tab folder to ActualSide
 
-	-- Continued Create function
-	function xTabs:Tab(Name, xVisible)
-		local Name = Name or "Tab"
-		local xVisible = xVisible or true
-
-		local TabButton = Instance.new("TextButton")
-		local TabUICorner = Instance.new("UICorner")
-		
-		TabButton.Name = "TabButton"
-		TabButton.Parent = ActualSide
-		TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TabButton.BackgroundTransparency = 1.000
-		TabButton.Size = UDim2.new(0, 200, 0, 50)
-		TabButton.Font = Enum.Font.SourceSans
-		TabButton.Text = Name
-		TabButton.TextColor3 = Color3.fromRGB(0, 255, 157)
-		TabButton.TextScaled = true
-		TabButton.TextSize = 14.000
-		TabButton.TextWrapped = true
-
-		TabUICorner.CornerRadius = UDim.new(0, 5)
-		TabUICorner.Parent = TabButton
-		
-		
-		TabButton.MouseButton1Down:Connect(function()
-			-- Hide all content frames in Tabs except for this one
-			for _, tab in pairs(ActualSide:GetChildren()) do
-				if tab:IsA("TextButton") and tab.Name ~= Name then
-					tab.Visible = false
-				end
-			end
-			-- Show this tab's content
-			Tabholder.Visible = true
-		end)
-		
-		if xVisible then
-			-- Ensure all other tabs are hidden initially
-			for _, tab in pairs(ActualSide:GetChildren()) do
-				if tab:IsA("TextButton") and tab.Name ~= Name then
-					tab.Visible = false
-					-- Also hide their content frames
-					tab.Content.Visible = false
-				end
-			end
-		else
-			-- If xVisible is false, hide this tab and its content
-			TabButton.Visible = false
-			Tabholder.Visible = false
-		end
-		
-		return TabButton
-	end
-
-	function Elements:Button(Name, Callback)
-		local ButtonFunction = {}
-		local Callback = Callback or function () end
 		-- Instances:
-		local Button = Instance.new("TextButton")
-		local UICorner = Instance.new("UICorner")
-		local TextLabel = Instance.new("TextLabel")
+		local TabDisplay = Instance.new("ImageButton")
+		local Seperator = Instance.new("Frame")
+		local Title = Instance.new("TextLabel")
 		local UIPadding = Instance.new("UIPadding")
-		local Status = Instance.new("Frame")
-		local ActualThing = Instance.new("Frame")
-		local ImageLabel = Instance.new("ImageLabel")
-		local UIScale = Instance.new("UIScale")
+		local UICorner = Instance.new("UICorner")
 
 		-- Properties:
+		TabDisplay.Name = "TabDisplay"
+		TabDisplay.Parent = TabFolder -- Parent TabDisplay to the respective TabFolder
+		TabDisplay.Active = false
+		TabDisplay.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TabDisplay.Position = UDim2.new(0.028, 0, 0, 0) -- Adjust position as needed
+		TabDisplay.Selectable = false
+		TabDisplay.Size = UDim2.new(0, 327, 0, 36) -- Adjust size to fit in ActualSide
+		TabDisplay.Visible = xVisible
 
-		-- Button properties
-		Button.Name = "Button"
-		Button.Parent = Tabholder
-		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Button.Position = UDim2.new(0.5, -186, 0.5, -15)  -- Adjusted position to center within Tabholder
-		Button.Size = UDim2.new(0, 373, 0, 31)
-		Button.AutoButtonColor = false
-		Button.Text = ""
+		Seperator.Name = "Seperator"
+		Seperator.Parent = TabDisplay
+		Seperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
+		Seperator.BorderSizePixel = 0
+		Seperator.Position = UDim2.new(0.989, 0, 0, 0)
+		Seperator.Size = UDim2.new(0, 1, 0, 36)
 
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Button
+		Title.Name = "Title"
+		Title.Parent = TabDisplay
+		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Title.BackgroundTransparency = 1.000
+		Title.Position = UDim2.new(0, 10, 0, 0)
+		Title.Size = UDim2.new(0, 316, 0, 36)
+		Title.Font = Enum.Font.GothamMedium
+		Title.Text = TabName
+		Title.TextColor3 = Color3.fromRGB(161, 161, 161)
+		Title.TextScaled = true
+		Title.TextSize = 12.000
+		Title.TextWrapped = true
 
-		-- TextLabel properties
-		TextLabel.Parent = Button
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.Position = UDim2.new(0, 10, 0, 0)  -- Adjusted position for padding
-		TextLabel.Size = UDim2.new(0, 316, 0, 31)
-		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = Name
-		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TextLabel.TextSize = 12.000
-		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-		UIPadding.Parent = TextLabel
+		UIPadding.Parent = Title
 		UIPadding.PaddingLeft = UDim.new(0, 10)
 
-		-- Status properties
-		Status.Name = "Status"
-		Status.Parent = Button
-		Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Status.BackgroundTransparency = 1.000
-		Status.Position = UDim2.new(1, -37, 0, 0)  -- Adjusted position for status frame
-		Status.Size = UDim2.new(0, 37, 0, 31)
+		UICorner.Parent = TabDisplay
+	end
 
-		-- ActualThing properties
-		ActualThing.Name = "ActualThing"
-		ActualThing.Parent = Status
-		ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
-		ActualThing.BackgroundColor3 = Color3.fromRGB(106, 0, 255)
-		ActualThing.BackgroundTransparency = 1.000
-		ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
-		ActualThing.Size = UDim2.new(0, 20, 0, 20)
-
-		-- ImageLabel properties
-		ImageLabel.Parent = ActualThing
-		ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-		ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		ImageLabel.BackgroundTransparency = 1.000
-		ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-		ImageLabel.Size = UDim2.new(0, 20, 0, 20)
-		ImageLabel.Image = "rbxassetid://7734010488"
-		ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
-
-		-- UIScale properties
-		UIScale.Parent = ImageLabel
-		UIScale.Scale = 0.800
+	-- Example usage:
+	--xTabs:Tab("Home", true)
 
 
-		
+local Elements = {}
 
-		-- Play sound effect (replace with your sound ID)
-		local sound = Instance.new("Sound")
-		sound.SoundId = "rbxassetid://8816939097" -- Replace with your sound ID
-		sound.Parent = Button
+function Elements:Button(Name, Callback)
+	local Name = Name or "Button"
+	local ButtonFunction = {}
+	local Callback = Callback or function () end
+	
+	
+	local ButtonTemplate = Instance.new("TextButton")
+	local UICorner = Instance.new("UICorner")
+	local TextLabel = Instance.new("TextLabel")
+	local UIPadding = Instance.new("UIPadding")
+	local Status = Instance.new("Frame")
+	local ActualThing = Instance.new("Frame")
+	local ImageLabel = Instance.new("ImageLabel")
+	local UIScale = Instance.new("UIScale")
 
-		-- Event handling
-		Button.MouseButton1Down:Connect(function()
-			sound:Play()
-			pcall(Callback)
+	-- Properties:
+	ButtonTemplate.Name = "ButtonTemplate"
+	ButtonTemplate.Parent = Tabholder -- Parent ButtonTemplate to Tabholder
+	ButtonTemplate.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	ButtonTemplate.Position = UDim2.new(0, 0, 0, 0)
+	ButtonTemplate.Selectable = false
+	ButtonTemplate.Size = UDim2.new(0, 327, 0, 31) -- Adjust size as needed
+	ButtonTemplate.AutoButtonColor = false
+	ButtonTemplate.Text = ""
+
+	UICorner.CornerRadius = UDim.new(0, 5)
+	UICorner.Parent = ButtonTemplate
+
+	TextLabel.Parent = ButtonTemplate
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.Position = UDim2.new(0, 0, 0, 0)
+	TextLabel.Size = UDim2.new(1, -20, 1, 0) -- Adjust size to fit button
+	TextLabel.Font = Enum.Font.GothamMedium
+	TextLabel.Text = Name
+	TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+	TextLabel.TextSize = 12.000
+	TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+	UIPadding.Parent = TextLabel
+	UIPadding.PaddingLeft = UDim.new(0, 10)
+
+	Status.Name = "Status"
+	Status.Parent = ButtonTemplate
+	Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Status.BackgroundTransparency = 1.000
+	Status.Position = UDim2.new(0.839826822, 0, 0, 0)
+	Status.Size = UDim2.new(0, 37, 0, 31)
+
+	ActualThing.Name = "ActualThing"
+	ActualThing.Parent = Status
+	ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
+	ActualThing.BackgroundColor3 = Color3.fromRGB(106, 0, 255)
+	ActualThing.BackgroundTransparency = 1.000
+	ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
+	ActualThing.Size = UDim2.new(0, 20, 0, 20)
+
+	ImageLabel.Parent = ActualThing
+	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageLabel.BackgroundTransparency = 1.000
+	ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+	ImageLabel.Size = UDim2.new(0, 20, 0, 20)
+	ImageLabel.Image = "rbxassetid://7734010488"
+	ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
+
+	UIScale.Parent = ImageLabel
+	UIScale.Scale = 0.800
+
+		ButtonTemplate.MouseButton1Click:Connect(function()
+			Callback()
 		end)
-		
-		Button.MouseEnter:Connect(function()
-			game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-				BackgroundColor3 = Color3.fromRGB(48, 51, 70)
-			}):Play()
-		end)
-		Button.MouseLeave:Connect(function()
-			game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-				BackgroundColor3 = Color3.fromRGB(40, 42, 60)
-			}):Play()
-		end)
-		
-		
-		-- Function to update button properties
-		function ButtonFunction:UpdateButton(newName)
-			Button.Text = newName
-			TextLabel.Text = newName
+
+		function ButtonFunction:UpdateButton(NewName)
+			TextLabel.Text = NewName
 		end
 
-		return ButtonFunction
+		return ButtonFunction -- Return the ButtonFunction table, not ButtonTemplate
 	end
 	
 	
 	
+	-- Example usage:
+	--Elements:Button("Infinite Money", function()
+	--	print("Button 'Infinite Money' clicked!")
+	--end)
 	
 	
 	
 	
 	
 	
-	
-	
-	
-	-- Return the created instances and functions
-	return {
-		ScreenScript = ScreenScript,
-		Main = Main,
-		Headerframe = Headerframe,
-		Close = Close,
-		UICorner = UICorner,
-		ImageLabel = ImageLabel,
-		UIScale = UIScale,
-		Title = Title,
-		UIPadding = UIPadding,
-		FirstSeperator = FirstSeperator,
-		Siderframe = Siderframe,
-		ActualSide = ActualSide,
-		ActualSideListLayout = ActualSideListLayout,
-		Tabholder = Tabholder,
-		Tabs = Tabs,
-		UICorner_2 = UICorner_2,
-		UICorner_3 = UICorner_3,
-		TabLayout = TabLayout,
-		ImageButtonK = ImageButtonK,
-		ImageButtonKCorner = ImageButtonKCorner,
-		xTabs = xTabs,
-		Elements = Elements
-	}
+	return Elements -- Return the Elements table for external access
 end
-
--- Return the Library table as a callable function
-return setmetatable(Library, {
-	__call = function(_, ...)
-		return Library.Create(...)
-	end
-})
+	-- Return Library object for external access
+		return Library
