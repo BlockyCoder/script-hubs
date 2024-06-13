@@ -252,142 +252,99 @@ function Library:Create(xHubName)
 		local Title = Instance.new("TextLabel")
 		local UIPadding = Instance.new("UIPadding")
 		local UICorner = Instance.new("UICorner")
+		
+		
+		
+		
+		-- Continuing from where we left off
 
-		-- Properties:
+		-- UI Elements setup for the tab
 		TabDisplay.Name = "TabDisplay"
-		TabDisplay.Parent = TabFolder -- Parent TabDisplay to the respective TabFolder
-		TabDisplay.Active = false
-		TabDisplay.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TabDisplay.Position = UDim2.new(0.028, 0, 0, 0) -- Adjust position as needed
-		TabDisplay.Selectable = false
-		TabDisplay.Size = UDim2.new(0, 327, 0, 36) -- Adjust size to fit in ActualSide
-		TabDisplay.Visible = xVisible
+		TabDisplay.Parent = Tabs
+		TabDisplay.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
+		TabDisplay.BorderSizePixel = 0
+		TabDisplay.Size = UDim2.new(0, 318, 0, 45)
+		TabDisplay.AutoButtonColor = false
+		TabDisplay.Font = Enum.Font.SourceSans
+		TabDisplay.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TabDisplay.TextSize = 14.000
+		TabDisplay.TextTransparency = 1.000
+		TabDisplay.TextWrapped = true
 
 		Seperator.Name = "Seperator"
-		Seperator.Parent = TabDisplay
-		Seperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
+		Seperator.Parent = TabFolder
+		Seperator.BackgroundColor3 = Color3.fromRGB(27, 42, 53)
 		Seperator.BorderSizePixel = 0
-		Seperator.Position = UDim2.new(0.989, 0, 0, 0)
-		Seperator.Size = UDim2.new(0, 1, 0, 36)
+		Seperator.Position = UDim2.new(0, 0, 0.555555582, 0)
+		Seperator.Size = UDim2.new(0, 318, 0, 1)
 
 		Title.Name = "Title"
 		Title.Parent = TabDisplay
 		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Title.BackgroundTransparency = 1.000
-		Title.Position = UDim2.new(0, 10, 0, 0)
-		Title.Size = UDim2.new(0, 316, 0, 36)
-		Title.Font = Enum.Font.GothamMedium
+		Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Title.Position = UDim2.new(0.0283018869, 0, 0.111111112, 0)
+		Title.Size = UDim2.new(0, 298, 0, 34)
+		Title.Font = Enum.Font.GothamSemibold
 		Title.Text = TabName
-		Title.TextColor3 = Color3.fromRGB(161, 161, 161)
+		Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 		Title.TextScaled = true
-		Title.TextSize = 12.000
+		Title.TextSize = 20.000
 		Title.TextWrapped = true
+		Title.TextXAlignment = Enum.TextXAlignment.Left
 
 		UIPadding.Parent = Title
 		UIPadding.PaddingLeft = UDim.new(0, 10)
 
+		UICorner.CornerRadius = UDim.new(0, 12)
 		UICorner.Parent = TabDisplay
-	end
 
-	-- Example usage:
-	--xTabs:Tab("Home", true)
+		-- UI elements for the list layout inside the tab
+		local ItemsList = Instance.new("Frame")
+		local ItemsLayout = Instance.new("UIListLayout")
 
+		ItemsList.Name = "ItemsList"
+		ItemsList.Parent = TabFolder
+		ItemsList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		ItemsList.BackgroundTransparency = 1.000
+		ItemsList.Position = UDim2.new(0.0283018869, 0, 0.777777731, 0)
+		ItemsList.Size = UDim2.new(0, 298, 0, 173)
 
-local Elements = {}
+		ItemsLayout.Name = "ItemsLayout"
+		ItemsLayout.Parent = ItemsList
+		ItemsLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		ItemsLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 
-function Elements:Button(Name, Callback)
-	local Name = Name or "Button"
-	local ButtonFunction = {}
-	local Callback = Callback or function () end
-	
-	
-	local ButtonTemplate = Instance.new("TextButton")
-	local UICorner = Instance.new("UICorner")
-	local TextLabel = Instance.new("TextLabel")
-	local UIPadding = Instance.new("UIPadding")
-	local Status = Instance.new("Frame")
-	local ActualThing = Instance.new("Frame")
-	local ImageLabel = Instance.new("ImageLabel")
-	local UIScale = Instance.new("UIScale")
+		-- Function to add buttons to the created tabs
+		function TabFolder:Button(ButtonText, Callback)
+			local Button = Instance.new("TextButton")
+			Button.Name = "Button"
+			Button.Parent = ItemsList
+			Button.BackgroundColor3 = Color3.fromRGB(46, 46, 46)
+			Button.BorderSizePixel = 0
+			Button.Size = UDim2.new(0, 298, 0, 34)
+			Button.AutoButtonColor = false
+			Button.Font = Enum.Font.GothamSemibold
+			Button.Text = ButtonText
+			Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Button.TextSize = 14.000
 
-	-- Properties:
-	ButtonTemplate.Name = "ButtonTemplate"
-	ButtonTemplate.Parent = Tabholder -- Parent ButtonTemplate to Tabholder
-	ButtonTemplate.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-	ButtonTemplate.Position = UDim2.new(0, 0, 0, 0)
-	ButtonTemplate.Selectable = false
-	ButtonTemplate.Size = UDim2.new(0, 327, 0, 31) -- Adjust size as needed
-	ButtonTemplate.AutoButtonColor = false
-	ButtonTemplate.Text = ""
+			Button.MouseButton1Click:Connect(function()
+				Callback()
+			end)
 
-	UICorner.CornerRadius = UDim.new(0, 5)
-	UICorner.Parent = ButtonTemplate
-
-	TextLabel.Parent = ButtonTemplate
-	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel.BackgroundTransparency = 1.000
-	TextLabel.Position = UDim2.new(0, 0, 0, 0)
-	TextLabel.Size = UDim2.new(1, -20, 1, 0) -- Adjust size to fit button
-	TextLabel.Font = Enum.Font.GothamMedium
-	TextLabel.Text = Name
-	TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-	TextLabel.TextSize = 12.000
-	TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-	UIPadding.Parent = TextLabel
-	UIPadding.PaddingLeft = UDim.new(0, 10)
-
-	Status.Name = "Status"
-	Status.Parent = ButtonTemplate
-	Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Status.BackgroundTransparency = 1.000
-	Status.Position = UDim2.new(0.839826822, 0, 0, 0)
-	Status.Size = UDim2.new(0, 37, 0, 31)
-
-	ActualThing.Name = "ActualThing"
-	ActualThing.Parent = Status
-	ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
-	ActualThing.BackgroundColor3 = Color3.fromRGB(106, 0, 255)
-	ActualThing.BackgroundTransparency = 1.000
-	ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
-	ActualThing.Size = UDim2.new(0, 20, 0, 20)
-
-	ImageLabel.Parent = ActualThing
-	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	ImageLabel.BackgroundTransparency = 1.000
-	ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-	ImageLabel.Size = UDim2.new(0, 20, 0, 20)
-	ImageLabel.Image = "rbxassetid://7734010488"
-	ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
-
-	UIScale.Parent = ImageLabel
-	UIScale.Scale = 0.800
-
-		ButtonTemplate.MouseButton1Click:Connect(function()
-			Callback()
-		end)
-
-		function ButtonFunction:UpdateButton(NewName)
-			TextLabel.Text = NewName
+			ItemsLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+				ItemsList.Size = UDim2.new(0, 298, 0, ItemsLayout.AbsoluteContentSize.Y)
+			end)
 		end
 
-		return ButtonFunction -- Return the ButtonFunction table, not ButtonTemplate
+		-- Return the tab folder so it can be accessed
+		return TabFolder
 	end
-	
-	
-	
-	-- Example usage:
-	--Elements:Button("Infinite Money", function()
-	--	print("Button 'Infinite Money' clicked!")
-	--end)
-	
-	
-	
-	
-	
-	
-	return Elements -- Return the Elements table for external access
+
+	-- Return Library object with methods
+	return Library
 end
-	-- Return Library object for external access
-		return Library
+
+-- Return the Library module
+return Library
