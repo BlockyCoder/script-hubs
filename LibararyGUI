@@ -1,13 +1,13 @@
 -- Library object to hold all functions and data
 local Library = {}
 
--- Random UI Name generation for the library instance
-local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
-
 -- Function to create the GUI with specified xHubName
 function Library:Create(xHubName)
 	-- Default to "UI Library" if xHubName is not provided
 	xHubName = xHubName or "UI Library"
+
+	-- Random UI Name generation for the library instance
+	local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
 
 	-- Instances creation
 	local ScreenScript = Instance.new("ScreenGui")
@@ -85,7 +85,7 @@ function Library:Create(xHubName)
 	Title.Selectable = false
 	Title.Size = UDim2.new(0, 323, 0, 36)
 	Title.Font = Enum.Font.GothamMedium
-	Title.Text = "Zen X's Library"
+	Title.Text = xHubName  -- Use provided or default name
 	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
 	Title.TextScaled = true
 	Title.TextSize = 13.000
@@ -181,19 +181,20 @@ function Library:Create(xHubName)
 	local function ToggleUI()
 		Main.Visible = not Main.Visible
 	end
-	
-	
+
+	-- Closes the UI
 	local function CloseUI()
 		ScreenScript:Destroy()
 	end
-	
-	
+
 	-- Connect the toggle function to the button
 	ImageButtonK.MouseButton1Click:Connect(ToggleUI)
 	Close.MouseButton1Click:Connect(CloseUI)
 
+	local xtab = {}
+
 	-- Function to create a new tab
-	function Library:Tab(tabName)
+	function xtab:Tab(tabName)
 		-- Create the tab button on the side
 		local TabButton = Instance.new("TextButton")
 		TabButton.Name = tabName
@@ -223,8 +224,9 @@ function Library:Create(xHubName)
 		local UIListLayout = Instance.new("UIListLayout")
 		UIListLayout.Parent = Tab
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		
+
 		local tabfolder = {}
+
 		-- Function to add a button to the tab
 		function tabfolder:Button(buttonName, callback)
 			local Button = Instance.new("TextButton")
@@ -252,7 +254,7 @@ function Library:Create(xHubName)
 			Tab.Visible = true
 		end)
 
-		return Tab
+		return tabfolder
 	end
 
 	-- Show the first tab by default
@@ -264,7 +266,7 @@ function Library:Create(xHubName)
 	end
 	ShowFirstTab()
 
-	return Library
+	return xtab
 end
 
 return Library
