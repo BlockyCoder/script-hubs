@@ -62,7 +62,11 @@ function Library:Create(xHubName)
 	Close.Position = UDim2.new(0.917412579, 0, 0.167417377, 0)
 	Close.Selectable = false
 	Close.Size = UDim2.new(0, 33, 0, 22)
-
+	Close.MouseButton1Click:Connect(function()
+		ScreenScript:Destroy()
+	end)
+	
+	
 	UICorner.CornerRadius = UDim.new(0, 4)
 	UICorner.Parent = Close
 
