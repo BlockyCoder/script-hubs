@@ -260,7 +260,7 @@ function Library:Create(xHubName)
 					tab.Visible = false
 				end
 			end
-			Tab.Visible = true
+			Tabholder.Visible = true
 		end)
 
 		local TabFolder = {}
