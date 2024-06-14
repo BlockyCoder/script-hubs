@@ -190,7 +190,7 @@ function Library:Create(xHubName)
 	
 	-- Connect the toggle function to the button
 	ImageButtonK.MouseButton1Click:Connect(ToggleUI)
-	Close.MouseButton1Click:Connect(ToggleUI)
+	Close.MouseButton1Click:Connect(CloseUI)
 
 	-- Function to create a new tab
 	function Library:Tab(tabName)
