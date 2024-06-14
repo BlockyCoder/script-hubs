@@ -86,7 +86,7 @@ function Library:Create(xHubName)
 	Title.Selectable = false
 	Title.Size = UDim2.new(0, 323, 0, 36)
 	Title.Font = Enum.Font.GothamMedium
-	Title.Text = "Zen X's Library"
+	Title.Text = xHubName
 	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
 	Title.TextScaled = true
 	Title.TextSize = 13.000
@@ -176,15 +176,6 @@ function Library:Create(xHubName)
 
 	ImageButtonKCorner.CornerRadius = UDim.new(0, 5)
 	ImageButtonKCorner.Parent = ImageButtonK
-
-	-- Toggles the visibility of the GUI
-	function Library:Toggle()
-		if ScreenScript.Parent == game.CoreGui then
-			ScreenScript.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-		else
-			ScreenScript.Parent = game.CoreGui
-		end
-	end
 
 	-- Enables dragging functionality for the UI
 	function Library:Drag(obj)
@@ -303,16 +294,3 @@ function Library:Create(xHubName)
 
 	return Library
 end
-
--- Usage example
---local myLibrary = Library:Create("My Custom UI")
-
---local tab1 = myLibrary:Tab("Tab 1")
---tab1:Button("Button 1", function()
-	--print("Button 1 clicked")
---end)
-
---local tab2 = myLibrary:Tab("Tab 2")
---tab2:Button("Button 2", function()
-	--print("Button 2 clicked")
---end)
