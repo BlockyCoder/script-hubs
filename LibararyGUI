@@ -228,7 +228,7 @@ function Library:Create(xHubName)
 		xVisible = xVisible or false
 
 		local TabButton = Instance.new("TextButton")
-		local Tab = Instance.new("Frame")
+		local Tab = Instance.new("ScrollingFrame")
 
 		TabButton.Name = TabName .. "Button"
 		TabButton.Parent = ActualSide
@@ -244,15 +244,17 @@ function Library:Create(xHubName)
 		TabButton.TextSize = 14.000
 		TabButton.TextWrapped = true
 
-		Tab.Name = TabName
+		Tab.Name = "Tabholder"
 		Tab.Parent = Tabs
+		Tab.Active = true
 		Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Tab.BackgroundTransparency = 1.000
 		Tab.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		Tab.BorderSizePixel = 0
-		Tab.Position = UDim2.new(0.014265335, 0, 0.0155440411, 0)
-		Tab.Size = UDim2.new(0, 313, 0, 260)
-		Tab.Visible = xVisible
+		Tab.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
+		Tab.Size = UDim2.new(0, 327, 0, 280)
+		Tab.ScrollBarThickness = 5
+
 
 		TabButton.MouseButton1Click:Connect(function()
 			for _, tab in ipairs(Tabs:GetChildren()) do
@@ -260,7 +262,7 @@ function Library:Create(xHubName)
 					tab.Visible = false
 				end
 			end
-			Tabholder.Visible = true
+			Tab.Visible = true
 		end)
 
 		local TabFolder = {}
@@ -286,7 +288,7 @@ function Library:Create(xHubName)
 			--Properties:
 
 			Button.Name = "Button"
-			Button.Parent = Tabholder
+			Button.Parent = Tab
 			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 			Button.Position = UDim2.new(-0.115991771, 0, -0.00923603307, 0)
 			Button.Selectable = false
