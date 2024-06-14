@@ -247,6 +247,16 @@ function Library:Create(xHubName)
 
 		return Tab
 	end
+
+	-- Show the first tab by default
+	local function ShowFirstTab()
+		local firstTab = Tabs:FindFirstChildOfClass("ScrollingFrame")
+		if firstTab then
+			firstTab.Visible = true
+		end
+	end
+	ShowFirstTab()
+
 	return Library
 end
 
