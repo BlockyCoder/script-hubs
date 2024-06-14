@@ -218,46 +218,59 @@ function Library:Create(xHubName)
         end)
     end
 
-    -- Function to create a tab
-    function Library:Tab(TabName, xVisible)
-        TabName = TabName or "Tab"
-        xVisible = xVisible or false
+  -- Function to create a tab
+function Library:Tab(TabName, xVisible)
+    -- Default values for parameters
+    TabName = TabName or "Tab"
+    xVisible = xVisible or false
 
-        local TabButton = Instance.new("TextButton")
-        local Tab = Instance.new("Frame")
+    -- Create a new TextButton for the tab
+    local TabButton = Instance.new("TextButton")
+    -- Create a new ScrollingFrame for the tab content
+    local Tab = Instance.new("ScrollingFrame")
 
-        TabButton.Name = TabName .. "Button"
-        TabButton.Parent = ActualSide
-        TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        TabButton.BackgroundTransparency = 1.000
-        TabButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-        TabButton.BorderSizePixel = 0
-        TabButton.Size = UDim2.new(0, 200, 0, 50)
-        TabButton.Font = Enum.Font.Gotham
-        TabButton.Text = TabName
-        TabButton.TextColor3 = Color3.fromRGB(161, 161, 161)
-        TabButton.TextScaled = true
-        TabButton.TextSize = 14.000
-        TabButton.TextWrapped = true
+    -- Configure the TabButton properties
+    TabButton.Name = TabName .. "Button"
+    TabButton.Parent = ActualSide
+    TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TabButton.BackgroundTransparency = 1.0
+    TabButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TabButton.BorderSizePixel = 0
+    TabButton.Size = UDim2.new(0, 200, 0, 50)
+    TabButton.Font = Enum.Font.Gotham
+    TabButton.Text = TabName
+    TabButton.TextColor3 = Color3.fromRGB(161, 161, 161)
+    TabButton.TextScaled = true
+    TabButton.TextSize = 14.0
+    TabButton.TextWrapped = true
 
-        Tab.Name = TabName
-        Tab.Parent = Tabs
-        Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        Tab.BackgroundTransparency = 1.000
-        Tab.BorderColor3 = Color3.fromRGB(0, 0, 0)
-        Tab.BorderSizePixel = 0
-        Tab.Position = UDim2.new(0.014265335, 0, 0.0155440411, 0)
-        Tab.Size = UDim2.new(0, 313, 0, 260)
-        Tab.Visible = xVisible
+    -- Configure the Tab properties
+    Tab.Name = TabName
+    Tab.Parent = Tabs
+    Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Tab.BackgroundTransparency = 1.0
+    Tab.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Tab.BorderSizePixel = 0
+    Tab.Position = UDim2.new(0.014, 0, 0.016, 0)
+    Tab.Size = UDim2.new(0, 313, 0, 260)
+    Tab.Visible = xVisible
+    Tab.CanvasSize = UDim2.new(0, 0, 2, 0) -- Adjust canvas size as needed
+    Tab.ScrollBarThickness = 10
 
-        TabButton.MouseButton1Click:Connect(function()
-            for _, tab in ipairs(Tabs:GetChildren()) do
-                if tab:IsA("Frame") then
-                    tab.Visible = false
-                end
+    -- Connect the button click event to show the tab
+    TabButton.MouseButton1Click:Connect(function()
+        -- Hide all tabs
+        for _, tab in ipairs(Tabs:GetChildren()) do
+            if tab:IsA("ScrollingFrame") then
+                tab.Visible = false
             end
-            Tab.Visible = true
-        end)
+        end
+        -- Show the clicked tab
+        Tab.Visible = true
+    end)
+
+    return Tab
+end
 
         local TabFolder = {}
 
