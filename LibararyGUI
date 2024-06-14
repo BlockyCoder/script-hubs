@@ -85,7 +85,7 @@ function Library:Create(xHubName)
 	Title.Selectable = false
 	Title.Size = UDim2.new(0, 323, 0, 36)
 	Title.Font = Enum.Font.GothamMedium
-	Title.Text = xHubName
+	Title.Text = "Zen X's Library"
 	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
 	Title.TextScaled = true
 	Title.TextSize = 13.000
@@ -181,16 +181,10 @@ function Library:Create(xHubName)
 	local function ToggleUI()
 		Main.Visible = not Main.Visible
 	end
-	
-	
-	local function CloseUI()
-		ScreenScript:Destroy()
-	end
-	
-	
+
 	-- Connect the toggle function to the button
 	ImageButtonK.MouseButton1Click:Connect(ToggleUI)
-	Close.MouseButton1Click:Connect(CloseUI)
+	Close.MouseButton1Click:Connect(ToggleUI)
 
 	-- Function to create a new tab
 	function Library:Tab(tabName)
@@ -223,9 +217,10 @@ function Library:Create(xHubName)
 		local UIListLayout = Instance.new("UIListLayout")
 		UIListLayout.Parent = Tab
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
+		
+		local tabfolder = {}
 		-- Function to add a button to the tab
-		local function AddButton(buttonName, callback)
+		function tabfolder:Button(buttonName, callback)
 			local Button = Instance.new("TextButton")
 			Button.Name = buttonName
 			Button.Parent = Tab
@@ -242,9 +237,6 @@ function Library:Create(xHubName)
 				pcall(callback)
 			end)
 		end
-
-		-- Attach the button function to the tab
-		Tab.Button = AddButton
 
 		-- Show the tab when the button is clicked
 		TabButton.MouseButton1Click:Connect(function()
