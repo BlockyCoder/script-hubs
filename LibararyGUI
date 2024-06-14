@@ -246,8 +246,8 @@ function Library:Create(xHubName)
 			--Properties:
 
 			Button.Name = "Button"
-			Button.Parent = 
-				Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			Button.Parent = Tab
+			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 			Button.Position = UDim2.new(0, 0, 0.0954390168, 0)
 			Button.Selectable = false
 			Button.Size = UDim2.new(0, 380, 0, 31)
