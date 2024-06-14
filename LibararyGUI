@@ -190,7 +190,7 @@ function Library:Create(xHubName)
 	
 	-- Connect the toggle function to the button
 	ImageButtonK.MouseButton1Click:Connect(ToggleUI)
-	Close.MouseButton1Click:Connect(CloseUI)
+	Close.MouseButton1Click:Connect(ToggleUI)
 
 	-- Function to create a new tab
 	function Library:Tab(tabName)
@@ -225,7 +225,7 @@ function Library:Create(xHubName)
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 		-- Function to add a button to the tab
-		function Tab:Button(buttonName, callback)
+		local function AddButton(buttonName, callback)
 			local Button = Instance.new("TextButton")
 			Button.Name = buttonName
 			Button.Parent = Tab
@@ -242,6 +242,9 @@ function Library:Create(xHubName)
 				pcall(callback)
 			end)
 		end
+
+		-- Attach the button function to the tab
+		Tab.Button = AddButton
 
 		-- Show the tab when the button is clicked
 		TabButton.MouseButton1Click:Connect(function()
