@@ -85,7 +85,7 @@ function Library:Create(xHubName)
 	Title.Selectable = false
 	Title.Size = UDim2.new(0, 323, 0, 36)
 	Title.Font = Enum.Font.GothamMedium
-	Title.Text = "Zen X's Library"
+	Title.Text = xHubName
 	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
 	Title.TextScaled = true
 	Title.TextSize = 13.000
@@ -181,22 +181,11 @@ function Library:Create(xHubName)
 	local function ToggleUI()
 		Main.Visible = not Main.Visible
 	end
-	
-	
-	local function CloseUI()
-		ScreenScript:Destroy()
-	end
-	
-	
-	
-	
-	
+
 	-- Connect the toggle function to the button
 	ImageButtonK.MouseButton1Click:Connect(ToggleUI)
-	Close.MouseButton1Click:Connect(CloseUI)
-	
-	
-	
+	Close.MouseButton1Click:Connect(ToggleUI)
+
 	-- Function to create a new tab
 	function Library:Tab(tabName)
 		-- Create the tab button on the side
