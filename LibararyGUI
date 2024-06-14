@@ -43,7 +43,7 @@ function Library:Create(xHubName)
 	Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
 	Main.BorderSizePixel = 0
 	Main.Position = UDim2.new(0.272804052, 0, 0.243107766, 0)
-	Main.Size = UDim2.new(0, 525, 0, 318)
+	Main.Size = UDim2.new(0.481064528, 0, 0.602093697, 0)
 
 	Headerframe.Name = "Headerframe"
 	Headerframe.Parent = Main
@@ -229,17 +229,73 @@ function Library:Create(xHubName)
 
 		-- Function to add a button to the tab
 		function tabfolder:Button(buttonName, callback)
+			-- Gui to Lua
+			-- Version: 3.2
+
+			-- Instances:
+
 			local Button = Instance.new("TextButton")
-			Button.Name = buttonName
-			Button.Parent = Tab
-			Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Button.Size = UDim2.new(0, 300, 0, 50)
-			Button.Font = Enum.Font.SourceSans
-			Button.Text = buttonName
-			Button.TextColor3 = Color3.fromRGB(0, 0, 0)
-			Button.TextScaled = true
-			Button.TextSize = 14.000
-			Button.TextWrapped = true
+			local UICorner = Instance.new("UICorner")
+			local TextLabel = Instance.new("TextLabel")
+			local UIPadding = Instance.new("UIPadding")
+			local Status = Instance.new("Frame")
+			local ActualThing = Instance.new("Frame")
+			local ImageLabel = Instance.new("ImageLabel")
+			local UIScale = Instance.new("UIScale")
+
+			--Properties:
+
+			Button.Name = "Button"
+			Button.Parent = 
+				Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			Button.Position = UDim2.new(0, 0, 0.0954390168, 0)
+			Button.Selectable = false
+			Button.Size = UDim2.new(0, 380, 0, 31)
+			Button.AutoButtonColor = false
+			Button.Text = ""
+
+			UICorner.CornerRadius = UDim.new(0, 5)
+			UICorner.Parent = Button
+
+			TextLabel.Parent = Button
+			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			TextLabel.BackgroundTransparency = 1.000
+			TextLabel.Size = UDim2.new(0, 283, 0, 31)
+			TextLabel.Font = Enum.Font.GothamMedium
+			TextLabel.Text = buttonName
+			TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+			TextLabel.TextSize = 12.000
+			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+			UIPadding.Parent = TextLabel
+			UIPadding.PaddingLeft = UDim.new(0, 10)
+
+			Status.Name = "Status"
+			Status.Parent = Button
+			Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Status.BackgroundTransparency = 1.000
+			Status.Position = UDim2.new(0.839826822, 0, 0, 0)
+			Status.Size = UDim2.new(0, 37, 0, 31)
+
+			ActualThing.Name = "ActualThing"
+			ActualThing.Parent = Status
+			ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
+			ActualThing.BackgroundColor3 = Color3.fromRGB(106, 0, 255)
+			ActualThing.BackgroundTransparency = 1.000
+			ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
+			ActualThing.Size = UDim2.new(0, 20, 0, 20)
+
+			ImageLabel.Parent = ActualThing
+			ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+			ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			ImageLabel.BackgroundTransparency = 1.000
+			ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+			ImageLabel.Size = UDim2.new(0, 20, 0, 20)
+			ImageLabel.Image = "rbxassetid://7734010488"
+			ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
+
+			UIScale.Parent = ImageLabel
+			UIScale.Scale = 0.800
 
 			Button.MouseButton1Click:Connect(function()
 				pcall(callback)
@@ -253,7 +309,15 @@ function Library:Create(xHubName)
 			end
 			Tab.Visible = true
 		end)
-
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return tabfolder
 	end
 
