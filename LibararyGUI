@@ -181,11 +181,22 @@ function Library:Create(xHubName)
 	local function ToggleUI()
 		Main.Visible = not Main.Visible
 	end
-
+	
+	
+	local function CloseUI()
+		ScreenScript:Destroy()
+	end
+	
+	
+	
+	
+	
 	-- Connect the toggle function to the button
 	ImageButtonK.MouseButton1Click:Connect(ToggleUI)
-	Close.MouseButton1Click:Connect(ToggleUI)
-
+	Close.MouseButton1Click:Connect(CloseUI)
+	
+	
+	
 	-- Function to create a new tab
 	function Library:Tab(tabName)
 		-- Create the tab button on the side
