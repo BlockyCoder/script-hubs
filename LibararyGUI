@@ -217,7 +217,7 @@ function Library:Create(xHubName)
 		Tab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Tab.BackgroundTransparency = 0
 		Tab.BorderSizePixel = 0
-		Tab.Size = UDim2.new(1, 0, 1, 0)
+		Tab.Size = UDim2.new(0.622857153, 0, 0.880503118, 0)
 		Tab.Visible = false
 		Tab.ScrollBarThickness = 5
 
