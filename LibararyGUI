@@ -301,6 +301,109 @@ function Library:Create(xHubName)
 				pcall(callback)
 			end)
 		end
+		
+		
+		function tabfolder:Toggle(ToggName, callback)
+			local ToggName = ToggName or "Toggle"
+			local callback = callback or function() end
+			local ToggleEnabled = false
+
+			-- Gui to Lua
+			-- Version: 3.2
+
+			-- Instances:
+
+			local Toggle = Instance.new("TextButton")
+			local UICorner = Instance.new("UICorner")
+			local TextLabel = Instance.new("TextLabel")
+			local UIPadding = Instance.new("UIPadding")
+			local Status = Instance.new("Frame")
+			local ToggleBckg = Instance.new("Frame")
+			local UICorner_2 = Instance.new("UICorner")
+			local Icon = Instance.new("ImageLabel")
+			local UIScale = Instance.new("UIScale")
+
+			--Properties:
+
+			Toggle.Name = "Toggle"
+			Toggle.Parent = Tab
+			Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			Toggle.Selectable = false
+			Toggle.Size = UDim2.new(0, 380, 0, 31)
+			Toggle.AutoButtonColor = false
+			Toggle.Text = ""
+
+			UICorner.CornerRadius = UDim.new(0, 5)
+			UICorner.Parent = Toggle
+
+			TextLabel.Parent = Toggle
+			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			TextLabel.BackgroundTransparency = 1.000
+			TextLabel.Size = UDim2.new(0, 283, 0, 31)
+			TextLabel.Font = Enum.Font.GothamMedium
+			TextLabel.Text = ToggName
+			TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+			TextLabel.TextSize = 12.000
+			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+			UIPadding.Parent = TextLabel
+			UIPadding.PaddingLeft = UDim.new(0, 10)
+
+			Status.Name = "Status"
+			Status.Parent = Toggle
+			Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Status.BackgroundTransparency = 1.000
+			Status.Position = UDim2.new(0.839826822, 0, 0, 0)
+			Status.Size = UDim2.new(0, 37, 0, 31)
+
+			ToggleBckg.Name = "ToggleBckg"
+			ToggleBckg.Parent = Status
+			ToggleBckg.AnchorPoint = Vector2.new(0.5, 0.5)
+			ToggleBckg.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+			ToggleBckg.Position = UDim2.new(0.5, 0, 0.5, 0)
+			ToggleBckg.Size = UDim2.new(0, 20, 0, 20)
+
+			UICorner_2.CornerRadius = UDim.new(0, 5)
+			UICorner_2.Parent = ToggleBckg
+
+			Icon.Name = "Icon"
+			Icon.Parent = ToggleBckg
+			Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+			Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Icon.BackgroundTransparency = 1.000
+			Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
+			Icon.Size = UDim2.new(0, 20, 0, 20)
+			Icon.Image = "http://www.roblox.com/asset/?id=13319773302"
+			Icon.ImageColor3 = Color3.fromRGB(0, 0, 0)
+			Icon.ImageTransparency = 1.000
+
+			UIScale.Parent = Icon
+			UIScale.Scale = 0.800
+
+			-- Toggle Functionality:
+
+			local function UpdateToggle()
+				if ToggleEnabled then
+					Icon.ImageTransparency = 0  -- Show the icon
+					-- Add any other visual changes for the enabled state
+					ToggleBckg.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
+				else
+					Icon.ImageTransparency = 1  -- Hide the icon
+					-- Add any other visual changes for the disabled state
+					ToggleBckg.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+				end
+			end
+
+			Toggle.MouseButton1Click:Connect(function()
+				ToggleEnabled = not ToggleEnabled
+				UpdateToggle()
+				callback(ToggleEnabled)
+			end)
+
+			-- Initialize the toggle state
+			UpdateToggle()
+		end
+
 
 		-- Show the tab when the button is clicked
 		TabButton.MouseButton1Click:Connect(function()
