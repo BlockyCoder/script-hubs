@@ -328,7 +328,7 @@ function Library:Create(xHubName)
 			--Properties:
 
 			Toggle.Name = "Toggle"
-			Toggle.Parent = Tab
+			Toggle.Parent = Tabholder
 			Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 			Toggle.Selectable = false
 			Toggle.Size = UDim2.new(0, 380, 0, 31)
