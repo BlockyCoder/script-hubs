@@ -217,7 +217,9 @@ function Library:Create(xHubName)
 		Tab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Tab.BackgroundTransparency = 0
 		Tab.BorderSizePixel = 0
-		Tab.Size = UDim2.new(0.622857153, 0, 0.880503118, 0)
+		Tab.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
+		
+		Tab.Size = UDim2.new(0, 327, 0, 280)
 		Tab.Visible = false
 		Tab.ScrollBarThickness = 5
 
@@ -301,8 +303,8 @@ function Library:Create(xHubName)
 				pcall(callback)
 			end)
 		end
-		
-		
+
+
 		function tabfolder:Toggle(ToggName, callback)
 			local ToggName = ToggName or "Toggle"
 			local callback = callback or function() end
@@ -412,15 +414,15 @@ function Library:Create(xHubName)
 			end
 			Tab.Visible = true
 		end)
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
 		return tabfolder
 	end
 
