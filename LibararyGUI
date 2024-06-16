@@ -212,7 +212,7 @@ function Library:Create(xHubName)
 		-- Create the actual tab content holder
 		local TabFrame = Instance.new("ScrollingFrame")
 		TabFrame.Name = tabName
-		TabFrame.Parent = Tabholder
+		TabFrame.Parent = Tabs
 		TabFrame.Active = true
 		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		TabFrame.BorderSizePixel = 0
@@ -310,13 +310,25 @@ function Library:Create(xHubName)
 
 			Toggle.MouseButton1Click:Connect(function()
 				ToggleEnabled = not ToggleEnabled
-				Icon.ImageTransparency = ToggleEnabled and 0 or 1
-				ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(29, 29, 29)
+				--Icon.ImageTransparency = ToggleEnabled and 0 or 1
+				ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(88, 88, 88)
 				callback(ToggleEnabled)
 			end)
 		end
 
-
+		-- Functionality to show the tab frame when the tab button is clicked
+		TabButton.MouseButton1Click:Connect(function()
+			-- Hide all tab frames first
+			for _, frame in ipairs(Tabs:GetChildren()) do
+				if frame:IsA("ScrollingFrame") then
+					frame.Visible = false
+				end
+			end
+			-- Show the corresponding tab frame
+			TabFrame.Visible = true
+		end)
+		
+		
 		return tabfolder
 	end
 
