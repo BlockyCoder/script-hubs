@@ -224,13 +224,13 @@ function Library:Create(xHubName)
 		local tabfolder = {}
 
 		-- Function to add a button to the tab
+		-- Function to add a button to the tab
 		function tabfolder:Button(buttonName, callback)
 			local Button = Instance.new("TextButton")
 			Button.Parent = TabFrame
 			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			Button.Position = UDim2.new(0, 0, 0.0954390168, 0)
-			Button.Selectable = false
-			Button.Size = UDim2.new(0, 380, 0, 31)
+			Button.Position = UDim2.new(0, 10, 0, 10 + (#TabFrame:GetChildren() - 1) * 40)  -- Position each button below the previous one
+			Button.Size = UDim2.new(0, 360, 0, 30)  -- Adjust size to fit within TabFrame
 			Button.AutoButtonColor = false
 			Button.Text = ""
 
@@ -242,16 +242,13 @@ function Library:Create(xHubName)
 			TextLabel.Parent = Button
 			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			TextLabel.BackgroundTransparency = 1.000
-			TextLabel.Size = UDim2.new(0, 283, 0, 31)
+			TextLabel.Size = UDim2.new(0, 283, 0, 30)
+			TextLabel.Position = UDim2.new(0, 10, 0, 0)
 			TextLabel.Font = Enum.Font.GothamMedium
 			TextLabel.Text = buttonName
 			TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
 			TextLabel.TextSize = 12.000
 			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-			local UIPadding = Instance.new("UIPadding")
-			UIPadding.Parent = TextLabel
-			UIPadding.PaddingLeft = UDim.new(0, 10)
 
 			Button.MouseButton1Click:Connect(function()
 				pcall(callback)
@@ -263,8 +260,8 @@ function Library:Create(xHubName)
 			local Toggle = Instance.new("TextButton")
 			Toggle.Parent = TabFrame
 			Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			Toggle.Selectable = false
-			Toggle.Size = UDim2.new(0, 380, 0, 31)
+			Toggle.Position = UDim2.new(0, 10, 0, 10 + (#TabFrame:GetChildren() - 1) * 40)  -- Position each toggle below the previous one
+			Toggle.Size = UDim2.new(0, 360, 0, 30)  -- Adjust size to fit within TabFrame
 			Toggle.AutoButtonColor = false
 			Toggle.Text = ""
 
@@ -276,22 +273,19 @@ function Library:Create(xHubName)
 			TextLabel.Parent = Toggle
 			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			TextLabel.BackgroundTransparency = 1.000
-			TextLabel.Size = UDim2.new(0, 283, 0, 31)
+			TextLabel.Size = UDim2.new(0, 283, 0, 30)
+			TextLabel.Position = UDim2.new(0, 10, 0, 0)
 			TextLabel.Font = Enum.Font.GothamMedium
 			TextLabel.Text = toggleName
 			TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
 			TextLabel.TextSize = 12.000
 			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-			local UIPadding = Instance.new("UIPadding")
-			UIPadding.Parent = TextLabel
-			UIPadding.PaddingLeft = UDim.new(0, 10)
-
 			local ToggleBckg = Instance.new("Frame")
 			ToggleBckg.Parent = Toggle
 			ToggleBckg.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-			ToggleBckg.Position = UDim2.new(0.839826822, 0, 0, 0)
-			ToggleBckg.Size = UDim2.new(0, 37, 0, 31)
+			ToggleBckg.Position = UDim2.new(0.839, 0, 0, 0)
+			ToggleBckg.Size = UDim2.new(0, 37, 0, 30)
 
 			local UICorner = Instance.new("UICorner")
 			UICorner.CornerRadius = UDim.new(0, 5)
@@ -317,10 +311,11 @@ function Library:Create(xHubName)
 			Toggle.MouseButton1Click:Connect(function()
 				ToggleEnabled = not ToggleEnabled
 				Icon.ImageTransparency = ToggleEnabled and 0 or 1
-				ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(35, 35, 35)
+				ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(29, 29, 29)
 				callback(ToggleEnabled)
 			end)
 		end
+
 
 		return tabfolder
 	end
