@@ -210,20 +210,22 @@ function Library:Create(xHubName)
 		TabButton.TextWrapped = true
 
 		-- Create the actual tab content holder
-		local Tab = Instance.new("ScrollingFrame")
-		Tab.Name = tabName
-		Tab.Parent = Tabs
-		Tab.Active = true
-		Tab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Tab.BackgroundTransparency = 0
-		Tab.BorderSizePixel = 0
-		Tab.Size = UDim2.new(0.622857153, 0, 0.880503118, 0)
-		Tab.Visible = false
-		Tab.ScrollBarThickness = 5
+		local TabFrame = Instance.new("ScrollingFrame")
+		local TabListLayout = Instance.new("UIListLayout")
 
-		local UIListLayout = Instance.new("UIListLayout")
-		UIListLayout.Parent = Tab
-		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		TabFrame.Name = tabName
+		TabFrame.Parent = Tabholder
+		TabFrame.Active = true
+		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		TabFrame.BorderSizePixel = 0
+		TabFrame.Size = UDim2.new(0, 327, 0, 280)
+		TabFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+		TabFrame.ScrollBarThickness = 5
+		TabFrame.Visible = false
+
+		TabListLayout.Parent = TabFrame
+		TabListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		TabListLayout.Padding = UDim.new(0, 5)
 
 		local tabfolder = {}
 
@@ -301,8 +303,8 @@ function Library:Create(xHubName)
 				pcall(callback)
 			end)
 		end
-
-
+		
+		
 		function tabfolder:Toggle(ToggName, callback)
 			local ToggName = ToggName or "Toggle"
 			local callback = callback or function() end
@@ -405,22 +407,26 @@ function Library:Create(xHubName)
 		end
 
 
-		-- Show the tab when the button is clicked
 		TabButton.MouseButton1Click:Connect(function()
-			for _, tab in pairs(Tabs:GetChildren()) do
-				tab.Visible = false
+			for _, frame in pairs(Tabholder:GetChildren()) do
+				if frame:IsA("ScrollingFrame") then
+					frame.Visible = false
+				end
 			end
-			Tab.Visible = true
+			TabFrame.Visible = true
 		end)
-
-
-
-
-
-
-
-
-
+		
+		-- Automatically show the first tab
+		if #Tabholder:GetChildren() == 1 then
+			TabFrame.Visible = true
+		end
+		
+		
+		
+		
+		
+		
+		
 		return tabfolder
 	end
 
