@@ -25,7 +25,7 @@ function Library:Create(xHubName)
 	local ActualSideListLayout = Instance.new("UIListLayout")
 	local TextButton = Instance.new("TextButton")
 	local UICorner_2 = Instance.new("UICorner")
-	local TabFrame = Instance.new("ScrollingFrame")
+	local Tabholder = Instance.new("ScrollingFrame")
 	local Tabs = Instance.new("Folder")
 	local UICorner_3 = Instance.new("UICorner")
 	local TabLayout = Instance.new("UIListLayout")
@@ -142,16 +142,25 @@ function Library:Create(xHubName)
 	UICorner_2.CornerRadius = UDim.new(0, 5)
 	UICorner_2.Parent = Main
 
-	
+	Tabholder.Name = "Tabholder"
+	Tabholder.Parent = Main
+	Tabholder.Active = true
+	Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Tabholder.BackgroundTransparency = 1.000
+	Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Tabholder.BorderSizePixel = 0
+	Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
+	Tabholder.Size = UDim2.new(0, 327, 0, 280)
+	Tabholder.ScrollBarThickness = 5
 
 	Tabs.Name = "Tabs"
-	Tabs.Parent = Main
+	Tabs.Parent = Tabholder
 
 	UICorner_3.CornerRadius = UDim.new(0, 12)
-	UICorner_3.Parent = TabFrame
+	UICorner_3.Parent = Tabholder
 
 	TabLayout.Name = "TabLayout"
-	TabLayout.Parent = TabFrame
+	TabLayout.Parent = Tabholder
 	TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 	ImageButtonK.Name = "ImageButtonK"
@@ -199,19 +208,18 @@ function Library:Create(xHubName)
 		TabButton.TextScaled = true
 		TabButton.TextSize = 14.000
 		TabButton.TextWrapped = true
-		
+
+		-- Create the actual tab content holder
 		local TabFrame = Instance.new("ScrollingFrame")
-		TabFrame.Name = "TabFrame"
-		TabFrame.Parent = Tabs
+		TabFrame.Name = tabName
+		TabFrame.Parent = Tabholder
 		TabFrame.Active = true
-		TabFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TabFrame.BackgroundTransparency = 1.000
-		TabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		TabFrame.BorderSizePixel = 0
-		TabFrame.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
-		TabFrame.Size = UDim2.new(0, 327, 0, 280)
+		TabFrame.Size = UDim2.new(0.622857153, 0, 0.880503118, 0)
+		TabFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 		TabFrame.ScrollBarThickness = 5
-		
+		TabFrame.Visible = false
 
 		local tabfolder = {}
 
@@ -308,22 +316,23 @@ function Library:Create(xHubName)
 			end)
 		end
 
-
-		-- Functionality to show the tab frame when the tab button is clicked
-		TabButton.MouseButton1Click:Connect(function()
-			-- Hide all tab frames first
-			for _, frame in ipairs(Tabs:GetChildren()) do
-				if frame:IsA("ScrollingFrame") then
-					frame.Visible = false
-				end
-			end
-			-- Show the corresponding tab frame
-			TabFrame.Visible = true
-		end)
+ -- Functionality to show the tab frame when the tab button is clicked
+    TabButton.MouseButton1Click:Connect(function()
+        -- Hide all tab frames first
+        for _, frame in ipairs(Tabholder:GetChildren()) do
+            if frame:IsA("ScrollingFrame") then
+                frame.Visible = false
+            end
+        end
+        -- Show the corresponding tab frame
+        TabFrame.Visible = true
+    end)
+		return tabfolder
+	end
 
 	-- Show the first tab by default
 	local function ShowFirstTab()
-		local firstTab = TabFrame:FindFirstChildOfClass("ScrollingFrame")
+		local firstTab = Tabholder:FindFirstChildOfClass("ScrollingFrame")
 		if firstTab then
 			firstTab.Visible = true
 		end
