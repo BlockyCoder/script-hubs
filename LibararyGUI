@@ -401,12 +401,7 @@ function Library:Create(xHubName)
 				UpdateToggle()
 				callback(ToggleEnabled)
 			end)
-			
-			
-			-- Automatically show the first tab
-			if #Tabholder:GetChildren() == 1 then
-				TabFrame.Visible = true
-			end
+
 			-- Initialize the toggle state
 			UpdateToggle()
 		end
