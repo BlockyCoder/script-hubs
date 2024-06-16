@@ -248,7 +248,7 @@ function Library:Create(xHubName)
 			--Properties:
 
 			Button.Name = "Button"
-			Button.Parent = Tab
+			Button.Parent = Tabholder
 			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 			Button.Position = UDim2.new(0, 0, 0.0954390168, 0)
 			Button.Selectable = false
@@ -401,32 +401,16 @@ function Library:Create(xHubName)
 				UpdateToggle()
 				callback(ToggleEnabled)
 			end)
-
+			
+			
+			-- Automatically show the first tab
+			if #Tabholder:GetChildren() == 1 then
+				TabFrame.Visible = true
+			end
 			-- Initialize the toggle state
 			UpdateToggle()
 		end
 
-
-		TabButton.MouseButton1Click:Connect(function()
-			for _, frame in pairs(Tabholder:GetChildren()) do
-				if frame:IsA("ScrollingFrame") then
-					frame.Visible = false
-				end
-			end
-			TabFrame.Visible = true
-		end)
-		
-		-- Automatically show the first tab
-		if #Tabholder:GetChildren() == 1 then
-			TabFrame.Visible = true
-		end
-		
-		
-		
-		
-		
-		
-		
 		return tabfolder
 	end
 
