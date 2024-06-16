@@ -211,8 +211,6 @@ function Library:Create(xHubName)
 
 		-- Create the actual tab content holder
 		local TabFrame = Instance.new("ScrollingFrame")
-		local TabListLayout = Instance.new("UIListLayout")
-
 		TabFrame.Name = tabName
 		TabFrame.Parent = Tabholder
 		TabFrame.Active = true
@@ -223,32 +221,12 @@ function Library:Create(xHubName)
 		TabFrame.ScrollBarThickness = 5
 		TabFrame.Visible = false
 
-		TabListLayout.Parent = TabFrame
-		TabListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		TabListLayout.Padding = UDim.new(0, 5)
-
 		local tabfolder = {}
 
 		-- Function to add a button to the tab
 		function tabfolder:Button(buttonName, callback)
-			-- Gui to Lua
-			-- Version: 3.2
-
-			-- Instances:
-
 			local Button = Instance.new("TextButton")
-			local UICorner = Instance.new("UICorner")
-			local TextLabel = Instance.new("TextLabel")
-			local UIPadding = Instance.new("UIPadding")
-			local Status = Instance.new("Frame")
-			local ActualThing = Instance.new("Frame")
-			local ImageLabel = Instance.new("ImageLabel")
-			local UIScale = Instance.new("UIScale")
-
-			--Properties:
-
-			Button.Name = "Button"
-			Button.Parent = Tabholder
+			Button.Parent = TabFrame
 			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 			Button.Position = UDim2.new(0, 0, 0.0954390168, 0)
 			Button.Selectable = false
@@ -256,9 +234,11 @@ function Library:Create(xHubName)
 			Button.AutoButtonColor = false
 			Button.Text = ""
 
+			local UICorner = Instance.new("UICorner")
 			UICorner.CornerRadius = UDim.new(0, 5)
 			UICorner.Parent = Button
 
+			local TextLabel = Instance.new("TextLabel")
 			TextLabel.Parent = Button
 			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			TextLabel.BackgroundTransparency = 1.000
@@ -269,106 +249,55 @@ function Library:Create(xHubName)
 			TextLabel.TextSize = 12.000
 			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
+			local UIPadding = Instance.new("UIPadding")
 			UIPadding.Parent = TextLabel
 			UIPadding.PaddingLeft = UDim.new(0, 10)
-
-			Status.Name = "Status"
-			Status.Parent = Button
-			Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Status.BackgroundTransparency = 1.000
-			Status.Position = UDim2.new(0.839826822, 0, 0, 0)
-			Status.Size = UDim2.new(0, 37, 0, 31)
-
-			ActualThing.Name = "ActualThing"
-			ActualThing.Parent = Status
-			ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
-			ActualThing.BackgroundColor3 = Color3.fromRGB(106, 0, 255)
-			ActualThing.BackgroundTransparency = 1.000
-			ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
-			ActualThing.Size = UDim2.new(0, 20, 0, 20)
-
-			ImageLabel.Parent = ActualThing
-			ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-			ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			ImageLabel.BackgroundTransparency = 1.000
-			ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-			ImageLabel.Size = UDim2.new(0, 20, 0, 20)
-			ImageLabel.Image = "rbxassetid://7734010488"
-			ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
-
-			UIScale.Parent = ImageLabel
-			UIScale.Scale = 0.800
 
 			Button.MouseButton1Click:Connect(function()
 				pcall(callback)
 			end)
 		end
-		
-		
-		function tabfolder:Toggle(ToggName, callback)
-			local ToggName = ToggName or "Toggle"
-			local callback = callback or function() end
-			local ToggleEnabled = false
 
-			-- Gui to Lua
-			-- Version: 3.2
-
-			-- Instances:
-
+		-- Function to add a toggle to the tab
+		function tabfolder:Toggle(toggleName, callback)
 			local Toggle = Instance.new("TextButton")
-			local UICorner = Instance.new("UICorner")
-			local TextLabel = Instance.new("TextLabel")
-			local UIPadding = Instance.new("UIPadding")
-			local Status = Instance.new("Frame")
-			local ToggleBckg = Instance.new("Frame")
-			local UICorner_2 = Instance.new("UICorner")
-			local Icon = Instance.new("ImageLabel")
-			local UIScale = Instance.new("UIScale")
-
-			--Properties:
-
-			Toggle.Name = "Toggle"
-			Toggle.Parent = Tabholder
+			Toggle.Parent = TabFrame
 			Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 			Toggle.Selectable = false
 			Toggle.Size = UDim2.new(0, 380, 0, 31)
 			Toggle.AutoButtonColor = false
 			Toggle.Text = ""
 
+			local UICorner = Instance.new("UICorner")
 			UICorner.CornerRadius = UDim.new(0, 5)
 			UICorner.Parent = Toggle
 
+			local TextLabel = Instance.new("TextLabel")
 			TextLabel.Parent = Toggle
 			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			TextLabel.BackgroundTransparency = 1.000
 			TextLabel.Size = UDim2.new(0, 283, 0, 31)
 			TextLabel.Font = Enum.Font.GothamMedium
-			TextLabel.Text = ToggName
+			TextLabel.Text = toggleName
 			TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
 			TextLabel.TextSize = 12.000
 			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
+			local UIPadding = Instance.new("UIPadding")
 			UIPadding.Parent = TextLabel
 			UIPadding.PaddingLeft = UDim.new(0, 10)
 
-			Status.Name = "Status"
-			Status.Parent = Toggle
-			Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Status.BackgroundTransparency = 1.000
-			Status.Position = UDim2.new(0.839826822, 0, 0, 0)
-			Status.Size = UDim2.new(0, 37, 0, 31)
-
-			ToggleBckg.Name = "ToggleBckg"
-			ToggleBckg.Parent = Status
-			ToggleBckg.AnchorPoint = Vector2.new(0.5, 0.5)
+			local ToggleBckg = Instance.new("Frame")
+			ToggleBckg.Parent = Toggle
 			ToggleBckg.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-			ToggleBckg.Position = UDim2.new(0.5, 0, 0.5, 0)
-			ToggleBckg.Size = UDim2.new(0, 20, 0, 20)
+			ToggleBckg.Position = UDim2.new(0.839826822, 0, 0, 0)
+			ToggleBckg.Size = UDim2.new(0, 37, 0, 31)
 
-			UICorner_2.CornerRadius = UDim.new(0, 5)
-			UICorner_2.Parent = ToggleBckg
+			local UICorner = Instance.new("UICorner")
+			UICorner.CornerRadius = UDim.new(0, 5)
+			UICorner.Parent = ToggleBckg
 
-			Icon.Name = "Icon"
+			local Icon = Instance.new("ImageLabel")
 			Icon.Parent = ToggleBckg
 			Icon.AnchorPoint = Vector2.new(0.5, 0.5)
 			Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -379,31 +308,18 @@ function Library:Create(xHubName)
 			Icon.ImageColor3 = Color3.fromRGB(0, 0, 0)
 			Icon.ImageTransparency = 1.000
 
+			local UIScale = Instance.new("UIScale")
 			UIScale.Parent = Icon
 			UIScale.Scale = 0.800
 
-			-- Toggle Functionality:
-
-			local function UpdateToggle()
-				if ToggleEnabled then
-					Icon.ImageTransparency = 0  -- Show the icon
-					-- Add any other visual changes for the enabled state
-					ToggleBckg.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
-				else
-					Icon.ImageTransparency = 1  -- Hide the icon
-					-- Add any other visual changes for the disabled state
-					ToggleBckg.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-				end
-			end
+			local ToggleEnabled = false
 
 			Toggle.MouseButton1Click:Connect(function()
 				ToggleEnabled = not ToggleEnabled
-				UpdateToggle()
+				Icon.ImageTransparency = ToggleEnabled and 0 or 1
+				ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(35, 35, 35)
 				callback(ToggleEnabled)
 			end)
-
-			-- Initialize the toggle state
-			UpdateToggle()
 		end
 
 		return tabfolder
@@ -411,7 +327,7 @@ function Library:Create(xHubName)
 
 	-- Show the first tab by default
 	local function ShowFirstTab()
-		local firstTab = Tabs:FindFirstChildOfClass("ScrollingFrame")
+		local firstTab = Tabholder:FindFirstChildOfClass("ScrollingFrame")
 		if firstTab then
 			firstTab.Visible = true
 		end
@@ -420,5 +336,4 @@ function Library:Create(xHubName)
 
 	return xtab
 end
-
 return Library
