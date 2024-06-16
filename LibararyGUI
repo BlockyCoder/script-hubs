@@ -216,7 +216,7 @@ function Library:Create(xHubName)
 		TabFrame.Active = true
 		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		TabFrame.BorderSizePixel = 0
-		TabFrame.Size = UDim2.new(0, 327, 0, 280)
+		TabFrame.Size = UDim2.new(0.622857153, 0, 0.880503118, 0)
 		TabFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 		TabFrame.ScrollBarThickness = 5
 		TabFrame.Visible = false
