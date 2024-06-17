@@ -450,19 +450,19 @@ function Library:Create(xHubName)
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 		-- Setup the list frame
-		List.Name = "List"
-		List.Parent = Dropdown
-		List.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		List.BackgroundTransparency = 1.000
-		List.Position = UDim2.new(0, 0, 1, 0)
-		List.Size = UDim2.new(1, 0, 0, 100)
-		List.Visible = false
+		--List.Name = "List"
+		--List.Parent = Dropdown
+		--List.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		--List.BackgroundTransparency = 1.000
+		--List.Position = UDim2.new(0, 0, 1, 0)
+		--List.Size = UDim2.new(1, 0, 0, 100)
+	--	List.Visible = false
 
-		UIListLayout_2.Parent = List
-		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+		--UIListLayout_2.Parent = List
+		--UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 
 		Holder.Name = "Holder"
-		Holder.Parent = List
+		Holder.Parent = Dropdown
 		Holder.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 		Holder.BackgroundTransparency = 1.000
 		Holder.BorderSizePixel = 0
