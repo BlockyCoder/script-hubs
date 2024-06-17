@@ -199,18 +199,13 @@ function Library:Create(xHubName)
 		TabFrame.Size = UDim2.new(1, 0, 1, 0)
 		TabFrame.Visible = false
 
-		local UIPadding = Instance.new("UIPadding")
-		UIPadding.Parent = TabFrame
-		UIPadding.PaddingTop = UDim.new(0, 10)
-		UIPadding.PaddingBottom = UDim.new(0, 10)
-		UIPadding.PaddingLeft = UDim.new(0, 10)
-		UIPadding.PaddingRight = UDim.new(0, 10)
 
 		local TabFLayout = Instance.new("UIListLayout")
+
 		TabFLayout.Name = "TabLayout"
 		TabFLayout.Parent = TabFrame
 		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		TabFLayout.Padding = UDim.new(0, 5)
+
 
 		if tabCount == 1 then
 			TabFrame.Visible = true
