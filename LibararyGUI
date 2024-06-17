@@ -369,7 +369,6 @@ function Library:Create(xHubName)
 	function Library:Dropdown(tab, Name, Listx, Callback)
 		local Name = Name or "Dropdown"
 		local Callback = Callback or function() end
-		local DropSize = 35
 		local opened = false
 
 		-- Clone the GUI elements
@@ -380,11 +379,10 @@ function Library:Create(xHubName)
 		local UIScale = Instance.new("UIScale")
 		local Title = Instance.new("TextLabel")
 		local UIPadding = Instance.new("UIPadding")
-		local UIListLayout = Instance.new("UIListLayout")
 		local List = Instance.new("Frame")
-		local UIListLayout_2 = Instance.new("UIListLayout")
+		local UIListLayout = Instance.new("UIListLayout")
 		local Holder = Instance.new("Frame")
-		local UIListLayout_3 = Instance.new("UIListLayout")
+		local UIListLayout_2 = Instance.new("UIListLayout")
 		local Seperator_2 = Instance.new("Frame")
 		local UICorner = Instance.new("UICorner")
 
@@ -445,37 +443,34 @@ function Library:Create(xHubName)
 		UIPadding.Parent = Title
 		UIPadding.PaddingLeft = UDim.new(0, 10)
 
+		-- Setup the list frame
+		List.Name = "List"
+		List.Parent = Dropdown
+		List.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		List.BackgroundTransparency = 1.000
+		List.Position = UDim2.new(0, 0, 1, 0)  -- Position below the Dropdown button
+		List.Size = UDim2.new(1, 0, 0, 100)  -- Adjust size as needed
+		List.Visible = false  -- Initially hidden
+		List.ZIndex = 2  -- Ensure dropdown list is above other UI elements
 
-		UIListLayout.Parent = Dropdown
+		UIListLayout.Parent = List
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-		-- Setup the list frame
-		--List.Name = "List"
-		--List.Parent = Dropdown
-		--List.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		--List.BackgroundTransparency = 1.000
-		--List.Position = UDim2.new(0, 0, 1, 0)
-		--List.Size = UDim2.new(1, 0, 0, 100)
-	--	List.Visible = false
-
-		--UIListLayout_2.Parent = List
-		--UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
-
 		Holder.Name = "Holder"
-		Holder.Parent = Dropdown
+		Holder.Parent = List
 		Holder.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 		Holder.BackgroundTransparency = 1.000
 		Holder.BorderSizePixel = 0
 		Holder.Position = UDim2.new(0, 0, 0, 0)
 		Holder.Size = UDim2.new(1, 0, 1, 0)
-		Holder.ZIndex = 100
+		Holder.ZIndex = 2  -- Ensure dropdown options container is above other UI elements
 
-		UIListLayout_3.Parent = Holder
-		UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
-		UIListLayout_3.Padding = UDim.new(0, 5)
+		UIListLayout_2.Parent = Holder
+		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+		UIListLayout_2.Padding = UDim.new(0, 5)
 
 		-- Add options to the dropdown
-		for i, v in pairs(Listx) do
+		for i, v in ipairs(Listx) do
 			local Option = Instance.new("TextButton")
 			local Title_2 = Instance.new("TextLabel")
 			local UIPadding_2 = Instance.new("UIPadding")
@@ -542,6 +537,7 @@ function Library:Create(xHubName)
 			List.Visible = opened
 		end)
 	end
+
 
 
 	ImageButtonK.MouseButton1Click:Connect(function()
