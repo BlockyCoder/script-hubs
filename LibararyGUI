@@ -245,6 +245,7 @@ function Library:Create(xHubName)
 		Button.Size = UDim2.new(0, 380, 0, 31)
 		Button.AutoButtonColor = false
 		Button.Text = ""
+		Button.ZIndex = 1
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
@@ -312,6 +313,7 @@ function Library:Create(xHubName)
 		Toggle.Size = UDim2.new(0, 315, 0, 36)  -- Adjusted to fit within the tab
 		Toggle.AutoButtonColor = false
 		Toggle.Text = ""
+		Toggle.ZIndex = 1
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
@@ -350,9 +352,9 @@ function Library:Create(xHubName)
 		Icon.ImageColor3 = Color3.fromRGB(0, 0, 0)
 		Icon.ImageTransparency = 1.000
 
-	--	local UIScale = Instance.new("UIScale")
-	--	UIScale.Parent = Icon
-	--	UIScale.Scale = 0.800
+		--	local UIScale = Instance.new("UIScale")
+		--	UIScale.Parent = Icon
+		--	UIScale.Scale = 0.800
 
 		local ToggleEnabled = false
 
@@ -443,8 +445,8 @@ function Library:Create(xHubName)
 
 		UIPadding.Parent = Title
 		UIPadding.PaddingLeft = UDim.new(0, 10)
-		
-		
+
+
 		UIListLayout.Parent = Dropdown
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
@@ -543,7 +545,7 @@ function Library:Create(xHubName)
 		end)
 	end
 
-	
+
 	ImageButtonK.MouseButton1Click:Connect(function()
 		if Main.Visible then
 			Main.Visible = false
