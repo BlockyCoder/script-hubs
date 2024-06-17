@@ -443,7 +443,6 @@ function Library:Create(xHubName)
 
 		UIPadding.Parent = Title
 		UIPadding.PaddingLeft = UDim.new(0, 10)
-		UIPadding.ZIndex = 1
 
 		UIListLayout.Parent = Dropdown
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -460,7 +459,6 @@ function Library:Create(xHubName)
 
 		UIListLayout_2.Parent = List
 		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
-		UIListLayout_2.ZIndex = 2
 
 		Holder.Name = "Holder"
 		Holder.Parent = List
@@ -474,7 +472,6 @@ function Library:Create(xHubName)
 		UIListLayout_3.Parent = Holder
 		UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout_3.Padding = UDim.new(0, 5)
-		UIListLayout_3.ZIndex = 2
 
 		-- Add options to the dropdown
 		for i, v in pairs(Listx) do
@@ -515,7 +512,6 @@ function Library:Create(xHubName)
 
 			UIPadding_2.Parent = Title_2
 			UIPadding_2.PaddingLeft = UDim.new(0, 10)
-			UIPadding_2.ZIndex = 2
 
 			Seperator.Name = "Seperator"
 			Seperator.Parent = Option
@@ -538,7 +534,6 @@ function Library:Create(xHubName)
 
 		UICorner.CornerRadius = UDim.new(0, 2)
 		UICorner.Parent = Dropdown
-		UICorner.ZIndex = 1
 
 		-- Toggle dropdown visibility
 		Dropdown.MouseButton1Click:Connect(function()
