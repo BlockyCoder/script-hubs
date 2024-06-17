@@ -1,559 +1,548 @@
 local Library = {}
 
 function Library:Create(xHubName)
-    xHubName = xHubName or "UI Library"
+	xHubName = xHubName or "UI Library"
 
-    local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
+	local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
 
-    local ScreenScript = Instance.new("ScreenGui")
-    local Main = Instance.new("Frame")
-    local Headerframe = Instance.new("Frame")
-    local Close = Instance.new("ImageButton")
-    local UICorner = Instance.new("UICorner")
-    local ImageLabel = Instance.new("ImageLabel")
-    local UIScale = Instance.new("UIScale")
-    local Title = Instance.new("TextButton")
-    local UIPadding = Instance.new("UIPadding")
-    local FirstSeperator = Instance.new("Frame")
-    local Siderframe = Instance.new("Frame")
-    local ActualSide = Instance.new("ScrollingFrame")
-    local ActualSideListLayout = Instance.new("UIListLayout")
-    local TextButton = Instance.new("TextButton")
-    local UICorner_2 = Instance.new("UICorner")
-    local Tabholder = Instance.new("ScrollingFrame")
-    local Tabs = Instance.new("Folder")
-    local UICorner_3 = Instance.new("UICorner")
-    local TabLayout = Instance.new("UIListLayout")
-    local ImageButtonK = Instance.new("ImageButton")
-    local ImageButtonKCorner = Instance.new("UICorner")
+	local ScreenScript = Instance.new("ScreenGui")
+	local Main = Instance.new("Frame")
+	local Headerframe = Instance.new("Frame")
+	local Close = Instance.new("ImageButton")
+	local UICorner = Instance.new("UICorner")
+	local ImageLabel = Instance.new("ImageLabel")
+	local UIScale = Instance.new("UIScale")
+	local Title = Instance.new("TextButton")
+	local UIPadding = Instance.new("UIPadding")
+	local FirstSeperator = Instance.new("Frame")
+	local Siderframe = Instance.new("Frame")
+	local ActualSide = Instance.new("ScrollingFrame")
+	local ActualSideListLayout = Instance.new("UIListLayout")
+	local TextButton = Instance.new("TextButton")
+	local UICorner_2 = Instance.new("UICorner")
+	local Tabholder = Instance.new("ScrollingFrame")
+	local Tabs = Instance.new("Folder")
+	local UICorner_3 = Instance.new("UICorner")
+	local TabLayout = Instance.new("UIListLayout")
+	local ImageButtonK = Instance.new("ImageButton")
+	local ImageButtonKCorner = Instance.new("UICorner")
 
-    ScreenScript.Name = LibraryName
-    ScreenScript.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-    ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	ScreenScript.Name = LibraryName
+	ScreenScript.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-    Main.Name = "Main"
-    Main.Parent = ScreenScript
-    Main.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-    Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Main.BorderSizePixel = 0
-    Main.Position = UDim2.new(0.272804052, 0, 0.243107766, 0)
-    Main.Size = UDim2.new(0.481064528, 0, 0.602093697, 0)
+	Main.Name = "Main"
+	Main.Parent = ScreenScript
+	Main.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+	Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Main.BorderSizePixel = 0
+	Main.Position = UDim2.new(0.272804052, 0, 0.243107766, 0)
+	Main.Size = UDim2.new(0.481064528, 0, 0.602093697, 0)
 
-    Headerframe.Name = "Headerframe"
-    Headerframe.Parent = Main
-    Headerframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Headerframe.BackgroundTransparency = 1.000
-    Headerframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    Headerframe.BorderSizePixel = 0
-    Headerframe.Size = UDim2.new(0, 525, 0, 37)
+	Headerframe.Name = "Headerframe"
+	Headerframe.Parent = Main
+	Headerframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Headerframe.BackgroundTransparency = 1.000
+	Headerframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Headerframe.BorderSizePixel = 0
+	Headerframe.Size = UDim2.new(0, 525, 0, 37)
 
-    Close.Name = "Close"
-    Close.Parent = Headerframe
-    Close.Active = false
-    Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Close.BackgroundTransparency = 1.000
-    Close.Position = UDim2.new(0.917412579, 0, 0.167417377, 0)
-    Close.Selectable = false
-    Close.Size = UDim2.new(0, 33, 0, 22)
+	Close.Name = "Close"
+	Close.Parent = Headerframe
+	Close.Active = false
+	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Close.BackgroundTransparency = 1.000
+	Close.Position = UDim2.new(0.917412579, 0, 0.167417377, 0)
+	Close.Selectable = false
+	Close.Size = UDim2.new(0, 33, 0, 22)
 
-    UICorner.CornerRadius = UDim.new(0, 4)
-    UICorner.Parent = Close
+	UICorner.CornerRadius = UDim.new(0, 4)
+	UICorner.Parent = Close
 
-    ImageLabel.Parent = Close
-    ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-    ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ImageLabel.BackgroundTransparency = 1.000
-    ImageLabel.Position = UDim2.new(0.500000775, 1, 0.545454264, 0)
-    ImageLabel.Size = UDim2.new(0, 21, 0, 21)
-    ImageLabel.Image = "rbxassetid://7743878857"
+	ImageLabel.Parent = Close
+	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageLabel.BackgroundTransparency = 1.000
+	ImageLabel.Position = UDim2.new(0.500000775, 1, 0.545454264, 0)
+	ImageLabel.Size = UDim2.new(0, 21, 0, 21)
+	ImageLabel.Image = "rbxassetid://7743878857"
 
-    UIScale.Parent = ImageLabel
-    UIScale.Scale = 0.700
+	UIScale.Parent = ImageLabel
+	UIScale.Scale = 0.700
 
-    Title.Name = "Title"
-    Title.Parent = Headerframe
-    Title.Active = false
-    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Title.BackgroundTransparency = 1.000
-    Title.Position = UDim2.new(0.00192685076, 0, 0, 0)
-    Title.Selectable = false
-    Title.Size = UDim2.new(0, 323, 0, 36)
-    Title.Font = Enum.Font.GothamMedium
-    Title.Text = xHubName
-    Title.TextColor3 = Color3.fromRGB(161, 161, 161)
-    Title.TextScaled = true
-    Title.TextSize = 13.000
-    Title.TextWrapped = true
-    Title.TextXAlignment = Enum.TextXAlignment.Left
+	Title.Name = "Title"
+	Title.Parent = Headerframe
+	Title.Active = false
+	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title.BackgroundTransparency = 1.000
+	Title.Position = UDim2.new(0.00192685076, 0, 0, 0)
+	Title.Selectable = false
+	Title.Size = UDim2.new(0, 323, 0, 36)
+	Title.Font = Enum.Font.GothamMedium
+	Title.Text = xHubName
+	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
+	Title.TextScaled = true
+	Title.TextSize = 13.000
+	Title.TextWrapped = true
+	Title.TextXAlignment = Enum.TextXAlignment.Left
 
-    UIPadding.Parent = Title
-    UIPadding.PaddingLeft = UDim.new(0, 10)
+	UIPadding.Parent = Title
+	UIPadding.PaddingLeft = UDim.new(0, 10)
 
-    FirstSeperator.Name = "FirstSeperator"
-    FirstSeperator.Parent = Main
-    FirstSeperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
-    FirstSeperator.BorderSizePixel = 0
-    FirstSeperator.Position = UDim2.new(-2.58091513e-05, 0, 0.116352201, 0)
-    FirstSeperator.Size = UDim2.new(0, 525, 0, 1)
-    FirstSeperator.ZIndex = 5
+	FirstSeperator.Name = "FirstSeperator"
+	FirstSeperator.Parent = Main
+	FirstSeperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
+	FirstSeperator.BorderSizePixel = 0
+	FirstSeperator.Position = UDim2.new(-2.58091513e-05, 0, 0.116352201, 0)
+	FirstSeperator.Size = UDim2.new(0, 525, 0, 1)
+	FirstSeperator.ZIndex = 5
 
-    Siderframe.Name = "Siderframe"
-    Siderframe.Parent = Main
-    Siderframe.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-    Siderframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    Siderframe.BorderSizePixel = 0
-    Siderframe.Position = UDim2.new(-0.00190476188, 0, 0.119496852, 0)
-    Siderframe.Size = UDim2.new(0, 199, 0, 280)
+	Siderframe.Name = "Siderframe"
+	Siderframe.Parent = Main
+	Siderframe.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+	Siderframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Siderframe.BorderSizePixel = 0
+	Siderframe.Position = UDim2.new(-0.00190476188, 0, 0.119496852, 0)
+	Siderframe.Size = UDim2.new(0, 199, 0, 280)
 
-    ActualSide.Name = "ActualSide"
-    ActualSide.Parent = Siderframe
-    ActualSide.Active = true
-    ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ActualSide.BackgroundTransparency = 1.000
-    ActualSide.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    ActualSide.BorderSizePixel = 0
-    ActualSide.Size = UDim2.new(0, 198, 0, 239)
-    ActualSide.ScrollBarThickness = 2
+	ActualSide.Name = "ActualSide"
+	ActualSide.Parent = Siderframe
+	ActualSide.Active = true
+	ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ActualSide.BackgroundTransparency = 1.000
+	ActualSide.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ActualSide.BorderSizePixel = 0
+	ActualSide.Size = UDim2.new(0, 198, 0, 239)
+	ActualSide.ScrollBarThickness = 2
 
-    ActualSideListLayout.Name = "ActualSideListLayout"
-    ActualSideListLayout.Parent = ActualSide
-    ActualSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	ActualSideListLayout.Name = "ActualSideListLayout"
+	ActualSideListLayout.Parent = ActualSide
+	ActualSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-    TextButton.Parent = Siderframe
-    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextButton.BackgroundTransparency = 1.000
-    TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    TextButton.BorderSizePixel = 0
-    TextButton.Position = UDim2.new(-0.00502512557, 0, 0.853571415, 0)
-    TextButton.Size = UDim2.new(0, 200, 0, 41)
-    TextButton.Font = Enum.Font.SourceSans
-    TextButton.Text = "Place ID"
-    TextButton.TextColor3 = Color3.fromRGB(0, 255, 157)
-    TextButton.TextScaled = true
-    TextButton.TextSize = 14.000
-    TextButton.TextWrapped = true
+	TextButton.Parent = Siderframe
+	TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextButton.BackgroundTransparency = 1.000
+	TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextButton.BorderSizePixel = 0
+	TextButton.Position = UDim2.new(-0.00502512557, 0, 0.853571415, 0)
+	TextButton.Size = UDim2.new(0, 200, 0, 41)
+	TextButton.Font = Enum.Font.SourceSans
+	TextButton.Text = "Place ID"
+	TextButton.TextColor3 = Color3.fromRGB(0, 255, 157)
+	TextButton.TextScaled = true
+	TextButton.TextSize = 14.000
+	TextButton.TextWrapped = true
 
-    UICorner_2.CornerRadius = UDim.new(0, 5)
-    UICorner_2.Parent = Main
+	UICorner_2.CornerRadius = UDim.new(0, 5)
+	UICorner_2.Parent = Main
 
-    Tabholder.Name = "Tabholder"
-    Tabholder.Parent = Main
-    Tabholder.Active = true
-    Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Tabholder.BackgroundTransparency = 1.000
-    Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    Tabholder.BorderSizePixel = 0
-    Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
-    Tabholder.Size = UDim2.new(0, 327, 0, 280)
-    Tabholder.ScrollBarThickness = 5
+	Tabholder.Name = "Tabholder"
+	Tabholder.Parent = Main
+	Tabholder.Active = true
+	Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Tabholder.BackgroundTransparency = 1.000
+	Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Tabholder.BorderSizePixel = 0
+	Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
+	Tabholder.Size = UDim2.new(0, 327, 0, 280)
+	Tabholder.ScrollBarThickness = 5
 
-    Tabs.Name = "Tabs"
-    Tabs.Parent = Tabholder
+	Tabs.Name = "Tabs"
+	Tabs.Parent = Tabholder
 
-    UICorner_3.CornerRadius = UDim.new(0, 12)
-    UICorner_3.Parent = Tabholder
+	UICorner_3.CornerRadius = UDim.new(0, 12)
+	UICorner_3.Parent = Tabholder
 
-    TabLayout.Name = "TabLayout"
-    TabLayout.Parent = Tabholder
-    TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	TabLayout.Name = "TabLayout"
+	TabLayout.Parent = Tabholder
+	TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-    ImageButtonK.Name = "ImageButtonK"
-    ImageButtonK.Parent = ScreenScript
-    ImageButtonK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ImageButtonK.BackgroundTransparency = 1.000
-    ImageButtonK.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    ImageButtonK.BorderSizePixel = 0
-    ImageButtonK.Position = UDim2.new(0.00872600456, 0, 0.00774316778, 0)
-    ImageButtonK.Size = UDim2.new(0, 37, 0, 37)
-    ImageButtonK.Image = "rbxassetid://7743878857"
+	ImageButtonK.Name = "ImageButtonK"
+	ImageButtonK.Parent = ScreenScript
+	ImageButtonK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageButtonK.BackgroundTransparency = 1.000
+	ImageButtonK.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ImageButtonK.BorderSizePixel = 0
+	ImageButtonK.Position = UDim2.new(0.00872600456, 0, 0.00774316778, 0)
+	ImageButtonK.Size = UDim2.new(0, 37, 0, 37)
+	ImageButtonK.Image = "rbxassetid://7743878857"
 
-    ImageButtonKCorner.CornerRadius = UDim.new(1, 0)
-    ImageButtonKCorner.Name = "ImageButtonKCorner"
-    ImageButtonKCorner.Parent = ImageButtonK
+	ImageButtonKCorner.CornerRadius = UDim.new(1, 0)
+	ImageButtonKCorner.Name = "ImageButtonKCorner"
+	ImageButtonKCorner.Parent = ImageButtonK
 
-    local LibraryTabs = {}
-    local tabCount = 0
+	local LibraryTabs = {}
+	local tabCount = 0
 
-    function Library:CreateTab(tabName)
-        tabCount = tabCount + 1
+	function Library:CreateTab(tabName)
+		tabCount = tabCount + 1
 
-        local TabButton = Instance.new("TextButton")
-        TabButton.Parent = ActualSide
-        TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-        TabButton.Size = UDim2.new(0, 200, 0, 30)
-        TabButton.Font = Enum.Font.Gotham
-        TabButton.Text = tabName
-        TabButton.TextColor3 = Color3.fromRGB(193, 193, 193)
-        TabButton.TextSize = 14.000
+		local TabButton = Instance.new("TextButton")
+		TabButton.Parent = ActualSide
+		TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		TabButton.Size = UDim2.new(0, 200, 0, 30)
+		TabButton.Font = Enum.Font.Gotham
+		TabButton.Text = tabName
+		TabButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+		TabButton.TextSize = 14.000
 
-        local UICorner = Instance.new("UICorner")
-        UICorner.CornerRadius = UDim.new(0, 5)
-        UICorner.Parent = TabButton
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = TabButton
 
-        local TabFrame = Instance.new("Frame")
-        TabFrame.Name = tabName .. "_Frame"
-        TabFrame.Parent = Tabs
-        TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-        TabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-        TabFrame.BorderSizePixel = 0
-        TabFrame.Size = UDim2.new(1, 0, 1, 0)
-        TabFrame.Visible = false
-
-
-    local TabFLayout = Instance.new("UIListLayout")
-
-TabFLayout.Name = "TabLayout"
-    TabFLayout.Parent = TabFrame
-    TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		local TabFrame = Instance.new("Frame")
+		TabFrame.Name = tabName .. "_Frame"
+		TabFrame.Parent = Tabs
+		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		TabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		TabFrame.BorderSizePixel = 0
+		TabFrame.Size = UDim2.new(1, 0, 1, 0)
+		TabFrame.Visible = false
 
 
-        if tabCount == 1 then
-            TabFrame.Visible = true
-            TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-        end
+		local TabFLayout = Instance.new("UIListLayout")
 
-        TabButton.MouseButton1Click:Connect(function()
-            for _, v in pairs(Tabs:GetChildren()) do
-                if v:IsA("Frame") then
-                    v.Visible = false
-                end
-            end
-            for _, v in pairs(ActualSide:GetChildren()) do
-                if v:IsA("TextButton") then
-                    v.TextColor3 = Color3.fromRGB(193, 193, 193)
-                end
-            end
-            TabFrame.Visible = true
-            TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-        end)
-
-        LibraryTabs[tabName] = TabFrame
-        return TabFrame
-    end
+		TabFLayout.Name = "TabLayout"
+		TabFLayout.Parent = TabFrame
+		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 
-function Library:CreateButton(tab, buttonName, callback)
-    callback = callback or function() end
+		if tabCount == 1 then
+			TabFrame.Visible = true
+			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		end
 
-    local Button = Instance.new("TextButton")
-    Button.Parent = tab
-    Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    Button.Position = UDim2.new(0, 0, 0.0954390168, 0)
-    Button.Selectable = false
-    Button.Size = UDim2.new(0, 380, 0, 31)
-    Button.AutoButtonColor = false
-    Button.Text = ""
+		TabButton.MouseButton1Click:Connect(function()
+			for _, v in pairs(Tabs:GetChildren()) do
+				if v:IsA("Frame") then
+					v.Visible = false
+				end
+			end
+			for _, v in pairs(ActualSide:GetChildren()) do
+				if v:IsA("TextButton") then
+					v.TextColor3 = Color3.fromRGB(193, 193, 193)
+				end
+			end
+			TabFrame.Visible = true
+			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		end)
 
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 5)
-    UICorner.Parent = Button
+		LibraryTabs[tabName] = TabFrame
+		return TabFrame
+	end
 
-    local TextLabel = Instance.new("TextLabel")
-    TextLabel.Parent = Button
-    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel.BackgroundTransparency = 1.000
-    TextLabel.Size = UDim2.new(0, 283, 0, 31)
-    TextLabel.Font = Enum.Font.GothamMedium
-    TextLabel.Text = buttonName
-    TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-    TextLabel.TextSize = 12.000
-    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-    local UIPadding = Instance.new("UIPadding")
-    UIPadding.Parent = TextLabel
-    UIPadding.PaddingLeft = UDim.new(0, 10)
+	function Library:CreateButton(tab, buttonName, callback)
+		callback = callback or function() end
 
-    local Status = Instance.new("Frame")
-    Status.Name = "Status"
-    Status.Parent = Button
-    Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Status.BackgroundTransparency = 1.000
-    Status.Position = UDim2.new(0.839826822, 0, 0, 0)
-    Status.Size = UDim2.new(0, 37, 0, 31)
+		local Button = Instance.new("TextButton")
+		Button.Parent = tab
+		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Button.Position = UDim2.new(0, 0, 0.0954390168, 0)
+		Button.Selectable = false
+		Button.Size = UDim2.new(0, 380, 0, 31)
+		Button.AutoButtonColor = false
+		Button.Text = ""
 
-    local ActualThing = Instance.new("Frame")
-    ActualThing.Name = "ActualThing"
-    ActualThing.Parent = Status
-    ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
-    ActualThing.BackgroundColor3 = Color3.fromRGB(106, 0, 255)
-    ActualThing.BackgroundTransparency = 1.000
-    ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
-    ActualThing.Size = UDim2.new(0, 20, 0, 20)
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = Button
 
-    local ImageLabel = Instance.new("ImageLabel")
-    ImageLabel.Parent = ActualThing
-    ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-    ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ImageLabel.BackgroundTransparency = 1.000
-    ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-    ImageLabel.Size = UDim2.new(0, 20, 0, 20)
-    ImageLabel.Image = "rbxassetid://7734010488"
-    ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
+		local TextLabel = Instance.new("TextLabel")
+		TextLabel.Parent = Button
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.BackgroundTransparency = 1.000
+		TextLabel.Size = UDim2.new(0, 283, 0, 31)
+		TextLabel.Font = Enum.Font.GothamMedium
+		TextLabel.Text = buttonName
+		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+		TextLabel.TextSize = 12.000
+		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-    local UIScale = Instance.new("UIScale")
-    UIScale.Parent = ImageLabel
-    UIScale.Scale = 0.800
+		local UIPadding = Instance.new("UIPadding")
+		UIPadding.Parent = TextLabel
+		UIPadding.PaddingLeft = UDim.new(0, 10)
 
-    Button.MouseButton1Click:Connect(function()
-        callback()
-    end)
+		local Status = Instance.new("Frame")
+		Status.Name = "Status"
+		Status.Parent = Button
+		Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Status.BackgroundTransparency = 1.000
+		Status.Position = UDim2.new(0.839826822, 0, 0, 0)
+		Status.Size = UDim2.new(0, 37, 0, 31)
 
-    return Button
-end
+		local ActualThing = Instance.new("Frame")
+		ActualThing.Name = "ActualThing"
+		ActualThing.Parent = Status
+		ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
+		ActualThing.BackgroundColor3 = Color3.fromRGB(106, 0, 255)
+		ActualThing.BackgroundTransparency = 1.000
+		ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
+		ActualThing.Size = UDim2.new(0, 20, 0, 20)
 
-function Library:CreateToggle(tab, toggleName, callback)
-    callback = callback or function() end
+		local ImageLabel = Instance.new("ImageLabel")
+		ImageLabel.Parent = ActualThing
+		ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+		ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		ImageLabel.BackgroundTransparency = 1.000
+		ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+		ImageLabel.Size = UDim2.new(0, 20, 0, 20)
+		ImageLabel.Image = "rbxassetid://7734010488"
+		ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
 
-    local Toggle = Instance.new("TextButton")
-    Toggle.Parent = tab
-    Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    Toggle.Size = UDim2.new(0, 315, 0, 36)  -- Adjusted to fit within the tab
-    Toggle.AutoButtonColor = false
-    Toggle.Text = ""
+		local UIScale = Instance.new("UIScale")
+		UIScale.Parent = ImageLabel
+		UIScale.Scale = 0.800
 
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 5)
-    UICorner.Parent = Toggle
+		Button.MouseButton1Click:Connect(function()
+			callback()
+		end)
 
-    local TextLabel = Instance.new("TextLabel")
-    TextLabel.Parent = Toggle
-    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel.BackgroundTransparency = 1.000
-    TextLabel.Size = UDim2.new(0, 283, 0, 36)
-    TextLabel.Position = UDim2.new(0, 10, 0, 0)
-    TextLabel.Font = Enum.Font.GothamMedium
-    TextLabel.Text = toggleName
-    TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-    TextLabel.TextSize = 12.000
-    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+		return Button
+	end
 
-    local ToggleBckg = Instance.new("Frame")
-    ToggleBckg.Parent = Toggle
-    ToggleBckg.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-    ToggleBckg.Position = UDim2.new(0.9, 0, 0.1, 0)
-    ToggleBckg.Size = UDim2.new(0, 25, 0, 25)  -- Adjusted size and position for better fit
+	function Library:CreateToggle(tab, toggleName, callback)
+		callback = callback or function() end
 
-    local UICorner_2 = Instance.new("UICorner")
-    UICorner_2.CornerRadius = UDim.new(0, 5)
-    UICorner_2.Parent = ToggleBckg
+		local Toggle = Instance.new("TextButton")
+		Toggle.Parent = tab
+		Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Toggle.Size = UDim2.new(0, 315, 0, 36)  -- Adjusted to fit within the tab
+		Toggle.AutoButtonColor = false
+		Toggle.Text = ""
 
-    local Icon = Instance.new("ImageLabel")
-    Icon.Parent = ToggleBckg
-    Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-    Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Icon.BackgroundTransparency = 1.000
-    Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
-    Icon.Size = UDim2.new(0, 20, 0, 20)
-    Icon.Image = "http://www.roblox.com/asset/?id=13319773302"
-    Icon.ImageColor3 = Color3.fromRGB(0, 0, 0)
-    Icon.ImageTransparency = 1.000
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = Toggle
 
-    local UIScale = Instance.new("UIScale")
-    UIScale.Parent = Icon
-    UIScale.Scale = 0.800
+		local TextLabel = Instance.new("TextLabel")
+		TextLabel.Parent = Toggle
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.BackgroundTransparency = 1.000
+		TextLabel.Size = UDim2.new(0, 283, 0, 36)
+		TextLabel.Position = UDim2.new(0, 10, 0, 0)
+		TextLabel.Font = Enum.Font.GothamMedium
+		TextLabel.Text = toggleName
+		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+		TextLabel.TextSize = 12.000
+		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-    local ToggleEnabled = false
+		local ToggleBckg = Instance.new("Frame")
+		ToggleBckg.Parent = Toggle
+		ToggleBckg.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+		ToggleBckg.Position = UDim2.new(0.9, 0, 0.1, 0)
+		ToggleBckg.Size = UDim2.new(0, 25, 0, 25)  -- Adjusted size and position for better fit
 
-    Toggle.MouseButton1Click:Connect(function()
-        ToggleEnabled = not ToggleEnabled
-        ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(88, 88, 88)
-        callback(ToggleEnabled)
-    end)
+		local UICorner_2 = Instance.new("UICorner")
+		UICorner_2.CornerRadius = UDim.new(0, 5)
+		UICorner_2.Parent = ToggleBckg
 
-    return Toggle
-end
+		local Icon = Instance.new("ImageLabel")
+		Icon.Parent = ToggleBckg
+		Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+		Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Icon.BackgroundTransparency = 1.000
+		Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
+		Icon.Size = UDim2.new(0, 20, 0, 20)
+		Icon.Image = "http://www.roblox.com/asset/?id=13319773302"
+		Icon.ImageColor3 = Color3.fromRGB(0, 0, 0)
+		Icon.ImageTransparency = 1.000
 
-function Library:Dropdown(tab, Name, Listx, Callback)
-    local Name = Name or "Dropdown"
-    local DropdownFunction = {}
-    local Callback = Callback or function() end
-    local DropSize = 35
-    local opened = false
-    
-    -- Create the Dropdown GUI elements
-    local Dropdown = Instance.new("TextButton")
-    Dropdown.Name = "Dropdown"
-    Dropdown.Parent = tab
-    Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    Dropdown.Selectable = false
-    Dropdown.Size = UDim2.new(0, 380, 0, 60)
-    Dropdown.AutoButtonColor = false
-    Dropdown.Text = ""
-    
-    local Main = Instance.new("Frame")
-    Main.Name = "Main"
-    Main.Parent = Dropdown
-    Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Main.BackgroundTransparency = 1.000
-    Main.Size = UDim2.new(0, 369, 0, 31)
-    
-    local Image = Instance.new("Frame")
-    Image.Name = "Image"
-    Image.Parent = Main
-    Image.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Image.BackgroundTransparency = 1.000
-    Image.Position = UDim2.new(0.85281384, 0, 0, 0)
-    Image.Size = UDim2.new(0, 31, 0, 31)
-    
-    local ImageLabel = Instance.new("ImageLabel")
-    ImageLabel.Parent = Image
-    ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-    ImageLabel.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
-    ImageLabel.BackgroundTransparency = 1.000
-    ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-    ImageLabel.Size = UDim2.new(0, 31, 0, 31)
-    ImageLabel.Image = "http://www.roblox.com/asset/?id=13025551568"
-    ImageLabel.ImageColor3 = Color3.fromRGB(109, 109, 109)
-    
-    local UIScale = Instance.new("UIScale")
-    UIScale.Parent = ImageLabel
-    UIScale.Scale = 0.700
-    
-    local Title = Instance.new("TextLabel")
-    Title.Name = "Title"
-    Title.Parent = Main
-    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Title.BackgroundTransparency = 1.000
-    Title.Size = UDim2.new(0, 269, 0, 31)
-    Title.Font = Enum.Font.GothamMedium
-    Title.Text = Name
-    Title.TextColor3 = Color3.fromRGB(193, 193, 193)
-    Title.TextSize = 12.000
-    Title.TextXAlignment = Enum.TextXAlignment.Left
-    
-    local UIPadding = Instance.new("UIPadding")
-    UIPadding.Parent = Title
-    UIPadding.PaddingLeft = UDim.new(0, 10)
-    
-    local UIListLayout = Instance.new("UIListLayout")
-    UIListLayout.Parent = Dropdown
-    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    
-    local List = Instance.new("Frame")
-    List.Name = "List"
-    List.Parent = Dropdown
-    List.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    List.BackgroundTransparency = 1.000
-    List.Position = UDim2.new(-4.81856489e-07, 0, 0.516666651, 0)
-    List.Size = UDim2.new(0, 319, 0, 29)
-    
-    local UIListLayout_2 = Instance.new("UIListLayout")
-    UIListLayout_2.Parent = List
-    UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
-    
-    local Holder = Instance.new("Frame")
-    Holder.Name = "Holder"
-    Holder.Parent = List
-    Holder.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    Holder.BackgroundTransparency = 1.000
-    Holder.BorderSizePixel = 0
-    Holder.Position = UDim2.new(0, 0, 0.0454545468, 0)
-    Holder.Size = UDim2.new(0, 231, 0, 21)
-    
-    local UIListLayout_3 = Instance.new("UIListLayout")
-    UIListLayout_3.Parent = Holder
-    UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
-    UIListLayout_3.Padding = UDim.new(0, 5)
-    
-    local Option = Instance.new("TextButton")
-    Option.Name = "Option"
-    Option.Parent = Holder
-    Option.Active = false
-    Option.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    Option.BorderSizePixel = 0
-    Option.Selectable = false
-    Option.Size = UDim2.new(0, 231, 0, 23)
-    Option.AutoButtonColor = false
-    Option.Text = ""
-    
-    local Title_2 = Instance.new("TextLabel")
-    Title_2.Name = "Title"
-    Title_2.Parent = Option
-    Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Title_2.BackgroundTransparency = 1.000
-    Title_2.Position = UDim2.new(0, 0, -0.0909090936, 0)
-    Title_2.Size = UDim2.new(0, 231, 0, 23)
-    Title_2.Font = Enum.Font.Unknown
-    Title_2.TextColor3 = Color3.fromRGB(175, 175, 175)
-    Title_2.TextSize = 11.000
-    Title_2.TextXAlignment = Enum.TextXAlignment.Left
-    
-    local UIPadding_2 = Instance.new("UIPadding")
-    UIPadding_2.Parent = Title_2
-    UIPadding_2.PaddingLeft = UDim.new(0, 10)
-    
-    local Seperator = Instance.new("Frame")
-    Seperator.Name = "Seperator"
-    Seperator.Parent = Option
-    Seperator.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    Seperator.BorderSizePixel = 0
-    Seperator.LayoutOrder = -1
-    Seperator.Position = UDim2.new(0, 0, 1, 0)
-    Seperator.Size = UDim2.new(0, 231, 0, 1)
-    
-    local UIPadding_3 = Instance.new("UIPadding")
-    UIPadding_3.Parent = Holder
-    UIPadding_3.PaddingTop = UDim.new(0, 5)
-    
-    local Seperator_2 = Instance.new("Frame")
-    Seperator_2.Name = "Seperator"
-    Seperator_2.Parent = List
-    Seperator_2.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    Seperator_2.BorderSizePixel = 0
-    Seperator_2.LayoutOrder = -1
-    Seperator_2.Position = UDim2.new(-5.73998307e-07, 0, 0, 0)
-    Seperator_2.Size = UDim2.new(0, 319, 0, 1)
-    
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 2)
-    UICorner.Parent = Dropdown
-    
-    -- Options creation function
-    local function createOption(optionName)
-        local OptionClone = Option:Clone()
-        OptionClone.Text = optionName
-        OptionClone.Parent = Holder
-        OptionClone.MouseButton1Click:Connect(function()
-            Title.Text = Name .. " - " .. optionName
-            Callback(optionName)
-            DropdownFunction.selected = optionName
-        end)
-        return OptionClone
-    end
-    
-    -- Initialize options from Listx
-    for _, option in ipairs(Listx) do
-        createOption(option)
-    end
-    
-    -- Dropdown toggle function
-    Dropdown.MouseButton1Click:Connect(function()
-        if opened then
-            opened = false
-            List.Size = UDim2.new(0, 319, 0, 29)
-        else
-            opened = true
-            List.Size = UDim2.new(0, 319, 0, 29 + (UIListLayout_3.AbsoluteContentSize.Y + 10))
-        end
-    end)
-    
-    -- Return the DropdownFunction table
-    return DropdownFunction
-end
+		local UIScale = Instance.new("UIScale")
+		UIScale.Parent = Icon
+		UIScale.Scale = 0.800
 
-    ImageButtonK.MouseButton1Click:Connect(function()
-        if Main.Visible then
-            Main.Visible = false
-        else
-            Main.Visible = true
-        end
-    end)
+		local ToggleEnabled = false
 
-    Close.MouseButton1Click:Connect(function()
-        ScreenScript:Destroy()
-    end)
+		Toggle.MouseButton1Click:Connect(function()
+			ToggleEnabled = not ToggleEnabled
+			ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(88, 88, 88)
+			callback(ToggleEnabled)
+		end)
 
-    return Library
+		return Toggle
+	end
+
+	function Library:Dropdown(tab, Name, Listx, Callback)
+		local Name = Name or "Dropdown"
+		local Callback = Callback or function() end
+		local DropSize = 35
+		local opened = false
+
+		-- Clone the GUI elements
+		local Dropdown = Instance.new("TextButton")
+		local Main = Instance.new("Frame")
+		local Image = Instance.new("Frame")
+		local ImageLabel = Instance.new("ImageLabel")
+		local UIScale = Instance.new("UIScale")
+		local Title = Instance.new("TextLabel")
+		local UIPadding = Instance.new("UIPadding")
+		local UIListLayout = Instance.new("UIListLayout")
+		local List = Instance.new("Frame")
+		local UIListLayout_2 = Instance.new("UIListLayout")
+		local Holder = Instance.new("Frame")
+		local UIListLayout_3 = Instance.new("UIListLayout")
+		local Seperator_2 = Instance.new("Frame")
+		local UICorner = Instance.new("UICorner")
+
+		-- Setup the dropdown button
+		Dropdown.Name = Name
+		Dropdown.Parent = tab
+		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Dropdown.Selectable = false
+		Dropdown.Size = UDim2.new(1, 0, 0, 60)
+		Dropdown.AutoButtonColor = false
+		Dropdown.Text = ""
+
+		-- Setup the main frame
+		Main.Name = "Main"
+		Main.Parent = Dropdown
+		Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Main.BackgroundTransparency = 1.000
+		Main.Size = UDim2.new(1, -20, 0, 31)
+		Main.Position = UDim2.new(0, 10, 0, 0)
+
+		-- Setup the image frame
+		Image.Name = "Image"
+		Image.Parent = Main
+		Image.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Image.BackgroundTransparency = 1.000
+		Image.Position = UDim2.new(0.9, 0, 0, 0)
+		Image.Size = UDim2.new(0, 31, 0, 31)
+
+		ImageLabel.Parent = Image
+		ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+		ImageLabel.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+		ImageLabel.BackgroundTransparency = 1.000
+		ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+		ImageLabel.Size = UDim2.new(0, 31, 0, 31)
+		ImageLabel.Image = "http://www.roblox.com/asset/?id=13025551568"
+		ImageLabel.ImageColor3 = Color3.fromRGB(109, 109, 109)
+
+		UIScale.Parent = ImageLabel
+		UIScale.Scale = 0.700
+
+		-- Setup the title label
+		Title.Name = "Title"
+		Title.Parent = Main
+		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Title.BackgroundTransparency = 1.000
+		Title.Size = UDim2.new(0.9, -40, 0, 31)
+		Title.Font = Enum.Font.GothamMedium
+		Title.Text = Name
+		Title.TextColor3 = Color3.fromRGB(193, 193, 193)
+		Title.TextSize = 12.000
+		Title.TextXAlignment = Enum.TextXAlignment.Left
+
+		UIPadding.Parent = Title
+		UIPadding.PaddingLeft = UDim.new(0, 10)
+
+		UIListLayout.Parent = Dropdown
+		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+		-- Setup the list frame
+		List.Name = "List"
+		List.Parent = Dropdown
+		List.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		List.BackgroundTransparency = 1.000
+		List.Position = UDim2.new(0, 0, 1, 0)
+		List.Size = UDim2.new(1, 0, 0, 100)
+		List.Visible = false
+
+		UIListLayout_2.Parent = List
+		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+
+		Holder.Name = "Holder"
+		Holder.Parent = List
+		Holder.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+		Holder.BackgroundTransparency = 1.000
+		Holder.BorderSizePixel = 0
+		Holder.Position = UDim2.new(0, 0, 0, 0)
+		Holder.Size = UDim2.new(1, 0, 1, 0)
+
+		UIListLayout_3.Parent = Holder
+		UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
+		UIListLayout_3.Padding = UDim.new(0, 5)
+
+		-- Add options to the dropdown
+		for i, v in pairs(Listx) do
+			local Option = Instance.new("TextButton")
+			local Title_2 = Instance.new("TextLabel")
+			local UIPadding_2 = Instance.new("UIPadding")
+			local Seperator = Instance.new("Frame")
+
+			Option.Name = "Option"
+			Option.Parent = Holder
+			Option.Active = false
+			Option.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			Option.BorderSizePixel = 0
+			Option.Selectable = false
+			Option.Size = UDim2.new(1, 0, 0, 23)
+			Option.AutoButtonColor = false
+			Option.Text = ""
+			Option.MouseButton1Click:Connect(function()
+				Callback(v)
+				Title.Text = Name .. " - " .. v
+				List.Visible = false
+				opened = false
+			end)
+
+			Title_2.Name = "Title"
+			Title_2.Parent = Option
+			Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_2.BackgroundTransparency = 1.000
+			Title_2.Position = UDim2.new(0, 0, 0, 0)
+			Title_2.Size = UDim2.new(1, -20, 1, 0)
+			Title_2.Font = Enum.Font.Unknown
+			Title_2.Text = v
+			Title_2.TextColor3 = Color3.fromRGB(175, 175, 175)
+			Title_2.TextSize = 11.000
+			Title_2.TextXAlignment = Enum.TextXAlignment.Left
+
+			UIPadding_2.Parent = Title_2
+			UIPadding_2.PaddingLeft = UDim.new(0, 10)
+
+			Seperator.Name = "Seperator"
+			Seperator.Parent = Option
+			Seperator.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+			Seperator.BorderSizePixel = 0
+			Seperator.LayoutOrder = -1
+			Seperator.Position = UDim2.new(0, 0, 1, 0)
+			Seperator.Size = UDim2.new(1, 0, 0, 1)
+		end
+
+		Seperator_2.Name = "Seperator"
+		Seperator_2.Parent = List
+		Seperator_2.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		Seperator_2.BorderSizePixel = 0
+		Seperator_2.LayoutOrder = -1
+		Seperator_2.Position = UDim2.new(0, 0, 0, 0)
+		Seperator_2.Size = UDim2.new(1, 0, 0, 1)
+
+		UICorner.CornerRadius = UDim.new(0, 2)
+		UICorner.Parent = Dropdown
+
+		-- Toggle dropdown visibility
+		Dropdown.MouseButton1Click:Connect(function()
+			opened = not opened
+			List.Visible = opened
+		end)
+	end
+
+	
+	ImageButtonK.MouseButton1Click:Connect(function()
+		if Main.Visible then
+			Main.Visible = false
+		else
+			Main.Visible = true
+		end
+	end)
+
+	Close.MouseButton1Click:Connect(function()
+		ScreenScript:Destroy()
+	end)
+
+	return Library
 end
 
 return Library
