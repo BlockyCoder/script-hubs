@@ -363,6 +363,183 @@ function Library:CreateToggle(tab, toggleName, callback)
     return Toggle
 end
 
+function Library:Dropdown(tab, Name, Listx, Callback)
+    local Name = Name or "Dropdown"
+    local DropdownFunction = {}
+    local Callback = Callback or function() end
+    local DropSize = 35
+    local opened = false
+    
+    -- Create the Dropdown GUI elements
+    local Dropdown = Instance.new("TextButton")
+    Dropdown.Name = "Dropdown"
+    Dropdown.Parent = tab
+    Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Dropdown.Selectable = false
+    Dropdown.Size = UDim2.new(0, 380, 0, 60)
+    Dropdown.AutoButtonColor = false
+    Dropdown.Text = ""
+    
+    local Main = Instance.new("Frame")
+    Main.Name = "Main"
+    Main.Parent = Dropdown
+    Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Main.BackgroundTransparency = 1.000
+    Main.Size = UDim2.new(0, 369, 0, 31)
+    
+    local Image = Instance.new("Frame")
+    Image.Name = "Image"
+    Image.Parent = Main
+    Image.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Image.BackgroundTransparency = 1.000
+    Image.Position = UDim2.new(0.85281384, 0, 0, 0)
+    Image.Size = UDim2.new(0, 31, 0, 31)
+    
+    local ImageLabel = Instance.new("ImageLabel")
+    ImageLabel.Parent = Image
+    ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+    ImageLabel.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+    ImageLabel.BackgroundTransparency = 1.000
+    ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+    ImageLabel.Size = UDim2.new(0, 31, 0, 31)
+    ImageLabel.Image = "http://www.roblox.com/asset/?id=13025551568"
+    ImageLabel.ImageColor3 = Color3.fromRGB(109, 109, 109)
+    
+    local UIScale = Instance.new("UIScale")
+    UIScale.Parent = ImageLabel
+    UIScale.Scale = 0.700
+    
+    local Title = Instance.new("TextLabel")
+    Title.Name = "Title"
+    Title.Parent = Main
+    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Title.BackgroundTransparency = 1.000
+    Title.Size = UDim2.new(0, 269, 0, 31)
+    Title.Font = Enum.Font.GothamMedium
+    Title.Text = Name
+    Title.TextColor3 = Color3.fromRGB(193, 193, 193)
+    Title.TextSize = 12.000
+    Title.TextXAlignment = Enum.TextXAlignment.Left
+    
+    local UIPadding = Instance.new("UIPadding")
+    UIPadding.Parent = Title
+    UIPadding.PaddingLeft = UDim.new(0, 10)
+    
+    local UIListLayout = Instance.new("UIListLayout")
+    UIListLayout.Parent = Dropdown
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    
+    local List = Instance.new("Frame")
+    List.Name = "List"
+    List.Parent = Dropdown
+    List.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    List.BackgroundTransparency = 1.000
+    List.Position = UDim2.new(-4.81856489e-07, 0, 0.516666651, 0)
+    List.Size = UDim2.new(0, 319, 0, 29)
+    
+    local UIListLayout_2 = Instance.new("UIListLayout")
+    UIListLayout_2.Parent = List
+    UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+    
+    local Holder = Instance.new("Frame")
+    Holder.Name = "Holder"
+    Holder.Parent = List
+    Holder.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    Holder.BackgroundTransparency = 1.000
+    Holder.BorderSizePixel = 0
+    Holder.Position = UDim2.new(0, 0, 0.0454545468, 0)
+    Holder.Size = UDim2.new(0, 231, 0, 21)
+    
+    local UIListLayout_3 = Instance.new("UIListLayout")
+    UIListLayout_3.Parent = Holder
+    UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout_3.Padding = UDim.new(0, 5)
+    
+    local Option = Instance.new("TextButton")
+    Option.Name = "Option"
+    Option.Parent = Holder
+    Option.Active = false
+    Option.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Option.BorderSizePixel = 0
+    Option.Selectable = false
+    Option.Size = UDim2.new(0, 231, 0, 23)
+    Option.AutoButtonColor = false
+    Option.Text = ""
+    
+    local Title_2 = Instance.new("TextLabel")
+    Title_2.Name = "Title"
+    Title_2.Parent = Option
+    Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Title_2.BackgroundTransparency = 1.000
+    Title_2.Position = UDim2.new(0, 0, -0.0909090936, 0)
+    Title_2.Size = UDim2.new(0, 231, 0, 23)
+    Title_2.Font = Enum.Font.Unknown
+    Title_2.TextColor3 = Color3.fromRGB(175, 175, 175)
+    Title_2.TextSize = 11.000
+    Title_2.TextXAlignment = Enum.TextXAlignment.Left
+    
+    local UIPadding_2 = Instance.new("UIPadding")
+    UIPadding_2.Parent = Title_2
+    UIPadding_2.PaddingLeft = UDim.new(0, 10)
+    
+    local Seperator = Instance.new("Frame")
+    Seperator.Name = "Seperator"
+    Seperator.Parent = Option
+    Seperator.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    Seperator.BorderSizePixel = 0
+    Seperator.LayoutOrder = -1
+    Seperator.Position = UDim2.new(0, 0, 1, 0)
+    Seperator.Size = UDim2.new(0, 231, 0, 1)
+    
+    local UIPadding_3 = Instance.new("UIPadding")
+    UIPadding_3.Parent = Holder
+    UIPadding_3.PaddingTop = UDim.new(0, 5)
+    
+    local Seperator_2 = Instance.new("Frame")
+    Seperator_2.Name = "Seperator"
+    Seperator_2.Parent = List
+    Seperator_2.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    Seperator_2.BorderSizePixel = 0
+    Seperator_2.LayoutOrder = -1
+    Seperator_2.Position = UDim2.new(-5.73998307e-07, 0, 0, 0)
+    Seperator_2.Size = UDim2.new(0, 319, 0, 1)
+    
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 2)
+    UICorner.Parent = Dropdown
+    
+    -- Options creation function
+    local function createOption(optionName)
+        local OptionClone = Option:Clone()
+        OptionClone.Text = optionName
+        OptionClone.Parent = Holder
+        OptionClone.MouseButton1Click:Connect(function()
+            Title.Text = Name .. " - " .. optionName
+            Callback(optionName)
+            DropdownFunction.selected = optionName
+        end)
+        return OptionClone
+    end
+    
+    -- Initialize options from Listx
+    for _, option in ipairs(Listx) do
+        createOption(option)
+    end
+    
+    -- Dropdown toggle function
+    Dropdown.MouseButton1Click:Connect(function()
+        if opened then
+            opened = false
+            List.Size = UDim2.new(0, 319, 0, 29)
+        else
+            opened = true
+            List.Size = UDim2.new(0, 319, 0, 29 + (UIListLayout_3.AbsoluteContentSize.Y + 10))
+        end
+    end)
+    
+    -- Return the DropdownFunction table
+    return DropdownFunction
+end
 
     ImageButtonK.MouseButton1Click:Connect(function()
         if Main.Visible then
