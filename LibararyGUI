@@ -199,13 +199,18 @@ function Library:Create(xHubName)
 		TabFrame.Size = UDim2.new(1, 0, 1, 0)
 		TabFrame.Visible = false
 
+		local UIPadding = Instance.new("UIPadding")
+		UIPadding.Parent = TabFrame
+		UIPadding.PaddingTop = UDim.new(0, 10)
+		UIPadding.PaddingBottom = UDim.new(0, 10)
+		UIPadding.PaddingLeft = UDim.new(0, 10)
+		UIPadding.PaddingRight = UDim.new(0, 10)
 
 		local TabFLayout = Instance.new("UIListLayout")
-
 		TabFLayout.Name = "TabLayout"
 		TabFLayout.Parent = TabFrame
 		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
+		TabFLayout.Padding = UDim.new(0, 5)
 
 		if tabCount == 1 then
 			TabFrame.Visible = true
@@ -230,6 +235,7 @@ function Library:Create(xHubName)
 		LibraryTabs[tabName] = TabFrame
 		return TabFrame
 	end
+
 
 
 	function Library:CreateButton(tab, buttonName, callback)
@@ -393,6 +399,7 @@ function Library:Create(xHubName)
 		Dropdown.Size = UDim2.new(1, 0, 0, 60)
 		Dropdown.AutoButtonColor = false
 		Dropdown.Text = ""
+		Dropdown.ZIndex = 1
 
 		-- Setup the main frame
 		Main.Name = "Main"
@@ -401,6 +408,7 @@ function Library:Create(xHubName)
 		Main.BackgroundTransparency = 1.000
 		Main.Size = UDim2.new(1, -20, 0, 31)
 		Main.Position = UDim2.new(0, 10, 0, 15)
+		Main.ZIndex = 1
 
 		-- Setup the image frame
 		Image.Name = "Image"
@@ -409,6 +417,7 @@ function Library:Create(xHubName)
 		Image.BackgroundTransparency = 1.000
 		Image.Position = UDim2.new(1, -35, 0, 0)
 		Image.Size = UDim2.new(0, 31, 0, 31)
+		Image.ZIndex = 1
 
 		ImageLabel.Parent = Image
 		ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -418,6 +427,7 @@ function Library:Create(xHubName)
 		ImageLabel.Size = UDim2.new(0, 21, 0, 21) -- Reduced size for better fit
 		ImageLabel.Image = "http://www.roblox.com/asset/?id=13025551568"
 		ImageLabel.ImageColor3 = Color3.fromRGB(109, 109, 109)
+		ImageLabel.ZIndex = 1
 
 		UIScale.Parent = ImageLabel
 		UIScale.Scale = 0.700
@@ -433,12 +443,15 @@ function Library:Create(xHubName)
 		Title.TextColor3 = Color3.fromRGB(193, 193, 193)
 		Title.TextSize = 12.000
 		Title.TextXAlignment = Enum.TextXAlignment.Left
+		Title.ZIndex = 1
 
 		UIPadding.Parent = Title
 		UIPadding.PaddingLeft = UDim.new(0, 10)
+		UIPadding.ZIndex = 1
 
 		UIListLayout.Parent = Dropdown
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		UIListLayout.ZIndex = 1
 
 		-- Setup the list frame
 		List.Name = "List"
@@ -448,9 +461,11 @@ function Library:Create(xHubName)
 		List.Position = UDim2.new(0, 0, 1, 0)
 		List.Size = UDim2.new(1, 0, 0, 100)
 		List.Visible = false
+		List.ZIndex = 2
 
 		UIListLayout_2.Parent = List
 		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+		UIListLayout_2.ZIndex = 2
 
 		Holder.Name = "Holder"
 		Holder.Parent = List
@@ -459,10 +474,12 @@ function Library:Create(xHubName)
 		Holder.BorderSizePixel = 0
 		Holder.Position = UDim2.new(0, 0, 0, 0)
 		Holder.Size = UDim2.new(1, 0, 1, 0)
+		Holder.ZIndex = 2
 
 		UIListLayout_3.Parent = Holder
 		UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout_3.Padding = UDim.new(0, 5)
+		UIListLayout_3.ZIndex = 2
 
 		-- Add options to the dropdown
 		for i, v in pairs(Listx) do
@@ -480,6 +497,7 @@ function Library:Create(xHubName)
 			Option.Size = UDim2.new(1, 0, 0, 23)
 			Option.AutoButtonColor = false
 			Option.Text = ""
+			Option.ZIndex = 2
 			Option.MouseButton1Click:Connect(function()
 				Callback(v)
 				Title.Text = Name .. " - " .. v
@@ -498,9 +516,11 @@ function Library:Create(xHubName)
 			Title_2.TextColor3 = Color3.fromRGB(175, 175, 175)
 			Title_2.TextSize = 11.000
 			Title_2.TextXAlignment = Enum.TextXAlignment.Left
+			Title_2.ZIndex = 2
 
 			UIPadding_2.Parent = Title_2
 			UIPadding_2.PaddingLeft = UDim.new(0, 10)
+			UIPadding_2.ZIndex = 2
 
 			Seperator.Name = "Seperator"
 			Seperator.Parent = Option
@@ -509,6 +529,7 @@ function Library:Create(xHubName)
 			Seperator.LayoutOrder = -1
 			Seperator.Position = UDim2.new(0, 0, 1, 0)
 			Seperator.Size = UDim2.new(1, 0, 0, 1)
+			Seperator.ZIndex = 2
 		end
 
 		Seperator_2.Name = "Seperator"
@@ -518,9 +539,11 @@ function Library:Create(xHubName)
 		Seperator_2.LayoutOrder = -1
 		Seperator_2.Position = UDim2.new(0, 0, 0, 0)
 		Seperator_2.Size = UDim2.new(1, 0, 0, 1)
+		Seperator_2.ZIndex = 2
 
 		UICorner.CornerRadius = UDim.new(0, 2)
 		UICorner.Parent = Dropdown
+		UICorner.ZIndex = 1
 
 		-- Toggle dropdown visibility
 		Dropdown.MouseButton1Click:Connect(function()
