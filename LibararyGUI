@@ -331,7 +331,7 @@ function Library:Create(xHubName)
 
 		local ToggleBckg = Instance.new("Frame")
 		ToggleBckg.Parent = Toggle
-		ToggleBckg.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+		ToggleBckg.BackgroundColor3 = Color3.fromRGB(88, 88, 88)
 		ToggleBckg.Position = UDim2.new(0.9, 0, 0.1, 0)
 		ToggleBckg.Size = UDim2.new(0, 25, 0, 25)  -- Adjusted size and position for better fit
 
@@ -350,9 +350,9 @@ function Library:Create(xHubName)
 		Icon.ImageColor3 = Color3.fromRGB(0, 0, 0)
 		Icon.ImageTransparency = 1.000
 
-		local UIScale = Instance.new("UIScale")
-		UIScale.Parent = Icon
-		UIScale.Scale = 0.800
+	--	local UIScale = Instance.new("UIScale")
+	--	UIScale.Parent = Icon
+	--	UIScale.Scale = 0.800
 
 		local ToggleEnabled = false
 
