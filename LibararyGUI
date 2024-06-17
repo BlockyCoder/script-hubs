@@ -175,69 +175,59 @@ function Library:Create(xHubName)
 	local tabCount = 0
 
 	function Library:CreateTab(tabName)
-		tabCount = tabCount + 1
+    tabCount = tabCount + 1
 
-		local TabButton = Instance.new("TextButton")
-		TabButton.Parent = ActualSide
-		TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TabButton.Size = UDim2.new(0, 200, 0, 30)
-		TabButton.Font = Enum.Font.Gotham
-		TabButton.Text = tabName
-		TabButton.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TabButton.TextSize = 14.000
+    local TabButton = Instance.new("TextButton")
+    TabButton.Parent = ActualSide
+    TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    TabButton.Size = UDim2.new(0, 200, 0, 30)
+    TabButton.Font = Enum.Font.Gotham
+    TabButton.Text = tabName
+    TabButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+    TabButton.TextSize = 14.000
 
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = TabButton
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = TabButton
 
-		local TabFrame = Instance.new("ScrollingFrame")
+    local TabFrame = Instance.new("ScrollingFrame")
+    TabFrame.Name = tabName .. "_Frame"
+    TabFrame.Parent = Tabs
+    TabFrame.Active = true
+    TabFrame.Visible = false
+    TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    TabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TabFrame.BorderSizePixel = 0
+    TabFrame.Size = UDim2.new(1, 0, 1, 0)
+    TabFrame.ScrollBarThickness = 5
 
-		TabFrame.Name = tabName .. "_Frame"
-		TabFrame.Parent = Tabs
-		TabFrame.Active = true
-		TabFrame.Visible = false
-		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		TabFrame.BorderSizePixel = 0
-		TabFrame.Size = UDim2.new(1, 0, 1, 0)
-		TabFrame.ScrollBarThickness = 5
-		
-		
-		
-		
-		local TabFLayout = Instance.new("UIListLayout")
+    local TabFLayout = Instance.new("UIListLayout")
+    TabFLayout.Name = "TabLayout"
+    TabFLayout.Parent = TabFrame
+    TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    TabFLayout.Padding = UDim.new(0, 5)
 
-		TabFLayout.Name = "TabLayout"
-		TabFLayout.Parent = TabFrame
-		--TabFLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		TabFLayout.Padding = UDim.new(0, 5)
+    if tabCount == 1 then
+        TabFrame.Visible = true
+        TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    end
 
+    TabButton.MouseButton1Click:Connect(function()
+        -- Hide all tab frames first
+        for _, frame in pairs(Tabs:GetChildren()) do
+            if frame:IsA("Frame") then
+                frame.Visible = false
+            end
+        end
 
+        -- Show the clicked tab frame
+        TabFrame.Visible = true
+        TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    end)
 
-		if tabCount == 1 then
-			TabFrame.Visible = true
-			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-		end
-
-		TabButton.MouseButton1Click:Connect(function()
-			for _, v in pairs(Tabs:GetChildren()) do
-				if v:IsA("Frame") then
-					v.Visible = false
-				end
-			end
-			for _, v in pairs(ActualSide:GetChildren()) do
-				if v:IsA("TextButton") then
-					v.TextColor3 = Color3.fromRGB(193, 193, 193)
-				end
-			end
-			TabFrame.Visible = true
-			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-		end)
-
-		LibraryTabs[tabName] = TabFrame
-		return TabFrame
-	end
+    LibraryTabs[tabName] = TabFrame
+    return TabFrame
+end
 
 
 
