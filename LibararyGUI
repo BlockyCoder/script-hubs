@@ -199,6 +199,14 @@ function Library:Create(xHubName)
         TabFrame.Size = UDim2.new(1, 0, 1, 0)
         TabFrame.Visible = false
 
+
+    local TabFLayout = Instance.new("UIListLayout")
+
+TabFLayout.Name = "TabLayout"
+    TabFLayout.Parent = TabFrame
+    TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+
         if tabCount == 1 then
             TabFrame.Visible = true
             TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
