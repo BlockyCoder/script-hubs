@@ -209,9 +209,9 @@ function Library:Create(xHubName)
 
 		TabFLayout.Name = "TabLayout"
 		TabFLayout.Parent = TabFrame
-		TabFLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		--TabFLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		--TabFLayout.Padding = UDim.new(0, 5)
+		TabFLayout.Padding = UDim.new(0, 5)
 
 
 
