@@ -223,6 +223,76 @@ function Library:Create(xHubName)
         return TabFrame
     end
 
+
+function MyLibrary:CreateButton(tab, buttonName, callback)
+    callback = callback or function() end
+
+    local Button = Instance.new("TextButton")
+    Button.Parent = tab
+    Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Button.Position = UDim2.new(0, 0, 0.0954390168, 0)
+    Button.Selectable = false
+    Button.Size = UDim2.new(0, 380, 0, 31)
+    Button.AutoButtonColor = false
+    Button.Text = ""
+
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = Button
+
+    local TextLabel = Instance.new("TextLabel")
+    TextLabel.Parent = Button
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.Size = UDim2.new(0, 283, 0, 31)
+    TextLabel.Font = Enum.Font.GothamMedium
+    TextLabel.Text = buttonName
+    TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+    TextLabel.TextSize = 12.000
+    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+    local UIPadding = Instance.new("UIPadding")
+    UIPadding.Parent = TextLabel
+    UIPadding.PaddingLeft = UDim.new(0, 10)
+
+    local Status = Instance.new("Frame")
+    Status.Name = "Status"
+    Status.Parent = Button
+    Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Status.BackgroundTransparency = 1.000
+    Status.Position = UDim2.new(0.839826822, 0, 0, 0)
+    Status.Size = UDim2.new(0, 37, 0, 31)
+
+    local ActualThing = Instance.new("Frame")
+    ActualThing.Name = "ActualThing"
+    ActualThing.Parent = Status
+    ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
+    ActualThing.BackgroundColor3 = Color3.fromRGB(106, 0, 255)
+    ActualThing.BackgroundTransparency = 1.000
+    ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
+    ActualThing.Size = UDim2.new(0, 20, 0, 20)
+
+    local ImageLabel = Instance.new("ImageLabel")
+    ImageLabel.Parent = ActualThing
+    ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+    ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ImageLabel.BackgroundTransparency = 1.000
+    ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+    ImageLabel.Size = UDim2.new(0, 20, 0, 20)
+    ImageLabel.Image = "rbxassetid://7734010488"
+    ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
+
+    local UIScale = Instance.new("UIScale")
+    UIScale.Parent = ImageLabel
+    UIScale.Scale = 0.800
+
+    Button.MouseButton1Click:Connect(function()
+        callback()
+    end)
+
+    return Button
+end
+
     function Library:CreateToggle(tab, toggleName, callback)
         callback = callback or function() end
 
