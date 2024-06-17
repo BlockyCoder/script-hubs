@@ -447,7 +447,6 @@ function Library:Create(xHubName)
 
 		UIListLayout.Parent = Dropdown
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		UIListLayout.ZIndex = 1
 
 		-- Setup the list frame
 		List.Name = "List"
