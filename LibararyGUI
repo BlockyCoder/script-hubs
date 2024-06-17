@@ -313,7 +313,6 @@ function Library:Create(xHubName)
 		Toggle.Size = UDim2.new(0, 315, 0, 36)  -- Adjusted to fit within the tab
 		Toggle.AutoButtonColor = false
 		Toggle.Text = ""
-		Toggle.ZIndex = 1
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
