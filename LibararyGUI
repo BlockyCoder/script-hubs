@@ -172,9 +172,12 @@ function Library:Create(xHubName)
 	ImageButtonKCorner.Parent = ImageButtonK
 
 	local LibraryTabs = {}
-	local tabCount = 0
-
+	
+	
+	
 	function Library:CreateTab(tabName)
+		local first = true  -- Local variable to track if it's the first tab
+
 		local TabButton = Instance.new("TextButton")
 		TabButton.Parent = ActualSide
 		TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -206,17 +209,25 @@ function Library:Create(xHubName)
 		TabFLayout.Padding = UDim.new(0, 5)
 
 		TabButton.MouseButton1Click:Connect(function()
-			-- Hide all tab frames first
-			for _, frame in pairs(Tabs:GetChildren()) do
-				if frame:IsA("Frame") then
-					frame.Visible = false
+			for _, v in pairs(Tabs:GetChildren()) do
+				if v:IsA("Frame") then
+					v.Visible = false
 				end
 			end
-
-			-- Show the clicked tab frame
+			for _, v in pairs(ActualSide:GetChildren()) do
+				if v:IsA("TextButton") then
+					v.TextColor3 = Color3.fromRGB(193, 193, 193)
+				end
+			end
 			TabFrame.Visible = true
 			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 		end)
+
+		if first then
+			TabFrame.Visible = true
+			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+			first = false  -- Set first to false after the first tab is created
+		end
 
 		LibraryTabs[tabName] = TabFrame
 		return TabFrame
