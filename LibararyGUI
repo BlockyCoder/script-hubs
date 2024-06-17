@@ -176,8 +176,7 @@ function Library:Create(xHubName)
 	
 	
 	function Library:CreateTab(tabName)
-		local first = true  -- Local variable to track if it's the first tab
-
+		-- Create TabButton
 		local TabButton = Instance.new("TextButton")
 		TabButton.Parent = ActualSide
 		TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -191,15 +190,15 @@ function Library:Create(xHubName)
 		UICorner.CornerRadius = UDim.new(0, 5)
 		UICorner.Parent = TabButton
 
+		-- Create TabFrame
 		local TabFrame = Instance.new("ScrollingFrame")
 		TabFrame.Name = tabName .. "_Frame"
 		TabFrame.Parent = Tabs
-		TabFrame.Active = true
-		TabFrame.Visible = false
 		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		TabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		TabFrame.BorderSizePixel = 0
 		TabFrame.Size = UDim2.new(1, 0, 1, 0)
+		TabFrame.Visible = false  -- Initially hidden
 		TabFrame.ScrollBarThickness = 5
 
 		local TabFLayout = Instance.new("UIListLayout")
@@ -208,28 +207,34 @@ function Library:Create(xHubName)
 		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		TabFLayout.Padding = UDim.new(0, 5)
 
+		-- Handle tab button click to show corresponding tab frame
 		TabButton.MouseButton1Click:Connect(function()
+			-- Hide all tabs before showing the selected one
 			for _, v in pairs(Tabs:GetChildren()) do
 				if v:IsA("Frame") then
 					v.Visible = false
 				end
 			end
+			-- Reset text color for all tab buttons
 			for _, v in pairs(ActualSide:GetChildren()) do
 				if v:IsA("TextButton") then
 					v.TextColor3 = Color3.fromRGB(193, 193, 193)
 				end
 			end
+			-- Show selected tab and change button text color
 			TabFrame.Visible = true
 			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 		end)
 
-		if first then
+		-- Set the first tab to be visible by default
+		if Tabs:GetChildren()[1] == TabFrame then
 			TabFrame.Visible = true
 			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-			first = false  -- Set first to false after the first tab is created
 		end
 
+		-- Store the tab in LibraryTabs table for reference
 		LibraryTabs[tabName] = TabFrame
+
 		return TabFrame
 	end
 
