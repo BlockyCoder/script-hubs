@@ -196,7 +196,7 @@ function Library:Create(xHubName)
 		TabFrame.Parent = Tabs
 		TabFrame.Active = true
 		TabFrame.Visible = false
-		TabFrame.BackgroundColor3 = Color3.fromRGB(31, 30, 46)
+		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		TabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		TabFrame.BorderSizePixel = 0
 		TabFrame.Size = UDim2.new(1, 0, 1, 0)
@@ -211,7 +211,7 @@ function Library:Create(xHubName)
 		TabFLayout.Parent = TabFrame
 		TabFLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		TabFLayout.Padding = UDim.new(0, 5)
+		--TabFLayout.Padding = UDim.new(0, 5)
 
 
 
