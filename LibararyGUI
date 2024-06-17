@@ -1,344 +1,303 @@
--- Library object to hold all functions and data
 local Library = {}
 
--- Function to create the GUI with specified xHubName
 function Library:Create(xHubName)
-	-- Default to "UI Library" if xHubName is not provided
-	xHubName = xHubName or "UI Library"
+    xHubName = xHubName or "UI Library"
 
-	-- Random UI Name generation for the library instance
-	local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
+    local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
 
-	-- Instances creation
-	local ScreenScript = Instance.new("ScreenGui")
-	local Main = Instance.new("Frame")
-	local Headerframe = Instance.new("Frame")
-	local Close = Instance.new("ImageButton")
-	local UICorner = Instance.new("UICorner")
-	local ImageLabel = Instance.new("ImageLabel")
-	local UIScale = Instance.new("UIScale")
-	local Title = Instance.new("TextButton")
-	local UIPadding = Instance.new("UIPadding")
-	local FirstSeperator = Instance.new("Frame")
-	local Siderframe = Instance.new("Frame")
-	local ActualSide = Instance.new("ScrollingFrame")
-	local ActualSideListLayout = Instance.new("UIListLayout")
-	local TextButton = Instance.new("TextButton")
-	local UICorner_2 = Instance.new("UICorner")
-	local Tabholder = Instance.new("ScrollingFrame")
-	local Tabs = Instance.new("Folder")
-	local UICorner_3 = Instance.new("UICorner")
-	local TabLayout = Instance.new("UIListLayout")
-	local ImageButtonK = Instance.new("ImageButton")
-	local ImageButtonKCorner = Instance.new("UICorner")
+    local ScreenScript = Instance.new("ScreenGui")
+    local Main = Instance.new("Frame")
+    local Headerframe = Instance.new("Frame")
+    local Close = Instance.new("ImageButton")
+    local UICorner = Instance.new("UICorner")
+    local ImageLabel = Instance.new("ImageLabel")
+    local UIScale = Instance.new("UIScale")
+    local Title = Instance.new("TextButton")
+    local UIPadding = Instance.new("UIPadding")
+    local FirstSeperator = Instance.new("Frame")
+    local Siderframe = Instance.new("Frame")
+    local ActualSide = Instance.new("ScrollingFrame")
+    local ActualSideListLayout = Instance.new("UIListLayout")
+    local TextButton = Instance.new("TextButton")
+    local UICorner_2 = Instance.new("UICorner")
+    local Tabholder = Instance.new("ScrollingFrame")
+    local Tabs = Instance.new("Folder")
+    local UICorner_3 = Instance.new("UICorner")
+    local TabLayout = Instance.new("UIListLayout")
+    local ImageButtonK = Instance.new("ImageButton")
+    local ImageButtonKCorner = Instance.new("UICorner")
 
-	-- Properties setup
-	ScreenScript.Name = LibraryName
-	ScreenScript.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-	ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    ScreenScript.Name = LibraryName
+    ScreenScript.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-	Main.Name = "Main"
-	Main.Parent = ScreenScript
-	Main.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-	Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Main.BorderSizePixel = 0
-	Main.Position = UDim2.new(0.272804052, 0, 0.243107766, 0)
-	Main.Size = UDim2.new(0.481064528, 0, 0.602093697, 0)
+    Main.Name = "Main"
+    Main.Parent = ScreenScript
+    Main.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+    Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Main.BorderSizePixel = 0
+    Main.Position = UDim2.new(0.272804052, 0, 0.243107766, 0)
+    Main.Size = UDim2.new(0.481064528, 0, 0.602093697, 0)
 
-	Headerframe.Name = "Headerframe"
-	Headerframe.Parent = Main
-	Headerframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Headerframe.BackgroundTransparency = 1.000
-	Headerframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Headerframe.BorderSizePixel = 0
-	Headerframe.Size = UDim2.new(0, 525, 0, 37)
+    Headerframe.Name = "Headerframe"
+    Headerframe.Parent = Main
+    Headerframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Headerframe.BackgroundTransparency = 1.000
+    Headerframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Headerframe.BorderSizePixel = 0
+    Headerframe.Size = UDim2.new(0, 525, 0, 37)
 
-	Close.Name = "Close"
-	Close.Parent = Headerframe
-	Close.Active = false
-	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Close.BackgroundTransparency = 1.000
-	Close.Position = UDim2.new(0.917412579, 0, 0.167417377, 0)
-	Close.Selectable = false
-	Close.Size = UDim2.new(0, 33, 0, 22)
+    Close.Name = "Close"
+    Close.Parent = Headerframe
+    Close.Active = false
+    Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Close.BackgroundTransparency = 1.000
+    Close.Position = UDim2.new(0.917412579, 0, 0.167417377, 0)
+    Close.Selectable = false
+    Close.Size = UDim2.new(0, 33, 0, 22)
 
-	UICorner.CornerRadius = UDim.new(0, 4)
-	UICorner.Parent = Close
+    UICorner.CornerRadius = UDim.new(0, 4)
+    UICorner.Parent = Close
 
-	ImageLabel.Parent = Close
-	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	ImageLabel.BackgroundTransparency = 1.000
-	ImageLabel.Position = UDim2.new(0.500000775, 1, 0.545454264, 0)
-	ImageLabel.Size = UDim2.new(0, 21, 0, 21)
-	ImageLabel.Image = "rbxassetid://7743878857"
+    ImageLabel.Parent = Close
+    ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+    ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ImageLabel.BackgroundTransparency = 1.000
+    ImageLabel.Position = UDim2.new(0.500000775, 1, 0.545454264, 0)
+    ImageLabel.Size = UDim2.new(0, 21, 0, 21)
+    ImageLabel.Image = "rbxassetid://7743878857"
 
-	UIScale.Parent = ImageLabel
-	UIScale.Scale = 0.700
+    UIScale.Parent = ImageLabel
+    UIScale.Scale = 0.700
 
-	Title.Name = "Title"
-	Title.Parent = Headerframe
-	Title.Active = false
-	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Title.BackgroundTransparency = 1.000
-	Title.Position = UDim2.new(0.00192685076, 0, 0, 0)
-	Title.Selectable = false
-	Title.Size = UDim2.new(0, 323, 0, 36)
-	Title.Font = Enum.Font.GothamMedium
-	Title.Text = xHubName  -- Use provided or default name
-	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
-	Title.TextScaled = true
-	Title.TextSize = 13.000
-	Title.TextWrapped = true
-	Title.TextXAlignment = Enum.TextXAlignment.Left
+    Title.Name = "Title"
+    Title.Parent = Headerframe
+    Title.Active = false
+    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Title.BackgroundTransparency = 1.000
+    Title.Position = UDim2.new(0.00192685076, 0, 0, 0)
+    Title.Selectable = false
+    Title.Size = UDim2.new(0, 323, 0, 36)
+    Title.Font = Enum.Font.GothamMedium
+    Title.Text = xHubName
+    Title.TextColor3 = Color3.fromRGB(161, 161, 161)
+    Title.TextScaled = true
+    Title.TextSize = 13.000
+    Title.TextWrapped = true
+    Title.TextXAlignment = Enum.TextXAlignment.Left
 
-	UIPadding.Parent = Title
-	UIPadding.PaddingLeft = UDim.new(0, 10)
+    UIPadding.Parent = Title
+    UIPadding.PaddingLeft = UDim.new(0, 10)
 
-	FirstSeperator.Name = "FirstSeperator"
-	FirstSeperator.Parent = Main
-	FirstSeperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
-	FirstSeperator.BorderSizePixel = 0
-	FirstSeperator.Position = UDim2.new(-2.58091513e-05, 0, 0.116352201, 0)
-	FirstSeperator.Size = UDim2.new(0, 525, 0, 1)
-	FirstSeperator.ZIndex = 5
+    FirstSeperator.Name = "FirstSeperator"
+    FirstSeperator.Parent = Main
+    FirstSeperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
+    FirstSeperator.BorderSizePixel = 0
+    FirstSeperator.Position = UDim2.new(-2.58091513e-05, 0, 0.116352201, 0)
+    FirstSeperator.Size = UDim2.new(0, 525, 0, 1)
+    FirstSeperator.ZIndex = 5
 
-	Siderframe.Name = "Siderframe"
-	Siderframe.Parent = Main
-	Siderframe.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-	Siderframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Siderframe.BorderSizePixel = 0
-	Siderframe.Position = UDim2.new(-0.00190476188, 0, 0.119496852, 0)
-	Siderframe.Size = UDim2.new(0, 199, 0, 280)
+    Siderframe.Name = "Siderframe"
+    Siderframe.Parent = Main
+    Siderframe.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+    Siderframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Siderframe.BorderSizePixel = 0
+    Siderframe.Position = UDim2.new(-0.00190476188, 0, 0.119496852, 0)
+    Siderframe.Size = UDim2.new(0, 199, 0, 280)
 
-	ActualSide.Name = "ActualSide"
-	ActualSide.Parent = Siderframe
-	ActualSide.Active = true
-	ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	ActualSide.BackgroundTransparency = 1.000
-	ActualSide.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	ActualSide.BorderSizePixel = 0
-	ActualSide.Size = UDim2.new(0, 198, 0, 239)
-	ActualSide.ScrollBarThickness = 2
+    ActualSide.Name = "ActualSide"
+    ActualSide.Parent = Siderframe
+    ActualSide.Active = true
+    ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ActualSide.BackgroundTransparency = 1.000
+    ActualSide.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    ActualSide.BorderSizePixel = 0
+    ActualSide.Size = UDim2.new(0, 198, 0, 239)
+    ActualSide.ScrollBarThickness = 2
 
-	ActualSideListLayout.Name = "ActualSideListLayout"
-	ActualSideListLayout.Parent = ActualSide
-	ActualSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    ActualSideListLayout.Name = "ActualSideListLayout"
+    ActualSideListLayout.Parent = ActualSide
+    ActualSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-	TextButton.Parent = Siderframe
-	TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TextButton.BackgroundTransparency = 1.000
-	TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextButton.BorderSizePixel = 0
-	TextButton.Position = UDim2.new(-0.00502512557, 0, 0.853571415, 0)
-	TextButton.Size = UDim2.new(0, 200, 0, 41)
-	TextButton.Font = Enum.Font.SourceSans
-	TextButton.Text = "Place ID"
-	TextButton.TextColor3 = Color3.fromRGB(0, 255, 157)
-	TextButton.TextScaled = true
-	TextButton.TextSize = 14.000
-	TextButton.TextWrapped = true
+    TextButton.Parent = Siderframe
+    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton.BackgroundTransparency = 1.000
+    TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton.BorderSizePixel = 0
+    TextButton.Position = UDim2.new(-0.00502512557, 0, 0.853571415, 0)
+    TextButton.Size = UDim2.new(0, 200, 0, 41)
+    TextButton.Font = Enum.Font.SourceSans
+    TextButton.Text = "Place ID"
+    TextButton.TextColor3 = Color3.fromRGB(0, 255, 157)
+    TextButton.TextScaled = true
+    TextButton.TextSize = 14.000
+    TextButton.TextWrapped = true
 
-	UICorner_2.CornerRadius = UDim.new(0, 5)
-	UICorner_2.Parent = Main
+    UICorner_2.CornerRadius = UDim.new(0, 5)
+    UICorner_2.Parent = Main
 
-	Tabholder.Name = "Tabholder"
-	Tabholder.Parent = Main
-	Tabholder.Active = true
-	Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Tabholder.BackgroundTransparency = 1.000
-	Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Tabholder.BorderSizePixel = 0
-	Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
-	Tabholder.Size = UDim2.new(0, 327, 0, 280)
-	Tabholder.ScrollBarThickness = 5
+    Tabholder.Name = "Tabholder"
+    Tabholder.Parent = Main
+    Tabholder.Active = true
+    Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Tabholder.BackgroundTransparency = 1.000
+    Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Tabholder.BorderSizePixel = 0
+    Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
+    Tabholder.Size = UDim2.new(0, 327, 0, 280)
+    Tabholder.ScrollBarThickness = 5
 
-	Tabs.Name = "Tabs"
-	Tabs.Parent = Tabholder
+    Tabs.Name = "Tabs"
+    Tabs.Parent = Tabholder
 
-	UICorner_3.CornerRadius = UDim.new(0, 12)
-	UICorner_3.Parent = Tabholder
+    UICorner_3.CornerRadius = UDim.new(0, 12)
+    UICorner_3.Parent = Tabholder
 
-	TabLayout.Name = "TabLayout"
-	TabLayout.Parent = Tabholder
-	TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    TabLayout.Name = "TabLayout"
+    TabLayout.Parent = Tabholder
+    TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-	ImageButtonK.Name = "ImageButtonK"
-	ImageButtonK.Parent = ScreenScript
-	ImageButtonK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	ImageButtonK.BackgroundTransparency = 1.000
-	ImageButtonK.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	ImageButtonK.BorderSizePixel = 0
-	ImageButtonK.Position = UDim2.new(0.00872600456, 0, 0.00774316778, 0)
-	ImageButtonK.Size = UDim2.new(0, 37, 0, 37)
-	ImageButtonK.Image = "rbxassetid://7743878857"
+    ImageButtonK.Name = "ImageButtonK"
+    ImageButtonK.Parent = ScreenScript
+    ImageButtonK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ImageButtonK.BackgroundTransparency = 1.000
+    ImageButtonK.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    ImageButtonK.BorderSizePixel = 0
+    ImageButtonK.Position = UDim2.new(0.00872600456, 0, 0.00774316778, 0)
+    ImageButtonK.Size = UDim2.new(0, 37, 0, 37)
+    ImageButtonK.Image = "rbxassetid://7743878857"
 
-	ImageButtonKCorner.CornerRadius = UDim.new(0, 4)
-	ImageButtonKCorner.Name = "ImageButtonKCorner"
-	ImageButtonKCorner.Parent = ImageButtonK
+    ImageButtonKCorner.CornerRadius = UDim.new(1, 0)
+    ImageButtonKCorner.Name = "ImageButtonKCorner"
+    ImageButtonKCorner.Parent = ImageButtonK
 
-	-- Toggles the UI
-	local function ToggleUI()
-		Main.Visible = not Main.Visible
-	end
+    local LibraryTabs = {}
+    local tabCount = 0
 
-	-- Closes the UI
-	local function CloseUI()
-		ScreenScript:Destroy()
-	end
+    function Library:CreateTab(tabName)
+        tabCount = tabCount + 1
 
-	-- Connect the toggle function to the button
-	ImageButtonK.MouseButton1Click:Connect(ToggleUI)
-	Close.MouseButton1Click:Connect(CloseUI)
+        local TabButton = Instance.new("TextButton")
+        TabButton.Parent = ActualSide
+        TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+        TabButton.Size = UDim2.new(0, 200, 0, 30)
+        TabButton.Font = Enum.Font.Gotham
+        TabButton.Text = tabName
+        TabButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+        TabButton.TextSize = 14.000
 
-	local xtab = {}
+        local UICorner = Instance.new("UICorner")
+        UICorner.CornerRadius = UDim.new(0, 5)
+        UICorner.Parent = TabButton
 
-	-- Function to create a new tab
-	function xtab:Tab(tabName)
-		-- Create the tab button on the side
-		local TabButton = Instance.new("TextButton")
-		TabButton.Name = tabName
-		TabButton.Parent = ActualSide
-		TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TabButton.BackgroundTransparency = 1.000
-		TabButton.Size = UDim2.new(0, 200, 0, 50)
-		TabButton.Font = Enum.Font.SourceSans
-		TabButton.Text = tabName
-		TabButton.TextColor3 = Color3.fromRGB(0, 255, 157)
-		TabButton.TextScaled = true
-		TabButton.TextSize = 14.000
-		TabButton.TextWrapped = true
+        local TabFrame = Instance.new("Frame")
+        TabFrame.Name = tabName .. "_Frame"
+        TabFrame.Parent = Tabs
+        TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+        TabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        TabFrame.BorderSizePixel = 0
+        TabFrame.Size = UDim2.new(1, 0, 1, 0)
+        TabFrame.Visible = false
 
-		-- Create the actual tab content holder
-		local TabFrame = Instance.new("ScrollingFrame")
-		TabFrame.Name = tabName
-		TabFrame.Parent = Tabholder
-		TabFrame.Active = true
-		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TabFrame.BorderSizePixel = 0
-		TabFrame.Size = UDim2.new(0.622857153, 0, 0.880503118, 0)
-		TabFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-		TabFrame.ScrollBarThickness = 5
-		TabFrame.Visible = false
-
-		local tabfolder = {}
-
-		-- Function to add a button to the tab
-		-- Function to add a button to the tab
-		function tabfolder:Button(buttonName, callback)
-			local Button = Instance.new("TextButton")
-			Button.Parent = TabFrame
-			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			Button.Position = UDim2.new(0, 10, 0, 10 + (#TabFrame:GetChildren() - 1) * 40)  -- Position each button below the previous one
-			Button.Size = UDim2.new(0, 360, 0, 30)  -- Adjust size to fit within TabFrame
-			Button.AutoButtonColor = false
-			Button.Text = ""
-
-			local UICorner = Instance.new("UICorner")
-			UICorner.CornerRadius = UDim.new(0, 5)
-			UICorner.Parent = Button
-
-			local TextLabel = Instance.new("TextLabel")
-			TextLabel.Parent = Button
-			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			TextLabel.BackgroundTransparency = 1.000
-			TextLabel.Size = UDim2.new(0, 283, 0, 30)
-			TextLabel.Position = UDim2.new(0, 10, 0, 0)
-			TextLabel.Font = Enum.Font.GothamMedium
-			TextLabel.Text = buttonName
-			TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-			TextLabel.TextSize = 12.000
-			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-			Button.MouseButton1Click:Connect(function()
-				pcall(callback)
-			end)
-		end
-
-		-- Function to add a toggle to the tab
-		function tabfolder:Toggle(toggleName, callback)
-			local Toggle = Instance.new("TextButton")
-			Toggle.Parent = TabFrame
-			Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			Toggle.Position = UDim2.new(0, 10, 0, 10 + (#TabFrame:GetChildren() - 1) * 40)  -- Position each toggle below the previous one
-			Toggle.Size = UDim2.new(0, 360, 0, 30)  -- Adjust size to fit within TabFrame
-			Toggle.AutoButtonColor = false
-			Toggle.Text = ""
-
-			local UICorner = Instance.new("UICorner")
-			UICorner.CornerRadius = UDim.new(0, 5)
-			UICorner.Parent = Toggle
-
-			local TextLabel = Instance.new("TextLabel")
-			TextLabel.Parent = Toggle
-			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			TextLabel.BackgroundTransparency = 1.000
-			TextLabel.Size = UDim2.new(0, 283, 0, 30)
-			TextLabel.Position = UDim2.new(0, 10, 0, 0)
-			TextLabel.Font = Enum.Font.GothamMedium
-			TextLabel.Text = toggleName
-			TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-			TextLabel.TextSize = 12.000
-			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-			local ToggleBckg = Instance.new("Frame")
-			ToggleBckg.Parent = Toggle
-			ToggleBckg.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-			ToggleBckg.Position = UDim2.new(0.839, 0, 0, 0)
-			ToggleBckg.Size = UDim2.new(0, 37, 0, 30)
-
-			local UICorner = Instance.new("UICorner")
-			UICorner.CornerRadius = UDim.new(0, 5)
-			UICorner.Parent = ToggleBckg
-
-			local Icon = Instance.new("ImageLabel")
-			Icon.Parent = ToggleBckg
-			Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-			Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Icon.BackgroundTransparency = 1.000
-			Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
-			Icon.Size = UDim2.new(0, 20, 0, 20)
-			Icon.Image = "http://www.roblox.com/asset/?id=13319773302"
-			Icon.ImageColor3 = Color3.fromRGB(0, 0, 0)
-			Icon.ImageTransparency = 1.000
-
-			local UIScale = Instance.new("UIScale")
-			UIScale.Parent = Icon
-			UIScale.Scale = 0.800
-
-			local ToggleEnabled = false
-
-			Toggle.MouseButton1Click:Connect(function()
-				ToggleEnabled = not ToggleEnabled
-				--Icon.ImageTransparency = ToggleEnabled and 0 or 1
-				ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(88, 88, 88)
-				callback(ToggleEnabled)
-			end)
-		end
-
- -- Functionality to show the tab frame when the tab button is clicked
-    TabButton.MouseButton1Click:Connect(function()
-        -- Hide all tab frames first
-        for _, frame in ipairs(Tabholder:GetChildren()) do
-            if frame:IsA("ScrollingFrame") then
-                frame.Visible = false
-            end
+        if tabCount == 1 then
+            TabFrame.Visible = true
+            TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         end
-        -- Show the corresponding tab frame
-        TabFrame.Visible = true
+
+        TabButton.MouseButton1Click:Connect(function()
+            for _, v in pairs(Tabs:GetChildren()) do
+                if v:IsA("Frame") then
+                    v.Visible = false
+                end
+            end
+            for _, v in pairs(ActualSide:GetChildren()) do
+                if v:IsA("TextButton") then
+                    v.TextColor3 = Color3.fromRGB(193, 193, 193)
+                end
+            end
+            TabFrame.Visible = true
+            TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        end)
+
+        LibraryTabs[tabName] = TabFrame
+        return TabFrame
+    end
+
+    function Library:CreateToggle(tab, toggleName, callback)
+        callback = callback or function() end
+
+        local Toggle = Instance.new("TextButton")
+        Toggle.Parent = tab
+        Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+        Toggle.Size = UDim2.new(0, 315, 0, 36)  -- Adjusted to fit within the tab
+        Toggle.AutoButtonColor = false
+        Toggle.Text = ""
+
+        local UICorner = Instance.new("UICorner")
+        UICorner.CornerRadius = UDim.new(0, 5)
+        UICorner.Parent = Toggle
+
+        local TextLabel = Instance.new("TextLabel")
+        TextLabel.Parent = Toggle
+        TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.BackgroundTransparency = 1.000
+        TextLabel.Size = UDim2.new(0, 283, 0, 36)
+        TextLabel.Position = UDim2.new(0, 10, 0, 0)
+        TextLabel.Font = Enum.Font.GothamMedium
+        TextLabel.Text = toggleName
+        TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+        TextLabel.TextSize = 12.000
+        TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+        local ToggleBckg = Instance.new("Frame")
+        ToggleBckg.Parent = Toggle
+        ToggleBckg.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+        ToggleBckg.Position = UDim2.new(0.9, 0, 0.1, 0)
+        ToggleBckg.Size = UDim2.new(0, 25, 0, 25)  -- Adjusted size and position for better fit
+
+        local UICorner_2 = Instance.new("UICorner")
+        UICorner_2.CornerRadius = UDim.new(0, 5)
+        UICorner_2.Parent = ToggleBckg
+
+        local Icon = Instance.new("ImageLabel")
+        Icon.Parent = ToggleBckg
+        Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+        Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Icon.BackgroundTransparency = 1.000
+        Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
+        Icon.Size = UDim2.new(0, 20, 0, 20)
+        Icon.Image = "http://www.roblox.com/asset/?id=13319773302"
+        Icon.ImageColor3 = Color3.fromRGB(0, 0, 0)
+        Icon.ImageTransparency = 1.000
+
+        local UIScale = Instance.new("UIScale")
+        UIScale.Parent = Icon
+        UIScale.Scale = 0.800
+
+        local ToggleEnabled = false
+
+        Toggle.MouseButton1Click:Connect(function()
+            ToggleEnabled = not ToggleEnabled
+            ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(88, 88, 88)
+            callback(ToggleEnabled)
+        end)
+
+        return Toggle
+    end
+
+    ImageButtonK.MouseButton1Click:Connect(function()
+        if Main.Visible then
+            Main.Visible = false
+        else
+            Main.Visible = true
+        end
     end)
-		return tabfolder
-	end
 
-	-- Show the first tab by default
-	local function ShowFirstTab()
-		local firstTab = Tabholder:FindFirstChildOfClass("ScrollingFrame")
-		if firstTab then
-			firstTab.Visible = true
-		end
-	end
-	ShowFirstTab()
+    Close.MouseButton1Click:Connect(function()
+        ScreenScript:Destroy()
+    end)
 
-	return xtab
+    return Library
 end
+
 return Library
