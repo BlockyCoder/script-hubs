@@ -755,105 +755,77 @@ function Library:Create(xHubName)
 	end
 
 
-	function Library:CreateDropdown(parent, dropdownName, options, callback)
+	function Library:CreateDropdown(tab, dropdownName, options, callback)
 		callback = callback or function() end
-		options = options or {}
 
-		-- Create Dropdown Frame
-		local DropdownFrame = Instance.new("Frame")
-		DropdownFrame.Parent = parent
-		DropdownFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		DropdownFrame.Size = UDim2.new(0, 315, 0, 40)
-		DropdownFrame.ClipsDescendants = true
+		local Dropdown = Instance.new("TextButton")
+		Dropdown.Parent = tab
+		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Dropdown.Size = UDim2.new(0, 315, 0, 36)  -- Adjusted to fit within the tab
+		Dropdown.AutoButtonColor = false
+		Dropdown.Text = ""
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = DropdownFrame
+		UICorner.Parent = Dropdown
 
-		-- Create Dropdown Title
-		local TitleLabel = Instance.new("TextLabel")
-		TitleLabel.Parent = DropdownFrame
-		TitleLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TitleLabel.Size = UDim2.new(1, 0, 1, 0)
-		TitleLabel.Font = Enum.Font.GothamMedium
-		TitleLabel.Text = dropdownName
-		TitleLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TitleLabel.TextSize = 12
-		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+		local TextLabel = Instance.new("TextLabel")
+		TextLabel.Parent = Dropdown
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.BackgroundTransparency = 1.000
+		TextLabel.Size = UDim2.new(0, 283, 0, 36)
+		TextLabel.Position = UDim2.new(0, 10, 0, 0)
+		TextLabel.Font = Enum.Font.GothamMedium
+		TextLabel.Text = dropdownName
+		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+		TextLabel.TextSize = 12.000
+		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		local UIPadding = Instance.new("UIPadding")
-		UIPadding.Parent = TitleLabel
-		UIPadding.PaddingLeft = UDim.new(0, 10)
-
-		-- Create Dropdown Button
-		local DropdownButton = Instance.new("TextButton")
-		DropdownButton.Parent = DropdownFrame
-		DropdownButton.BackgroundTransparency = 1
-		DropdownButton.Size = UDim2.new(1, 0, 1, 0)
-		DropdownButton.Text = ""
-		DropdownButton.ZIndex = 2
-
-		-- Create Dropdown Icon
 		local DropdownIcon = Instance.new("ImageLabel")
-		DropdownIcon.Parent = DropdownFrame
-		DropdownIcon.BackgroundTransparency = 1
+		DropdownIcon.Parent = Dropdown
 		DropdownIcon.Size = UDim2.new(0, 20, 0, 20)
-		DropdownIcon.Position = UDim2.new(0.9, 0, 0.5, 0)
-		DropdownIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-		DropdownIcon.Image = "rbxassetid://6031091000" -- down arrow icon
-		DropdownIcon.ZIndex = 2
+		DropdownIcon.Position = UDim2.new(0, 280, 0, 8)
+		DropdownIcon.BackgroundTransparency = 1
+		DropdownIcon.Image = "http://www.roblox.com/asset/?id=13319773302"  -- Replace with your dropdown icon asset ID or URL
+		DropdownIcon.ImageColor3 = Color3.fromRGB(193, 193, 193)
 
-		-- Create Options Frame
-		local OptionsFrame = Instance.new("Frame")
-		OptionsFrame.Parent = DropdownFrame
-		OptionsFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		OptionsFrame.Position = UDim2.new(0, 0, 1, 1)
-		OptionsFrame.Size = UDim2.new(1, 0, 0, math.min(#options * 30, 150))
-		OptionsFrame.ZIndex = 2
+		local DropdownList = Instance.new("ScrollingFrame")
+		DropdownList.Parent = Dropdown
+		DropdownList.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		DropdownList.BorderSizePixel = 0
+		DropdownList.Position = UDim2.new(0, 0, 1, 0)
+		DropdownList.Size = UDim2.new(1, 0, 0, 100)
+		DropdownList.Visible = false
+		DropdownList.ZIndex = 2
 
-		local OptionsListLayout = Instance.new("UIListLayout")
-		OptionsListLayout.Parent = OptionsFrame
-		OptionsListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		local UIListLayout = Instance.new("UIListLayout")
+		UIListLayout.Parent = DropdownList
+		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-		-- Function to create dropdown options
-		local function createOption(option)
+		for i, optionText in ipairs(options) do
 			local OptionButton = Instance.new("TextButton")
-			OptionButton.Parent = OptionsFrame
-			OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			OptionButton.Size = UDim2.new(1, 0, 0, 30)
-			OptionButton.Font = Enum.Font.Gotham
-			OptionButton.Text = option.label
-			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
-			OptionButton.TextSize = 12
-			OptionButton.ZIndex = 2
-
-			local OptionUICorner = Instance.new("UICorner")
-			OptionUICorner.CornerRadius = UDim.new(0, 5)
-			OptionUICorner.Parent = OptionButton
+			OptionButton.Parent = DropdownList
+			OptionButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+			OptionButton.Size = UDim2.new(1, 0, 0, 25)
+			OptionButton.AutoButtonColor = false
+			OptionButton.Font = Enum.Font.SourceSans
+			OptionButton.Text = optionText
+			OptionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+			OptionButton.TextSize = 14.000
 
 			OptionButton.MouseButton1Click:Connect(function()
-				TitleLabel.Text = option.label
-				OptionsFrame.Visible = false
-				DropdownIcon.Rotation = 0 -- Reset icon rotation
-				callback(option.label, option.value)
+				DropdownList.Visible = false
+				TextLabel.Text = optionText
+				callback(optionText)
 			end)
 		end
 
-		-- Populate dropdown options using pairs
-		for i, option in pairs(options) do
-			createOption(option)
-		end
-
-		-- Toggle Dropdown
-		DropdownButton.MouseButton1Click:Connect(function()
-			OptionsFrame.Visible = not OptionsFrame.Visible
-			DropdownIcon.Rotation = OptionsFrame.Visible and 180 or 0
+		Dropdown.MouseButton1Click:Connect(function()
+			DropdownList.Visible = not DropdownList.Visible
 		end)
 
-		return DropdownFrame
+		return Dropdown, DropdownList
 	end
-
-
 
 
 	Library:Drag(Main, Headerframe)
