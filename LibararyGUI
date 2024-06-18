@@ -613,11 +613,13 @@ function Library:Create(xHubName)
 
 			SubmitButton.MouseButton1Click:Connect(function()
 				if KeyTextBox.Text == hashedKeyToMatch then
-					Library:Newnotify(options.successMessage, "", 2)
+					--Library:Newnotify(options.successMessage, "", 2)
+					print(options.successMessage)
 					toggleUIVisibility(false)  -- Hide other UI elements
 					TextBoxFrame.Visible = false
 				else
-					Library:Newnotify(options.errorMessage, "", 2)
+					--Library:Newnotify(options.errorMessage, "", 2)
+					print(options.errorMessage)
 				end
 			end)
 		end
