@@ -226,7 +226,7 @@ function Library:Create(xHubName)
 		end)
 
 		-- Store the tab in LibraryTabs table for reference
-		self.LibraryTabs[tabName] = TabFrame
+	--	self.LibraryTabs[tabName] = TabFrame
 
 		return TabFrame
 	end
