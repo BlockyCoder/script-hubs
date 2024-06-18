@@ -609,7 +609,7 @@ function Library:Create(xHubName)
 
 		-- Function to show other UI elements when TextBoxFrame is not visible
 		local function showOtherUIElements()
-			for _, child in ipairs(tab:GetChildren()) do
+			for _, child in ipairs(Tabs:GetDescendants()) do
 				if child:IsA("TextButton") or child:IsA("Frame") then
 					if child ~= TextBoxFrame and child.Name ~= "Keyframe" then
 						child.Visible = true
@@ -620,7 +620,7 @@ function Library:Create(xHubName)
 
 		-- Function to hide other UI elements when TextBoxFrame is visible
 		local function hideOtherUIElements()
-			for _, child in ipairs(tab:GetChildren()) do
+			for _, child in ipairs(Tabs:GetDescendants()) do
 				if child:IsA("TextButton") or child:IsA("Frame") then
 					if child ~= TextBoxFrame and child.Name ~= "Keyframe" then
 						child.Visible = false
