@@ -5,6 +5,14 @@ function Library:Create(xHubName)
 
 	local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
 
+table.insert(Library, LibraryName)
+
+	for i, v in pairs(game.CoreGui:GetChildren()) do
+		if v:IsA("ScreenGui") and v.Name == LibraryName then
+			v:Destroy()
+		end
+	end
+
 	local ScreenScript = Instance.new("ScreenGui")
 	local Main = Instance.new("Frame")
 	local Headerframe = Instance.new("Frame")
@@ -28,8 +36,9 @@ function Library:Create(xHubName)
 	local ImageButtonKCorner = Instance.new("UICorner")
 
 	ScreenScript.Name = LibraryName
-	ScreenScript.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	ScreenScript.Parent = game.CoreGui
 	ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ ScreenScript.ResetOnSpawn = false
 
 	Main.Name = "Main"
 	Main.Parent = ScreenScript
