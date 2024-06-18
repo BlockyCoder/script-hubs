@@ -817,6 +817,7 @@ function Library:Create(xHubName)
 		OptionsListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 		-- Function to create dropdown options
+		-- Function to create dropdown options
 		local function createOption(option)
 			local OptionButton = Instance.new("TextButton")
 			OptionButton.Parent = OptionsFrame
@@ -840,10 +841,12 @@ function Library:Create(xHubName)
 			end)
 		end
 
+
 		-- Populate dropdown options using pairs
 		for i, option in pairs(options) do
 			createOption(option)
 		end
+
 
 		-- Toggle Dropdown
 		DropdownButton.MouseButton1Click:Connect(function()
