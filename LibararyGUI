@@ -203,8 +203,6 @@ function Library:Create(xHubName)
 		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		TabFLayout.Padding = UDim.new(0, 5)
 
-		-- Store the tab button and frame together for easy access
-		self.TabInfo[TabButton] = TabFrame
 
 		-- Handle tab button click to show corresponding tab frame
 		TabButton.MouseButton1Click:Connect(function()
