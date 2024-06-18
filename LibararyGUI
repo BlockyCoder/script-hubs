@@ -508,8 +508,8 @@ function Library:Create(xHubName)
 		TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 		TitleLabel.TextSize = 18
 		TitleLabel.Font = Enum.Font.SourceSansBold
-		TitleLabel.Size = UDim2.new(1, 0, 0, 20)
-		TitleLabel.Position = UDim2.new(0, 0, 0, 0)
+		TitleLabel.Size = UDim2.new(2, 0, 0, 20)
+		TitleLabel.Position = UDim2.new(0, 4, 0, 3)
 		TitleLabel.BackgroundTransparency = 1
 		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
@@ -518,7 +518,7 @@ function Library:Create(xHubName)
 		TextBox.Text = defaultValue or ""
 		TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 		TextBox.PlaceholderText = "Enter text..."
-		TextBox.Size = UDim2.new(1, -20, 0, 20)
+		TextBox.Size = UDim2.new(1, 70, 0, 20)
 		TextBox.Position = UDim2.new(0, 10, 0, 20)
 		TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 		TextBox.BorderSizePixel = 0
