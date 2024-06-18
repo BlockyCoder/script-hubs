@@ -807,21 +807,22 @@ function Library:Create(xHubName)
 		local OptionsFrame = Instance.new("Frame")
 		OptionsFrame.Parent = DropdownFrame
 		OptionsFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		OptionsFrame.Position = UDim2.new(0, 0, 1, 0)
-		OptionsFrame.Size = UDim2.new(1, 0, 0, #options * 30)
+		OptionsFrame.Position = UDim2.new(0, 0, 1, 1)
+		OptionsFrame.Size = UDim2.new(1, 0, 0, math.min(#options * 30, 150))
+		OptionsFrame.ZIndex = 2
 
 		local OptionsListLayout = Instance.new("UIListLayout")
 		OptionsListLayout.Parent = OptionsFrame
 		OptionsListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 		-- Function to create dropdown options
-		local function createOption(optionText)
+		local function createOption(option)
 			local OptionButton = Instance.new("TextButton")
 			OptionButton.Parent = OptionsFrame
 			OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 			OptionButton.Size = UDim2.new(1, 0, 0, 30)
 			OptionButton.Font = Enum.Font.Gotham
-			OptionButton.Text = optionText
+			OptionButton.Text = option.label
 			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
 			OptionButton.TextSize = 12
 			OptionButton.ZIndex = 2
@@ -831,17 +832,16 @@ function Library:Create(xHubName)
 			OptionUICorner.Parent = OptionButton
 
 			OptionButton.MouseButton1Click:Connect(function()
-				TitleLabel.Text = optionText
+				TitleLabel.Text = option.label
 				OptionsFrame.Visible = false
-				callback(optionText)
+				callback(option.label, option.value)
 			end)
 		end
 
-		for _, option in ipairs(options) do
+		-- Populate dropdown options using pairs
+		for i, option in pairs(options) do
 			createOption(option)
 		end
-
-		OptionsFrame.Visible = false
 
 		-- Toggle Dropdown
 		DropdownButton.MouseButton1Click:Connect(function()
@@ -851,6 +851,7 @@ function Library:Create(xHubName)
 
 		return DropdownFrame
 	end
+
 
 	Library:Drag(Main, Headerframe)
 
