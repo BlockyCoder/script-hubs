@@ -535,7 +535,7 @@ function Library:Create(xHubName)
 			return TextBox, updateText
 		end
 
-	function Library:KeyTextBoxAndManageUI(tab, titleText, hashedKeyToMatch, options)
+	function Library:KeyTextBoxAndManageUI(titleText, hashedKeyToMatch, options)
 		-- Default options
 		local defaultOptions = {
 			successMessage = "Key Accepted!",
@@ -552,10 +552,15 @@ function Library:Create(xHubName)
 			options[k] = options[k] or v
 		end
 
+		-- Create the ScreenGui for UI elements
+		local ScreenGuiM = Instance.new("ScreenGui")
+		ScreenGuiM.Name = "KeyTextBoxScreenGui"
+		ScreenGuiM.Parent = game.CoreGui -- Set TextBoxFrame's parent as the ScreenGui's parent
+
 		-- Create the Frame for UI elements
 		local TextBoxFrame = Instance.new("Frame")
-		TextBoxFrame.Parent = tab
 		TextBoxFrame.Name = "Keyframe"
+		TextBoxFrame.Parent = ScreenGuiM -- Set ScreenGui as parent of TextBoxFrame
 		TextBoxFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		TextBoxFrame.Size = UDim2.new(0, 200, 0, 100)  -- Increased height to accommodate elements
 		TextBoxFrame.Position = UDim2.new(0, 0, 0, 0)
@@ -572,11 +577,6 @@ function Library:Create(xHubName)
 		TitleLabel.Text = titleText
 		TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 		TitleLabel.TextSize = 18
-		TitleLabel.Font = Enum.Font.SourceSansBold
-		TitleLabel.Size = UDim2.new(1, 0, 0, 20)
-		TitleLabel.Position = UDim2.new(0, 0, 0, 0)
-		TitleLabel.BackgroundTransparency = 1
-		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
 		-- Create TextBox for key entry
 		local TextBox = Instance.new("TextBox")
