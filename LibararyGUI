@@ -411,15 +411,43 @@ function Library:Create(xHubName)
 			OptionButton.MouseButton1Click:Connect(function()
 				callback(optionText)
 				DropdownList.Visible = false
+
+				-- Hide other UI elements when the dropdown list is shown
+				for _, child in ipairs(tab:GetChildren()) do
+					if child:IsA("TextButton") or child:IsA("Frame") then
+						if child ~= Dropdown and child.Name ~= "DropdownList" then
+							child.Visible = true
+						end
+					end
+				end
 			end)
 		end
 
 		Dropdown.MouseButton1Click:Connect(function()
 			DropdownList.Visible = not DropdownList.Visible
+
+			-- Hide other UI elements when the dropdown list is shown
+			if DropdownList.Visible then
+				for _, child in ipairs(tab:GetChildren()) do
+					if child:IsA("TextButton") or child:IsA("Frame") then
+						if child ~= Dropdown and child.Name ~= "DropdownList" then
+							child.Visible = false
+						end
+					end
+				end
+			else
+				-- Show all other UI elements when the dropdown list is hidden
+				for _, child in ipairs(tab:GetChildren()) do
+					if child:IsA("TextButton") or child:IsA("Frame") then
+						child.Visible = true
+					end
+				end
+			end
 		end)
 
 		return Dropdown, DropdownList
 	end
+
 
 
 	ImageButtonK.MouseButton1Click:Connect(function()
