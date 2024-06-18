@@ -809,6 +809,7 @@ function Library:Create(xHubName)
 		OptionsFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		OptionsFrame.Position = UDim2.new(0, 0, 1, 1)
 		OptionsFrame.Size = UDim2.new(1, 0, 0, math.min(#options * 30, 150))
+		OptionsFrame.Visible = false -- Initially hidden
 		OptionsFrame.ZIndex = 2
 
 		local OptionsListLayout = Instance.new("UIListLayout")
@@ -834,6 +835,7 @@ function Library:Create(xHubName)
 			OptionButton.MouseButton1Click:Connect(function()
 				TitleLabel.Text = option.label
 				OptionsFrame.Visible = false
+				DropdownIcon.Rotation = 0 -- Reset icon rotation
 				callback(option.label, option.value)
 			end)
 		end
@@ -851,6 +853,7 @@ function Library:Create(xHubName)
 
 		return DropdownFrame
 	end
+
 
 
 	Library:Drag(Main, Headerframe)
