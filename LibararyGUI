@@ -546,15 +546,17 @@ function Library:Create(xHubName)
 		TextBox.Font = Enum.Font.SourceSans
 		TextBox.TextSize = 14
 
-		local function updateText()
-			callback(TextBox.Text)
+			local function updateText()
+				callback(TextBox.Text)
+			end
+
+			TextBox.FocusLost:Connect(updateText)
+
+			return TextBox, updateText
 		end
 
-		TextBox.FocusLost:Connect(updateText)
-
-		return TextBox, updateText
-	end
-
+	-- Function to securely validate key entered by user
+-- Function to securely validate key entered by user
 	-- Function to securely validate key entered by user
 	function Library:KeyTextBoxAndManageUI(tab, titleText, hashedKeyToMatch)
 		local TextBoxFrame = Instance.new("Frame")
@@ -609,8 +611,8 @@ function Library:Create(xHubName)
 
 		-- Function to show other UI elements when TextBoxFrame is not visible
 		local function showOtherUIElements()
-			for _, child in ipairs(Tabs:GetDescendants()) do
-				if child:IsA("TextButton") or child:IsA("Frame") then
+			for _, child in ipairs(Tabs:GetChildren()) do
+				if child:IsA("TextButtton") or child:IsA("Frame") then
 					if child ~= TextBoxFrame and child.Name ~= "Keyframe" then
 						child.Visible = true
 					end
@@ -618,12 +620,12 @@ function Library:Create(xHubName)
 			end
 		end
 
-		-- Function to hide other UI elements when TextBoxFrame is visible
+		-- Function to hide all UI elements in Tabs folder except TextBoxFrame
 		local function hideOtherUIElements()
-			for _, child in ipairs(Tabs:GetDescendants()) do
+			for _, child in ipairs(Tabs:GetChildren()) do
 				if child:IsA("TextButton") or child:IsA("Frame") then
 					if child ~= TextBoxFrame and child.Name ~= "Keyframe" then
-						child.Visible = false
+							child.Visible = false
 					end
 				end
 			end
@@ -631,6 +633,7 @@ function Library:Create(xHubName)
 
 		SubmitButton.MouseButton1Click:Connect(function()
 			local enteredKey = TextBox.Text  -- Retrieve the text entered in the TextBox
+			-- Perform validation securely, adjust as per your hashing method
 			if enteredKey == hashedKeyToMatch then
 				-- Correct key entered, perform actions here
 				print("Key matched!")
@@ -659,6 +662,8 @@ function Library:Create(xHubName)
 
 		return TextBoxFrame
 	end
+
+
 
 
 
