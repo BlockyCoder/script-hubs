@@ -173,8 +173,6 @@ function Library:Create(xHubName)
 
 	local LibraryTabs = {}
 	
-	
-	
 	function Library:CreateTab(tabName)
 		-- Create TabButton
 		local TabButton = Instance.new("TextButton")
@@ -196,8 +194,8 @@ function Library:Create(xHubName)
 		TabFrame.Parent = Tabs
 		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		TabFrame.BorderSizePixel = 0
-		TabFrame.Size = UDim2.new(1, 0, 1, 0)
-		TabFrame.Visible = false  -- Initially hidden
+		TabFrame.Size = UDim2.new(1, 0, 1, 0)  -- Full size to fill the parent
+		TabFrame.Visible = false  -- Initially hide all tab frames
 
 		local TabFLayout = Instance.new("UIListLayout")
 		TabFLayout.Name = "TabLayout"
@@ -229,17 +227,13 @@ function Library:Create(xHubName)
 			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 		end)
 
-		-- Set the first tab to be visible by default
-		if Tabs:GetChildren()[1] == TabFrame then
-			TabFrame.Visible = true
-			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-		end
-
 		-- Store the tab in LibraryTabs table for reference
 		self.LibraryTabs[tabName] = TabFrame
 
 		return TabFrame
 	end
+
+
 
 
 
