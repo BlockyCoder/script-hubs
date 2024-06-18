@@ -534,7 +534,8 @@ function Library:Create(xHubName)
 
 			return TextBox, updateText
 		end
-
+	
+	
 	function Library:KeyTextBoxAndManageUI(titleText, hashedKeyToMatch, options)
 		-- Default options
 		local defaultOptions = {
@@ -555,14 +556,14 @@ function Library:Create(xHubName)
 		-- Create the ScreenGui for UI elements
 		local ScreenGuiM = Instance.new("ScreenGui")
 		ScreenGuiM.Name = "KeyTextBoxScreenGui"
-		ScreenGuiM.Parent = game.CoreGui -- Set TextBoxFrame's parent as the ScreenGui's parent
+		ScreenGuiM.Parent = game.CoreGui
 
 		-- Create the Frame for UI elements
 		local TextBoxFrame = Instance.new("Frame")
 		TextBoxFrame.Name = "Keyframe"
-		TextBoxFrame.Parent = ScreenGuiM -- Set ScreenGui as parent of TextBoxFrame
+		TextBoxFrame.Parent = ScreenGuiM
 		TextBoxFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TextBoxFrame.Size = UDim2.new(0, 200, 0, 100)  -- Increased height to accommodate elements
+		TextBoxFrame.Size = UDim2.new(0, 200, 0, 100)
 		TextBoxFrame.Position = UDim2.new(0, 0, 0, 0)
 		TextBoxFrame.Visible = true
 
@@ -571,82 +572,63 @@ function Library:Create(xHubName)
 		UICorner.CornerRadius = UDim.new(0, 5)
 		UICorner.Parent = TextBoxFrame
 
-		-- Create TitleLabel for key input title
-		local TitleLabel = Instance.new("TextLabel")
-		TitleLabel.Parent = TextBoxFrame
-		TitleLabel.Text = titleText
-		TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-		TitleLabel.TextSize = 18
+		-- Create a TextBox for input
+		local KeyTextBox = Instance.new("TextBox")
+		KeyTextBox.Parent = TextBoxFrame
+		KeyTextBox.Size = UDim2.new(0, 180, 0, 30)
+		KeyTextBox.Position = UDim2.new(0.5, -90, 0.5, -15)
+		KeyTextBox.PlaceholderText = options.textBoxPlaceholder
+		KeyTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+		KeyTextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		KeyTextBox.BorderSizePixel = 0
+		KeyTextBox.ClearTextOnFocus = false
+		KeyTextBox.Font = Enum.Font.SourceSans
+		KeyTextBox.TextSize = 14
 
-		-- Create TextBox for key entry
-		local TextBox = Instance.new("TextBox")
-		TextBox.Parent = TextBoxFrame
-		TextBox.Text = ""
-		TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-		TextBox.PlaceholderText = options.textBoxPlaceholder
-		TextBox.Size = UDim2.new(1, -20, 0, 20)
-		TextBox.Position = UDim2.new(0, 10, 0, 30)
-		TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		TextBox.BorderSizePixel = 0
-		TextBox.ClearTextOnFocus = false
-		TextBox.Font = Enum.Font.SourceSans
-		TextBox.TextSize = 14
+		-- Function to toggle visibility of other UI elements
+		local function toggleUIVisibility(visible)
+			for _, tab in pairs(ScreenGuiM.Tabs:GetChildren()) do
+				if tab:IsA("Frame") and tab:FindFirstChild("TabFrame") then
+					local tabFrame = tab.TabFrame
+					for _, element in pairs(tabFrame:GetDescendants()) do
+						if element ~= TextBoxFrame and element:IsA("GuiObject") then
+							element.Visible = visible
+						end
+					end
+				end
+			end
+		end
 
-		-- Create SubmitButton for validation
-		local SubmitButton
+		-- Create Submit Button (if enabled)
 		if options.submitButton then
-			SubmitButton = Instance.new("TextButton")
+			local SubmitButton = Instance.new("TextButton")
 			SubmitButton.Parent = TextBoxFrame
-			SubmitButton.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
-			SubmitButton.Position = UDim2.new(0, 10, 0, 65)  -- Adjusted position to avoid overlap
-			SubmitButton.Size = UDim2.new(0, 180, 0, 20)
-			SubmitButton.Font = Enum.Font.SourceSans
+			SubmitButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			SubmitButton.Size = UDim2.new(0, 180, 0, 30)
+			SubmitButton.Position = UDim2.new(0.5, -90, 0.75, -15)
 			SubmitButton.Text = "Submit"
 			SubmitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+			SubmitButton.Font = Enum.Font.Gotham
 			SubmitButton.TextSize = 14
 
-			-- Add UICorner for rounded corners on SubmitButton
-			local UICornerSubmit = Instance.new("UICorner")
-			UICornerSubmit.CornerRadius = UDim.new(0, 5)
-			UICornerSubmit.Parent = SubmitButton
-
-			-- SubmitButton click event handler
 			SubmitButton.MouseButton1Click:Connect(function()
-				local enteredKey = TextBox.Text
-				if enteredKey == hashedKeyToMatch then
-					-- Display success message
-					local SuccessLabel = Instance.new("TextLabel")
-					SuccessLabel.Parent = TextBoxFrame
-					SuccessLabel.Text = options.successMessage
-					SuccessLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
-					SuccessLabel.TextSize = 14
-					SuccessLabel.Font = Enum.Font.SourceSans
-					SuccessLabel.Size = UDim2.new(1, 0, 0, 20)
-					SuccessLabel.Position = UDim2.new(0, 0, 0, 90)
-					SuccessLabel.BackgroundTransparency = 1
-
-					-- Hide all UI elements after success
-					wait(options.revealDuration)
+				if KeyTextBox.Text == hashedKeyToMatch then
+					Library:Newnotify(options.successMessage, "", 2)
+					toggleUIVisibility(false)  -- Hide other UI elements
 					TextBoxFrame.Visible = false
-
-					-- Hide all children of tab
-					for _, child in pairs(tab:GetChildren()) do
-						child.Visible = false
-					end
 				else
-					-- Display error message
-					TextBox.BorderColor3 = Color3.fromRGB(255, 0, 0)
-					wait(0.5)
-					TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
-					print(options.errorMessage)
+					Library:Newnotify(options.errorMessage, "", 2)
 				end
 			end)
 		end
 
-		-- Return the TextBoxFrame for further customization if needed
+		-- Hide other UI elements when TextBoxFrame is visible
+		TextBoxFrame:GetPropertyChangedSignal("Visible"):Connect(function()
+			toggleUIVisibility(not TextBoxFrame.Visible)
+		end)
+
 		return TextBoxFrame
 	end
-
 
 
 
