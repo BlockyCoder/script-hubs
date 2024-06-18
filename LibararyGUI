@@ -222,7 +222,7 @@ function Library:Create(xHubName)
 			end
 		end)
 	end
-	
+
 	--notifcation
 	function Library:Newnotify(Text, Description, Length)
 		local ScreenGuiM = Instance.new("ScreenGui")
