@@ -585,54 +585,42 @@ function Library:KeyTextBoxAndManageUI(parent, titleText, hashedKeyToMatch)
     TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
     TextBox.PlaceholderText = "Enter key..."
     TextBox.Size = UDim2.new(1, -20, 0, 20)
-    TextBox.Position = UDim2.new(0, 10, 0, 20)
+    TextBox.Position = UDim2.new(0, 10, 0, 30)  -- Adjust position to ensure it's visible
     TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     TextBox.BorderSizePixel = 0
     TextBox.ClearTextOnFocus = false
     TextBox.Font = Enum.Font.SourceSans
     TextBox.TextSize = 14
 
-    local function validateKey()
+    local SubmitButton = Instance.new("TextButton")
+    SubmitButton.Parent = TextBoxFrame
+    SubmitButton.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+    SubmitButton.Position = UDim2.new(0, 10, 0, 55)  -- Adjust position as needed
+    SubmitButton.Size = UDim2.new(0, 180, 0, 20)
+    SubmitButton.Font = Enum.Font.SourceSans
+    SubmitButton.Text = "Submit"
+    SubmitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SubmitButton.TextSize = 14
+
+    local UICornerSubmit = Instance.new("UICorner")
+    UICornerSubmit.CornerRadius = UDim.new(0, 5)
+    UICornerSubmit.Parent = SubmitButton
+
+    SubmitButton.MouseButton1Click:Connect(function()
         local enteredKey = TextBox.Text
-
-        -- Hash entered key using SHA-256 for comparison with hashedKeyToMatch
-        local hashedEnteredKey = game:GetService("HttpService"):GenerateSHA256(enteredKey)
-
-        -- Compare hashed keys to validate
-        if hashedEnteredKey == hashedKeyToMatch then
-            -- Key matches, show UI elements in 'tab'
-            Library:ShowElements(parent.tab)
+        if enteredKey == hashedKeyToMatch then
+            -- Correct key entered, perform actions here
+            print("Key matched!")
+            TextBoxFrame.Visible = false  -- Hide the frame after successful submission
+            -- You can trigger further actions here
         else
-            -- Invalid key, hide UI elements in 'tab' and possibly kick the player
-            Library:HideElements(parent.tab)
-            game.Players.LocalPlayer:Kick("Invalid key detected.")
+            -- Incorrect key entered, handle accordingly
+            print("Incorrect key!")
+            -- You can display an error message or take other actions
         end
-    end
+    end)
 
-    TextBox.FocusLost:Connect(validateKey)
-
-    -- Initially hide elements in 'tab' until key is validated
-    Library:HideElements(parent.tab)
-
-    return TextBox
-end
-
--- Function to hide all UI elements within 'tab'
-function Library:HideElements(tab)
-    for _, child in ipairs(tab:GetChildren()) do
-        if child:IsA("TextButton") or child:IsA("Frame") then
-            child.Visible = false
-        end
-    end
-end
-
--- Function to show all UI elements within 'tab'
-function Library:ShowElements(tab)
-    for _, child in ipairs(tab:GetChildren()) do
-        if child:IsA("TextButton") or child:IsA("Frame") then
-            child.Visible = true
-        end
-    end
+    return TextBoxFrame
 end
 
 
