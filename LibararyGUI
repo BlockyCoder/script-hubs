@@ -225,8 +225,6 @@ function Library:Create(xHubName)
 			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 		end)
 
-		-- Store the tab in LibraryTabs table for reference
-	--	self.LibraryTabs[tabName] = TabFrame
 
 		return TabFrame
 	end
