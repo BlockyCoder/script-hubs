@@ -616,7 +616,7 @@ function Library:Create(xHubName)
 					--Library:Newnotify(options.successMessage, "", 2)
 					print(options.successMessage)
 					toggleUIVisibility(false)  -- Hide other UI elements
-					TextBoxFrame.Visible = false
+					ScreenGuiM:Destroy()
 				else
 					--Library:Newnotify(options.errorMessage, "", 2)
 					print(options.errorMessage)
