@@ -606,19 +606,35 @@ function Library:KeyTextBoxAndManageUI(parent, titleText, hashedKeyToMatch)
     UICornerSubmit.CornerRadius = UDim.new(0, 5)
     UICornerSubmit.Parent = SubmitButton
 
-    SubmitButton.MouseButton1Click:Connect(function()
-        local enteredKey = TextBox.Text
-        if enteredKey == hashedKeyToMatch then
-            -- Correct key entered, perform actions here
-            print("Key matched!")
-            TextBoxFrame.Visible = false  -- Hide the frame after successful submission
-            -- You can trigger further actions here
-        else
-            -- Incorrect key entered, handle accordingly
-            print("Incorrect key!")
-            -- You can display an error message or take other actions
+   SubmitButton.MouseButton1Click:Connect(function()
+    local enteredKey = TextBox.Text  -- Retrieve the text entered in the TextBox
+    if enteredKey == hashedKeyToMatch then
+        -- Correct key entered, perform actions here
+        print("Key matched!")
+        TextBoxFrame.Visible = false  -- Hide the frame after successful submission
+        
+        -- Iterate through children of 'tab' and make TextButtons or Frames invisible
+        for _, child in ipairs(tab:GetChildren()) do
+            if child:IsA("TextButton") or child:IsA("Frame") then
+                child.Visible = false
+            end
         end
-    end)
+        
+        -- You can trigger further actions here if needed
+    else
+        -- Incorrect key entered, handle accordingly
+        print("Incorrect key!")
+        
+        -- Iterate through children of 'tab' and make TextButtons or Frames visible
+        for _, child in ipairs(tab:GetChildren()) do
+            if child:IsA("TextButton") or child:IsA("Frame") then
+                child.Visible = true
+            end
+        end
+        
+        -- You can display an error message or take other actions for incorrect key
+    end
+end)
 
     return TextBoxFrame
 end
