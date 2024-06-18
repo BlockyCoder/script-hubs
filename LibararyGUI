@@ -5,7 +5,7 @@ function Library:Create(xHubName)
 
 	local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
 
-table.insert(Library, LibraryName)
+	table.insert(Library, LibraryName)
 
 	for i, v in pairs(game.CoreGui:GetChildren()) do
 		if v:IsA("ScreenGui") and v.Name == LibraryName then
@@ -38,7 +38,7 @@ table.insert(Library, LibraryName)
 	ScreenScript.Name = LibraryName
 	ScreenScript.Parent = game.CoreGui
 	ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
- ScreenScript.ResetOnSpawn = false
+	ScreenScript.ResetOnSpawn = false
 
 	Main.Name = "Main"
 	Main.Parent = ScreenScript
@@ -180,51 +180,51 @@ table.insert(Library, LibraryName)
 	ImageButtonKCorner.Name = "ImageButtonKCorner"
 	ImageButtonKCorner.Parent = ImageButtonK
 
--- Added Library:Drag function
-    function Library:Drag(obj)
-        local UserInputService = game:GetService("UserInputService")
-        
-        local gui = obj
-        
-        local dragging
-        local dragInput
-        local dragStart
-        local startPos
-        
-        local function update(input)
-            local delta = input.Position - dragStart
-            gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-        end
-        
-        gui.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                dragging = true
-                dragStart = input.Position
-                startPos = gui.Position
-        
-                input.Changed:Connect(function()
-                    if input.UserInputState == Enum.UserInputState.End then
-                        dragging = false
-                    end
-                end)
-            end
-        end)
-        
-        gui.InputChanged:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-                dragInput = input
-            end
-        end)
-        
-        UserInputService.InputChanged:Connect(function(input)
-            if input == dragInput and dragging then
-                update(input)
-            end
-        end)
-    end
+	-- Added Library:Drag function
+	function Library:Drag(obj)
+		local UserInputService = game:GetService("UserInputService")
+
+		local gui = obj
+
+		local dragging
+		local dragInput
+		local dragStart
+		local startPos
+
+		local function update(input)
+			local delta = input.Position - dragStart
+			gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		end
+
+		gui.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragging = true
+				dragStart = input.Position
+				startPos = gui.Position
+
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end)
+			end
+		end)
+
+		gui.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				dragInput = input
+			end
+		end)
+
+		UserInputService.InputChanged:Connect(function(input)
+			if input == dragInput and dragging then
+				update(input)
+			end
+		end)
+	end
 
 	local LibraryTabs = {}
-	
+
 	function Library:CreateTab(tabName)
 		-- Create TabButton
 		local TabButton = Instance.new("TextButton")
@@ -419,225 +419,247 @@ table.insert(Library, LibraryName)
 	end
 
 	function Library:Label(parent, text)
-    local Label = Instance.new("TextLabel")
-    Label.Parent = parent
-    Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Label.BackgroundTransparency = 1.000
-    Label.Size = UDim2.new(1, 0, 0, 20)
-    Label.Position = UDim2.new(0, 0, 0, 0)
-    Label.Font = Enum.Font.GothamMedium
-    Label.Text = text
-    Label.TextColor3 = Color3.fromRGB(193, 193, 193)
-    Label.TextSize = 12.000
-    Label.TextXAlignment = Enum.TextXAlignment.Left
-    return Label
-end
+		local Label = Instance.new("TextLabel")
+		Label.Parent = parent
+		Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Label.BackgroundTransparency = 1.000
+		Label.Size = UDim2.new(1, 0, 0, 20)
+		Label.Position = UDim2.new(0, 0, 0, 0)
+		Label.Font = Enum.Font.GothamMedium
+		Label.Text = text
+		Label.TextColor3 = Color3.fromRGB(193, 193, 193)
+		Label.TextSize = 12.000
+		Label.TextXAlignment = Enum.TextXAlignment.Left
+		return Label
+	end
 
-function Library:Slider(parent, minValue, maxValue, defaultValue, callback)
-    callback = callback or function() end
+	function Library:Slider(parent, minValue, maxValue, defaultValue, callback)
+		callback = callback or function() end
 
-    local SliderFrame = Instance.new("Frame")
-    SliderFrame.Parent = parent
-    SliderFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    SliderFrame.Size = UDim2.new(1, 0, 0, 50)  -- Adjust height as needed
-    SliderFrame.Position = UDim2.new(0, 0, 0, 0)
+		local SliderFrame = Instance.new("Frame")
+		SliderFrame.Parent = parent
+		SliderFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		SliderFrame.Size = UDim2.new(1, 0, 0, 50)  -- Adjust height as needed
+		SliderFrame.Position = UDim2.new(0, 0, 0, 0)
 
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 5)
-    UICorner.Parent = SliderFrame
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = SliderFrame
 
-    local SliderBackground = Instance.new("Frame")
-    SliderBackground.Parent = SliderFrame
-    SliderBackground.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    SliderBackground.Size = UDim2.new(1, -20, 0, 10)
-    SliderBackground.Position = UDim2.new(0, 10, 0.5, -5)
+		local SliderBackground = Instance.new("Frame")
+		SliderBackground.Parent = SliderFrame
+		SliderBackground.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		SliderBackground.Size = UDim2.new(1, -20, 0, 10)
+		SliderBackground.Position = UDim2.new(0, 10, 0.5, -5)
 
-    local SliderBar = Instance.new("Frame")
-    SliderBar.Parent = SliderBackground
-    SliderBar.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
-    SliderBar.BorderSizePixel = 0
-    SliderBar.Size = UDim2.new((defaultValue - minValue) / (maxValue - minValue), 0, 1, 0)
+		local SliderBar = Instance.new("Frame")
+		SliderBar.Parent = SliderBackground
+		SliderBar.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+		SliderBar.BorderSizePixel = 0
+		SliderBar.Size = UDim2.new((defaultValue - minValue) / (maxValue - minValue), 0, 1, 0)
 
-    local SliderHandle = Instance.new("Frame")
-    SliderHandle.Parent = SliderBar
-    SliderHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    SliderHandle.BorderSizePixel = 0
-    SliderHandle.Size = UDim2.new(0, 16, 0, 16)
-    SliderHandle.Position = UDim2.new((defaultValue - minValue) / (maxValue - minValue), -8, 0.5, -8)  -- Position based on initial value
+		local SliderHandle = Instance.new("Frame")
+		SliderHandle.Parent = SliderBar
+		SliderHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		SliderHandle.BorderSizePixel = 0
+		SliderHandle.Size = UDim2.new(0, 16, 0, 16)
+		SliderHandle.Position = UDim2.new((defaultValue - minValue) / (maxValue - minValue), -8, 0.5, -8)  -- Position based on initial value
 
-    local function updateSlider(value)
-        local percent = math.clamp((value - minValue) / (maxValue - minValue), 0, 1)
-        SliderBar.Size = UDim2.new(percent, 0, 1, 0)
-        SliderHandle.Position = UDim2.new(percent, -8, 0.5, -8)
-        callback(value)
-    end
+		local function updateSlider(value)
+			local percent = math.clamp((value - minValue) / (maxValue - minValue), 0, 1)
+			SliderBar.Size = UDim2.new(percent, 0, 1, 0)
+			SliderHandle.Position = UDim2.new(percent, -8, 0.5, -8)
+			callback(value)
+		end
 
-    local dragging = false
-    local dragInput
-    local dragStart
-    local startPos
+		local dragging = false
+		local dragInput
+		local dragStart
+		local startPos
 
-    SliderHandle.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = true
-            startPos = SliderHandle.Position
-            dragStart = input.Position
-            input.Handled = true  -- Prevents other objects from processing this input
-        end
-    end)
+		SliderHandle.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				dragging = true
+				startPos = SliderHandle.Position
+				dragStart = input.Position
+				input.Handled = true  -- Prevents other objects from processing this input
+			end
+		end)
 
-    game:GetService("UserInputService").InputChanged:Connect(function(input)
-        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-            local delta = input.Position - dragStart
-            local sliderPos = startPos + UDim2.new(0, delta.X, 0, 0)
+		game:GetService("UserInputService").InputChanged:Connect(function(input)
+			if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+				local delta = input.Position - dragStart
+				local sliderPos = startPos + UDim2.new(0, delta.X, 0, 0)
 
-            local newValue = minValue + sliderPos.X.Offset / SliderBackground.AbsoluteSize.X * (maxValue - minValue)
-            newValue = math.clamp(newValue, minValue, maxValue)
-            updateSlider(newValue)
-            input.Handled = true
-        end
-    end)
+				local newValue = minValue + sliderPos.X.Offset / SliderBackground.AbsoluteSize.X * (maxValue - minValue)
+				newValue = math.clamp(newValue, minValue, maxValue)
+				updateSlider(newValue)
+				input.Handled = true
+			end
+		end)
 
-    game:GetService("UserInputService").InputEnded:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = false
-        end
-    end)
+		game:GetService("UserInputService").InputEnded:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				dragging = false
+			end
+		end)
 
-    return updateSlider
-end
+		return updateSlider
+	end
 
 
 
-function Library:TextBox(parent, titleText, defaultValue, callback)
-    callback = callback or function() end
+	function Library:TextBox(parent, titleText, defaultValue, callback)
+		callback = callback or function() end
 
-    local TextBoxFrame = Instance.new("Frame")
-    TextBoxFrame.Parent = parent
-    TextBoxFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    TextBoxFrame.Size = UDim2.new(0, 200, 0, 40)  -- Adjust size as needed
-    TextBoxFrame.Position = UDim2.new(0, 0, 0, 0)
+		local TextBoxFrame = Instance.new("Frame")
+		TextBoxFrame.Parent = parent
+		TextBoxFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		TextBoxFrame.Size = UDim2.new(0, 200, 0, 40)  -- Adjust size as needed
+		TextBoxFrame.Position = UDim2.new(0, 0, 0, 0)
 
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 5)
-    UICorner.Parent = TextBoxFrame
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = TextBoxFrame
 
-    local TitleLabel = Instance.new("TextLabel")
-    TitleLabel.Parent = TextBoxFrame
-    TitleLabel.Text = titleText
-    TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TitleLabel.TextSize = 18
-    TitleLabel.Font = Enum.Font.SourceSansBold
-    TitleLabel.Size = UDim2.new(1, 0, 0, 20)
-    TitleLabel.Position = UDim2.new(0, 0, 0, 0)
-    TitleLabel.BackgroundTransparency = 1
-    TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+		local TitleLabel = Instance.new("TextLabel")
+		TitleLabel.Parent = TextBoxFrame
+		TitleLabel.Text = titleText
+		TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TitleLabel.TextSize = 18
+		TitleLabel.Font = Enum.Font.SourceSansBold
+		TitleLabel.Size = UDim2.new(1, 0, 0, 20)
+		TitleLabel.Position = UDim2.new(0, 0, 0, 0)
+		TitleLabel.BackgroundTransparency = 1
+		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-    local TextBox = Instance.new("TextBox")
-    TextBox.Parent = TextBoxFrame
-    TextBox.Text = defaultValue or ""
-    TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TextBox.PlaceholderText = "Enter text..."
-    TextBox.Size = UDim2.new(1, -20, 0, 20)
-    TextBox.Position = UDim2.new(0, 10, 0, 20)
-    TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    TextBox.BorderSizePixel = 0
-    TextBox.ClearTextOnFocus = false
-    TextBox.Font = Enum.Font.SourceSans
-    TextBox.TextSize = 14
+		local TextBox = Instance.new("TextBox")
+		TextBox.Parent = TextBoxFrame
+		TextBox.Text = defaultValue or ""
+		TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TextBox.PlaceholderText = "Enter text..."
+		TextBox.Size = UDim2.new(1, -20, 0, 20)
+		TextBox.Position = UDim2.new(0, 10, 0, 20)
+		TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		TextBox.BorderSizePixel = 0
+		TextBox.ClearTextOnFocus = false
+		TextBox.Font = Enum.Font.SourceSans
+		TextBox.TextSize = 14
 
-    local function updateText()
-        callback(TextBox.Text)
-    end
+		local function updateText()
+			callback(TextBox.Text)
+		end
 
-    TextBox.FocusLost:Connect(updateText)
+		TextBox.FocusLost:Connect(updateText)
 
-    return TextBox, updateText
-end
+		return TextBox, updateText
+	end
 
--- Function to securely validate key entered by user
-function Library:KeyTextBoxAndManageUI(parent, titleText, hashedKeyToMatch)
-    local TextBoxFrame = Instance.new("Frame")
-    TextBoxFrame.Parent = parent
-    TextBoxFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    TextBoxFrame.Size = UDim2.new(0, 200, 0, 80)  -- Adjust size as needed
-    TextBoxFrame.Position = UDim2.new(0, 0, 0, 0)
-    TextBoxFrame.Visible = true  -- Ensure TextBoxFrame is initially visible
+	-- Function to securely validate key entered by user
+	function Library:KeyTextBoxAndManageUI(tab, titleText, hashedKeyToMatch)
+		local TextBoxFrame = Instance.new("Frame")
+		TextBoxFrame.Parent = tab
+		TextBoxFrame.Name = "Keyframe"
+		TextBoxFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		TextBoxFrame.Size = UDim2.new(0, 200, 0, 80)  -- Adjust size as needed
+		TextBoxFrame.Position = UDim2.new(0, 0, 0, 0)
+		TextBoxFrame.Visible = true  -- Ensure TextBoxFrame is initially visible
 
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 5)
-    UICorner.Parent = TextBoxFrame
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = TextBoxFrame
 
-    local TitleLabel = Instance.new("TextLabel")
-    TitleLabel.Parent = TextBoxFrame
-    TitleLabel.Text = titleText
-    TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TitleLabel.TextSize = 18
-    TitleLabel.Font = Enum.Font.SourceSansBold
-    TitleLabel.Size = UDim2.new(1, 0, 0, 20)
-    TitleLabel.Position = UDim2.new(0, 0, 0, 0)
-    TitleLabel.BackgroundTransparency = 1
-    TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+		local TitleLabel = Instance.new("TextLabel")
+		TitleLabel.Parent = TextBoxFrame
+		TitleLabel.Text = titleText
+		TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TitleLabel.TextSize = 18
+		TitleLabel.Font = Enum.Font.SourceSansBold
+		TitleLabel.Size = UDim2.new(1, 0, 0, 20)
+		TitleLabel.Position = UDim2.new(0, 0, 0, 0)
+		TitleLabel.BackgroundTransparency = 1
+		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-    local TextBox = Instance.new("TextBox")
-    TextBox.Parent = TextBoxFrame
-    TextBox.Text = ""
-    TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TextBox.PlaceholderText = "Enter key..."
-    TextBox.Size = UDim2.new(1, -20, 0, 20)
-    TextBox.Position = UDim2.new(0, 10, 0, 30)  -- Adjust position to ensure it's visible
-    TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    TextBox.BorderSizePixel = 0
-    TextBox.ClearTextOnFocus = false
-    TextBox.Font = Enum.Font.SourceSans
-    TextBox.TextSize = 14
+		local TextBox = Instance.new("TextBox")
+		TextBox.Parent = TextBoxFrame
+		TextBox.Text = ""
+		TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TextBox.PlaceholderText = "Enter key..."
+		TextBox.Size = UDim2.new(1, -20, 0, 20)
+		TextBox.Position = UDim2.new(0, 10, 0, 30)  -- Adjust position to ensure it's visible
+		TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		TextBox.BorderSizePixel = 0
+		TextBox.ClearTextOnFocus = false
+		TextBox.Font = Enum.Font.SourceSans
+		TextBox.TextSize = 14
 
-    local SubmitButton = Instance.new("TextButton")
-    SubmitButton.Parent = TextBoxFrame
-    SubmitButton.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
-    SubmitButton.Position = UDim2.new(0, 10, 0, 55)  -- Adjust position as needed
-    SubmitButton.Size = UDim2.new(0, 180, 0, 20)
-    SubmitButton.Font = Enum.Font.SourceSans
-    SubmitButton.Text = "Submit"
-    SubmitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    SubmitButton.TextSize = 14
+		local SubmitButton = Instance.new("TextButton")
+		SubmitButton.Parent = TextBoxFrame
+		SubmitButton.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+		SubmitButton.Position = UDim2.new(0, 10, 0, 55)  -- Adjust position as needed
+		SubmitButton.Size = UDim2.new(0, 180, 0, 20)
+		SubmitButton.Font = Enum.Font.SourceSans
+		SubmitButton.Text = "Submit"
+		SubmitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		SubmitButton.TextSize = 14
 
-    local UICornerSubmit = Instance.new("UICorner")
-    UICornerSubmit.CornerRadius = UDim.new(0, 5)
-    UICornerSubmit.Parent = SubmitButton
+		local UICornerSubmit = Instance.new("UICorner")
+		UICornerSubmit.CornerRadius = UDim.new(0, 5)
+		UICornerSubmit.Parent = SubmitButton
 
-   SubmitButton.MouseButton1Click:Connect(function()
-    local enteredKey = TextBox.Text  -- Retrieve the text entered in the TextBox
-    if enteredKey == hashedKeyToMatch then
-        -- Correct key entered, perform actions here
-        print("Key matched!")
-        TextBoxFrame.Visible = false  -- Hide the frame after successful submission
-        
-        -- Iterate through children of 'tab' and make TextButtons or Frames invisible
-        for _, child in ipairs(tab:GetChildren()) do
-            if child:IsA("TextButton") or child:IsA("Frame") then
-                child.Visible = false
-            end
-        end
-        
-        -- You can trigger further actions here if needed
-    else
-        -- Incorrect key entered, handle accordingly
-        print("Incorrect key!")
-        
-        -- Iterate through children of 'tab' and make TextButtons or Frames visible
-        for _, child in ipairs(tab:GetChildren()) do
-            if child:IsA("TextButton") or child:IsA("Frame") then
-                child.Visible = true
-            end
-        end
-        
-        -- You can display an error message or take other actions for incorrect key
-    end
-end)
+		-- Function to show other UI elements when TextBoxFrame is not visible
+		local function showOtherUIElements()
+			for _, child in ipairs(tab:GetChildren()) do
+				if child:IsA("TextButton") or child:IsA("Frame") then
+					if child ~= TextBoxFrame and child.Name ~= "Keyframe" then
+						child.Visible = true
+					end
+				end
+			end
+		end
 
-    return TextBoxFrame
-end
+		-- Function to hide other UI elements when TextBoxFrame is visible
+		local function hideOtherUIElements()
+			for _, child in ipairs(tab:GetChildren()) do
+				if child:IsA("TextButton") or child:IsA("Frame") then
+					if child ~= TextBoxFrame and child.Name ~= "Keyframe" then
+						child.Visible = false
+					end
+				end
+			end
+		end
+
+		SubmitButton.MouseButton1Click:Connect(function()
+			local enteredKey = TextBox.Text  -- Retrieve the text entered in the TextBox
+			if enteredKey == hashedKeyToMatch then
+				-- Correct key entered, perform actions here
+				print("Key matched!")
+				TextBoxFrame.Visible = false  -- Hide the frame after successful submission
+				-- Show other UI elements
+				showOtherUIElements()
+				-- You can trigger further actions here if needed
+			else
+				-- Incorrect key entered, handle accordingly
+				print("Incorrect key!")
+				-- You can display an error message or take other actions for incorrect key
+			end
+		end)
+
+		-- Initial setup: Hide other UI elements based on initial visibility of TextBoxFrame
+		hideOtherUIElements()
+
+		-- Connect the functions to run when TextBoxFrame visibility changes
+		TextBoxFrame:GetPropertyChangedSignal("Visible"):Connect(function()
+			if TextBoxFrame.Visible then
+				hideOtherUIElements()
+			else
+				showOtherUIElements()
+			end
+		end)
+
+		return TextBoxFrame
+	end
+
 
 
 	-- Function to create a dropdown menu
@@ -722,7 +744,7 @@ end
 	end
 
 
-    Library:Drag(Main, Headerframe, TabFrame)
+	Library:Drag(Main, Headerframe)
 
 	ImageButtonK.MouseButton1Click:Connect(function()
 		if Main.Visible then
