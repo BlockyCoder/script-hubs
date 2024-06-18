@@ -477,18 +477,24 @@ function Library:Slider(parent, minValue, maxValue, defaultValue, callback)
     local dragStart
     local startPos
 
-    SliderHandle.MouseButton1Down:Connect(function()
-        dragging = true
-        startPos = SliderHandle.Position
-        dragStart = SliderHandle.AbsolutePosition
+    SliderHandle.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            startPos = SliderHandle.Position
+            dragStart = input.Position
+            input.Handled = true  -- Prevents other objects from processing this input
+        end
     end)
 
     game:GetService("UserInputService").InputChanged:Connect(function(input)
         if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-            local sliderPos = input.Position.X - SliderBackground.AbsolutePosition.X
-            local newValue = minValue + sliderPos / SliderBackground.AbsoluteSize.X * (maxValue - minValue)
+            local delta = input.Position - dragStart
+            local sliderPos = startPos + UDim2.new(0, delta.X, 0, 0)
+
+            local newValue = minValue + sliderPos.X.Offset / SliderBackground.AbsoluteSize.X * (maxValue - minValue)
             newValue = math.clamp(newValue, minValue, maxValue)
             updateSlider(newValue)
+            input.Handled = true
         end
     end)
 
@@ -500,6 +506,7 @@ function Library:Slider(parent, minValue, maxValue, defaultValue, callback)
 
     return updateSlider
 end
+
 
 
 function Library:TextBox(parent, titleText, defaultValue, callback)
