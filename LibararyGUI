@@ -463,7 +463,7 @@ function Library:Slider(parent, minValue, maxValue, defaultValue, callback)
     SliderHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     SliderHandle.BorderSizePixel = 0
     SliderHandle.Size = UDim2.new(0, 16, 0, 16)
-    SliderHandle.Position = UDim2.new(0, SliderBar.Size.X.Offset - 8, 0.5, -8)
+    SliderHandle.Position = UDim2.new((defaultValue - minValue) / (maxValue - minValue), -8, 0.5, -8)  -- Position based on initial value
 
     local function updateSlider(value)
         local percent = math.clamp((value - minValue) / (maxValue - minValue), 0, 1)
@@ -483,21 +483,24 @@ function Library:Slider(parent, minValue, maxValue, defaultValue, callback)
         dragStart = SliderHandle.AbsolutePosition
     end)
 
-    SliderHandle.MouseButton1Up:Connect(function()
-        dragging = false
-    end)
-
     game:GetService("UserInputService").InputChanged:Connect(function(input)
         if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-            local delta = input.Position - dragStart
-            local newValue = minValue + delta.X / SliderBackground.AbsoluteSize.X * (maxValue - minValue)
+            local sliderPos = input.Position.X - SliderBackground.AbsolutePosition.X
+            local newValue = minValue + sliderPos / SliderBackground.AbsoluteSize.X * (maxValue - minValue)
             newValue = math.clamp(newValue, minValue, maxValue)
             updateSlider(newValue)
         end
     end)
 
+    game:GetService("UserInputService").InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
+
     return updateSlider
 end
+
 
 function Library:TextBox(parent, titleText, defaultValue, callback)
     callback = callback or function() end
