@@ -433,80 +433,6 @@ function Library:Create(xHubName)
 		return Label
 	end
 
-	function Library:Slider(parent, minValue, maxValue, defaultValue, callback)
-		callback = callback or function() end
-
-		local SliderFrame = Instance.new("Frame")
-		SliderFrame.Parent = parent
-		SliderFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		SliderFrame.Size = UDim2.new(1, 0, 0, 50)  -- Adjust height as needed
-		SliderFrame.Position = UDim2.new(0, 0, 0, 0)
-
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = SliderFrame
-
-		local SliderBackground = Instance.new("Frame")
-		SliderBackground.Parent = SliderFrame
-		SliderBackground.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		SliderBackground.Size = UDim2.new(1, -20, 0, 10)
-		SliderBackground.Position = UDim2.new(0, 10, 0.5, -5)
-
-		local SliderBar = Instance.new("Frame")
-		SliderBar.Parent = SliderBackground
-		SliderBar.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
-		SliderBar.BorderSizePixel = 0
-		SliderBar.Size = UDim2.new((defaultValue - minValue) / (maxValue - minValue), 0, 1, 0)
-
-		local SliderHandle = Instance.new("Frame")
-		SliderHandle.Parent = SliderBar
-		SliderHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		SliderHandle.BorderSizePixel = 0
-		SliderHandle.Size = UDim2.new(0, 16, 0, 16)
-		SliderHandle.Position = UDim2.new((defaultValue - minValue) / (maxValue - minValue), -8, 0.5, -8)  -- Position based on initial value
-
-		local function updateSlider(value)
-			local percent = math.clamp((value - minValue) / (maxValue - minValue), 0, 1)
-			SliderBar.Size = UDim2.new(percent, 0, 1, 0)
-			SliderHandle.Position = UDim2.new(percent, -8, 0.5, -8)
-			callback(value)
-		end
-
-		local dragging = false
-		local dragInput
-		local dragStart
-		local startPos
-
-		SliderHandle.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
-				dragging = true
-				startPos = SliderHandle.Position
-				dragStart = input.Position
-				input.Handled = true  -- Prevents other objects from processing this input
-			end
-		end)
-
-		game:GetService("UserInputService").InputChanged:Connect(function(input)
-			if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-				local delta = input.Position - dragStart
-				local sliderPos = startPos + UDim2.new(0, delta.X, 0, 0)
-
-				local newValue = minValue + sliderPos.X.Offset / SliderBackground.AbsoluteSize.X * (maxValue - minValue)
-				newValue = math.clamp(newValue, minValue, maxValue)
-				updateSlider(newValue)
-				input.Handled = true
-			end
-		end)
-
-		game:GetService("UserInputService").InputEnded:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
-				dragging = false
-			end
-		end)
-
-		return updateSlider
-	end
-
 
 
 	function Library:TextBox(parent, titleText, defaultValue, callback)
@@ -555,22 +481,38 @@ function Library:Create(xHubName)
 			return TextBox, updateText
 		end
 
-	-- Function to securely validate key entered by user
--- Function to securely validate key entered by user
-	-- Function to securely validate key entered by user
-	function Library:KeyTextBoxAndManageUI(tab, titleText, hashedKeyToMatch)
+	function Library:KeyTextBoxAndManageUI(tab, titleText, hashedKeyToMatch, options)
+		-- Default options
+		local defaultOptions = {
+			successMessage = "Key Accepted!",
+			errorMessage = "Invalid Key!",
+			textBoxPlaceholder = "Enter Key Here",
+			revealDuration = 1,
+			hideDelay = 0.5,
+			submitButton = true  -- Default submit button is true unless overridden
+		}
+
+		-- Merge options with defaults
+		options = options or {}
+		for k, v in pairs(defaultOptions) do
+			options[k] = options[k] or v
+		end
+
+		-- Create the Frame for UI elements
 		local TextBoxFrame = Instance.new("Frame")
 		TextBoxFrame.Parent = tab
 		TextBoxFrame.Name = "Keyframe"
 		TextBoxFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TextBoxFrame.Size = UDim2.new(0, 200, 0, 80)  -- Adjust size as needed
+		TextBoxFrame.Size = UDim2.new(0, 200, 0, 100)  -- Increased height to accommodate elements
 		TextBoxFrame.Position = UDim2.new(0, 0, 0, 0)
-		TextBoxFrame.Visible = true  -- Ensure TextBoxFrame is initially visible
+		TextBoxFrame.Visible = true
 
+		-- Create UICorner for rounded corners (optional)
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
 		UICorner.Parent = TextBoxFrame
 
+		-- Create TitleLabel for key input title
 		local TitleLabel = Instance.new("TextLabel")
 		TitleLabel.Parent = TextBoxFrame
 		TitleLabel.Text = titleText
@@ -582,86 +524,76 @@ function Library:Create(xHubName)
 		TitleLabel.BackgroundTransparency = 1
 		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
+		-- Create TextBox for key entry
 		local TextBox = Instance.new("TextBox")
 		TextBox.Parent = TextBoxFrame
 		TextBox.Text = ""
 		TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-		TextBox.PlaceholderText = "Enter key..."
+		TextBox.PlaceholderText = options.textBoxPlaceholder
 		TextBox.Size = UDim2.new(1, -20, 0, 20)
-		TextBox.Position = UDim2.new(0, 10, 0, 30)  -- Adjust position to ensure it's visible
+		TextBox.Position = UDim2.new(0, 10, 0, 30)
 		TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 		TextBox.BorderSizePixel = 0
 		TextBox.ClearTextOnFocus = false
 		TextBox.Font = Enum.Font.SourceSans
 		TextBox.TextSize = 14
 
-		local SubmitButton = Instance.new("TextButton")
-		SubmitButton.Parent = TextBoxFrame
-		SubmitButton.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
-		SubmitButton.Position = UDim2.new(0, 10, 0, 55)  -- Adjust position as needed
-		SubmitButton.Size = UDim2.new(0, 180, 0, 20)
-		SubmitButton.Font = Enum.Font.SourceSans
-		SubmitButton.Text = "Submit"
-		SubmitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-		SubmitButton.TextSize = 14
+		-- Create SubmitButton for validation
+		local SubmitButton
+		if options.submitButton then
+			SubmitButton = Instance.new("TextButton")
+			SubmitButton.Parent = TextBoxFrame
+			SubmitButton.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+			SubmitButton.Position = UDim2.new(0, 10, 0, 65)  -- Adjusted position to avoid overlap
+			SubmitButton.Size = UDim2.new(0, 180, 0, 20)
+			SubmitButton.Font = Enum.Font.SourceSans
+			SubmitButton.Text = "Submit"
+			SubmitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+			SubmitButton.TextSize = 14
 
-		local UICornerSubmit = Instance.new("UICorner")
-		UICornerSubmit.CornerRadius = UDim.new(0, 5)
-		UICornerSubmit.Parent = SubmitButton
+			-- Add UICorner for rounded corners on SubmitButton
+			local UICornerSubmit = Instance.new("UICorner")
+			UICornerSubmit.CornerRadius = UDim.new(0, 5)
+			UICornerSubmit.Parent = SubmitButton
 
-		-- Function to show other UI elements when TextBoxFrame is not visible
-		local function showOtherUIElements()
-			for _, child in ipairs(Tabs:GetChildren()) do
-				if child:IsA("TextButtton") or child:IsA("Frame") then
-					if child ~= TextBoxFrame and child.Name ~= "Keyframe" then
-						child.Visible = true
+			-- SubmitButton click event handler
+			SubmitButton.MouseButton1Click:Connect(function()
+				local enteredKey = TextBox.Text
+				if enteredKey == hashedKeyToMatch then
+					-- Display success message
+					local SuccessLabel = Instance.new("TextLabel")
+					SuccessLabel.Parent = TextBoxFrame
+					SuccessLabel.Text = options.successMessage
+					SuccessLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+					SuccessLabel.TextSize = 14
+					SuccessLabel.Font = Enum.Font.SourceSans
+					SuccessLabel.Size = UDim2.new(1, 0, 0, 20)
+					SuccessLabel.Position = UDim2.new(0, 0, 0, 90)
+					SuccessLabel.BackgroundTransparency = 1
+
+					-- Hide all UI elements after success
+					wait(options.revealDuration)
+					TextBoxFrame.Visible = false
+
+					-- Hide all children of tab
+					for _, child in pairs(tab:GetChildren()) do
+						child.Visible = false
 					end
+				else
+					-- Display error message
+					TextBox.BorderColor3 = Color3.fromRGB(255, 0, 0)
+					wait(0.5)
+					TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					print(options.errorMessage)
 				end
-			end
+			end)
 		end
 
-		-- Function to hide all UI elements in Tabs folder except TextBoxFrame
-		local function hideOtherUIElements()
-			for _, child in ipairs(Tabs:GetChildren()) do
-				if child:IsA("TextButton") or child:IsA("Frame") then
-					if child ~= TextBoxFrame and child.Name ~= "Keyframe" then
-							child.Visible = false
-					end
-				end
-			end
-		end
-
-		SubmitButton.MouseButton1Click:Connect(function()
-			local enteredKey = TextBox.Text  -- Retrieve the text entered in the TextBox
-			-- Perform validation securely, adjust as per your hashing method
-			if enteredKey == hashedKeyToMatch then
-				-- Correct key entered, perform actions here
-				print("Key matched!")
-				TextBoxFrame.Visible = false  -- Hide the frame after successful submission
-				-- Show other UI elements
-				showOtherUIElements()
-				-- You can trigger further actions here if needed
-			else
-				-- Incorrect key entered, handle accordingly
-				print("Incorrect key!")
-				-- You can display an error message or take other actions for incorrect key
-			end
-		end)
-
-		-- Initial setup: Hide other UI elements based on initial visibility of TextBoxFrame
-		hideOtherUIElements()
-
-		-- Connect the functions to run when TextBoxFrame visibility changes
-		TextBoxFrame:GetPropertyChangedSignal("Visible"):Connect(function()
-			if TextBoxFrame.Visible then
-				hideOtherUIElements()
-			else
-				showOtherUIElements()
-			end
-		end)
-
+		-- Return the TextBoxFrame for further customization if needed
 		return TextBoxFrame
 	end
+
+
 
 
 
