@@ -179,8 +179,8 @@ function Library:Create(xHubName)
 	ImageButtonKCorner.CornerRadius = UDim.new(1, 0)
 	ImageButtonKCorner.Name = "ImageButtonKCorner"
 	ImageButtonKCorner.Parent = ImageButtonK
-	
-	
+
+
 	ImageButtonK.MouseButton1Click:Connect(function()
 		if Main.Visible then
 			Main.Visible = false
@@ -192,9 +192,9 @@ function Library:Create(xHubName)
 	Close.MouseButton1Click:Connect(function()
 		ScreenScript:Destroy()
 	end)
-	
-	
-	
+
+
+
 	-- Added Library:Drag function
 	function Library:Drag(obj)
 		local UserInputService = game:GetService("UserInputService")
@@ -835,19 +835,19 @@ function Library:Create(xHubName)
 
 		return setKeybind
 	end
-	
-	
+
+
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
 		callback = callback or function() end
 
 		local Dropdown = Instance.new("TextButton")
 		Dropdown.Parent = tab
 		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Dropdown.Position = UDim2.new(0, 0, 0.0954390168, 0)
+		Dropdown.Position = UDim2.new(0, 0, 0, 0)
 		Dropdown.Selectable = false
 		Dropdown.Size = UDim2.new(0, 380, 0, 31)
 		Dropdown.AutoButtonColor = false
-		Dropdown.Text = dropdownName or options[1] or "Dropdown" -- Set default text if dropdownName and options are nil
+		Dropdown.Text = dropdownName or options[1] or "Dropdown"
 		Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
 		Dropdown.TextSize = 14.000
 		Dropdown.Font = Enum.Font.Gotham
@@ -860,10 +860,10 @@ function Library:Create(xHubName)
 
 		local DropdownList = Instance.new("Frame")
 		DropdownList.Name = "DropdownList"
-		DropdownList.Parent = Dropdown.Parent -- Parent DropdownList to the same parent as Dropdown
+		DropdownList.Parent = tab
 		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		DropdownList.Position = UDim2.new(0, 0, 0.0954390168 + Dropdown.Size.Y.Offset, 0) -- Adjust position based on Dropdown size
-		DropdownList.Size = UDim2.new(0, 380, 0, 0) -- Initially size to 0 height
+		DropdownList.Position = UDim2.new(0, 0, 0, Dropdown.AbsolutePosition.Y + Dropdown.AbsoluteSize.Y)
+		DropdownList.Size = UDim2.new(0, 380, 0, 0)
 		DropdownList.Visible = false
 		DropdownList.ZIndex = 10
 
@@ -871,11 +871,6 @@ function Library:Create(xHubName)
 		ListLayout.Parent = DropdownList
 		ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		ListLayout.Padding = UDim.new(0, 5)
-
-		-- Update the position of DropdownList when Dropdown's parent size changes
-		tab:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-			DropdownList.Position = UDim2.new(0, 0, 0.0954390168 + Dropdown.Size.Y.Offset, 0)
-		end)
 
 		for _, optionText in ipairs(options) do
 			local OptionButton = Instance.new("TextButton")
@@ -890,32 +885,31 @@ function Library:Create(xHubName)
 			OptionButton.MouseButton1Click:Connect(function()
 				callback(optionText)
 				Dropdown.Text = optionText
-				DropdownList.Visible = false  -- Hide the DropdownList when an option is selected
+				DropdownList.Visible = false
 
-				-- Show all other UI elements when the dropdown list is hidden
 				for _, child in ipairs(tab:GetChildren()) do
 					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
 						child.Visible = true
 					end
 				end
 			end)
+		end
 
 		Dropdown.MouseButton1Click:Connect(function()
 			DropdownList.Visible = not DropdownList.Visible
 
-			-- Hide other UI elements when the dropdown list is shown
 			if DropdownList.Visible then
 				for _, child in ipairs(tab:GetChildren()) do
-					if child:IsA("TextButton") or child:IsA("Frame") or child:IsA("TextLabel") then
-						if child ~= Dropdown and child.Name ~= "DropdownList" then
-							child.Visible = false
-						end
+					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
+						child.Visible = false
 					end
 				end
+
+				-- Adjust DropdownList size to fit the number of options
+				DropdownList.Size = UDim2.new(0, 380, 0, #options * 35)  -- Each option takes about 35 pixels in height
 			else
-				-- Show all other UI elements when the dropdown list is hidden
 				for _, child in ipairs(tab:GetChildren()) do
-					if child:IsA("TextButton") or child:IsA("Frame") or child:IsA("TextLabel") then
+					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
 						child.Visible = true
 					end
 				end
@@ -928,10 +922,10 @@ function Library:Create(xHubName)
 
 
 
-	Library:Drag(Main, Headerframe)
+		Library:Drag(Main, Headerframe)
 
-end
-return Library
 	end
+	return Library
+end
 
 return Library
