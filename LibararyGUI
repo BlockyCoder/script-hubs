@@ -753,100 +753,86 @@ function Library:Create(xHubName)
 
 		return SliderFrame
 	end
-	
-	
-	
-	function Library:CreateDropdown(tab, dropdownName, options, callback)
+
+
+	function Library:CreateDropdown(parent, labelText, options, callback)
 		callback = callback or function() end
 
-		local Dropdown = Instance.new("Frame")
-		Dropdown.Parent = tab
-		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Dropdown.Position = UDim2.new(0, 0, 0.2, 0)
-		Dropdown.Size = UDim2.new(0, 200, 0, 0)
+		local DropdownFrame = Instance.new("Frame")
+		DropdownFrame.Parent = parent
+		DropdownFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		DropdownFrame.Size = UDim2.new(0, 200, 0, 40)  -- Adjust size as needed
+		DropdownFrame.Position = UDim2.new(0, 0, 0, 0)
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Dropdown
+		UICorner.Parent = DropdownFrame
+
+		local TitleLabel = Instance.new("TextLabel")
+		TitleLabel.Parent = DropdownFrame
+		TitleLabel.Text = labelText
+		TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TitleLabel.TextSize = 18
+		TitleLabel.Font = Enum.Font.SourceSansBold
+		TitleLabel.Size = UDim2.new(2, 0, 0, 20)
+		TitleLabel.Position = UDim2.new(0, 4, 0, 3)
+		TitleLabel.BackgroundTransparency = 1
+		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
 		local DropdownButton = Instance.new("TextButton")
-		DropdownButton.Parent = tab
-		DropdownButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		DropdownButton.Position = UDim2.new(0, 0, 0, 0)
-		DropdownButton.Size = UDim2.new(0, 200, 0, 30)
-		DropdownButton.Font = Enum.Font.Gotham
-		DropdownButton.Text = dropdownName
-		DropdownButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+		DropdownButton.Parent = DropdownFrame
+		DropdownButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		DropdownButton.BorderSizePixel = 0
+		DropdownButton.Position = UDim2.new(0, 10, 0, 20)
+		DropdownButton.Size = UDim2.new(1, -20, 0, 20)  -- Adjust size as needed
+		DropdownButton.Font = Enum.Font.SourceSans
+		DropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 		DropdownButton.TextSize = 14
+		DropdownButton.TextXAlignment = Enum.TextXAlignment.Left
+		DropdownButton.Text = options[1] or "Select"
 
-		local UICornerButton = Instance.new("UICorner")
-		UICornerButton.CornerRadius = UDim.new(0, 5)
-		UICornerButton.Parent = DropdownButton
-
-		local DropdownList = Instance.new("ScrollingFrame")
-		DropdownList.Parent = Dropdown
-		DropdownList.Active = true
-		DropdownList.Visible = false
-		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		local DropdownList = Instance.new("Frame")
+		DropdownList.Parent = DropdownFrame
+		DropdownList.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 		DropdownList.BorderSizePixel = 0
 		DropdownList.Position = UDim2.new(0, 0, 1, 0)
 		DropdownList.Size = UDim2.new(1, 0, 0, 0)
-		DropdownList.ScrollBarThickness = 5
+		DropdownList.Visible = false
 
-		local DropdownLayout = Instance.new("UIListLayout")
-		DropdownLayout.Parent = DropdownList
-		DropdownLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		DropdownLayout.Padding = UDim.new(0, 5)
+		local UICornerList = Instance.new("UICorner")
+		UICornerList.CornerRadius = UDim.new(0, 5)
+		UICornerList.Parent = DropdownList
 
-		-- Populate dropdown list with options
-		for _, optionText in ipairs(options) do
+		local ListLayout = Instance.new("UIListLayout")
+		ListLayout.Parent = DropdownList
+		ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		ListLayout.Padding = UDim.new(0, 5)
+
+		for _, option in ipairs(options) do
 			local OptionButton = Instance.new("TextButton")
 			OptionButton.Parent = DropdownList
-			OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			OptionButton.Size = UDim2.new(1, 0, 0, 30)
-			OptionButton.Font = Enum.Font.Gotham
-			OptionButton.Text = optionText
-			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+			OptionButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+			OptionButton.BorderSizePixel = 0
+			OptionButton.Size = UDim2.new(1, 0, 0, 20)
+			OptionButton.Font = Enum.Font.SourceSans
+			OptionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 			OptionButton.TextSize = 14
+			OptionButton.TextXAlignment = Enum.TextXAlignment.Left
+			OptionButton.Text = option
 
 			OptionButton.MouseButton1Click:Connect(function()
-				callback(optionText)
+				DropdownButton.Text = option
 				DropdownList.Visible = false
-				DropdownButton.Text = optionText  -- Update button text on option selection
+				callback(option)
 			end)
 		end
 
-		-- Toggle dropdown list visibility on button click
-		local function toggleDropdown()
+		DropdownButton.MouseButton1Click:Connect(function()
 			DropdownList.Visible = not DropdownList.Visible
-		end
+		end)
 
-		DropdownButton.MouseButton1Click:Connect(toggleDropdown)
-
-		-- Close dropdown list when clicking outside of it
-		local function closeDropdown()
-			DropdownList.Visible = false
-		end
-
-		-- Listen for MouseButton1Click events on the UI to close the dropdown when clicking outside
-		local function handleOutsideClick(input)
-			if DropdownList.Visible and not DropdownButton:IsAncestorOf(input.Target) then
-				closeDropdown()
-			end
-		end
-
-		-- Connect the function to listen for MouseButton1Click events on the UI
-		game:GetService("UserInputService").InputBegan:Connect(handleOutsideClick)
-
-		-- Update dropdown button text when an option is selected
-		function Library:UpdateDropdownText(text)
-			DropdownButton.Text = text
-		end
-
-		return Dropdown, DropdownList
+		return DropdownButton, DropdownList
 	end
-
-
 
 
 
