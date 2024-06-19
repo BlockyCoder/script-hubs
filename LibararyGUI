@@ -765,7 +765,147 @@ function Library:Create(xHubName)
 		return SliderFrame
 	end
 
+	function Library:CreateKeybind(tab, keybindName, defaultKey, callback)
+		callback = callback or function() end
 
+		local KeybindFrame = Instance.new("Frame")
+		KeybindFrame.Parent = tab
+		KeybindFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		KeybindFrame.Size = UDim2.new(0, 200, 0, 40)  -- Adjust size as needed
+		KeybindFrame.Position = UDim2.new(0, 0, 0, 0)
+
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = KeybindFrame
+
+		local TitleLabel = Instance.new("TextLabel")
+		TitleLabel.Parent = KeybindFrame
+		TitleLabel.Text = keybindName
+		TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TitleLabel.TextSize = 18
+		TitleLabel.Font = Enum.Font.SourceSansBold
+		TitleLabel.Size = UDim2.new(2, 0, 0, 20)
+		TitleLabel.Position = UDim2.new(0, 4, 0, 3)
+		TitleLabel.BackgroundTransparency = 1
+		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+		local KeybindButton = Instance.new("TextButton")
+		KeybindButton.Parent = KeybindFrame
+		KeybindButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		KeybindButton.Size = UDim2.new(0, 100, 0, 20)
+		KeybindButton.Position = UDim2.new(0, 10, 0, 20)
+		KeybindButton.Text = defaultKey or "None"
+		KeybindButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		KeybindButton.AutoButtonColor = false
+		KeybindButton.Font = Enum.Font.SourceSans
+		KeybindButton.TextSize = 14
+
+		local function setKeybind(key)
+			KeybindButton.Text = key
+		end
+
+		local function onKeyDown(input)
+			if input.UserInputType == Enum.UserInputType.Keyboard then
+				local keyPressed = input.KeyCode
+				setKeybind(tostring(keyPressed))
+				callback(keyPressed)
+			end
+		end
+
+		-- Bind the keybind button to listen for key presses
+		KeybindButton.MouseButton1Click:Connect(function()
+			setKeybind("...")
+			game:GetService("UserInputService").InputBegan:Connect(onKeyDown)
+		end)
+
+		return setKeybind
+	end
+	
+	-- Function to create a color picker with rainbow option
+	function CreateColorPicker(parentFrame, pickerName, defaultColor, callback)
+		callback = callback or function() end
+
+		-- Create the main frame for the color picker
+		local ColorPickerFrame = Instance.new("Frame")
+		ColorPickerFrame.Parent = parentFrame
+		ColorPickerFrame.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+		ColorPickerFrame.BorderSizePixel = 0
+		ColorPickerFrame.Size = UDim2.new(1, 0, 0, 80)
+
+		-- Create UI elements for the color picker
+		local titleLabel = Instance.new("TextLabel")
+		titleLabel.Parent = ColorPickerFrame
+		titleLabel.Text = pickerName
+		titleLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+		titleLabel.TextSize = 18
+		titleLabel.Font = Enum.Font.SourceSansBold
+		titleLabel.Position = UDim2.new(0, 10, 0, 10)
+		titleLabel.Size = UDim2.new(0, 150, 0, 20)
+		titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+		titleLabel.BackgroundTransparency = 1
+
+		local colorPreview = Instance.new("TextButton")
+		colorPreview.Parent = ColorPickerFrame
+		colorPreview.BackgroundColor3 = defaultColor or Color3.fromRGB(255, 255, 255)
+		colorPreview.Position = UDim2.new(0, 10, 0, 40)
+		colorPreview.Size = UDim2.new(0, 30, 0, 30)
+		colorPreview.AutoButtonColor = false
+		colorPreview.Text = ""
+		colorPreview.BorderSizePixel = 0
+
+		local rainbowButton = Instance.new("TextButton")
+		rainbowButton.Parent = ColorPickerFrame
+		rainbowButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		rainbowButton.Position = UDim2.new(0, 50, 0, 40)
+		rainbowButton.Size = UDim2.new(0, 100, 0, 30)
+		rainbowButton.AutoButtonColor = false
+		rainbowButton.Text = "Rainbow"
+		rainbowButton.Font = Enum.Font.SourceSans
+		rainbowButton.TextSize = 14
+
+		-- Function to set color and trigger callback
+		local function setColor(newColor)
+			colorPreview.BackgroundColor3 = newColor
+			callback(newColor)
+		end
+
+		-- Function to handle rainbow mode toggle
+		local isRainbowMode = false
+		local function toggleRainbowMode()
+			isRainbowMode = not isRainbowMode
+			if isRainbowMode then
+				rainbowButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+				-- Example rainbow animation loop
+				while isRainbowMode do
+					for i = 0, 1, 0.01 do
+						if not isRainbowMode then break end
+						local hue = (tick() % 5) / 5
+						local color = Color3.fromHSV(hue, 1, 1)
+						setColor(color)
+						wait(0.01)
+					end
+				end
+			else
+				rainbowButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			end
+		end
+
+		-- Connect button events
+		colorPreview.MouseButton1Click:Connect(function()
+			-- Show color picker dialog or palette here
+			-- For simplicity, let's just set a fixed color
+			setColor(Color3.fromRGB(255, 0, 0)) -- Example fixed color
+		end)
+
+		rainbowButton.MouseButton1Click:Connect(function()
+			toggleRainbowMode()
+		end)
+
+		-- Return setColor function for external use
+		return setColor
+	end
+	
+	
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
 		callback = callback or function() end
 
