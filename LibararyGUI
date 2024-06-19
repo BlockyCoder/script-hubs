@@ -753,6 +753,10 @@ function Library:Create(xHubName)
 
 		return SliderFrame
 	end
+	
+	
+	
+	
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
 		callback = callback or function() end
 
@@ -805,7 +809,7 @@ function Library:Create(xHubName)
 					local isAllowedType = true
 
 					-- Check if the child is a type you want to hide
-					if child:IsA("TextButton") or child:IsA("TextButton") or child:IsA("ImageButton") then
+					if child:IsA("TextButton") or child:IsA("ImageButton") then
 						isAllowedType = false
 					end
 
@@ -843,6 +847,7 @@ function Library:Create(xHubName)
 
 		return Dropdown, DropdownList
 	end
+
 
 
 
