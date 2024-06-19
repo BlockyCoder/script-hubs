@@ -838,7 +838,6 @@ function Library:Create(xHubName)
 		Dropdown.Font = Enum.Font.Gotham
 		Dropdown.TextXAlignment = Enum.TextXAlignment.Left
 		Dropdown.TextWrapped = true
-		Dropdown.TextScaled = true
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
@@ -871,7 +870,6 @@ function Library:Create(xHubName)
 			OptionButton.Font = Enum.Font.Gotham
 			OptionButton.Text = optionText
 			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
-			OptionButton.TextScaled = true
 			OptionButton.TextWrapped = true
 
 			OptionButton.MouseButton1Click:Connect(function()
