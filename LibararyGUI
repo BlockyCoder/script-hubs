@@ -755,91 +755,79 @@ function Library:Create(xHubName)
 	end
 	
 	
-	function Library:CreateDropdown(parent, options, defaultOption, callback)
-		-- Ensure parent is valid
-		assert(typeof(parent) == "Instance", "Parent must be a valid Instance")
+	
 
-		-- Validate options
-		assert(type(options) == "table" and #options > 0, "Options must be a non-empty table")
+	function Library:CreateDropdown(tab, dropdownName, options, callback)
+		callback = callback or function() end
 
-		-- Create dropdown frame
-		local DropdownFrame = Instance.new("Frame")
-		DropdownFrame.Parent = parent
-		DropdownFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		DropdownFrame.Size = UDim2.new(0, 200, 0, 40)  -- Adjust size as needed
-		DropdownFrame.Position = UDim2.new(0, 0, 0, 0)
+		local Dropdown = Instance.new("Frame")
+		Dropdown.Parent = tab
+		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Dropdown.Position = UDim2.new(0, 0, 0.2, 0)  -- Adjusted position to fit design
+		Dropdown.Size = UDim2.new(0, 200, 0, 0)  -- Initial height is 0, will expand when opened
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = DropdownFrame
+		UICorner.Parent = Dropdown
 
-		-- Toggle button
-		local ToggleButton = Instance.new("TextButton")
-		ToggleButton.Parent = DropdownFrame
-		ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		ToggleButton.Position = UDim2.new(0, 10, 0, 0)
-		ToggleButton.Size = UDim2.new(1, -20, 0, 20)
-		ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-		ToggleButton.Font = Enum.Font.SourceSans
-		ToggleButton.TextSize = 14
-		ToggleButton.Text = defaultOption or "Select Option"
-		ToggleButton.AutoButtonColor = false
+		local DropdownButton = Instance.new("TextButton")
+		DropdownButton.Parent = tab
+		DropdownButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		DropdownButton.Position = UDim2.new(0, 0, 0, 0)
+		DropdownButton.Size = UDim2.new(0, 200, 0, 30)  -- Adjusted size to match tab button size
+		DropdownButton.Font = Enum.Font.Gotham
+		DropdownButton.Text = dropdownName
+		DropdownButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+		DropdownButton.TextSize = 14
 
-		-- Dropdown list
-		local DropdownList = Instance.new("Frame")
-		DropdownList.Parent = DropdownFrame
-		DropdownList.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		DropdownList.Position = UDim2.new(0, 10, 0, 20)
-		DropdownList.Size = UDim2.new(1, -20, 0, 0)
+		local UICornerButton = Instance.new("UICorner")
+		UICornerButton.CornerRadius = UDim.new(0, 5)
+		UICornerButton.Parent = DropdownButton
+
+		local DropdownList = Instance.new("ScrollingFrame")
+		DropdownList.Parent = Dropdown
+		DropdownList.Active = true
 		DropdownList.Visible = false
+		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		DropdownList.BorderSizePixel = 0
+		DropdownList.Position = UDim2.new(0, 0, 1, 0)  -- Initially below the button
+		DropdownList.Size = UDim2.new(1, 0, 0, 0)  -- Initial height is 0, will expand when opened
+		DropdownList.ScrollBarThickness = 5
 
-		local UICornerList = Instance.new("UICorner")
-		UICornerList.CornerRadius = UDim.new(0, 5)
-		UICornerList.Parent = DropdownList
+		local DropdownLayout = Instance.new("UIListLayout")
+		DropdownLayout.Parent = DropdownList
+		DropdownLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		DropdownLayout.Padding = UDim.new(0, 5)
 
-		local UIPaddingList = Instance.new("UIPadding")
-		UIPaddingList.PaddingTop = UDim.new(0, 5)
-		UIPaddingList.PaddingBottom = UDim.new(0, 5)
-		UIPaddingList.Parent = DropdownList
-
-		-- Function to create each option button
-		local function createOption(optionText)
-			assert(type(optionText) == "string", "OptionText must be a string")
-
+		-- Populate dropdown list with options
+		for _, optionText in ipairs(options) do
 			local OptionButton = Instance.new("TextButton")
 			OptionButton.Parent = DropdownList
 			OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			OptionButton.Size = UDim2.new(1, 0, 0, 20)
-			OptionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-			OptionButton.Font = Enum.Font.SourceSans
-			OptionButton.TextSize = 14
+			OptionButton.Size = UDim2.new(1, 0, 0, 30)  -- Adjusted height to match design
+			OptionButton.Font = Enum.Font.Gotham
 			OptionButton.Text = optionText
-			OptionButton.AutoButtonColor = false
+			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+			OptionButton.TextSize = 14
 
 			OptionButton.MouseButton1Click:Connect(function()
-				ToggleButton.Text = optionText
+				callback(optionText)
 				DropdownList.Visible = false
-				if callback then
-					callback(optionText)
-				end
 			end)
 		end
 
-		-- Create options
-		for _, option in ipairs(options) do
-			createOption(option)
-		end
-
-		-- Toggle dropdown visibility
-		local function toggleDropdown()
+		-- Toggle dropdown list visibility on button click
+		DropdownButton.MouseButton1Click:Connect(function()
 			DropdownList.Visible = not DropdownList.Visible
+		end)
+
+		-- Update dropdown button text when an option is selected
+		function Library:UpdateDropdownText(text)
+			DropdownButton.Text = text
 		end
 
-		ToggleButton.MouseButton1Click:Connect(toggleDropdown)
-
-		return ToggleButton, DropdownList
+		return Dropdown, DropdownList
 	end
-
 
 
 
