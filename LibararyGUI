@@ -775,7 +775,7 @@ function Library:Create(xHubName)
 		SelectedOption.Size = UDim2.new(1, 0, 1, 0)
 		SelectedOption.Position = UDim2.new(0, 0, 0, 0)
 		SelectedOption.AutoButtonColor = false
-		SelectedOption.Text = defaultOption or options[1]
+		SelectedOption.Text = defaultOption or (options[1] or "Select Option")  -- Added fallback if options[1] is nil
 		SelectedOption.TextColor3 = Color3.fromRGB(193, 193, 193)
 		SelectedOption.TextSize = 14
 
