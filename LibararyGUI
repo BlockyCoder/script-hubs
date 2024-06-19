@@ -777,7 +777,14 @@ function Library:Create(xHubName)
 		Dropdown.Size = UDim2.new(0, 380, 0, 31)
 		Dropdown.AutoButtonColor = false
 		Dropdown.Text = dropdownName or options[1] -- Default text to first option
-
+		Dropdown.TextColor = Color3.fromRGB(193, 193, 193)
+		Dropdown.TextSize = 14.000
+		Dropdown.Font = Enum.Font.Gotham
+		Dropdown.TextXAlignment = Enum.TextXAlignment.Left
+		Dropdown.TextWrapped = true
+		Dropdown.TextScaled = true
+		
+		
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
 		UICorner.Parent = Dropdown
@@ -804,8 +811,9 @@ function Library:Create(xHubName)
 			OptionButton.Font = Enum.Font.Gotham
 			OptionButton.Text = optionText
 			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)  -- Ensure text color is set correctly
-			OptionButton.TextSize = 14.000
-
+			OptionButton.TextScaled = true
+			OptionButton.TextWrapped = true
+			
 			OptionButton.MouseButton1Click:Connect(function()
 				callback(optionText)
 				Dropdown.Text = optionText  -- Update dropdown button text
