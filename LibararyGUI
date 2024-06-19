@@ -1,7 +1,7 @@
 local Library = {}
 
 function Library:Create(xHubName)
-	xHubName = xHubName or "UI Library"
+	xHubName = xHubName or "Epic-Hub"
 
 	local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
 
