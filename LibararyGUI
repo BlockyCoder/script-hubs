@@ -816,16 +816,13 @@ function Library:Create(xHubName)
 		KeybindButton.Font = Enum.Font.SourceSans
 		KeybindButton.TextSize = 14
 
-		-- Function to update the keybind displayed on the button
-		local function setKeybind(key)
-			KeybindButton.Text = key
-		end
+		
 
 		-- Function triggered when a key is pressed
 		local function onKeyDown(input)
 			if input.UserInputType == Enum.UserInputType.Keyboard then
 				local keyPressed = input.KeyCode
-				setKeybind(tostring(keyPressed))
+				--setKeybind(tostring(keyPressed))
 				callback(keyPressed)
 
 				-- Toggle visibility of KeybindFrame when defaultKey is pressed
@@ -868,13 +865,9 @@ function Library:Create(xHubName)
 			end
 		end)
 
-		-- Bind the keybind button to listen for key presses
-		KeybindButton.MouseButton1Click:Connect(function()
-			setKeybind("...")
-			game:GetService("UserInputService").InputBegan:Connect(onKeyDown)
-		end)
+	
 
-		return setKeybind
+		--return setKeybind
 	end
 
 
@@ -884,95 +877,95 @@ function Library:Create(xHubName)
 
 
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
-    callback = callback or function() end
+		callback = callback or function() end
 
-    local Dropdown = Instance.new("TextButton")
-    Dropdown.Parent = tab
-    Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    Dropdown.Position = UDim2.new(0, 0, 0, 0)
-    Dropdown.Selectable = false
-    Dropdown.Size = UDim2.new(0, 380, 0, 31)
-    Dropdown.AutoButtonColor = false
-    Dropdown.Text = dropdownName or options[1] or "Dropdown"
-    Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
-    Dropdown.TextSize = 14.000
-    Dropdown.Font = Enum.Font.Gotham
-    Dropdown.TextXAlignment = Enum.TextXAlignment.Left -- Align text to the left to make room for icon
-    Dropdown.TextWrapped = true
+		local Dropdown = Instance.new("TextButton")
+		Dropdown.Parent = tab
+		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Dropdown.Position = UDim2.new(0, 0, 0, 0)
+		Dropdown.Selectable = false
+		Dropdown.Size = UDim2.new(0, 380, 0, 31)
+		Dropdown.AutoButtonColor = false
+		Dropdown.Text = dropdownName or options[1] or "Dropdown"
+		Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
+		Dropdown.TextSize = 14.000
+		Dropdown.Font = Enum.Font.Gotham
+		Dropdown.TextXAlignment = Enum.TextXAlignment.Left -- Align text to the left to make room for icon
+		Dropdown.TextWrapped = true
 
-    -- Dropdown icon setup
-    local DropdownIcon = Instance.new("ImageLabel")
-    DropdownIcon.Parent = Dropdown
-    DropdownIcon.BackgroundTransparency = 1
-    DropdownIcon.Size = UDim2.new(0, 16, 0, 16)
-    DropdownIcon.Position = UDim2.new(1, -28, 0.5, -8) -- Adjusted position to be more clear
-    DropdownIcon.Image = "rbxassetid://13025551568"  -- Use your actual icon asset ID here
-    DropdownIcon.ImageColor3 = Color3.fromRGB(193, 193, 193)
+		-- Dropdown icon setup
+		local DropdownIcon = Instance.new("ImageLabel")
+		DropdownIcon.Parent = Dropdown
+		DropdownIcon.BackgroundTransparency = 1
+		DropdownIcon.Size = UDim2.new(0, 16, 0, 16)
+		DropdownIcon.Position = UDim2.new(1, -28, 0.5, -8) -- Adjusted position to be more clear
+		DropdownIcon.Image = "rbxassetid://13025551568"  -- Use your actual icon asset ID here
+		DropdownIcon.ImageColor3 = Color3.fromRGB(193, 193, 193)
 
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 5)
-    UICorner.Parent = Dropdown
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = Dropdown
 
-    local DropdownList = Instance.new("Frame")
-    DropdownList.Name = "DropdownList"
-    DropdownList.Parent = tab
-    DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    DropdownList.Position = UDim2.new(0, 0, 0, Dropdown.AbsolutePosition.Y + Dropdown.AbsoluteSize.Y)
-    DropdownList.Size = UDim2.new(0, 380, 0, 0)
-    DropdownList.Visible = false
-    DropdownList.ZIndex = 10
+		local DropdownList = Instance.new("Frame")
+		DropdownList.Name = "DropdownList"
+		DropdownList.Parent = tab
+		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		DropdownList.Position = UDim2.new(0, 0, 0, Dropdown.AbsolutePosition.Y + Dropdown.AbsoluteSize.Y)
+		DropdownList.Size = UDim2.new(0, 380, 0, 0)
+		DropdownList.Visible = false
+		DropdownList.ZIndex = 10
 
-    local ListLayout = Instance.new("UIListLayout")
-    ListLayout.Parent = DropdownList
-    ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    ListLayout.Padding = UDim.new(0, 5)
+		local ListLayout = Instance.new("UIListLayout")
+		ListLayout.Parent = DropdownList
+		ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		ListLayout.Padding = UDim.new(0, 5)
 
-    for _, optionText in ipairs(options) do
-        local OptionButton = Instance.new("TextButton")
-        OptionButton.Parent = DropdownList
-        OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-        OptionButton.Size = UDim2.new(1, 0, 0, 30)
-        OptionButton.Font = Enum.Font.Gotham
-        OptionButton.Text = optionText
-        OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
-        OptionButton.TextWrapped = true
+		for _, optionText in ipairs(options) do
+			local OptionButton = Instance.new("TextButton")
+			OptionButton.Parent = DropdownList
+			OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			OptionButton.Size = UDim2.new(1, 0, 0, 30)
+			OptionButton.Font = Enum.Font.Gotham
+			OptionButton.Text = optionText
+			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+			OptionButton.TextWrapped = true
 
-        OptionButton.MouseButton1Click:Connect(function()
-            callback(optionText)
-            Dropdown.Text = optionText
-            DropdownList.Visible = false
+			OptionButton.MouseButton1Click:Connect(function()
+				callback(optionText)
+				Dropdown.Text = optionText
+				DropdownList.Visible = false
 
-            for _, child in ipairs(tab:GetChildren()) do
-                if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
-                    child.Visible = true
-                end
-            end
-        end)
-    end
+				for _, child in ipairs(tab:GetChildren()) do
+					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
+						child.Visible = true
+					end
+				end
+			end)
+		end
 
-    Dropdown.MouseButton1Click:Connect(function()
-        DropdownList.Visible = not DropdownList.Visible
+		Dropdown.MouseButton1Click:Connect(function()
+			DropdownList.Visible = not DropdownList.Visible
 
-        if DropdownList.Visible then
-            for _, child in ipairs(tab:GetChildren()) do
-                if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
-                    child.Visible = false
-                end
-            end
+			if DropdownList.Visible then
+				for _, child in ipairs(tab:GetChildren()) do
+					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
+						child.Visible = false
+					end
+				end
 
-            -- Adjust DropdownList size to fit the number of options
-            DropdownList.Size = UDim2.new(0, 380, 0, #options * 35)  -- Each option takes about 35 pixels in height
-        else
-            for _, child in ipairs(tab:GetChildren()) do
-                if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
-                    child.Visible = true
-                end
-            end
-        end
-    end)
+				-- Adjust DropdownList size to fit the number of options
+				DropdownList.Size = UDim2.new(0, 380, 0, #options * 35)  -- Each option takes about 35 pixels in height
+			else
+				for _, child in ipairs(tab:GetChildren()) do
+					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
+						child.Visible = true
+					end
+				end
+			end
+		end)
 
-    return Dropdown
-end
+		return Dropdown
+	end
 
 
 
