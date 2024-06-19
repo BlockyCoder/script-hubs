@@ -924,8 +924,7 @@ function Library:Create(xHubName)
 
 		Library:Drag(Main, Headerframe)
 
-	end
-	return Library
+return Library
 end
 
 return Library
