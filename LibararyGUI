@@ -763,8 +763,8 @@ function Library:Create(xHubName)
 		local Dropdown = Instance.new("Frame")
 		Dropdown.Parent = tab
 		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Dropdown.Position = UDim2.new(0, 0, 0.2, 0)  -- Adjusted position to fit design
-		Dropdown.Size = UDim2.new(0, 200, 0, 0)  -- Initial height is 0, will expand when opened
+		Dropdown.Position = UDim2.new(0, 0, 0.2, 0)
+		Dropdown.Size = UDim2.new(0, 200, 0, 0)
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
@@ -774,7 +774,7 @@ function Library:Create(xHubName)
 		DropdownButton.Parent = tab
 		DropdownButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		DropdownButton.Position = UDim2.new(0, 0, 0, 0)
-		DropdownButton.Size = UDim2.new(0, 200, 0, 30)  -- Adjusted size to match tab button size
+		DropdownButton.Size = UDim2.new(0, 200, 0, 30)
 		DropdownButton.Font = Enum.Font.Gotham
 		DropdownButton.Text = dropdownName
 		DropdownButton.TextColor3 = Color3.fromRGB(193, 193, 193)
@@ -790,8 +790,8 @@ function Library:Create(xHubName)
 		DropdownList.Visible = false
 		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		DropdownList.BorderSizePixel = 0
-		DropdownList.Position = UDim2.new(0, 0, 1, 0)  -- Initially below the button
-		DropdownList.Size = UDim2.new(1, 0, 0, 0)  -- Initial height is 0, will expand when opened
+		DropdownList.Position = UDim2.new(0, 0, 1, 0)
+		DropdownList.Size = UDim2.new(1, 0, 0, 0)
 		DropdownList.ScrollBarThickness = 5
 
 		local DropdownLayout = Instance.new("UIListLayout")
@@ -804,7 +804,7 @@ function Library:Create(xHubName)
 			local OptionButton = Instance.new("TextButton")
 			OptionButton.Parent = DropdownList
 			OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			OptionButton.Size = UDim2.new(1, 0, 0, 30)  -- Adjusted height to match design
+			OptionButton.Size = UDim2.new(1, 0, 0, 30)
 			OptionButton.Font = Enum.Font.Gotham
 			OptionButton.Text = optionText
 			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
@@ -813,13 +813,23 @@ function Library:Create(xHubName)
 			OptionButton.MouseButton1Click:Connect(function()
 				callback(optionText)
 				DropdownList.Visible = false
+				DropdownButton.Text = optionText  -- Update button text on option selection
 			end)
 		end
 
 		-- Toggle dropdown list visibility on button click
-		DropdownButton.MouseButton1Click:Connect(function()
+		local function toggleDropdown()
 			DropdownList.Visible = not DropdownList.Visible
-		end)
+		end
+
+		DropdownButton.MouseButton1Click:Connect(toggleDropdown)
+
+		-- Close dropdown list when clicking outside of it
+		local function closeDropdown()
+			DropdownList.Visible = false
+		end
+
+		tab.MouseButton1Click:Connect(closeDropdown)
 
 		-- Update dropdown button text when an option is selected
 		function Library:UpdateDropdownText(text)
@@ -828,6 +838,7 @@ function Library:Create(xHubName)
 
 		return Dropdown, DropdownList
 	end
+
 
 
 
