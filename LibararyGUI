@@ -756,7 +756,6 @@ function Library:Create(xHubName)
 	
 	
 	
-
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
 		callback = callback or function() end
 
@@ -829,7 +828,15 @@ function Library:Create(xHubName)
 			DropdownList.Visible = false
 		end
 
-		tab.MouseButton1Click:Connect(closeDropdown)
+		-- Listen for MouseButton1Click events on the UI to close the dropdown when clicking outside
+		local function handleOutsideClick(input)
+			if DropdownList.Visible and not DropdownButton:IsAncestorOf(input.Target) then
+				closeDropdown()
+			end
+		end
+
+		-- Connect the function to listen for MouseButton1Click events on the UI
+		game:GetService("UserInputService").InputBegan:Connect(handleOutsideClick)
 
 		-- Update dropdown button text when an option is selected
 		function Library:UpdateDropdownText(text)
@@ -838,6 +845,8 @@ function Library:Create(xHubName)
 
 		return Dropdown, DropdownList
 	end
+
+
 
 
 
