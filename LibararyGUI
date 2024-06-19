@@ -767,91 +767,95 @@ function Library:Create(xHubName)
 
 
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
-		callback = callback or function() end
+    callback = callback or function() end
 
-		local Dropdown = Instance.new("TextButton")
-		Dropdown.Parent = tab
-		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Dropdown.Position = UDim2.new(0, 0, 0.0954390168, 0)
-		Dropdown.Selectable = false
-		Dropdown.Size = UDim2.new(0, 380, 0, 31)
-		Dropdown.AutoButtonColor = false
-		Dropdown.Text = dropdownName or options[1] -- Default text to first option
-		Dropdown.TextColor = Color3.fromRGB(193, 193, 193)
-		Dropdown.TextSize = 14.000
-		Dropdown.Font = Enum.Font.Gotham
-		Dropdown.TextXAlignment = Enum.TextXAlignment.Left
-		Dropdown.TextWrapped = true
-		Dropdown.TextScaled = true
-		
-		
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Dropdown
+    local Dropdown = Instance.new("TextButton")
+    Dropdown.Parent = tab
+    Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Dropdown.Position = UDim2.new(0, 0, 0.0954390168, 0)
+    Dropdown.Selectable = false
+    Dropdown.Size = UDim2.new(0, 380, 0, 31)
+    Dropdown.AutoButtonColor = false
+    Dropdown.Text = dropdownName or options[1] or "Dropdown" -- Set default text if dropdownName and options are nil
+    Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
+    Dropdown.TextSize = 14.000
+    Dropdown.Font = Enum.Font.Gotham
+    Dropdown.TextXAlignment = Enum.TextXAlignment.Left
+    Dropdown.TextWrapped = true
+    Dropdown.TextScaled = true
 
-		local DropdownList = Instance.new("Frame")
-		DropdownList.Name = "DropdownList"
-		DropdownList.Parent = Dropdown
-		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		DropdownList.Position = UDim2.new(0, 0, 1, 0)
-		DropdownList.Size = UDim2.new(1, 0, 0, 0)
-		DropdownList.Visible = false
-		DropdownList.ZIndex = 10
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = Dropdown
 
-		local ListLayout = Instance.new("UIListLayout")
-		ListLayout.Parent = DropdownList
-		ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		ListLayout.Padding = UDim.new(0, 5)
+    local DropdownList = Instance.new("Frame")
+    DropdownList.Name = "DropdownList"
+    DropdownList.Parent = Dropdown.Parent -- Parent DropdownList to the same parent as Dropdown
+    DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    DropdownList.Position = UDim2.new(0, 0, 0.0954390168 + Dropdown.Size.Y.Offset, 0) -- Adjust position based on Dropdown size
+    DropdownList.Size = UDim2.new(0, 380, 0, 0) -- Initially size to 0 height
+    DropdownList.Visible = false
+    DropdownList.ZIndex = 10
 
-		for _, optionText in ipairs(options) do
-			local OptionButton = Instance.new("TextButton")
-			OptionButton.Parent = DropdownList
-			OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			OptionButton.Size = UDim2.new(1, 0, 0, 30)
-			OptionButton.Font = Enum.Font.Gotham
-			OptionButton.Text = optionText
-			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)  -- Ensure text color is set correctly
-			OptionButton.TextScaled = true
-			OptionButton.TextWrapped = true
-			
-			OptionButton.MouseButton1Click:Connect(function()
-				callback(optionText)
-				Dropdown.Text = optionText  -- Update dropdown button text
-				DropdownList.Visible = false
+    local ListLayout = Instance.new("UIListLayout")
+    ListLayout.Parent = DropdownList
+    ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    ListLayout.Padding = UDim.new(0, 5)
 
-				-- Show all other UI elements when the dropdown list is hidden
-				for _, child in ipairs(tab:GetChildren()) do
-					if child:IsA("TextButton") or child:IsA("Frame") or child:IsA("TextLabel") then
-						child.Visible = true
-					end
-				end
-			end)
-		end
+    -- Update the position of DropdownList when Dropdown's parent size changes
+    tab:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+        DropdownList.Position = UDim2.new(0, 0, 0.0954390168 + Dropdown.Size.Y.Offset, 0)
+    end)
 
-		Dropdown.MouseButton1Click:Connect(function()
-			DropdownList.Visible = not DropdownList.Visible
+    for _, optionText in ipairs(options) do
+        local OptionButton = Instance.new("TextButton")
+        OptionButton.Parent = DropdownList
+        OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+        OptionButton.Size = UDim2.new(1, 0, 0, 30)
+        OptionButton.Font = Enum.Font.Gotham
+        OptionButton.Text = optionText
+        OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+        OptionButton.TextScaled = true
+        OptionButton.TextWrapped = true
 
-			-- Hide other UI elements when the dropdown list is shown
-			if DropdownList.Visible then
-				for _, child in ipairs(tab:GetChildren()) do
-					if child:IsA("TextButton") or child:IsA("Frame") or child:IsA("TextLabel") then
-						if child ~= Dropdown and child.Name ~= "DropdownList" then
-							child.Visible = false
-						end
-					end
-				end
-			else
-				-- Show all other UI elements when the dropdown list is hidden
-				for _, child in ipairs(tab:GetChildren()) do
-					if child:IsA("TextButton") or child:IsA("Frame") or child:IsA("TextLabel") then
-						child.Visible = true
-					end
-				end
-			end
-		end)
+        OptionButton.MouseButton1Click:Connect(function()
+            callback(optionText)
+            Dropdown.Text = optionText
+            DropdownList.Visible = false
 
-		return Dropdown
-	end
+            -- Show all other UI elements when the dropdown list is hidden
+            for _, child in ipairs(tab:GetChildren()) do
+                if child:IsA("TextButton") or child:IsA("Frame") or child:IsA("TextLabel") then
+                    child.Visible = true
+                end
+            end
+        end)
+    end
+
+    Dropdown.MouseButton1Click:Connect(function()
+        DropdownList.Visible = not DropdownList.Visible
+
+        -- Hide other UI elements when the dropdown list is shown
+        if DropdownList.Visible then
+            for _, child in ipairs(tab:GetChildren()) do
+                if child:IsA("TextButton") or child:IsA("Frame") or child:IsA("TextLabel") then
+                    if child ~= Dropdown and child.Name ~= "DropdownList" then
+                        child.Visible = false
+                    end
+                end
+            end
+        else
+            -- Show all other UI elements when the dropdown list is hidden
+            for _, child in ipairs(tab:GetChildren()) do
+                if child:IsA("TextButton") or child:IsA("Frame") or child:IsA("TextLabel") then
+                    child.Visible = true
+                end
+            end
+        end
+    end)
+
+    return Dropdown
+end
 
 
 
