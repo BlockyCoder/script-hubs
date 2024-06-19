@@ -237,7 +237,7 @@ function Library:Create(xHubName)
 			end
 		end)
 	end
-	
+
 	Library:Drag(Main, Headerframe)
 	--notifcation
 	function Library:Newnotify(Text, Description, Length)
@@ -769,109 +769,116 @@ function Library:Create(xHubName)
 
 		return SliderFrame
 	end
-	
-	
-function Library:CreateKeybind(tab, keybindName, defaultKey, callback)
-    -- Default values if not provided
-    local keybindName = keybindName or "Keybind"
-    local callback = callback or function() end
-    local defaultKey = defaultKey.Name  -- Assuming defaultKey is an Instance
 
-    -- Create the KeybindFrame
-    local KeybindFrame = Instance.new("Frame")
-    KeybindFrame.Parent = tab
-    KeybindFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    KeybindFrame.Size = UDim2.new(0, 200, 0, 40)  -- You can adjust size as needed
-    KeybindFrame.Position = UDim2.new(0, 0, 0, 0)
 
-    -- Apply rounded corners to the frame
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 5)
-    UICorner.Parent = KeybindFrame
+	function Library:CreateKeybind(tab, keybindName, defaultKey, callback)
+		-- Default values if not provided
+		local keybindName = keybindName or "Keybind"
+		local callback = callback or function() end
 
-    -- Create the title label
-    local TitleLabel = Instance.new("TextLabel")
-    TitleLabel.Parent = KeybindFrame
-    TitleLabel.Text = keybindName
-    TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TitleLabel.TextSize = 18
-    TitleLabel.Font = Enum.Font.SourceSansBold
-    TitleLabel.Size = UDim2.new(2, 0, 0, 20)  -- Adjust size as needed
-    TitleLabel.Position = UDim2.new(0, 4, 0, 3)
-    TitleLabel.BackgroundTransparency = 1
-    TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+		-- Create the KeybindFrame
+		local KeybindFrame = Instance.new("Frame")
+		KeybindFrame.Parent = tab
+		KeybindFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		KeybindFrame.Size = UDim2.new(0, 200, 0, 40)  -- You can adjust size as needed
+		KeybindFrame.Position = UDim2.new(0, 0, 0, 0)
 
-    -- Create the keybind button
-    local KeybindButton = Instance.new("TextButton")
-    KeybindButton.Parent = KeybindFrame
-    KeybindButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    KeybindButton.Size = UDim2.new(0, 100, 0, 20)  -- Adjust size as needed
-    KeybindButton.Position = UDim2.new(0, 10, 0, 20)
-    KeybindButton.Text = defaultKey or "None"
-    KeybindButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    KeybindButton.AutoButtonColor = false
-    KeybindButton.Font = Enum.Font.SourceSans
-    KeybindButton.TextSize = 14
+		-- Apply rounded corners to the frame
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = KeybindFrame
 
-    -- Function to update the keybind displayed on the button
-    local function setKeybind(key)
-        KeybindButton.Text = key
-    end
+		-- Create the title label
+		local TitleLabel = Instance.new("TextLabel")
+		TitleLabel.Parent = KeybindFrame
+		TitleLabel.Text = keybindName
+		TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TitleLabel.TextSize = 18
+		TitleLabel.Font = Enum.Font.SourceSansBold
+		TitleLabel.Size = UDim2.new(2, 0, 0, 20)  -- Adjust size as needed
+		TitleLabel.Position = UDim2.new(0, 4, 0, 3)
+		TitleLabel.BackgroundTransparency = 1
+		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-    -- Function triggered when a key is pressed
-    local function onKeyDown(input)
-        if input.UserInputType == Enum.UserInputType.Keyboard then
-            local keyPressed = input.KeyCode
-            setKeybind(tostring(keyPressed))
-            callback(keyPressed)
+		-- Create the keybind button
+		local KeybindButton = Instance.new("TextButton")
+		KeybindButton.Parent = KeybindFrame
+		KeybindButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		KeybindButton.Size = UDim2.new(0, 100, 0, 20)  -- Adjust size as needed
+		KeybindButton.Position = UDim2.new(0, 10, 0, 20)
+		KeybindButton.Text = defaultKey.Name or "None"  -- Display default keybind name
+		KeybindButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		KeybindButton.AutoButtonColor = false
+		KeybindButton.Font = Enum.Font.SourceSans
+		KeybindButton.TextSize = 14
 
-            -- Hide or show the GUI based on key press
-            KeybindFrame.Visible = not KeybindFrame.Visible
-        end
-    end
+		-- Function to update the keybind displayed on the button
+		local function setKeybind(key)
+			KeybindButton.Text = key
+		end
 
-    -- Handle the mouse click event for setting keybind
-    KeybindButton.MouseButton1Click:Connect(function()
-        KeybindButton.Text = ". . ."
-        game.TweenService:Create(KeybindButton, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-            BackgroundColor3 = Color3.fromRGB(55, 74, 251)
-        }):Play()
+		-- Function triggered when a key is pressed
+		local function onKeyDown(input)
+			if input.UserInputType == Enum.UserInputType.Keyboard then
+				local keyPressed = input.KeyCode
+				setKeybind(tostring(keyPressed))
+				callback(keyPressed)
 
-        local input = game:GetService("UserInputService").InputBegan:Wait()
+				-- Toggle visibility of KeybindFrame when defaultKey is pressed
+				if keyPressed == defaultKey then
+					KeybindFrame.Visible = not KeybindFrame.Visible
+				end
+			end
+		end
 
-        if input.UserInputType == Enum.UserInputType.Keyboard then
-            local keyPressed = input.KeyCode
-            game.TweenService:Create(KeybindButton, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-                BackgroundColor3 = Color3.fromRGB(55, 55, 75)
-            }):Play()
-            KeybindButton.Text = keyPressed.Name
-            callback(keyPressed)
+		-- Handle the mouse click event for setting keybind
+		KeybindButton.MouseButton1Click:Connect(function()
+			KeybindButton.Text = ". . ."
+			game.TweenService:Create(KeybindButton, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+				BackgroundColor3 = Color3.fromRGB(55, 74, 251)
+			}):Play()
 
-            -- Hide or show the GUI based on key press
-            KeybindFrame.Visible = not KeybindFrame.Visible
-        end
-    end)
+			local input = game:GetService("UserInputService").InputBegan:Wait()
 
-    -- Bind the global key press event
-    game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
-        if not gameProcessed then
-            if input.KeyCode == defaultKey then
-                callback(input.KeyCode)
+			if input.UserInputType == Enum.UserInputType.Keyboard then
+				local keyPressed = input.KeyCode
+				game.TweenService:Create(KeybindButton, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+					BackgroundColor3 = Color3.fromRGB(55, 55, 75)
+				}):Play()
+				KeybindButton.Text = keyPressed.Name
+				callback(keyPressed)
 
-                -- Hide or show the GUI based on key press
-                KeybindFrame.Visible = not KeybindFrame.Visible
-            end
-        end
-    end)
+				-- Toggle visibility of KeybindFrame when defaultKey is pressed
+				if keyPressed == defaultKey then
+					KeybindFrame.Visible = not KeybindFrame.Visible
+				end
+			end
+		end)
 
-    return setKeybind
-end
+		-- Bind the global key press event
+		game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+			if not gameProcessed then
+				if input.KeyCode == defaultKey then
+					callback(input.KeyCode)
+				end
+			end
+		end)
 
-	
-	
-	
-	
-	
+		-- Bind the keybind button to listen for key presses
+		KeybindButton.MouseButton1Click:Connect(function()
+			setKeybind("...")
+			game:GetService("UserInputService").InputBegan:Connect(onKeyDown)
+		end)
+
+		return setKeybind
+	end
+
+
+
+
+
+
+
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
 		callback = callback or function() end
 
@@ -954,7 +961,7 @@ end
 		return Dropdown
 	end
 
-return Library
+	return Library
 end
 
 return Library
