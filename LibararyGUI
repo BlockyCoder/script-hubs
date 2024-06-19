@@ -353,43 +353,73 @@ function Library:Create(xHubName)
 
 
 	function Library:CreateButton(tab, buttonName, callback)
-    callback = callback or function() end
+		callback = callback or function() end
 
-    local Button = Instance.new("TextButton")
-    Button.Parent = tab
-    Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    Button.Position = UDim2.new(0, 0, 0.0954390168, 0)
-    Button.Selectable = false
-    Button.Size = UDim2.new(0, 380, 0, 31)
-    Button.AutoButtonColor = false
-    Button.Text = ""
-    Button.ZIndex = 1
+		local Button = Instance.new("TextButton")
+		Button.Parent = tab
+		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Button.Position = UDim2.new(0, 0, 0, 0) -- Adjust as needed
+		Button.Selectable = false
+		Button.Size = UDim2.new(0, 200, 0, 31) -- Adjust size as needed
+		Button.AutoButtonColor = false
+		Button.Text = ""
 
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 5)
-    UICorner.Parent = Button
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = Button
 
-    local TextLabel = Instance.new("TextLabel")
-    TextLabel.Parent = Button
-    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel.BackgroundTransparency = 1.000
-    TextLabel.Size = UDim2.new(0, 283, 0, 31)
-    TextLabel.Font = Enum.Font.GothamMedium
-    TextLabel.Text = buttonName
-    TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-    TextLabel.TextSize = 12.000
-    TextLabel.TextXAlignment = Enum.TextXAlignment.Center
+		local TextLabel = Instance.new("TextLabel")
+		TextLabel.Parent = Button
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.BackgroundTransparency = 1.000
+		TextLabel.Size = UDim2.new(0, 194, 0, 31)
+		TextLabel.Font = Enum.Font.GothamMedium
+		TextLabel.Text = buttonName
+		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+		TextLabel.TextSize = 12.000
+		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-    local UIPadding = Instance.new("UIPadding")
-    UIPadding.Parent = TextLabel
-    UIPadding.PaddingLeft = UDim.new(0, 10)
+		local UIPadding = Instance.new("UIPadding")
+		UIPadding.Parent = TextLabel
+		UIPadding.PaddingLeft = UDim.new(0, 10)
 
-    Button.MouseButton1Click:Connect(function()
-        callback()
-    end)
+		local Status = Instance.new("Frame")
+		Status.Name = "Status"
+		Status.Parent = Button
+		Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Status.BackgroundTransparency = 1.000
+		Status.Position = UDim2.new(0.8, 0, 0, 0) -- Adjust status position as needed
+		Status.Size = UDim2.new(0, 37, 0, 31)
 
-    return Button
-end
+		local ActualThing = Instance.new("Frame")
+		ActualThing.Name = "ActualThing"
+		ActualThing.Parent = Status
+		ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
+		ActualThing.BackgroundColor3 =  Color3.fromRGB(106, 0, 255)
+		ActualThing.BackgroundTransparency = 1.000
+		ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
+		ActualThing.Size = UDim2.new(0, 20, 0, 20)
+
+		local ImageLabel = Instance.new("ImageLabel")
+		ImageLabel.Parent = ActualThing
+		ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+		ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		ImageLabel.BackgroundTransparency = 1.000
+		ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+		ImageLabel.Size = UDim2.new(0, 20, 0, 20)
+		ImageLabel.Image = "rbxassetid://7734010488"
+		ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
+
+		local UIScale = Instance.new("UIScale")
+		UIScale.Parent = ImageLabel
+		UIScale.Scale = 0.800
+
+		Button.MouseButton1Click:Connect(function()
+			callback()
+		end)
+
+		return Button
+	end
 
 
 
@@ -851,95 +881,95 @@ end
 
 
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
-    callback = callback or function() end
+		callback = callback or function() end
 
-    local Dropdown = Instance.new("TextButton")
-    Dropdown.Parent = tab
-    Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    Dropdown.Position = UDim2.new(0, 0, 0, 0)
-    Dropdown.Selectable = false
-    Dropdown.Size = UDim2.new(0, 380, 0, 31)
-    Dropdown.AutoButtonColor = false
-    Dropdown.Text = dropdownName or options[1] or "Dropdown"
-    Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
-    Dropdown.TextSize = 14.000
-    Dropdown.Font = Enum.Font.Gotham
-    Dropdown.TextXAlignment = Enum.TextXAlignment.Left -- Align text to the left to make room for icon
-    Dropdown.TextWrapped = true
+		local Dropdown = Instance.new("TextButton")
+		Dropdown.Parent = tab
+		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Dropdown.Position = UDim2.new(0, 0, 0, 0)
+		Dropdown.Selectable = false
+		Dropdown.Size = UDim2.new(0, 380, 0, 31)
+		Dropdown.AutoButtonColor = false
+		Dropdown.Text = dropdownName or options[1] or "Dropdown"
+		Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
+		Dropdown.TextSize = 14.000
+		Dropdown.Font = Enum.Font.Gotham
+		Dropdown.TextXAlignment = Enum.TextXAlignment.Left -- Align text to the left to make room for icon
+		Dropdown.TextWrapped = true
 
-    -- Dropdown icon setup
-    local DropdownIcon = Instance.new("ImageLabel")
-    DropdownIcon.Parent = Dropdown
-    DropdownIcon.BackgroundTransparency = 1
-    DropdownIcon.Size = UDim2.new(0, 16, 0, 16)
-    DropdownIcon.Position = UDim2.new(1, -28, 0.5, -8) -- Adjusted position to be more clear
-    DropdownIcon.Image = "rbxassetid://13025551568"  -- Use your actual icon asset ID here
-    DropdownIcon.ImageColor3 = Color3.fromRGB(193, 193, 193)
+		-- Dropdown icon setup
+		local DropdownIcon = Instance.new("ImageLabel")
+		DropdownIcon.Parent = Dropdown
+		DropdownIcon.BackgroundTransparency = 1
+		DropdownIcon.Size = UDim2.new(0, 16, 0, 16)
+		DropdownIcon.Position = UDim2.new(1, -28, 0.5, -8) -- Adjusted position to be more clear
+		DropdownIcon.Image = "rbxassetid://13025551568"  -- Use your actual icon asset ID here
+		DropdownIcon.ImageColor3 = Color3.fromRGB(193, 193, 193)
 
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 5)
-    UICorner.Parent = Dropdown
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = Dropdown
 
-    local DropdownList = Instance.new("Frame")
-    DropdownList.Name = "DropdownList"
-    DropdownList.Parent = tab
-    DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    DropdownList.Position = UDim2.new(0, 0, 0, Dropdown.AbsolutePosition.Y + Dropdown.AbsoluteSize.Y)
-    DropdownList.Size = UDim2.new(0, 380, 0, 0)
-    DropdownList.Visible = false
-    DropdownList.ZIndex = 10
+		local DropdownList = Instance.new("Frame")
+		DropdownList.Name = "DropdownList"
+		DropdownList.Parent = tab
+		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		DropdownList.Position = UDim2.new(0, 0, 0, Dropdown.AbsolutePosition.Y + Dropdown.AbsoluteSize.Y)
+		DropdownList.Size = UDim2.new(0, 380, 0, 0)
+		DropdownList.Visible = false
+		DropdownList.ZIndex = 10
 
-    local ListLayout = Instance.new("UIListLayout")
-    ListLayout.Parent = DropdownList
-    ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    ListLayout.Padding = UDim.new(0, 5)
+		local ListLayout = Instance.new("UIListLayout")
+		ListLayout.Parent = DropdownList
+		ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		ListLayout.Padding = UDim.new(0, 5)
 
-    for _, optionText in ipairs(options) do
-        local OptionButton = Instance.new("TextButton")
-        OptionButton.Parent = DropdownList
-        OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-        OptionButton.Size = UDim2.new(1, 0, 0, 30)
-        OptionButton.Font = Enum.Font.Gotham
-        OptionButton.Text = optionText
-        OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
-        OptionButton.TextWrapped = true
+		for _, optionText in ipairs(options) do
+			local OptionButton = Instance.new("TextButton")
+			OptionButton.Parent = DropdownList
+			OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			OptionButton.Size = UDim2.new(1, 0, 0, 30)
+			OptionButton.Font = Enum.Font.Gotham
+			OptionButton.Text = optionText
+			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+			OptionButton.TextWrapped = true
 
-        OptionButton.MouseButton1Click:Connect(function()
-            callback(optionText)
-            Dropdown.Text = optionText
-            DropdownList.Visible = false
+			OptionButton.MouseButton1Click:Connect(function()
+				callback(optionText)
+				Dropdown.Text = optionText
+				DropdownList.Visible = false
 
-            for _, child in ipairs(tab:GetChildren()) do
-                if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
-                    child.Visible = true
-                end
-            end
-        end)
-    end
+				for _, child in ipairs(tab:GetChildren()) do
+					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
+						child.Visible = true
+					end
+				end
+			end)
+		end
 
-    Dropdown.MouseButton1Click:Connect(function()
-        DropdownList.Visible = not DropdownList.Visible
+		Dropdown.MouseButton1Click:Connect(function()
+			DropdownList.Visible = not DropdownList.Visible
 
-        if DropdownList.Visible then
-            for _, child in ipairs(tab:GetChildren()) do
-                if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
-                    child.Visible = false
-                end
-            end
+			if DropdownList.Visible then
+				for _, child in ipairs(tab:GetChildren()) do
+					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
+						child.Visible = false
+					end
+				end
 
-            -- Adjust DropdownList size to fit the number of options
-            DropdownList.Size = UDim2.new(0, 380, 0, #options * 35)  -- Each option takes about 35 pixels in height
-        else
-            for _, child in ipairs(tab:GetChildren()) do
-                if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
-                    child.Visible = true
-                end
-            end
-        end
-    end)
+				-- Adjust DropdownList size to fit the number of options
+				DropdownList.Size = UDim2.new(0, 380, 0, #options * 35)  -- Each option takes about 35 pixels in height
+			else
+				for _, child in ipairs(tab:GetChildren()) do
+					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
+						child.Visible = true
+					end
+				end
+			end
+		end)
 
-    return Dropdown
-end
+		return Dropdown
+	end
 
 
 
