@@ -850,31 +850,31 @@ end
 
 
 
-	function Library:CreateDropdown(tab, dropdownName, options, callback, iconId)
+	function Library:CreateDropdown(tab, dropdownName, options, callback)
     callback = callback or function() end
 
-    local Dropdown = Instance.new("ImageButton")
+    local Dropdown = Instance.new("TextButton")
     Dropdown.Parent = tab
     Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     Dropdown.Position = UDim2.new(0, 0, 0, 0)
     Dropdown.Selectable = false
     Dropdown.Size = UDim2.new(0, 380, 0, 31)
     Dropdown.AutoButtonColor = false
-    Dropdown.Image = iconId or ""  -- Set the icon image here
-    Dropdown.ScaleType = Enum.ScaleType.Fit
-    Dropdown.ImageColor3 = Color3.fromRGB(193, 193, 193)
+    Dropdown.Text = dropdownName or options[1] or "Dropdown"
+    Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
+    Dropdown.TextSize = 14.000
+    Dropdown.Font = Enum.Font.Gotham
+    Dropdown.TextXAlignment = Enum.TextXAlignment.Center
+    Dropdown.TextWrapped = true
 
-    local DropdownText = Instance.new("TextLabel")
-    DropdownText.Parent = Dropdown
-    DropdownText.BackgroundTransparency = 1
-    DropdownText.Position = UDim2.new(0, 25, 0, 0)
-    DropdownText.Size = UDim2.new(1, -25, 1, 0)
-    DropdownText.Text = dropdownName or options[1] or "Dropdown"
-    DropdownText.TextColor3 = Color3.fromRGB(193, 193, 193)
-    DropdownText.TextSize = 14.000
-    DropdownText.Font = Enum.Font.Gotham
-    DropdownText.TextXAlignment = Enum.TextXAlignment.Left
-    DropdownText.TextWrapped = true
+    -- Dropdown icon
+    local DropdownIcon = Instance.new("ImageLabel")
+    DropdownIcon.Parent = Dropdown
+    DropdownIcon.BackgroundTransparency = 1
+    DropdownIcon.Size = UDim2.new(0, 16, 0, 16)
+    DropdownIcon.Position = UDim2.new(1, -20, 0.5, -8)
+    DropdownIcon.Image = "http://www.roblox.com/asset/?id=INSERT_ICON_ASSET_ID_HERE"  -- Replace with your icon asset ID
+    DropdownIcon.ImageColor3 = Color3.fromRGB(193, 193, 193)
 
     local UICorner = Instance.new("UICorner")
     UICorner.CornerRadius = UDim.new(0, 5)
@@ -906,7 +906,7 @@ end
 
         OptionButton.MouseButton1Click:Connect(function()
             callback(optionText)
-            DropdownText.Text = optionText
+            Dropdown.Text = optionText
             DropdownList.Visible = false
 
             for _, child in ipairs(tab:GetChildren()) do
@@ -940,6 +940,7 @@ end
 
     return Dropdown
 end
+
 
 
 
