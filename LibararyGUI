@@ -757,98 +757,87 @@ function Library:Create(xHubName)
 	
 	
 	
-	function Library:CreateDropdown(tab, dropdownName, options, callback)
-		callback = callback or function() end
-
-		local Dropdown = Instance.new("Frame")
-		Dropdown.Parent = tab
-		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Dropdown.Size = UDim2.new(0, 315, 0, 36)
+	function Library:Dropdown(parent, options, defaultOption, callback)
+		local DropdownFrame = Instance.new("Frame")
+		DropdownFrame.Parent = parent
+		DropdownFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		DropdownFrame.Size = UDim2.new(0, 200, 0, 30)
+		DropdownFrame.Position = UDim2.new(0, 0, 0, 0)
+		DropdownFrame.ClipsDescendants = true  -- Ensures dropdown list stays within its bounds
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Dropdown
+		UICorner.Parent = DropdownFrame
 
-		local TextLabel = Instance.new("TextLabel")
-		TextLabel.Parent = Dropdown
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.Size = UDim2.new(0, 283, 0, 36)
-		TextLabel.Position = UDim2.new(0, 10, 0, 0)
-		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = dropdownName
-		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TextLabel.TextSize = 12.000
-		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+		local SelectedOption = Instance.new("TextButton")
+		SelectedOption.Parent = DropdownFrame
+		SelectedOption.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		SelectedOption.Size = UDim2.new(1, 0, 1, 0)
+		SelectedOption.Position = UDim2.new(0, 0, 0, 0)
+		SelectedOption.AutoButtonColor = false
+		SelectedOption.Text = defaultOption or options[1]
+		SelectedOption.TextColor3 = Color3.fromRGB(193, 193, 193)
+		SelectedOption.TextSize = 14
 
-		local DropdownIcon = Instance.new("ImageLabel")
-		DropdownIcon.Parent = Dropdown
-		DropdownIcon.Size = UDim2.new(0, 20, 0, 20)
-		DropdownIcon.Position = UDim2.new(0, 280, 0, 8)
-		DropdownIcon.BackgroundTransparency = 1
-		DropdownIcon.Image = "http://www.roblox.com/asset/?id=13319773302"
-		DropdownIcon.ImageColor3 = Color3.fromRGB(193, 193, 193)
-
-		local DropdownList = Instance.new("ScrollingFrame")
-		DropdownList.Parent = tab
-		DropdownList.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		local DropdownList = Instance.new("Frame")
+		DropdownList.Parent = DropdownFrame
+		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		DropdownList.BorderSizePixel = 0
-		DropdownList.Position = UDim2.new(0, 0, 0, 36)
-		DropdownList.Size = UDim2.new(0, 315, 0, 0)
-		DropdownList.Visible = false
-		DropdownList.ZIndex = 2
+		DropdownList.Position = UDim2.new(0, 0, 1, 0)  -- Start hidden below the button
+		DropdownList.Size = UDim2.new(1, 0, 0, 0)
 
-		local UIListLayout = Instance.new("UIListLayout")
-		UIListLayout.Parent = DropdownList
-		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		local ListLayout = Instance.new("UIListLayout")
+		ListLayout.Parent = DropdownList
+		ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-		-- Function to hide specific GUI objects in the tab
-		local function hideOtherElements()
-			for _, child in ipairs(tab:GetChildren()) do
-				if child:IsA("GuiObject") and child ~= Dropdown and child ~= DropdownList then
-					local isAllowedType = true
-
-					-- Check if the child is a type you want to hide
-					if child:IsA("TextButton") or child:IsA("ImageButton") then
-						isAllowedType = false
-					end
-
-					if isAllowedType then
-						child.Visible = false
-					end
-				end
-			end
+		local function toggleDropdown()
+			DropdownList.Visible = not DropdownList.Visible
 		end
 
-		for i, optionText in ipairs(options) do
+		local function selectOption(option)
+			SelectedOption.Text = option
+			toggleDropdown()
+			callback(option)
+		end
+
+		SelectedOption.MouseButton1Click:Connect(toggleDropdown)
+
+		for _, optionText in ipairs(options) do
 			local OptionButton = Instance.new("TextButton")
 			OptionButton.Parent = DropdownList
-			OptionButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-			OptionButton.Size = UDim2.new(1, 0, 0, 25)
+			OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			OptionButton.Size = UDim2.new(1, 0, 0, 30)
 			OptionButton.AutoButtonColor = false
-			OptionButton.Font = Enum.Font.SourceSans
 			OptionButton.Text = optionText
-			OptionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-			OptionButton.TextSize = 14.000
+			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+			OptionButton.TextSize = 14
 
 			OptionButton.MouseButton1Click:Connect(function()
-				DropdownList.Visible = false
-				TextLabel.Text = optionText
-				callback(optionText)
+				selectOption(optionText)
 			end)
 		end
 
-		Dropdown.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
-				DropdownList.Visible = not DropdownList.Visible
+		-- Function to close dropdown when clicking outside
+		local function closeDropdownIfClickedOutside(input)
+			local dropdownPosition = DropdownFrame.AbsolutePosition
+			local dropdownSize = DropdownFrame.AbsoluteSize
+			local clickPosition = input.Position
 
-				-- Hide other elements in the 'tab'
-				hideOtherElements()
+			if clickPosition.X < dropdownPosition.X or clickPosition.X > dropdownPosition.X + dropdownSize.X
+				or clickPosition.Y < dropdownPosition.Y or clickPosition.Y > dropdownPosition.Y + dropdownSize.Y then
+				DropdownList.Visible = false
+			end
+		end
+
+		game:GetService("UserInputService").InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				closeDropdownIfClickedOutside(input)
 			end
 		end)
 
-		return Dropdown, DropdownList
+		return SelectedOption, selectOption
 	end
+
 
 
 
