@@ -753,17 +753,13 @@ function Library:Create(xHubName)
 
 		return SliderFrame
 	end
-
-
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
 		callback = callback or function() end
 
-		local Dropdown = Instance.new("TextButton")
+		local Dropdown = Instance.new("Frame")
 		Dropdown.Parent = tab
 		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Dropdown.Size = UDim2.new(0, 315, 0, 36)  -- Adjusted to fit within the tab
-		Dropdown.AutoButtonColor = false
-		Dropdown.Text = ""
+		Dropdown.Size = UDim2.new(0, 315, 0, 36)
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
@@ -786,21 +782,39 @@ function Library:Create(xHubName)
 		DropdownIcon.Size = UDim2.new(0, 20, 0, 20)
 		DropdownIcon.Position = UDim2.new(0, 280, 0, 8)
 		DropdownIcon.BackgroundTransparency = 1
-		DropdownIcon.Image = "http://www.roblox.com/asset/?id=13319773302"  -- Replace with your dropdown icon asset ID or URL
+		DropdownIcon.Image = "http://www.roblox.com/asset/?id=13319773302"
 		DropdownIcon.ImageColor3 = Color3.fromRGB(193, 193, 193)
 
 		local DropdownList = Instance.new("ScrollingFrame")
-		DropdownList.Parent = Dropdown
+		DropdownList.Parent = tab
 		DropdownList.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 		DropdownList.BorderSizePixel = 0
-		DropdownList.Position = UDim2.new(0, 0, 1, 0)
-		DropdownList.Size = UDim2.new(1, 0, 0, 100)
+		DropdownList.Position = UDim2.new(0, 0, 0, 36)
+		DropdownList.Size = UDim2.new(0, 315, 0, 0)
 		DropdownList.Visible = false
 		DropdownList.ZIndex = 2
 
 		local UIListLayout = Instance.new("UIListLayout")
 		UIListLayout.Parent = DropdownList
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+		-- Function to hide specific GUI objects in the tab
+		local function hideOtherElements()
+			for _, child in ipairs(tab:GetChildren()) do
+				if child:IsA("GuiObject") and child ~= Dropdown and child ~= DropdownList then
+					local isAllowedType = true
+
+					-- Check if the child is a type you want to hide
+					if child:IsA("TextButton") or child:IsA("TextButton") or child:IsA("ImageButton") then
+						isAllowedType = false
+					end
+
+					if isAllowedType then
+						child.Visible = false
+					end
+				end
+			end
+		end
 
 		for i, optionText in ipairs(options) do
 			local OptionButton = Instance.new("TextButton")
@@ -822,10 +836,14 @@ function Library:Create(xHubName)
 
 		Dropdown.MouseButton1Click:Connect(function()
 			DropdownList.Visible = not DropdownList.Visible
+
+			-- Hide other elements in the 'tab'
+			hideOtherElements()
 		end)
 
 		return Dropdown, DropdownList
 	end
+
 
 
 	Library:Drag(Main, Headerframe)
