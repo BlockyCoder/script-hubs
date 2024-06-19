@@ -873,7 +873,7 @@ end
     DropdownIcon.BackgroundTransparency = 1
     DropdownIcon.Size = UDim2.new(0, 16, 0, 16)
     DropdownIcon.Position = UDim2.new(1, -20, 0.5, -8)
-    DropdownIcon.Image = "http://www.roblox.com/asset/?id=INSERT_ICON_ASSET_ID_HERE"  -- Replace with your icon asset ID
+    DropdownIcon.Image = "http://www.roblox.com/asset/?id=13025551568"  -- Replace with your icon asset ID
     DropdownIcon.ImageColor3 = Color3.fromRGB(193, 193, 193)
 
     local UICorner = Instance.new("UICorner")
