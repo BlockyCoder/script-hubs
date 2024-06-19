@@ -14,245 +14,257 @@ function Library:Create(xHubName)
 	end
 
 	local ScreenScript = Instance.new("ScreenGui")
-local LoadingFrame = Instance.new("Frame")
-local LoadingText = Instance.new("TextLabel")
-local LoadingSound = Instance.new("Sound")
-local Shadow = Instance.new("ImageLabel")
-local Main = Instance.new("Frame")
-local Headerframe = Instance.new("Frame")
-local Close = Instance.new("ImageButton")
-local UICorner = Instance.new("UICorner")
-local ImageLabel = Instance.new("ImageLabel")
-local UIScale = Instance.new("UIScale")
-local Title = Instance.new("TextButton")
-local UIPadding = Instance.new("UIPadding")
-local FirstSeperator = Instance.new("Frame")
-local Siderframe = Instance.new("Frame")
-local ActualSide = Instance.new("ScrollingFrame")
-local ActualSideListLayout = Instance.new("UIListLayout")
-local TextButton = Instance.new("TextButton")
-local UICorner_2 = Instance.new("UICorner")
-local Tabholder = Instance.new("ScrollingFrame")
-local Tabs = Instance.new("Folder")
-local UICorner_3 = Instance.new("UICorner")
-local TabLayout = Instance.new("UIListLayout")
-local ImageButtonK = Instance.new("ImageButton")
-local ImageButtonKCorner = Instance.new("UICorner")
+	local LoadingFrame = Instance.new("Frame")
+	local LoadingText = Instance.new("TextLabel")
+	local LoadingSound = Instance.new("Sound")
+	local Shadow = Instance.new("ImageLabel")
+	local Main = Instance.new("Frame")
+	local Headerframe = Instance.new("Frame")
+	local Close = Instance.new("ImageButton")
+	local UICorner = Instance.new("UICorner")
+	local ImageLabel = Instance.new("ImageLabel")
+	local UIScale = Instance.new("UIScale")
+	local Title = Instance.new("TextButton")
+	local UIPadding = Instance.new("UIPadding")
+	local FirstSeperator = Instance.new("Frame")
+	local Siderframe = Instance.new("Frame")
+	local ActualSide = Instance.new("ScrollingFrame")
+	local ActualSideListLayout = Instance.new("UIListLayout")
+	local TextButton = Instance.new("TextButton")
+	local UICorner_2 = Instance.new("UICorner")
+	local Tabholder = Instance.new("ScrollingFrame")
+	local Tabs = Instance.new("Folder")
+	local UICorner_3 = Instance.new("UICorner")
+	local TabLayout = Instance.new("UIListLayout")
+	local ImageButtonK = Instance.new("ImageButton")
+	local ImageButtonKCorner = Instance.new("UICorner")
 
-ScreenScript.Name = LibraryName
-ScreenScript.Parent = game.CoreGui
-ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ScreenScript.ResetOnSpawn = false
+	ScreenScript.Name = LibraryName
+	ScreenScript.Parent = game.CoreGui
+	ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	ScreenScript.ResetOnSpawn = false
 
--- Create Loading Frame
-LoadingFrame.Name = "LoadingFrame"
-LoadingFrame.Parent = ScreenScript
-LoadingFrame.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-LoadingFrame.BorderSizePixel = 0
-LoadingFrame.Position = UDim2.new(0.25, 0, 0.25, 0)
-LoadingFrame.Size = UDim2.new(0.5, 0, 0.5, 0)
+	-- Create Loading Frame
+	LoadingFrame.Name = "LoadingFrame"
+	LoadingFrame.Parent = ScreenScript
+	LoadingFrame.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+	LoadingFrame.BorderSizePixel = 0
+	LoadingFrame.Position = UDim2.new(0.25, 0, 0.25, 0)
+	LoadingFrame.Size = UDim2.new(0.5, 0, 0.5, 0)
 
-LoadingText.Name = "LoadingText"
-LoadingText.Parent = LoadingFrame
-LoadingText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-LoadingText.BackgroundTransparency = 1.000
-LoadingText.Size = UDim2.new(1, 0, 1, 0)
-LoadingText.Font = Enum.Font.GothamBold
-LoadingText.Text = "Loading..."
-LoadingText.TextColor3 = Color3.fromRGB(161, 161, 161)
-LoadingText.TextScaled = true
-LoadingText.TextSize = 14.000
-LoadingText.TextWrapped = true
+	LoadingText.Name = "LoadingText"
+	LoadingText.Parent = LoadingFrame
+	LoadingText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	LoadingText.BackgroundTransparency = 1.000
+	LoadingText.Size = UDim2.new(1, 0, 1, 0)
+	LoadingText.Font = Enum.Font.GothamBold
+	LoadingText.Text = "Loading..."
+	LoadingText.TextColor3 = Color3.fromRGB(161, 161, 161)
+	LoadingText.TextScaled = true
+	LoadingText.TextSize = 14.000
+	LoadingText.TextWrapped = true
 
-LoadingSound.Name = "LoadingSound"
-LoadingSound.Parent = ScreenScript
-LoadingSound.SoundId = "rbxassetid://insert_sound_id_here"  -- Replace with your sound asset ID
+	LoadingSound.Name = "LoadingSound"
+	LoadingSound.Parent = ScreenScript
+	LoadingSound.SoundId = "rbxassetid://184688972"  -- Replace with your sound asset ID
 
--- Create the shadow
-Shadow.Name = "Shadow"
-Shadow.Parent = ScreenScript
-Shadow.BackgroundTransparency = 1
-Shadow.Size = UDim2.new(1, 15, 1, 15)
-Shadow.Image = "rbxassetid://1316045217" -- Using a common shadow asset ID
-Shadow.ImageTransparency = 0.5
-Shadow.ScaleType = Enum.ScaleType.Slice
-Shadow.SliceCenter = Rect.new(10, 10, 118, 118)
-Shadow.Position = UDim2.new(0.272804052, -7, 0.243107766, -7) -- Adjust to be behind Main
-Shadow.ZIndex = 0
-Shadow.Visible = false
+	-- Create the shadow
+	Shadow.Name = "Shadow"
+	Shadow.Parent = ScreenScript
+	Shadow.BackgroundTransparency = 1
+	Shadow.Size = UDim2.new(1, 15, 1, 15)
+	Shadow.Image = "rbxassetid://1316045217" -- Using a common shadow asset ID
+	Shadow.ImageTransparency = 0.5
+	Shadow.ScaleType = Enum.ScaleType.Slice
+	Shadow.SliceCenter = Rect.new(10, 10, 118, 118)
+	Shadow.Position = UDim2.new(0.272804052, -7, 0.243107766, -7) -- Adjust to be behind Main
+	Shadow.ZIndex = 0
+	Shadow.Visible = false
 
-Main.Name = "Main"
-Main.Parent = ScreenScript
-Main.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
-Main.BorderSizePixel = 0
-Main.Position = UDim2.new(0.272804052, 0, 0.243107766, 0)
-Main.Size = UDim2.new(0.481064528, 0, 0.602093697, 0)
-Main.ZIndex = 1
-Main.Visible = false
+	Main.Name = "Main"
+	Main.Parent = ScreenScript
+	Main.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+	Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Main.BorderSizePixel = 0
+	Main.Position = UDim2.new(0.272804052, 0, 0.243107766, 0)
+	Main.Size = UDim2.new(0.481064528, 0, 0.602093697, 0)
+	Main.ZIndex = 1
+	Main.Visible = false
 
-Headerframe.Name = "Headerframe"
-Headerframe.Parent = Main
-Headerframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Headerframe.BackgroundTransparency = 1.000
-Headerframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Headerframe.BorderSizePixel = 0
-Headerframe.Size = UDim2.new(0, 525, 0, 37)
-Headerframe.ZIndex = 2
+	Headerframe.Name = "Headerframe"
+	Headerframe.Parent = Main
+	Headerframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Headerframe.BackgroundTransparency = 1.000
+	Headerframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Headerframe.BorderSizePixel = 0
+	Headerframe.Size = UDim2.new(0, 525, 0, 37)
+	Headerframe.ZIndex = 2
 
-Close.Name = "Close"
-Close.Parent = Headerframe
-Close.Active = false
-Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Close.BackgroundTransparency = 1.000
-Close.Position = UDim2.new(0.917412579, 0, 0.167417377, 0)
-Close.Selectable = false
-Close.Size = UDim2.new(0, 33, 0, 22)
-Close.ZIndex = 3
+	Close.Name = "Close"
+	Close.Parent = Headerframe
+	Close.Active = false
+	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Close.BackgroundTransparency = 1.000
+	Close.Position = UDim2.new(0.917412579, 0, 0.167417377, 0)
+	Close.Selectable = false
+	Close.Size = UDim2.new(0, 33, 0, 22)
+	Close.ZIndex = 3
 
-UICorner.CornerRadius = UDim.new(0, 4)
-UICorner.Parent = Close
+	UICorner.CornerRadius = UDim.new(0, 4)
+	UICorner.Parent = Close
 
-ImageLabel.Parent = Close
-ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ImageLabel.BackgroundTransparency = 1.000
-ImageLabel.Position = UDim2.new(0.500000775, 1, 0.545454264, 0)
-ImageLabel.Size = UDim2.new(0, 21, 0, 21)
-ImageLabel.Image = "rbxassetid://7743878857"
-ImageLabel.ZIndex = 3
+	ImageLabel.Parent = Close
+	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageLabel.BackgroundTransparency = 1.000
+	ImageLabel.Position = UDim2.new(0.500000775, 1, 0.545454264, 0)
+	ImageLabel.Size = UDim2.new(0, 21, 0, 21)
+	ImageLabel.Image = "rbxassetid://7743878857"
+	ImageLabel.ZIndex = 3
 
-UIScale.Parent = ImageLabel
-UIScale.Scale = 0.700
+	UIScale.Parent = ImageLabel
+	UIScale.Scale = 0.700
 
-Title.Name = "Title"
-Title.Parent = Headerframe
-Title.Active = false
-Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Title.BackgroundTransparency = 1.000
-Title.Position = UDim2.new(0.00192685076, 0, 0, 0)
-Title.Selectable = false
-Title.Size = UDim2.new(0, 323, 0, 36)
-Title.Font = Enum.Font.GothamMedium
-Title.Text = xHubName
-Title.TextColor3 = Color3.fromRGB(161, 161, 161)
-Title.TextScaled = true
-Title.TextSize = 13.000
-Title.TextWrapped = true
-Title.TextXAlignment = Enum.TextXAlignment.Left
-Title.ZIndex = 2
+	Title.Name = "Title"
+	Title.Parent = Headerframe
+	Title.Active = false
+	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title.BackgroundTransparency = 1.000
+	Title.Position = UDim2.new(0.00192685076, 0, 0, 0)
+	Title.Selectable = false
+	Title.Size = UDim2.new(0, 323, 0, 36)
+	Title.Font = Enum.Font.GothamMedium
+	Title.Text = xHubName
+	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
+	Title.TextScaled = true
+	Title.TextSize = 13.000
+	Title.TextWrapped = true
+	Title.TextXAlignment = Enum.TextXAlignment.Left
+	Title.ZIndex = 2
 
-UIPadding.Parent = Title
-UIPadding.PaddingLeft = UDim.new(0, 10)
+	UIPadding.Parent = Title
+	UIPadding.PaddingLeft = UDim.new(0, 10)
 
-FirstSeperator.Name = "FirstSeperator"
-FirstSeperator.Parent = Main
-FirstSeperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
-FirstSeperator.BorderSizePixel = 0
-FirstSeperator.Position = UDim2.new(-2.58091513e-05, 0, 0.116352201, 0)
-FirstSeperator.Size = UDim2.new(0, 525, 0, 1)
-FirstSeperator.ZIndex = 5
+	FirstSeperator.Name = "FirstSeperator"
+	FirstSeperator.Parent = Main
+	FirstSeperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
+	FirstSeperator.BorderSizePixel = 0
+	FirstSeperator.Position = UDim2.new(-2.58091513e-05, 0, 0.116352201, 0)
+	FirstSeperator.Size = UDim2.new(0, 525, 0, 1)
+	FirstSeperator.ZIndex = 5
 
-Siderframe.Name = "Siderframe"
-Siderframe.Parent = Main
-Siderframe.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-Siderframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Siderframe.BorderSizePixel = 0
-Siderframe.Position = UDim2.new(-0.00190476188, 0, 0.119496852, 0)
-Siderframe.Size = UDim2.new(0, 199, 0, 280)
-Siderframe.ZIndex = 2
+	Siderframe.Name = "Siderframe"
+	Siderframe.Parent = Main
+	Siderframe.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+	Siderframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Siderframe.BorderSizePixel = 0
+	Siderframe.Position = UDim2.new(-0.00190476188, 0, 0.119496852, 0)
+	Siderframe.Size = UDim2.new(0, 199, 0, 280)
+	Siderframe.ZIndex = 2
 
-ActualSide.Name = "ActualSide"
-ActualSide.Parent = Siderframe
-ActualSide.Active = true
-ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ActualSide.BackgroundTransparency = 1.000
-ActualSide.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ActualSide.BorderSizePixel = 0
-ActualSide.Size = UDim2.new(0, 198, 0, 239)
-ActualSide.ScrollBarThickness = 2
-ActualSide.ZIndex = 2
+	ActualSide.Name = "ActualSide"
+	ActualSide.Parent = Siderframe
+	ActualSide.Active = true
+	ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ActualSide.BackgroundTransparency = 1.000
+	ActualSide.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ActualSide.BorderSizePixel = 0
+	ActualSide.Size = UDim2.new(0, 198, 0, 239)
+	ActualSide.ScrollBarThickness = 2
+	ActualSide.ZIndex = 2
 
-ActualSideListLayout.Name = "ActualSideListLayout"
-ActualSideListLayout.Parent = ActualSide
-ActualSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-ActualSideListLayout.ZIndex = 2
+	ActualSideListLayout.Name = "ActualSideListLayout"
+	ActualSideListLayout.Parent = ActualSide
+	ActualSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-TextButton.Parent = Siderframe
-TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextButton.BackgroundTransparency = 1.000
-TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextButton.BorderSizePixel = 0
-TextButton.Position = UDim2.new(-0.00502512557, 0, 0.853571415, 0)
-TextButton.Size = UDim2.new(0, 200, 0, 41)
-TextButton.Font = Enum.Font.SourceSans
-TextButton.Text = "Place ID"
-TextButton.TextColor3 = Color3.fromRGB(0, 255, 157)
-TextButton.TextScaled = true
-TextButton.TextSize = 14.000
-TextButton.TextWrapped = true
-TextButton.ZIndex = 2
+	TextButton.Parent = Siderframe
+	TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextButton.BackgroundTransparency = 1.000
+	TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextButton.BorderSizePixel = 0
+	TextButton.Position = UDim2.new(-0.00502512557, 0, 0.853571415, 0)
+	TextButton.Size = UDim2.new(0, 200, 0, 41)
+	TextButton.Font = Enum.Font.SourceSans
+	TextButton.Text = "Place ID"
+	TextButton.TextColor3 = Color3.fromRGB(0, 255, 157)
+	TextButton.TextScaled = true
+	TextButton.TextSize = 14.000
+	TextButton.TextWrapped = true
+	TextButton.ZIndex = 2
 
-UICorner_2.CornerRadius = UDim.new(0, 5)
-UICorner_2.Parent = Main
+	UICorner_2.CornerRadius = UDim.new(0, 5)
+	UICorner_2.Parent = Main
 
-Tabholder.Name = "Tabholder"
-Tabholder.Parent = Main
-Tabholder.Active = true
-Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Tabholder.BackgroundTransparency = 1.000
-Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Tabholder.BorderSizePixel = 0
-Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
-Tabholder.Size = UDim2.new(0, 327, 0, 280)
-Tabholder.ScrollBarThickness = 5
-Tabholder.ZIndex = 2
+	Tabholder.Name = "Tabholder"
+	Tabholder.Parent = Main
+	Tabholder.Active = true
+	Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Tabholder.BackgroundTransparency = 1.000
+	Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Tabholder.BorderSizePixel = 0
+	Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
+	Tabholder.Size = UDim2.new(0, 327, 0, 280)
+	Tabholder.ScrollBarThickness = 5
+	Tabholder.ZIndex = 2
 
-Tabs.Name = "Tabs"
-Tabs.Parent = Tabholder
+	Tabs.Name = "Tabs"
+	Tabs.Parent = Tabholder
 
-UICorner_3.CornerRadius = UDim.new(0, 12)
-UICorner_3.Parent = Tabholder
+	UICorner_3.CornerRadius = UDim.new(0, 12)
+	UICorner_3.Parent = Tabholder
 
-TabLayout.Name = "TabLayout"
-TabLayout.Parent = Tabholder
-TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	TabLayout.Name = "TabLayout"
+	TabLayout.Parent = Tabholder
+	TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-ImageButtonK.Name = "ImageButtonK"
-ImageButtonK.Parent = ScreenScript
-ImageButtonK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ImageButtonK.BackgroundTransparency = 1.000
-ImageButtonK.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ImageButtonK.BorderSizePixel = 0
-ImageButtonK.Position = UDim2.new(0.00872600456, 0, 0.00774316778, 0)
-ImageButtonK.Size = UDim2.new(0, 37, 0, 37)
-ImageButtonK.Image = "rbxassetid://15771991482"
-ImageButtonK.ZIndex = 2
+	ImageButtonK.Name = "ImageButtonK"
+	ImageButtonK.Parent = ScreenScript
+	ImageButtonK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageButtonK.BackgroundTransparency = 1.000
+	ImageButtonK.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ImageButtonK.BorderSizePixel = 0
+	ImageButtonK.Position = UDim2.new(0.00872600456, 0, 0.00774316778, 0)
+	ImageButtonK.Size = UDim2.new(0, 37, 0, 37)
+	ImageButtonK.Image = "rbxassetid://15771991482"
+	ImageButtonK.ZIndex = 2
 
-ImageButtonKCorner.CornerRadius = UDim.new(1, 0)
-ImageButtonKCorner.Name = "ImageButtonKCorner"
-ImageButtonKCorner.Parent = ImageButtonK
+	ImageButtonKCorner.CornerRadius = UDim.new(1, 0)
+	ImageButtonKCorner.Name = "ImageButtonKCorner"
+	ImageButtonKCorner.Parent = ImageButtonK
 
-ImageButtonK.MouseButton1Click:Connect(function()
-    if Main.Visible then
-        Main.Visible = false
-        Shadow.Visible = false
-    else
-        Main.Visible = true
-        Shadow.Visible = true
-    end
-end)
+	ImageButtonK.MouseButton1Click:Connect(function()
+		if Main.Visible then
+			Main.Visible = false
+			Shadow.Visible = false
+		else
+			Main.Visible = true
+			Shadow.Visible = true
+		end
+	end)
 
-Close.MouseButton1Click:Connect(function()
-    ScreenScript:Destroy()
-end)
+	Close.MouseButton1Click:Connect(function()
+		ScreenScript:Destroy()
+	end)
 
--- Loading Logic
-wait(2) -- Simulate loading time
-LoadingFrame.Visible = false
-Main.Visible = true
-Shadow.Visible = true
-LoadingSound:Play()
+	-- Initial state: show loading frame, hide main and shadow
+	LoadingFrame.Visible = true
+	Main.Visible = false
+	Shadow.Visible = false
+
+	print("Starting loading...")
+
+	-- Simulate loading time (remove this line in actual implementation)
+	wait(2)
+
+	print("Loading complete.")
+
+	-- Hide the loading frame and show the main interface
+	LoadingFrame.Visible = false
+	Main.Visible = true
+	Shadow.Visible = true
+
+	-- Play the loading sound
+	LoadingSound:Play()
 
 
 
@@ -878,7 +890,7 @@ LoadingSound:Play()
 		KeybindButton.Font = Enum.Font.SourceSans
 		KeybindButton.TextSize = 14
 
-		
+
 
 		-- Function triggered when a key is pressed
 		local function onKeyDown(input)
@@ -927,7 +939,7 @@ LoadingSound:Play()
 			end
 		end)
 
-	
+
 
 		--return setKeybind
 	end
