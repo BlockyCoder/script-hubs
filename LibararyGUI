@@ -73,7 +73,7 @@ local AmbientShadow = Instance.new("ImageLabel")
 
 	LoadingSound.Name = "LoadingSound"
 	LoadingSound.Parent = ScreenScript
-	LoadingSound.SoundId = "rbxassetid://184688972"  -- Replace with your sound asset ID
+	LoadingSound.SoundId = "rbxassetid://3094993009"  -- Replace with your sound asset ID
 
 
 	Main.Name = "Main"
