@@ -838,15 +838,18 @@ function Library:Create(xHubName)
 			end)
 		end
 
-		Dropdown.MouseButton1Click:Connect(function()
-			DropdownList.Visible = not DropdownList.Visible
+		Dropdown.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				DropdownList.Visible = not DropdownList.Visible
 
-			-- Hide other elements in the 'tab'
-			hideOtherElements()
+				-- Hide other elements in the 'tab'
+				hideOtherElements()
+			end
 		end)
 
 		return Dropdown, DropdownList
 	end
+
 
 
 
