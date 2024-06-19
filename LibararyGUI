@@ -864,16 +864,16 @@ end
     Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
     Dropdown.TextSize = 14.000
     Dropdown.Font = Enum.Font.Gotham
-    Dropdown.TextXAlignment = Enum.TextXAlignment.Center
+    Dropdown.TextXAlignment = Enum.TextXAlignment.Left -- Align text to the left to make room for icon
     Dropdown.TextWrapped = true
 
-    -- Dropdown icon
+    -- Dropdown icon setup
     local DropdownIcon = Instance.new("ImageLabel")
     DropdownIcon.Parent = Dropdown
     DropdownIcon.BackgroundTransparency = 1
     DropdownIcon.Size = UDim2.new(0, 16, 0, 16)
-    DropdownIcon.Position = UDim2.new(1, -20, 0.5, -8)
-    DropdownIcon.Image = "http://www.roblox.com/asset/?id=13025551568"  -- Replace with your icon asset ID
+    DropdownIcon.Position = UDim2.new(1, -28, 0.5, -8) -- Adjusted position to be more clear
+    DropdownIcon.Image = "rbxassetid://13025551568"  -- Use your actual icon asset ID here
     DropdownIcon.ImageColor3 = Color3.fromRGB(193, 193, 193)
 
     local UICorner = Instance.new("UICorner")
@@ -940,6 +940,7 @@ end
 
     return Dropdown
 end
+
 
 
 
