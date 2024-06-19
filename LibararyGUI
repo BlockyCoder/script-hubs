@@ -237,7 +237,8 @@ function Library:Create(xHubName)
 			end
 		end)
 	end
-
+	
+	Library:Drag(Main, Headerframe)
 	--notifcation
 	function Library:Newnotify(Text, Description, Length)
 		local ScreenGuiM = Instance.new("ScreenGui")
@@ -349,10 +350,6 @@ function Library:Create(xHubName)
 
 		return TabFrame
 	end
-
-
-
-
 
 
 	function Library:CreateButton(tab, buttonName, callback)
@@ -513,8 +510,6 @@ function Library:Create(xHubName)
 		return LabelFunction
 	end
 
-
-
 	function Library:TextBox(parent, titleText, defaultValue, callback)
 		callback = callback or function() end
 
@@ -561,7 +556,6 @@ function Library:Create(xHubName)
 		return TextBox, updateText
 	end
 
-
 	function Library:KeyTextBoxAndManageUI(titleText, hashedKeyToMatch, options)
 		-- Default options
 		local defaultOptions = {
@@ -572,7 +566,6 @@ function Library:Create(xHubName)
 			hideDelay = 0.5,
 			submitButton = true  -- Default submit button is true unless overridden
 		}
-
 		-- Merge options with defaults
 		options = options or {}
 		for k, v in pairs(defaultOptions) do
@@ -624,7 +617,6 @@ function Library:Create(xHubName)
 				end
 			end
 		end
-
 		-- Create Submit Button (if enabled)
 		if options.submitButton then
 			local SubmitButton = Instance.new("TextButton")
@@ -657,7 +649,6 @@ function Library:Create(xHubName)
 
 		return TextBoxFrame
 	end
-
 
 	function Library:CreateSlider(parent, sliderName, minValue, maxValue, defaultValue, callback)
 		callback = callback or function() end
@@ -737,7 +728,6 @@ function Library:Create(xHubName)
 		local UIPaddingValue = Instance.new("UIPadding")
 		UIPaddingValue.Parent = ValueLabel
 		UIPaddingValue.PaddingRight = UDim.new(0, 10)
-
 		-- Update Slider Function
 		local function updateSlider(input)
 			local relativePos = input.Position.X - SliderBar.AbsolutePosition.X
@@ -836,7 +826,6 @@ function Library:Create(xHubName)
 		return setKeybind
 	end
 
-
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
 		callback = callback or function() end
 
@@ -918,11 +907,6 @@ function Library:Create(xHubName)
 
 		return Dropdown
 	end
-
-
-
-
-		Library:Drag(Main, Headerframe)
 
 return Library
 end
