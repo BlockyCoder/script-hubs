@@ -86,18 +86,54 @@ local AmbientShadow = Instance.new("ImageLabel")
 	Main.ZIndex = 1
 	Main.Visible = false
 
--- Create the shadow
-	Shadow.Name = "Shadow"
-	Shadow.Parent = Main
-	Shadow.BackgroundTransparency = 1
-	Shadow.Size = UDim2.new(1, 15, 1, 15)
-	Shadow.Image = "rbxassetid://1316045217" -- Using a common shadow asset ID
-	Shadow.ImageTransparency = 0.5
-	Shadow.ScaleType = Enum.ScaleType.Slice
-	Shadow.SliceCenter = Rect.new(10, 10, 118, 118)
-	Shadow.Position = UDim2.new(0.272804052, -7, 0.243107766, -7) -- Adjust to be behind Main
-	Shadow.ZIndex = 0
-	Shadow.Visible = false
+-- Shadow Holder Frame
+ShadowHolder.Name = "ShadowHolder"
+ShadowHolder.Parent = ScreenScript
+ShadowHolder.BackgroundTransparency = 1.000
+ShadowHolder.Size = UDim2.new(1, 0, 1, 0)
+ShadowHolder.ZIndex = 0
+
+-- Umbra Shadow
+UmbraShadow.Name = "UmbraShadow"
+UmbraShadow.Parent = ShadowHolder
+UmbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+UmbraShadow.BackgroundTransparency = 1.000
+UmbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+UmbraShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
+UmbraShadow.ZIndex = 0
+UmbraShadow.Image = "rbxassetid://1316045217"
+UmbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+UmbraShadow.ImageTransparency = 0.860
+UmbraShadow.ScaleType = Enum.ScaleType.Slice
+UmbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+
+-- Penumbra Shadow
+PenumbraShadow.Name = "PenumbraShadow"
+PenumbraShadow.Parent = ShadowHolder
+PenumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+PenumbraShadow.BackgroundTransparency = 1.000
+PenumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+PenumbraShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
+PenumbraShadow.ZIndex = 0
+PenumbraShadow.Image = "rbxassetid://1316045217"
+PenumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+PenumbraShadow.ImageTransparency = 0.880
+PenumbraShadow.ScaleType = Enum.ScaleType.Slice
+PenumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+
+-- Ambient Shadow
+AmbientShadow.Name = "AmbientShadow"
+AmbientShadow.Parent = ShadowHolder
+AmbientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+AmbientShadow.BackgroundTransparency = 1.000
+AmbientShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+AmbientShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
+AmbientShadow.ZIndex = 0
+AmbientShadow.Image = "rbxassetid://1316045217"
+AmbientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+AmbientShadow.ImageTransparency = 0.880
+AmbientShadow.ScaleType = Enum.ScaleType.Slice
+AmbientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
 
 
 
