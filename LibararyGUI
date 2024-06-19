@@ -174,12 +174,27 @@ function Library:Create(xHubName)
 	ImageButtonK.BorderSizePixel = 0
 	ImageButtonK.Position = UDim2.new(0.00872600456, 0, 0.00774316778, 0)
 	ImageButtonK.Size = UDim2.new(0, 37, 0, 37)
-	ImageButtonK.Image = "rbxassetid://7743878857"
+	ImageButtonK.Image = "rbxassetid://15771991482"
 
 	ImageButtonKCorner.CornerRadius = UDim.new(1, 0)
 	ImageButtonKCorner.Name = "ImageButtonKCorner"
 	ImageButtonKCorner.Parent = ImageButtonK
+	
+	
+	ImageButtonK.MouseButton1Click:Connect(function()
+		if Main.Visible then
+			Main.Visible = false
+		else
+			Main.Visible = true
+		end
+	end)
 
+	Close.MouseButton1Click:Connect(function()
+		ScreenScript:Destroy()
+	end)
+	
+	
+	
 	-- Added Library:Drag function
 	function Library:Drag(obj)
 		local UserInputService = game:GetService("UserInputService")
@@ -915,17 +930,6 @@ function Library:Create(xHubName)
 
 	Library:Drag(Main, Headerframe)
 
-	ImageButtonK.MouseButton1Click:Connect(function()
-		if Main.Visible then
-			Main.Visible = false
-		else
-			Main.Visible = true
-		end
-	end)
-
-	Close.MouseButton1Click:Connect(function()
-		ScreenScript:Destroy()
-	end)
 end
 return Library
 	end
