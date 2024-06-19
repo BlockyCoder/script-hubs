@@ -39,11 +39,11 @@ function Library:Create(xHubName)
 	local ImageButtonK = Instance.new("ImageButton")
 	local ImageButtonKCorner = Instance.new("UICorner")
 
--- Instances for the shadow
-local ShadowHolder = Instance.new("Frame")
-local UmbraShadow = Instance.new("ImageLabel")
-local PenumbraShadow = Instance.new("ImageLabel")
-local AmbientShadow = Instance.new("ImageLabel")
+	-- Instances for the shadow
+	local ShadowHolder = Instance.new("Frame")
+	local UmbraShadow = Instance.new("ImageLabel")
+	local PenumbraShadow = Instance.new("ImageLabel")
+	local AmbientShadow = Instance.new("ImageLabel")
 
 
 	ScreenScript.Name = LibraryName
@@ -86,54 +86,54 @@ local AmbientShadow = Instance.new("ImageLabel")
 	Main.ZIndex = 1
 	Main.Visible = false
 
--- Shadow Holder Frame
-ShadowHolder.Name = "ShadowHolder"
-ShadowHolder.Parent = ScreenScript
-ShadowHolder.BackgroundTransparency = 1.000
-ShadowHolder.Size = UDim2.new(1, 0, 1, 0)
-ShadowHolder.ZIndex = 0
+	-- Shadow Holder Frame
+	ShadowHolder.Name = "ShadowHolder"
+	ShadowHolder.Parent = ScreenScript
+	ShadowHolder.BackgroundTransparency = 1.000
+	ShadowHolder.Size = UDim2.new(1, 0, 1, 0)
+	ShadowHolder.ZIndex = 0
 
--- Umbra Shadow
-UmbraShadow.Name = "UmbraShadow"
-UmbraShadow.Parent = ShadowHolder
-UmbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-UmbraShadow.BackgroundTransparency = 1.000
-UmbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-UmbraShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
-UmbraShadow.ZIndex = 0
-UmbraShadow.Image = "rbxassetid://1316045217"
-UmbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-UmbraShadow.ImageTransparency = 0.860
-UmbraShadow.ScaleType = Enum.ScaleType.Slice
-UmbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+	-- Umbra Shadow
+	UmbraShadow.Name = "UmbraShadow"
+	UmbraShadow.Parent = ShadowHolder
+	UmbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	UmbraShadow.BackgroundTransparency = 1.000
+	UmbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	UmbraShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
+	UmbraShadow.ZIndex = 0
+	UmbraShadow.Image = "rbxassetid://1316045217"
+	UmbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	UmbraShadow.ImageTransparency = 0.860
+	UmbraShadow.ScaleType = Enum.ScaleType.Slice
+	UmbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
 
--- Penumbra Shadow
-PenumbraShadow.Name = "PenumbraShadow"
-PenumbraShadow.Parent = ShadowHolder
-PenumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-PenumbraShadow.BackgroundTransparency = 1.000
-PenumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-PenumbraShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
-PenumbraShadow.ZIndex = 0
-PenumbraShadow.Image = "rbxassetid://1316045217"
-PenumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-PenumbraShadow.ImageTransparency = 0.880
-PenumbraShadow.ScaleType = Enum.ScaleType.Slice
-PenumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+	-- Penumbra Shadow
+	PenumbraShadow.Name = "PenumbraShadow"
+	PenumbraShadow.Parent = ShadowHolder
+	PenumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	PenumbraShadow.BackgroundTransparency = 1.000
+	PenumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	PenumbraShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
+	PenumbraShadow.ZIndex = 0
+	PenumbraShadow.Image = "rbxassetid://1316045217"
+	PenumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	PenumbraShadow.ImageTransparency = 0.880
+	PenumbraShadow.ScaleType = Enum.ScaleType.Slice
+	PenumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
 
--- Ambient Shadow
-AmbientShadow.Name = "AmbientShadow"
-AmbientShadow.Parent = ShadowHolder
-AmbientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-AmbientShadow.BackgroundTransparency = 1.000
-AmbientShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-AmbientShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
-AmbientShadow.ZIndex = 0
-AmbientShadow.Image = "rbxassetid://1316045217"
-AmbientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-AmbientShadow.ImageTransparency = 0.880
-AmbientShadow.ScaleType = Enum.ScaleType.Slice
-AmbientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+	-- Ambient Shadow
+	AmbientShadow.Name = "AmbientShadow"
+	AmbientShadow.Parent = ShadowHolder
+	AmbientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	AmbientShadow.BackgroundTransparency = 1.000
+	AmbientShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	AmbientShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
+	AmbientShadow.ZIndex = 0
+	AmbientShadow.Image = "rbxassetid://1316045217"
+	AmbientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	AmbientShadow.ImageTransparency = 0.880
+	AmbientShadow.ScaleType = Enum.ScaleType.Slice
+	AmbientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
 
 
 
@@ -281,10 +281,10 @@ AmbientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
 	ImageButtonK.MouseButton1Click:Connect(function()
 		if Main.Visible then
 			Main.Visible = false
-			Shadow.Visible = false
+			ShadowHolder.Visible = false
 		else
 			Main.Visible = true
-			Shadow.Visible = true
+			ShadowHolder.Visible = true
 		end
 	end)
 
@@ -299,28 +299,28 @@ AmbientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
 
 	print("Starting loading...")
 
--- Loading animation logic
-local loadingPhrases = {"Loading", "Loading.", "Loading..", "Loading..."}
-local currentPhraseIndex = 1
-local loadingInterval = 0.5  -- Interval in seconds between each loading text change
+	-- Loading animation logic
+	local loadingPhrases = {"Loading", "Loading.", "Loading..", "Loading..."}
+	local currentPhraseIndex = 1
+	local loadingInterval = 0.5  -- Interval in seconds between each loading text change
 
-local function updateLoadingText()
-    LoadingText.Text = loadingPhrases[currentPhraseIndex]
-    currentPhraseIndex = currentPhraseIndex + 1
-    if currentPhraseIndex > #loadingPhrases then
-        currentPhraseIndex = 1
-    end
-end
+	local function updateLoadingText()
+		LoadingText.Text = loadingPhrases[currentPhraseIndex]
+		currentPhraseIndex = currentPhraseIndex + 1
+		if currentPhraseIndex > #loadingPhrases then
+			currentPhraseIndex = 1
+		end
+	end
 
--- Start the loading animation
-local loadingAnimation = coroutine.create(function()
-    while LoadingFrame.Visible do
-        updateLoadingText()
-        wait(loadingInterval)
-    end
-end)
+	-- Start the loading animation
+	local loadingAnimation = coroutine.create(function()
+		while LoadingFrame.Visible do
+			updateLoadingText()
+			wait(loadingInterval)
+		end
+	end)
 
-coroutine.resume(loadingAnimation)
+	coroutine.resume(loadingAnimation)
 	-- Simulate loading time
 	wait(4)
 
