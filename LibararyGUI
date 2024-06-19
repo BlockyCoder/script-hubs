@@ -360,7 +360,7 @@ function Library:Create(xHubName)
 		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Button.Position = UDim2.new(0, 0, 0, 0) -- Adjust as needed
 		Button.Selectable = false
-		Button.Size = UDim2.new(0, 200, 0, 31) -- Adjust size as needed
+		Button.Size = UDim2.new(0, 315, 0, 31) -- Adjust size as needed
 		Button.AutoButtonColor = false
 		Button.Text = ""
 
@@ -415,6 +415,9 @@ function Library:Create(xHubName)
 		UIScale.Scale = 0.800
 
 		Button.MouseButton1Click:Connect(function()
+			ImageLabel.ImageColor3 = Color3.fromRGB(255, 255, 255)
+			wait(1)
+			ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
 			callback()
 		end)
 
