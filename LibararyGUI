@@ -253,8 +253,30 @@ function Library:Create(xHubName)
 
 	print("Starting loading...")
 
-	-- Simulate loading time (remove this line in actual implementation)
-	wait(2)
+-- Loading animation logic
+local loadingPhrases = {"Loading", "Loading.", "Loading..", "Loading..."}
+local currentPhraseIndex = 1
+local loadingInterval = 0.5  -- Interval in seconds between each loading text change
+
+local function updateLoadingText()
+    LoadingText.Text = loadingPhrases[currentPhraseIndex]
+    currentPhraseIndex = currentPhraseIndex + 1
+    if currentPhraseIndex > #loadingPhrases then
+        currentPhraseIndex = 1
+    end
+end
+
+-- Start the loading animation
+local loadingAnimation = coroutine.create(function()
+    while LoadingFrame.Visible do
+        updateLoadingText()
+        wait(loadingInterval)
+    end
+end)
+
+coroutine.resume(loadingAnimation)
+	-- Simulate loading time
+	wait(4)
 
 	print("Loading complete.")
 
