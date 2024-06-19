@@ -473,7 +473,12 @@ function Library:Create(xHubName)
 	end
 
 	function Library:Label(parent, text)
+		text = text or "Label name"
+		local LabelFunction = {}
+		
+		
 		local Label = Instance.new("TextLabel")
+		Label.Name = tostring(text).."_Label"
 		Label.Parent = parent
 		Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Label.BackgroundTransparency = 1.000
@@ -484,7 +489,13 @@ function Library:Create(xHubName)
 		Label.TextColor3 = Color3.fromRGB(193, 193, 193)
 		Label.TextSize = 12.000
 		Label.TextXAlignment = Enum.TextXAlignment.Left
-		return Label
+		
+		
+		function LabelFunction:UpdateLabel(Name)
+			Label.Text = Name
+			Label.Name = tostring(Name).."_Label"
+		end
+		return LabelFunction
 	end
 
 
