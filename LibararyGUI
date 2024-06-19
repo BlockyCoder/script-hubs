@@ -526,16 +526,16 @@ function Library:Create(xHubName)
 		TextBox.Font = Enum.Font.SourceSans
 		TextBox.TextSize = 14
 
-			local function updateText()
-				callback(TextBox.Text)
-			end
-
-			TextBox.FocusLost:Connect(updateText)
-
-			return TextBox, updateText
+		local function updateText()
+			callback(TextBox.Text)
 		end
-	
-	
+
+		TextBox.FocusLost:Connect(updateText)
+
+		return TextBox, updateText
+	end
+
+
 	function Library:KeyTextBoxAndManageUI(titleText, hashedKeyToMatch, options)
 		-- Default options
 		local defaultOptions = {
@@ -631,8 +631,8 @@ function Library:Create(xHubName)
 
 		return TextBoxFrame
 	end
-	
-	
+
+
 	function Library:CreateSlider(parent, sliderName, minValue, maxValue, defaultValue, callback)
 		callback = callback or function() end
 		minValue = minValue or 0
@@ -766,7 +766,7 @@ function Library:Create(xHubName)
 		Dropdown.Selectable = false
 		Dropdown.Size = UDim2.new(0, 380, 0, 31)
 		Dropdown.AutoButtonColor = false
-		Dropdown.Text = dropdownName
+		Dropdown.Text = dropdownName or options
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
