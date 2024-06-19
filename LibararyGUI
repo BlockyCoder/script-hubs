@@ -39,6 +39,13 @@ function Library:Create(xHubName)
 	local ImageButtonK = Instance.new("ImageButton")
 	local ImageButtonKCorner = Instance.new("UICorner")
 
+-- Instances for the shadow
+local ShadowHolder = Instance.new("Frame")
+local UmbraShadow = Instance.new("ImageLabel")
+local PenumbraShadow = Instance.new("ImageLabel")
+local AmbientShadow = Instance.new("ImageLabel")
+
+
 	ScreenScript.Name = LibraryName
 	ScreenScript.Parent = game.CoreGui
 	ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -68,18 +75,6 @@ function Library:Create(xHubName)
 	LoadingSound.Parent = ScreenScript
 	LoadingSound.SoundId = "rbxassetid://184688972"  -- Replace with your sound asset ID
 
-	-- Create the shadow
-	Shadow.Name = "Shadow"
-	Shadow.Parent = ScreenScript
-	Shadow.BackgroundTransparency = 1
-	Shadow.Size = UDim2.new(1, 15, 1, 15)
-	Shadow.Image = "rbxassetid://1316045217" -- Using a common shadow asset ID
-	Shadow.ImageTransparency = 0.5
-	Shadow.ScaleType = Enum.ScaleType.Slice
-	Shadow.SliceCenter = Rect.new(10, 10, 118, 118)
-	Shadow.Position = UDim2.new(0.272804052, -7, 0.243107766, -7) -- Adjust to be behind Main
-	Shadow.ZIndex = 0
-	Shadow.Visible = false
 
 	Main.Name = "Main"
 	Main.Parent = ScreenScript
@@ -90,6 +85,21 @@ function Library:Create(xHubName)
 	Main.Size = UDim2.new(0.481064528, 0, 0.602093697, 0)
 	Main.ZIndex = 1
 	Main.Visible = false
+
+-- Create the shadow
+	Shadow.Name = "Shadow"
+	Shadow.Parent = Main
+	Shadow.BackgroundTransparency = 1
+	Shadow.Size = UDim2.new(1, 15, 1, 15)
+	Shadow.Image = "rbxassetid://1316045217" -- Using a common shadow asset ID
+	Shadow.ImageTransparency = 0.5
+	Shadow.ScaleType = Enum.ScaleType.Slice
+	Shadow.SliceCenter = Rect.new(10, 10, 118, 118)
+	Shadow.Position = UDim2.new(0.272804052, -7, 0.243107766, -7) -- Adjust to be behind Main
+	Shadow.ZIndex = 0
+	Shadow.Visible = false
+
+
 
 	Headerframe.Name = "Headerframe"
 	Headerframe.Parent = Main
