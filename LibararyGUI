@@ -813,7 +813,7 @@ function Library:Create(xHubName)
 
 				-- Hide other UI elements when the dropdown list is shown
 				for _, child in ipairs(tab:GetChildren()) do
-					if child:IsA("TextButton") or child:IsA("Frame") then
+					if child:IsA("TextButton") or child:IsA("Frame") or child:IsA("TextLabel") then
 						if child ~= Dropdown and child.Name ~= "DropdownList" then
 							child.Visible = true
 						end
@@ -828,7 +828,7 @@ function Library:Create(xHubName)
 			-- Hide other UI elements when the dropdown list is shown
 			if DropdownList.Visible then
 				for _, child in ipairs(tab:GetChildren()) do
-					if child:IsA("TextButton") or child:IsA("Frame") then
+					if child:IsA("TextButton") or child:IsA("Frame") or child:IsA("TextLabel") then
 						if child ~= Dropdown and child.Name ~= "DropdownList" then
 							child.Visible = false
 						end
@@ -837,7 +837,7 @@ function Library:Create(xHubName)
 			else
 				-- Show all other UI elements when the dropdown list is hidden
 				for _, child in ipairs(tab:GetChildren()) do
-					if child:IsA("TextButton") or child:IsA("Frame") then
+					if child:IsA("TextButton") or child:IsA("Frame") or child:IsA("TextLabel") then
 						child.Visible = true
 					end
 				end
