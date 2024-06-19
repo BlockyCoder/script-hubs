@@ -755,90 +755,90 @@ function Library:Create(xHubName)
 	end
 	
 	
-	
-	
-	function Library:Dropdown(parent, options, defaultOption, callback)
+	function Library:CreateDropdown(parent, options, defaultOption, callback)
+		-- Ensure parent is valid
+		assert(typeof(parent) == "Instance", "Parent must be a valid Instance")
+
+		-- Validate options
+		assert(type(options) == "table" and #options > 0, "Options must be a non-empty table")
+
+		-- Create dropdown frame
 		local DropdownFrame = Instance.new("Frame")
 		DropdownFrame.Parent = parent
 		DropdownFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		DropdownFrame.Size = UDim2.new(0, 200, 0, 30)
+		DropdownFrame.Size = UDim2.new(0, 200, 0, 40)  -- Adjust size as needed
 		DropdownFrame.Position = UDim2.new(0, 0, 0, 0)
-		DropdownFrame.ClipsDescendants = true  -- Ensures dropdown list stays within its bounds
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
 		UICorner.Parent = DropdownFrame
 
-		local SelectedOption = Instance.new("TextButton")
-		SelectedOption.Parent = DropdownFrame
-		SelectedOption.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		SelectedOption.Size = UDim2.new(1, 0, 1, 0)
-		SelectedOption.Position = UDim2.new(0, 0, 0, 0)
-		SelectedOption.AutoButtonColor = false
-		SelectedOption.Text = defaultOption or (options[1] or "Select Option")  -- Added fallback if options[1] is nil
-		SelectedOption.TextColor3 = Color3.fromRGB(193, 193, 193)
-		SelectedOption.TextSize = 14
+		-- Toggle button
+		local ToggleButton = Instance.new("TextButton")
+		ToggleButton.Parent = DropdownFrame
+		ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		ToggleButton.Position = UDim2.new(0, 10, 0, 0)
+		ToggleButton.Size = UDim2.new(1, -20, 0, 20)
+		ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		ToggleButton.Font = Enum.Font.SourceSans
+		ToggleButton.TextSize = 14
+		ToggleButton.Text = defaultOption or "Select Option"
+		ToggleButton.AutoButtonColor = false
 
+		-- Dropdown list
 		local DropdownList = Instance.new("Frame")
 		DropdownList.Parent = DropdownFrame
-		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		DropdownList.BorderSizePixel = 0
-		DropdownList.Position = UDim2.new(0, 0, 1, 0)  -- Start hidden below the button
-		DropdownList.Size = UDim2.new(1, 0, 0, 0)
+		DropdownList.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		DropdownList.Position = UDim2.new(0, 10, 0, 20)
+		DropdownList.Size = UDim2.new(1, -20, 0, 0)
+		DropdownList.Visible = false
 
-		local ListLayout = Instance.new("UIListLayout")
-		ListLayout.Parent = DropdownList
-		ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		local UICornerList = Instance.new("UICorner")
+		UICornerList.CornerRadius = UDim.new(0, 5)
+		UICornerList.Parent = DropdownList
 
+		local UIPaddingList = Instance.new("UIPadding")
+		UIPaddingList.PaddingTop = UDim.new(0, 5)
+		UIPaddingList.PaddingBottom = UDim.new(0, 5)
+		UIPaddingList.Parent = DropdownList
+
+		-- Function to create each option button
+		local function createOption(optionText)
+			assert(type(optionText) == "string", "OptionText must be a string")
+
+			local OptionButton = Instance.new("TextButton")
+			OptionButton.Parent = DropdownList
+			OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			OptionButton.Size = UDim2.new(1, 0, 0, 20)
+			OptionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+			OptionButton.Font = Enum.Font.SourceSans
+			OptionButton.TextSize = 14
+			OptionButton.Text = optionText
+			OptionButton.AutoButtonColor = false
+
+			OptionButton.MouseButton1Click:Connect(function()
+				ToggleButton.Text = optionText
+				DropdownList.Visible = false
+				if callback then
+					callback(optionText)
+				end
+			end)
+		end
+
+		-- Create options
+		for _, option in ipairs(options) do
+			createOption(option)
+		end
+
+		-- Toggle dropdown visibility
 		local function toggleDropdown()
 			DropdownList.Visible = not DropdownList.Visible
 		end
 
-		local function selectOption(option)
-			SelectedOption.Text = option
-			toggleDropdown()
-			callback(option)
-		end
+		ToggleButton.MouseButton1Click:Connect(toggleDropdown)
 
-		SelectedOption.MouseButton1Click:Connect(toggleDropdown)
-
-		for _, optionText in ipairs(options) do
-			local OptionButton = Instance.new("TextButton")
-			OptionButton.Parent = DropdownList
-			OptionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			OptionButton.Size = UDim2.new(1, 0, 0, 30)
-			OptionButton.AutoButtonColor = false
-			OptionButton.Text = optionText
-			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
-			OptionButton.TextSize = 14
-
-			OptionButton.MouseButton1Click:Connect(function()
-				selectOption(optionText)
-			end)
-		end
-
-		-- Function to close dropdown when clicking outside
-		local function closeDropdownIfClickedOutside(input)
-			local dropdownPosition = DropdownFrame.AbsolutePosition
-			local dropdownSize = DropdownFrame.AbsoluteSize
-			local clickPosition = input.Position
-
-			if clickPosition.X < dropdownPosition.X or clickPosition.X > dropdownPosition.X + dropdownSize.X
-				or clickPosition.Y < dropdownPosition.Y or clickPosition.Y > dropdownPosition.Y + dropdownSize.Y then
-				DropdownList.Visible = false
-			end
-		end
-
-		game:GetService("UserInputService").InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
-				closeDropdownIfClickedOutside(input)
-			end
-		end)
-
-		return SelectedOption, selectOption
+		return ToggleButton, DropdownList
 	end
-
-
 
 
 
