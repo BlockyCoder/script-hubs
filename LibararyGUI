@@ -5,6 +5,13 @@ function Library:Create(xHubName)
 
 	local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
 
+function Library:ToggleUI()
+    if game.CoreGui[LibraryName].Enabled then
+        game.CoreGui[LibraryName].Enabled = false
+    else
+        game.CoreGui[LibraryName].Enabled = true
+    end
+end
 	table.insert(Library, xHubName)
 
 	for i, v in pairs(game.CoreGui:GetChildren()) do
