@@ -635,10 +635,10 @@ function Library:Create(xHubName)
 	local DataStoreService = game:GetService("DataStoreService")
 	local HttpService = game:GetService("HttpService")
 
-	-- Define your hashing function using SHA-256
+	-- Function to hash a string using SHA-256
 	local function hashString(input)
-		local hashedString = HttpService:SHA256(input)
-		return hashedString
+		local crypto = require(HttpService:GetAsync("https://raw.githubusercontent.com/evaera/RoStrap/master/Strong/libs/crypto.lua"))
+		return crypto.digest("SHA256", input)
 	end
 
 	-- Adjusted KeySy function with the updated hash function
@@ -730,6 +730,7 @@ function Library:Create(xHubName)
 
 		return ScreenGuiM
 	end
+
 
 
 
