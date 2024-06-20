@@ -503,7 +503,7 @@ end
 		return TabFrame
 	end
 
-function Library:CreateLoginMenu(password, link, scriptToExecute)
+function Library:CreateLoginMenu(tab, password, link, scriptToExecute)
     -- Ensure the login menu is created only once
     if self.LoginMenu then
         error("Login menu already exists")
@@ -513,7 +513,7 @@ function Library:CreateLoginMenu(password, link, scriptToExecute)
     -- Create the UI elements for the login menu
     local LoginScreen = Instance.new("ScreenGui")
     LoginScreen.Name = "LoginScreen"
-    LoginScreen.Parent = game.CoreGui
+    LoginScreen.Parent = tab or game.CoreGui
 
     local MainFrame = Instance.new("Frame")
     MainFrame.Name = "MainFrame"
