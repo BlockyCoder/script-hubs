@@ -21,7 +21,7 @@ function Library:Create(xHubName)
 			game.CoreGui[LibraryName].Enabled = true
 		end
 	end
-	
+
 	local TweenService = game:GetService("TweenService")
 
 	-- Function to animate opacity (fade in)
@@ -37,8 +37,8 @@ function Library:Create(xHubName)
 		local tween = TweenService:Create(element, tweenInfo, { BackgroundTransparency = 1 })
 		tween:Play()
 	end
-	
-	
+
+
 	local ScreenScript = Instance.new("ScreenGui")
 	local LoadingFrame = Instance.new("Frame")
 	local LoadingText = Instance.new("TextLabel")
@@ -311,10 +311,13 @@ function Library:Create(xHubName)
 	ImageButtonK.MouseButton1Click:Connect(function()
 		if Main.Visible then
 			fadeOut(Main, 0.3)  -- Fade out Main frame
-		fadeOut(ShadowHolder, 0.3)  -- Fade out ShadowHolder frame
+			Main.Visible = false
+			--fadeOut(ShadowHolder, 0.3)  -- Fade out ShadowHolder frame
 		else
 			fadeIn(Main, 0.3)  -- Fade in Main frame
-			fadeIn(ShadowHolder, 0.3)  -- Fade in ShadowHolder frame
+			--fadeIn(ShadowHolder, 0.3)  -- Fade in ShadowHolder frame
+			Main.Visible = true
+
 		end
 	end)
 
