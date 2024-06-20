@@ -1,6 +1,15 @@
 local Library = {}
+local created = false  
+
 
 function Library:Create(xHubName)
+ if created then
+        error("Library instance already exists")
+        return
+    end
+
+    created = true  -- Set created flag to true once the library is created
+
 	xHubName = xHubName or "Epic-Hub"
 
 	local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
@@ -12,14 +21,7 @@ function Library:ToggleUI()
         game.CoreGui[LibraryName].Enabled = true
     end
 end
-	table.insert(Library, xHubName)
-
-	for i, v in pairs(game.CoreGui:GetChildren()) do
-		if v:IsA("ScreenGui") and v.Name == xHubName then
-			v:Destroy()
-		end
-	end
-
+	
 	local ScreenScript = Instance.new("ScreenGui")
 	local LoadingFrame = Instance.new("Frame")
 	local LoadingText = Instance.new("TextLabel")
