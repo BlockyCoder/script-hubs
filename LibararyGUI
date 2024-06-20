@@ -3,24 +3,41 @@ local created = false
 
 
 function Library:Create(xHubName)
- if created then
-        error("Library instance already exists")
-        return
-    end
+	if created then
+		error("Library instance already exists")
+		return
+	end
 
-    created = true  -- Set created flag to true once the library is created
+	created = true  -- Set created flag to true once the library is created
 
 	xHubName = xHubName or "Epic-Hub"
 
 	local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
 
-function Library:ToggleUI()
-    if game.CoreGui[LibraryName].Enabled then
-        game.CoreGui[LibraryName].Enabled = false
-    else
-        game.CoreGui[LibraryName].Enabled = true
-    end
-end
+	function Library:ToggleUI()
+		if game.CoreGui[LibraryName].Enabled then
+			game.CoreGui[LibraryName].Enabled = false
+		else
+			game.CoreGui[LibraryName].Enabled = true
+		end
+	end
+	
+	local TweenService = game:GetService("TweenService")
+
+	-- Function to animate opacity (fade in)
+	local function fadeIn(element, duration)
+		local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
+		local tween = TweenService:Create(element, tweenInfo, { BackgroundTransparency = 0 })
+		tween:Play()
+	end
+
+	-- Function to animate opacity (fade out)
+	local function fadeOut(element, duration)
+		local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
+		local tween = TweenService:Create(element, tweenInfo, { BackgroundTransparency = 1 })
+		tween:Play()
+	end
+	
 	
 	local ScreenScript = Instance.new("ScreenGui")
 	local LoadingFrame = Instance.new("Frame")
@@ -305,11 +322,13 @@ end
 	-- Initial state: show loading frame, hide main and shadow
 	LoadingFrame.Visible = true
 	Main.Visible = false
+	ImageButtonK.Visible = false
 	Shadow.Visible = false
 
+	-- Simulate loading process
 	print("Starting loading...")
 
-	-- Loading animation logic
+	-- Simulated loading animation
 	local loadingPhrases = {"Loading", "Loading.", "Loading..", "Loading..."}
 	local currentPhraseIndex = 1
 	local loadingInterval = 0.5  -- Interval in seconds between each loading text change
@@ -322,7 +341,7 @@ end
 		end
 	end
 
-	-- Start the loading animation
+	-- Start loading animation coroutine
 	local loadingAnimation = coroutine.create(function()
 		while LoadingFrame.Visible do
 			updateLoadingText()
@@ -331,15 +350,27 @@ end
 	end)
 
 	coroutine.resume(loadingAnimation)
-	-- Simulate loading time
+
+	-- Simulate loading time (replace with actual loading process)
 	wait(4)
 
 	print("Loading complete.")
 
-	-- Hide the loading frame and show the main interface
+	-- Fade out loading elements and play loading sound
+	fadeOut(LoadingFrame, 0.5)
+	LoadingSound:Play()
+
+	-- Delay before showing main interface
+	wait(0.5)
+
+	-- Fade in main interface and shadows
+	fadeIn(Main, 0.5)
+	fadeIn(ShadowHolder, 0.5)
+
+	-- Update visibility states
 	LoadingFrame.Visible = false
 	Main.Visible = true
-	Shadow.Visible = true
+	ShadowHolder.Visible = true
 
 	-- Play the loading sound
 	LoadingSound:Play()
