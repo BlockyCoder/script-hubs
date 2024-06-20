@@ -115,7 +115,7 @@ function Library:Create(xHubName)
 
 	-- Shadow Holder Frame
 	ShadowHolder.Name = "ShadowHolder"
-	ShadowHolder.Parent = ScreenScript
+	ShadowHolder.Parent = Main
 	ShadowHolder.BackgroundTransparency = 1.000
 	ShadowHolder.Size = UDim2.new(1, 0, 1, 0)
 	ShadowHolder.ZIndex = 0
