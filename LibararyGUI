@@ -305,25 +305,31 @@ function Library:Create(xHubName)
 	ImageButtonKCorner.Name = "ImageButtonKCorner"
 	ImageButtonKCorner.Parent = ImageButtonK
 
+	-- Assuming the fadeIn and fadeOut functions are defined as shown previously
+
+	-- ImageButtonK click handler
 	ImageButtonK.MouseButton1Click:Connect(function()
 		if Main.Visible then
-			Main.Visible = false
-			ShadowHolder.Visible = false
+			fadeOut(Main, 0.3)  -- Fade out Main frame
+		fadeOut(ShadowHolder, 0.3)  -- Fade out ShadowHolder frame
 		else
-			Main.Visible = true
-			ShadowHolder.Visible = true
+			fadeIn(Main, 0.3)  -- Fade in Main frame
+			fadeIn(ShadowHolder, 0.3)  -- Fade in ShadowHolder frame
 		end
 	end)
 
+	-- Close button click handler
 	Close.MouseButton1Click:Connect(function()
-		ScreenScript:Destroy()
+		fadeOut(ScreenScript, 0.3)  -- Fade out entire ScreenScript (including all elements)
+		wait(0.3)  -- Delay to ensure fade out completes
+		ScreenScript:Destroy()  -- Destroy the ScreenScript
 	end)
 
 	-- Initial state: show loading frame, hide main and shadow
 	LoadingFrame.Visible = true
 	Main.Visible = false
 	ImageButtonK.Visible = false
-	Shadow.Visible = false
+	ShadowHolder.Visible = false
 
 	-- Simulate loading process
 	print("Starting loading...")
@@ -365,10 +371,9 @@ function Library:Create(xHubName)
 
 	-- Fade in main interface and shadows
 	fadeIn(Main, 0.5)
-	fadeIn(ShadowHolder, 0.5)
 
 	-- Update visibility states
-	LoadingFrame.Visible = false
+	LoadingFrame:Destroy()
 	Main.Visible = true
 	ShadowHolder.Visible = true
 
