@@ -595,7 +595,7 @@ UIAspectRatioConstraint.AspectRatio = 1.404
     Icon.BackgroundTransparency = 1.000
     Icon.Size = UDim2.new(0, 24, 0, 24)
     Icon.Position = UDim2.new(1, -29, 0.5, -12)  -- Adjusted position to the right
-    Icon.Image = "rbxassetid://6031094678"  -- Example asset ID for a gear icon
+    Icon.Image = "rbxassetid://7734010488"  -- Example asset ID for a gear icon
 
     -- Button animation
     Button.MouseEnter:Connect(function()
