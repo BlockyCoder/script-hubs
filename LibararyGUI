@@ -294,7 +294,7 @@ function Library:Create(xHubName)
 	TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 	ImageButtonK.Name = "ImageButtonK"
-	ImageButtonK.Parent = game.StarterGui.ScreenScript
+	ImageButtonK.Parent = ScreenScript
 	ImageButtonK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	ImageButtonK.BackgroundTransparency = 1.000
 	ImageButtonK.BorderColor3 = Color3.fromRGB(0, 0, 0)
