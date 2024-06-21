@@ -278,7 +278,11 @@ function Library:Create(xHubName)
 	Tabholder.Size = UDim2.new(0, 327, 0, 280)
 	Tabholder.ScrollBarThickness = 5
 	Tabholder.ZIndex = 2
-
+	
+	
+	Tabs.Name = "Tabs"
+	Tabs.Parent = Tabholder
+	
 	-- UICorner for Tabholder setup
 	UICorner_3.CornerRadius = UDim.new(0, 12)
 	UICorner_3.Parent = Tabholder
@@ -554,7 +558,7 @@ function Library:Create(xHubName)
 
 		return TabFrame
 	end
-	
+
 	function Library:CreateButton(tab, buttonName, callback)
 		callback = callback or function() end
 
@@ -595,7 +599,7 @@ function Library:Create(xHubName)
 
 		return Button
 	end
-	
+
 	function Library:CreateToggle(tab, toggleName, callback)
 		callback = callback or function() end
 
@@ -684,7 +688,7 @@ function Library:Create(xHubName)
 			UpdateLabel = UpdateLabel
 		}
 	end
-	
+
 	function Library:TextBox(parent, titleText, defaultValue, callback)
 		callback = callback or function() end
 
@@ -795,7 +799,7 @@ function Library:Create(xHubName)
 			end)
 		end)
 	end
-	
+
 	function Library:CreateSlider(parent, sliderName, minValue, maxValue, defaultValue, callback)
 		callback = callback or function() end
 		minValue = minValue or 0
@@ -893,8 +897,8 @@ function Library:Create(xHubName)
 
 		return SliderFrame
 	end
-	
-	
+
+
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
 		callback = callback or function() end
 
@@ -986,8 +990,8 @@ function Library:Create(xHubName)
 		return Dropdown
 	end
 
-	
-	
+
+
 	return Library
 end
 
