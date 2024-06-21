@@ -33,8 +33,6 @@ function Library:Create(xHubName)
 	end
 
 
-	local LibraryName = "YourLibraryName" -- Replace with your library name
-
 	-- Instances
 	local ScreenScript = Instance.new("ScreenGui")
 	local LoadingFrame = Instance.new("Frame")
@@ -728,7 +726,75 @@ function Library:Create(xHubName)
 
 		return TextBox, UpdateText
 	end
-	
+
+	local UserInputService = game:GetService("UserInputService")
+
+	function Library:CreateKeybind(tab, keybindName, defaultKey, callback)
+		-- Default values if not provided
+		keybindName = keybindName or "Keybind"
+		defaultKey = defaultKey or Enum.KeyCode.K
+		callback = callback or function() end
+
+		-- Create UI elements
+		local keybindFrame = Instance.new("Frame")
+		keybindFrame.Size = UDim2.new(1, 0, 0, 50)
+		keybindFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+		keybindFrame.BorderSizePixel = 0
+		keybindFrame.Parent = tab
+
+		local uiCorner = Instance.new("UICorner")
+		uiCorner.CornerRadius = UDim.new(0, 5)
+		uiCorner.Parent = keybindFrame
+
+		local keybindLabel = Instance.new("TextLabel")
+		keybindLabel.Text = keybindName
+		keybindLabel.Size = UDim2.new(0.7, 0, 1, 0)
+		keybindLabel.Position = UDim2.new(0.05, 0, 0, 0)
+		keybindLabel.BackgroundTransparency = 1
+		keybindLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		keybindLabel.Font = Enum.Font.SourceSans
+		keybindLabel.TextSize = 18
+		keybindLabel.TextXAlignment = Enum.TextXAlignment.Left
+		keybindLabel.Parent = keybindFrame
+
+		local keybindButton = Instance.new("TextButton")
+		keybindButton.Text = tostring(defaultKey):gsub("Enum.KeyCode.", "")
+		keybindButton.Size = UDim2.new(0.25, 0, 0.8, 0)
+		keybindButton.Position = UDim2.new(0.7, 10, 0.1, 0)
+		keybindButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		keybindButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		keybindButton.Font = Enum.Font.SourceSans
+		keybindButton.TextSize = 18
+		keybindButton.Parent = keybindFrame
+
+		local uiCornerButton = Instance.new("UICorner")
+		uiCornerButton.CornerRadius = UDim.new(0, 5)
+		uiCornerButton.Parent = keybindButton
+
+		-- Keybind logic
+		local currentKey = defaultKey
+
+		local function onKeyPress(input, isProcessed)
+			if isProcessed then return end -- Ignore inputs that are already processed
+			if input.KeyCode == currentKey then
+				callback()
+			end
+		end
+
+		UserInputService.InputBegan:Connect(onKeyPress)
+
+		keybindButton.MouseButton1Click:Connect(function()
+			keybindButton.Text = "..."
+			local connection
+			connection = UserInputService.InputBegan:Connect(function(input, isProcessed)
+				if not isProcessed and input.UserInputType == Enum.UserInputType.Keyboard then
+					currentKey = input.KeyCode
+					keybindButton.Text = tostring(currentKey):gsub("Enum.KeyCode.", "")
+					connection:Disconnect()
+				end
+			end)
+		end)
+	end
 	
 	function Library:CreateSlider(parent, sliderName, minValue, maxValue, defaultValue, callback)
 		callback = callback or function() end
