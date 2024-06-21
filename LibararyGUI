@@ -562,45 +562,57 @@ ImageButtonK.Visible = true
 	end
 
 	function Library:CreateButton(tab, buttonName, callback)
-		callback = callback or function() end
+    callback = callback or function() end
 
-		local Button = Instance.new("TextButton")
-		Button.Parent = tab
-		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Button.Size = UDim2.new(0, 315, 0, 31)
-		Button.AutoButtonColor = false
-		Button.Text = ""
+    local Button = Instance.new("TextButton")
+    Button.Parent = tab
+    Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Button.Size = UDim2.new(0, 315, 0, 31)
+    Button.AutoButtonColor = false
+    Button.Text = ""
 
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Button
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = Button
 
-		local TextLabel = Instance.new("TextLabel")
-		TextLabel.Parent = Button
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.Size = UDim2.new(0, 194, 0, 31)
-		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = buttonName
-		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TextLabel.TextSize = 12.000
-		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+    local TextLabel = Instance.new("TextLabel")
+    TextLabel.Parent = Button
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.Size = UDim2.new(0, 194, 0, 31)
+    TextLabel.Font = Enum.Font.GothamMedium
+    TextLabel.Text = buttonName
+    TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+    TextLabel.TextSize = 12.000
+    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		-- Button animation
-		Button.MouseEnter:Connect(function()
-			Button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		end)
-		Button.MouseLeave:Connect(function()
-			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		end)
+    -- Add icon to the button
+    local Icon = Instance.new("ImageLabel")
+    Icon.Parent = Button
+    Icon.BackgroundTransparency = 1.000
+    Icon.Size = UDim2.new(0, 24, 0, 24)
+    Icon.Position = UDim2.new(0, 5, 0.5, -12) -- Adjust position as needed
+    Icon.Image = "rbxassetid://6031094678" -- Replace with your icon asset ID
 
-		-- Click animation and callback
-		Button.MouseButton1Click:Connect(function()
-			callback()
-		end)
+    -- Button animation
+    Button.MouseEnter:Connect(function()
+        Button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    end)
+    Button.MouseLeave:Connect(function()
+        Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    end)
 
-		return Button
-	end
+    -- Click animation and callback
+    Button.MouseButton1Click:Connect(function()
+        Button.BackgroundColor3 = Color3.fromRGB(70, 70, 70) -- Change color on click
+        wait(0.1) -- Short delay
+        callback()
+        Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35) -- Reset color
+    end)
+
+    return Button
+end
+
 
 	function Library:CreateToggle(tab, toggleName, callback)
 		callback = callback or function() end
