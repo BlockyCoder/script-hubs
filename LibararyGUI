@@ -666,141 +666,198 @@ ImageButtonK.Visible = true
 
 
 	function Library:Label(parent, text)
-		text = text or "Label name"
+	text = text or "Label name"
 
-		local Label = Instance.new("TextLabel")
-		Label.Name = tostring(text) .. "_Label"
-		Label.Parent = parent
-		Label.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Label.BorderSizePixel = 0
-		Label.Size = UDim2.new(1, 0, 0, 20)
-		Label.Position = UDim2.new(0, 0, 0, 0)
-		Label.Font = Enum.Font.GothamMedium
-		Label.Text = text
-		Label.TextColor3 = Color3.fromRGB(193, 193, 193)
-		Label.TextSize = 12
-		Label.TextXAlignment = Enum.TextXAlignment.Center
+	local Label = Instance.new("TextLabel")
+	Label.Name = tostring(text) .. "_Label"
+	Label.Parent = parent
+	Label.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+	Label.BorderSizePixel = 0
+	Label.Size = UDim2.new(1, 0, 0, 25)
+	Label.Position = UDim2.new(0, 0, 0, 0)
+	Label.Font = Enum.Font.GothamMedium
+	Label.Text = text
+	Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Label.TextSize = 14
+	Label.TextXAlignment = Enum.TextXAlignment.Left
+	Label.TextYAlignment = Enum.TextYAlignment.Center
+	Label.Padding = UDim.new(0, 10)
 
-		local function UpdateLabel(newText)
-			Label.Text = newText
-			Label.Name = tostring(newText) .. "_Label"
-		end
+	-- Adding rounded corners
+	local UICorner = Instance.new("UICorner")
+	UICorner.CornerRadius = UDim.new(0, 5)
+	UICorner.Parent = Label
 
-		return {
-			UpdateLabel = UpdateLabel
-		}
+	-- Adding padding
+	local UIPadding = Instance.new("UIPadding")
+	UIPadding.PaddingLeft = UDim.new(0, 10)
+	UIPadding.Parent = Label
+
+	-- Adding a shadow effect
+	local Shadow = Instance.new("ImageLabel")
+	Shadow.Name = "Shadow"
+	Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	Shadow.BackgroundTransparency = 1
+	Shadow.BorderSizePixel = 0
+	Shadow.Position = UDim2.new(0.5, 0, 0.5, 4)
+	Shadow.Size = UDim2.new(1, 8, 1, 8)
+	Shadow.Image = "rbxassetid://1316045217"
+	Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	Shadow.ImageTransparency = 0.7
+	Shadow.Parent = Label
+
+	local function UpdateLabel(newText)
+		Label.Text = newText
+		Label.Name = tostring(newText) .. "_Label"
 	end
 
-	function Library:TextBox(parent, titleText, defaultValue, callback)
-		callback = callback or function() end
+	return {
+		UpdateLabel = UpdateLabel
+	}
+end
 
-		local TextBoxFrame = Instance.new("Frame")
-		TextBoxFrame.Parent = parent
-		TextBoxFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TextBoxFrame.Size = UDim2.new(0, 200, 0, 40)
-		TextBoxFrame.Position = UDim2.new(0, 0, 0, 0)
+function Library:TextBox(parent, titleText, defaultValue, callback)
+	callback = callback or function() end
 
-		local TitleLabel = Instance.new("TextLabel")
-		TitleLabel.Parent = TextBoxFrame
-		TitleLabel.Text = titleText
-		TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-		TitleLabel.TextSize = 18
-		TitleLabel.Font = Enum.Font.SourceSansBold
-		TitleLabel.Size = UDim2.new(1, 0, 0, 20)
-		TitleLabel.Position = UDim2.new(0, 4, 0, 3)
-		TitleLabel.BackgroundTransparency = 1
-		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+	local TextBoxFrame = Instance.new("Frame")
+	TextBoxFrame.Parent = parent
+	TextBoxFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+	TextBoxFrame.Size = UDim2.new(0, 200, 0, 50)
+	TextBoxFrame.Position = UDim2.new(0, 0, 0, 0)
+	TextBoxFrame.BorderSizePixel = 0
 
-		local TextBox = Instance.new("TextBox")
-		TextBox.Parent = TextBoxFrame
-		TextBox.Text = defaultValue or ""
-		TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-		TextBox.PlaceholderText = "Enter text..."
-		TextBox.Size = UDim2.new(1, -20, 0, 20)
-		TextBox.Position = UDim2.new(0, 10, 0, 20)
-		TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		TextBox.BorderSizePixel = 0
-		TextBox.ClearTextOnFocus = false
-		TextBox.Font = Enum.Font.SourceSans
-		TextBox.TextSize = 14
+	-- Adding rounded corners to the frame
+	local UICorner = Instance.new("UICorner")
+	UICorner.CornerRadius = UDim.new(0, 5)
+	UICorner.Parent = TextBoxFrame
 
-		local function UpdateText()
-			callback(TextBox.Text)
-		end
+	-- Adding a shadow effect to the frame
+	local Shadow = Instance.new("ImageLabel")
+	Shadow.Name = "Shadow"
+	Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	Shadow.BackgroundTransparency = 1
+	Shadow.BorderSizePixel = 0
+	Shadow.Position = UDim2.new(0.5, 0, 0.5, 4)
+	Shadow.Size = UDim2.new(1, 8, 1, 8)
+	Shadow.Image = "rbxassetid://1316045217"
+	Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	Shadow.ImageTransparency = 0.7
+	Shadow.Parent = TextBoxFrame
 
-		TextBox.FocusLost:Connect(UpdateText)
+	local TitleLabel = Instance.new("TextLabel")
+	TitleLabel.Parent = TextBoxFrame
+	TitleLabel.Text = titleText
+	TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TitleLabel.TextSize = 14
+	TitleLabel.Font = Enum.Font.GothamMedium
+	TitleLabel.Size = UDim2.new(1, -20, 0, 20)
+	TitleLabel.Position = UDim2.new(0, 10, 0, 5)
+	TitleLabel.BackgroundTransparency = 1
+	TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		return TextBox, UpdateText
+	local TextBox = Instance.new("TextBox")
+	TextBox.Parent = TextBoxFrame
+	TextBox.Text = defaultValue or ""
+	TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextBox.PlaceholderText = "Enter text..."
+	TextBox.Size = UDim2.new(1, -20, 0, 20)
+	TextBox.Position = UDim2.new(0, 10, 0, 25)
+	TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	TextBox.BorderSizePixel = 0
+	TextBox.ClearTextOnFocus = false
+	TextBox.Font = Enum.Font.Gotham
+	TextBox.TextSize = 14
+
+	-- Adding rounded corners to the TextBox
+	local TextBoxUICorner = Instance.new("UICorner")
+	TextBoxUICorner.CornerRadius = UDim.new(0, 5)
+	TextBoxUICorner.Parent = TextBox
+
+	-- Adding padding inside the TextBox
+	local UIPadding = Instance.new("UIPadding")
+	UIPadding.PaddingLeft = UDim.new(0, 5)
+	UIPadding.PaddingRight = UDim.new(0, 5)
+	UIPadding.Parent = TextBox
+
+	local function UpdateText()
+		callback(TextBox.Text)
 	end
+
+	TextBox.FocusLost:Connect(UpdateText)
+
+	return TextBox, UpdateText
+end
+
 
 	local UserInputService = game:GetService("UserInputService")
 
-	function Library:CreateKeybind(tab, keybindName, defaultKey, callback)
-		-- Default values if not provided
-		keybindName = keybindName or "Keybind"
-		defaultKey = defaultKey or Enum.KeyCode.K
-		callback = callback or function() end
+function Library:CreateKeybind(tab, keybindName, defaultKey, callback)
+    -- Default values if not provided
+    keybindName = keybindName or "Keybind"
+    defaultKey = defaultKey or Enum.KeyCode.K
+    callback = callback or function() end
 
-		-- Create UI elements
-		local keybindFrame = Instance.new("Frame")
-		keybindFrame.Size = UDim2.new(1, 0, 0, 50)
-		keybindFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-		keybindFrame.BorderSizePixel = 0
-		keybindFrame.Parent = tab
+    -- Create UI elements
+    local keybindFrame = Instance.new("Frame")
+    keybindFrame.Size = UDim2.new(1, 0, 0, 50)
+    keybindFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    keybindFrame.BorderSizePixel = 0
+    keybindFrame.Parent = tab
 
-		local uiCorner = Instance.new("UICorner")
-		uiCorner.CornerRadius = UDim.new(0, 5)
-		uiCorner.Parent = keybindFrame
+    local uiCorner = Instance.new("UICorner")
+    uiCorner.CornerRadius = UDim.new(0, 5)
+    uiCorner.Parent = keybindFrame
 
-		local keybindLabel = Instance.new("TextLabel")
-		keybindLabel.Text = keybindName
-		keybindLabel.Size = UDim2.new(0.7, 0, 1, 0)
-		keybindLabel.Position = UDim2.new(0.05, 0, 0, 0)
-		keybindLabel.BackgroundTransparency = 1
-		keybindLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-		keybindLabel.Font = Enum.Font.SourceSans
-		keybindLabel.TextSize = 18
-		keybindLabel.TextXAlignment = Enum.TextXAlignment.Left
-		keybindLabel.Parent = keybindFrame
+    local keybindLabel = Instance.new("TextLabel")
+    keybindLabel.Text = keybindName
+    keybindLabel.Size = UDim2.new(0.7, 0, 1, 0)
+    keybindLabel.Position = UDim2.new(0.05, 0, 0, 0)
+    keybindLabel.BackgroundTransparency = 1
+    keybindLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    keybindLabel.Font = Enum.Font.GothamMedium
+    keybindLabel.TextSize = 18
+    keybindLabel.TextXAlignment = Enum.TextXAlignment.Left
+    keybindLabel.Parent = keybindFrame
 
-		local keybindButton = Instance.new("TextButton")
-		keybindButton.Text = tostring(defaultKey):gsub("Enum.KeyCode.", "")
-		keybindButton.Size = UDim2.new(0.25, 0, 0.8, 0)
-		keybindButton.Position = UDim2.new(0.7, 10, 0.1, 0)
-		keybindButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		keybindButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-		keybindButton.Font = Enum.Font.SourceSans
-		keybindButton.TextSize = 18
-		keybindButton.Parent = keybindFrame
+    local keybindButton = Instance.new("TextButton")
+    keybindButton.Text = tostring(defaultKey):gsub("Enum.KeyCode.", "")
+    keybindButton.Size = UDim2.new(0.25, 0, 0.8, 0)
+    keybindButton.Position = UDim2.new(0.7, 10, 0.1, 0)
+    keybindButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    keybindButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    keybindButton.Font = Enum.Font.Gotham
+    keybindButton.TextSize = 18
+    keybindButton.Parent = keybindFrame
 
-		local uiCornerButton = Instance.new("UICorner")
-		uiCornerButton.CornerRadius = UDim.new(0, 5)
-		uiCornerButton.Parent = keybindButton
+    local uiCornerButton = Instance.new("UICorner")
+    uiCornerButton.CornerRadius = UDim.new(0, 5)
+    uiCornerButton.Parent = keybindButton
 
-		-- Keybind logic
-		local currentKey = defaultKey
+    -- Keybind logic
+    local currentKey = defaultKey
 
-		local function onKeyPress(input, isProcessed)
-			if isProcessed then return end -- Ignore inputs that are already processed
-			if input.KeyCode == currentKey then
-				callback()
-			end
-		end
+    local function onKeyPress(input, isProcessed)
+        if isProcessed then return end -- Ignore inputs that are already processed
+        if input.KeyCode == currentKey then
+            callback()
+        end
+    end
 
-		UserInputService.InputBegan:Connect(onKeyPress)
+    UserInputService.InputBegan:Connect(onKeyPress)
 
-		keybindButton.MouseButton1Click:Connect(function()
-			keybindButton.Text = "..."
-			local connection
-			connection = UserInputService.InputBegan:Connect(function(input, isProcessed)
-				if not isProcessed and input.UserInputType == Enum.UserInputType.Keyboard then
-					currentKey = input.KeyCode
-					keybindButton.Text = tostring(currentKey):gsub("Enum.KeyCode.", "")
-					connection:Disconnect()
-				end
-			end)
-		end)
-	end
+    keybindButton.MouseButton1Click:Connect(function()
+        keybindButton.Text = "..."
+        local connection
+        connection = UserInputService.InputBegan:Connect(function(input, isProcessed)
+            if not isProcessed and input.UserInputType == Enum.UserInputType.Keyboard then
+                currentKey = input.KeyCode
+                keybindButton.Text = tostring(currentKey):gsub("Enum.KeyCode.", "")
+                connection:Disconnect()
+            end
+        end)
+    end)
+end
+
 
 	function Library:CreateSlider(parent, sliderName, minValue, maxValue, defaultValue, callback)
 		callback = callback or function() end
