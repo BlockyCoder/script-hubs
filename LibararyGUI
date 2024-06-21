@@ -291,19 +291,23 @@ function Library:Create(xHubName)
 	TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 	ImageButtonK.Name = "ImageButtonK"
-	ImageButtonK.Parent = ScreenScript
+	ImageButtonK.Parent = game.StarterGui.ScreenScript
 	ImageButtonK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	ImageButtonK.BackgroundTransparency = 1.000
 	ImageButtonK.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	ImageButtonK.BorderSizePixel = 0
-	ImageButtonK.Position = UDim2.new(0.00872600456, 0, 0.00774316778, 0)
-	ImageButtonK.Size = UDim2.new(0, 37, 0, 37)
+	ImageButtonK.Position = UDim2.new(0.219957083, 0, 0.0619834736, 0)
+	ImageButtonK.Size = UDim2.new(0.044799991, 0, 0.0651629046, 0)
 	ImageButtonK.Image = "rbxassetid://15771991482"
-	ImageButtonK.ZIndex = 2
 
-	ImageButtonKCorner.CornerRadius = UDim.new(1, 0)
+	ImageButtonKCorner.CornerRadius = UDim.new(0, 12)
 	ImageButtonKCorner.Name = "ImageButtonKCorner"
 	ImageButtonKCorner.Parent = ImageButtonK
+	
+	local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+
+	UIAspectRatioConstraint.Parent = ImageButtonK
+	UIAspectRatioConstraint.AspectRatio = 1.404
 
 	-- Assuming the fadeIn and fadeOut functions are defined as shown previously
 
@@ -323,7 +327,7 @@ function Library:Create(xHubName)
 
 	-- Close button click handler
 	Close.MouseButton1Click:Connect(function()
-		fadeOut(ScreenScript, 0.3)  -- Fade out entire ScreenScript (including all elements)
+		fadeOut(Main, 0.3)
 		wait(0.3)  -- Delay to ensure fade out completes
 		ScreenScript:Destroy()  -- Destroy the ScreenScript
 	end)
