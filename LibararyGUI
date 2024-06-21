@@ -933,102 +933,109 @@ function Library:Create(xHubName)
 
 
 	function Library:CreateSlider(parent, sliderName, minValue, maxValue, defaultValue, callback)
-		callback = callback or function() end
-		minValue = minValue or 0
-		maxValue = maxValue or 100
-		defaultValue = defaultValue or minValue
+    callback = callback or function() end
+    minValue = minValue or 0
+    maxValue = maxValue or 100
+    defaultValue = defaultValue or minValue
 
-		local SliderFrame = Instance.new("Frame")
-		SliderFrame.Parent = parent
-		SliderFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		SliderFrame.Size = UDim2.new(0, 315, 0, 60)
+    local SliderFrame = Instance.new("Frame")
+    SliderFrame.Parent = parent
+    SliderFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    SliderFrame.Size = UDim2.new(0, 315, 0, 60)
 
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = SliderFrame
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = SliderFrame
 
-		local TitleLabel = Instance.new("TextLabel")
-		TitleLabel.Parent = SliderFrame
-		TitleLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TitleLabel.Size = UDim2.new(1, 0, 0, 20)
-		TitleLabel.Font = Enum.Font.GothamMedium
-		TitleLabel.Text = sliderName
-		TitleLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TitleLabel.TextSize = 12
-		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    local TitleLabel = Instance.new("TextLabel")
+    TitleLabel.Parent = SliderFrame
+    TitleLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    TitleLabel.Size = UDim2.new(1, 0, 0, 20)
+    TitleLabel.Font = Enum.Font.GothamMedium
+    TitleLabel.Text = sliderName
+    TitleLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+    TitleLabel.TextSize = 12
+    TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		local UIPadding = Instance.new("UIPadding")
-		UIPadding.Parent = TitleLabel
-		UIPadding.PaddingLeft = UDim.new(0, 10)
+    local UIPadding = Instance.new("UIPadding")
+    UIPadding.Parent = TitleLabel
+    UIPadding.PaddingLeft = UDim.new(0, 10)
 
-		local SliderBar = Instance.new("Frame")
-		SliderBar.Parent = SliderFrame
-		SliderBar.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
-		SliderBar.Size = UDim2.new(1, -20, 0, 10)
-		SliderBar.Position = UDim2.new(0, 10, 0, 30)
+    local SliderBar = Instance.new("Frame")
+    SliderBar.Parent = SliderFrame
+    SliderBar.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+    SliderBar.Size = UDim2.new(1, -20, 0, 10)
+    SliderBar.Position = UDim2.new(0, 10, 0, 30)
 
-		local UICornerBar = Instance.new("UICorner")
-		UICornerBar.CornerRadius = UDim.new(0, 5)
-		UICornerBar.Parent = SliderBar
+    local UICornerBar = Instance.new("UICorner")
+    UICornerBar.CornerRadius = UDim.new(0, 5)
+    UICornerBar.Parent = SliderBar
 
-		local SliderFill = Instance.new("Frame")
-		SliderFill.Parent = SliderBar
-		SliderFill.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-		SliderFill.Size = UDim2.new((defaultValue - minValue) / (maxValue - minValue), 0, 1, 0)
+    local SliderFill = Instance.new("Frame")
+    SliderFill.Parent = SliderBar
+    SliderFill.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+    SliderFill.Size = UDim2.new((defaultValue - minValue) / (maxValue - minValue), 0, 1, 0)
 
-		local UICornerFill = Instance.new("UICorner")
-		UICornerFill.CornerRadius = UDim.new(0, 5)
-		UICornerFill.Parent = SliderFill
+    local UICornerFill = Instance.new("UICorner")
+    UICornerFill.CornerRadius = UDim.new(0, 5)
+    UICornerFill.Parent = SliderFill
 
-		local SliderKnob = Instance.new("ImageButton")
-		SliderKnob.Parent = SliderFill
-		SliderKnob.BackgroundTransparency = 1
-		SliderKnob.Size = UDim2.new(0, 20, 0, 20)
-		SliderKnob.Image = "rbxassetid://6035047377"
-		SliderKnob.AnchorPoint = Vector2.new(0.5, 0.5)
+    local SliderKnob = Instance.new("ImageButton")
+    SliderKnob.Parent = SliderBar
+    SliderKnob.BackgroundTransparency = 1
+    SliderKnob.Size = UDim2.new(0, 20, 0, 20)
+    SliderKnob.Image = "rbxassetid://6035047377"
+    SliderKnob.AnchorPoint = Vector2.new(0.5, 0.5)
 
-		local ValueLabel = Instance.new("TextLabel")
-		ValueLabel.Parent = SliderFrame
-		ValueLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		ValueLabel.Size = UDim2.new(0.2, 0, 0, 20)
-		ValueLabel.Position = UDim2.new(0.8, 0, 0, 40)
-		ValueLabel.Font = Enum.Font.GothamMedium
-		ValueLabel.Text = tostring(defaultValue)
-		ValueLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		ValueLabel.TextSize = 12
-		ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
+    local ValueLabel = Instance.new("TextLabel")
+    ValueLabel.Parent = SliderFrame
+    ValueLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    ValueLabel.Size = UDim2.new(0.2, 0, 0, 20)
+    ValueLabel.Position = UDim2.new(0.8, 0, 0, 40)
+    ValueLabel.Font = Enum.Font.GothamMedium
+    ValueLabel.Text = tostring(defaultValue)
+    ValueLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+    ValueLabel.TextSize = 12
+    ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
 
-		local dragging = false
+    local dragging = false
 
-		local function UpdateSlider(input)
-			local relativePos = input.Position.X - SliderBar.AbsolutePosition.X
-			local percentage = math.clamp(relativePos / SliderBar.AbsoluteSize.X, 0, 1)
-			local value = math.floor(minValue + percentage * (maxValue - minValue))
+    local function UpdateSlider(input)
+        -- Calculate the relative position of the mouse input within the slider bar
+        local relativePos = (input.Position.X - SliderBar.AbsolutePosition.X) / SliderBar.AbsoluteSize.X
+        -- Clamp the percentage within valid range
+        relativePos = math.clamp(relativePos, 0, 1)
+        -- Calculate the corresponding value based on the percentage
+        local value = minValue + relativePos * (maxValue - minValue)
 
-			SliderFill.Size = UDim2.new(percentage, 0, 1, 0)
-			SliderKnob.Position = UDim2.new(percentage, 0, 0.5, 0)
-			ValueLabel.Text = tostring(value)
-			callback(value)
-		end
+        -- Update the appearance of the slider knob and fill
+        SliderFill.Size = UDim2.new(relativePos, 0, 1, 0)
+        SliderKnob.Position = UDim2.new(relativePos, 0, 0.5, 0)
+        -- Update the displayed value label
+        ValueLabel.Text = tostring(math.floor(value))
+        -- Call the callback function with the updated value
+        callback(value)
+    end
 
-		SliderKnob.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
-				dragging = true
-			end
-		end)
+    SliderKnob.MouseButton1Down:Connect(function()
+        dragging = true
+    end)
 
-		game:GetService("UserInputService").InputChanged:Connect(function(input)
-			if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-				UpdateSlider(input)
-			end
-		end)
+    game:GetService("UserInputService").InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            UpdateSlider(input)
+        end
+    end)
 
-		SliderKnob.InputEnded:Connect(function(input)
-			dragging = false
-		end)
+    game:GetService("UserInputService").InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
 
-		return SliderFrame
-	end
+    return SliderFrame
+end
+
 
 
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
