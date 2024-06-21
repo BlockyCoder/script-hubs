@@ -1,27 +1,17 @@
 local Library = {}
-local created = false  
 
 
 function Library:Create(xHubName)
-	if created then
-		error("Library instance already exists")
-		return
-	end
 
-	created = true  -- Set created flag to true once the library is created
 
 	xHubName = xHubName or "Epic-Hub"
 
 	local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
+
+
 	
-	
-	local ScreenScript = Instance.new("ScreenGui")
-	ScreenScript.Name = LibraryName
-	ScreenScript.Parent = game.CoreGui
-	ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	ScreenScript.ResetOnSpawn = false
-	
-	
+
+
 	function Library:ToggleUI()
 		if game.CoreGui[LibraryName].Enabled then
 			game.CoreGui[LibraryName].Enabled = false
@@ -80,6 +70,12 @@ function Library:Create(xHubName)
 	local AmbientShadow = Instance.new("ImageLabel")
 	
 	
+	local ScreenScript = Instance.new("ScreenGui")
+	ScreenScript.Name = LibraryName
+	ScreenScript.Parent = game.CoreGui
+	ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	ScreenScript.ResetOnSpawn = false
+
 	-- Create Loading Frame
 	LoadingFrame.Name = "LoadingFrame"
 	LoadingFrame.Parent = ScreenScript
