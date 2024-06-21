@@ -55,7 +55,7 @@ function Library:Create(xHubName)
 	local ActualSideListLayout = Instance.new("UIListLayout")
 	local TextButton = Instance.new("TextButton")
 	local UICorner_2 = Instance.new("UICorner")
-	local Tabholder = Instance.new("ScrollingFrame")
+	local Tabholder = Instance.new("Frame")
 	local Tabs = Instance.new("Folder")
 	local UICorner_3 = Instance.new("UICorner")
 	local TabLayout = Instance.new("UIListLayout")
@@ -267,17 +267,15 @@ function Library:Create(xHubName)
 	UICorner_2.Parent = TextButton
 
 	-- Tabholder setup
-	Tabholder.Name = "Tabholder"
-	Tabholder.Parent = Main
-	Tabholder.Active = true
-	Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Tabholder.BackgroundTransparency = 1.000
-	Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Tabholder.BorderSizePixel = 0
-	Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
-	Tabholder.Size = UDim2.new(0, 327, 0, 280)
-	Tabholder.ScrollBarThickness = 5
-	Tabholder.ZIndex = 2
+Tabholder.Name = "Tabholder"
+Tabholder.Parent = Main
+Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Tabholder.BackgroundTransparency = 1.000
+Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Tabholder.BorderSizePixel = 0
+Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
+Tabholder.Size = UDim2.new(0, 327, 0, 280)
+Tabholder.ZIndex = 2
 
 
 	Tabs.Name = "Tabs"
