@@ -302,6 +302,8 @@ function Library:Create(xHubName)
 	ImageButtonK.Position = UDim2.new(0.219957083, 0, 0.0619834736, 0)
 	ImageButtonK.Size = UDim2.new(0.044799991, 0, 0.0651629046, 0)
 	ImageButtonK.Image = "rbxassetid://15771991482"
+ImageButtonK.Visible = true
+
 
 	-- UICorner for ImageButtonK setup
 	ImageButtonKCorner.CornerRadius = UDim.new(0, 12)
