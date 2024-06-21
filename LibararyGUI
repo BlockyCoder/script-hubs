@@ -580,6 +580,7 @@ ImageButtonK.Visible = true
     TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TextLabel.BackgroundTransparency = 1.000
     TextLabel.Size = UDim2.new(0, 194, 0, 31)
+    TextLabel.Position = UDim2.new(0, 10, 0, 0)  -- Adjusted position to the left
     TextLabel.Font = Enum.Font.GothamMedium
     TextLabel.Text = buttonName
     TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
@@ -591,8 +592,8 @@ ImageButtonK.Visible = true
     Icon.Parent = Button
     Icon.BackgroundTransparency = 1.000
     Icon.Size = UDim2.new(0, 24, 0, 24)
-    Icon.Position = UDim2.new(0, 5, 0.5, -12) -- Adjust position as needed
-    Icon.Image = "rbxassetid://6031094678" -- Replace with your icon asset ID
+    Icon.Position = UDim2.new(1, -29, 0.5, -12)  -- Adjusted position to the right
+    Icon.Image = "rbxassetid://6031094678"  -- Example asset ID for a gear icon
 
     -- Button animation
     Button.MouseEnter:Connect(function()
@@ -604,14 +605,15 @@ ImageButtonK.Visible = true
 
     -- Click animation and callback
     Button.MouseButton1Click:Connect(function()
-        Button.BackgroundColor3 = Color3.fromRGB(70, 70, 70) -- Change color on click
-        wait(0.1) -- Short delay
+        Button.BackgroundColor3 = Color3.fromRGB(70, 70, 70)  -- Change color on click
+        wait(0.1)  -- Short delay
         callback()
-        Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35) -- Reset color
+        Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)  -- Reset color
     end)
 
     return Button
 end
+
 
 
 	function Library:CreateToggle(tab, toggleName, callback)
