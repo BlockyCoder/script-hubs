@@ -197,7 +197,7 @@ function Library:Create(xHubName)
 	Title.Selectable = false
 	Title.Size = UDim2.new(0, 323, 0, 36)
 	Title.Font = Enum.Font.GothamMedium
-	Title.Text = "Your Title Here" -- Replace with your title text
+	Title.Text = xHubName
 	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
 	Title.TextScaled = true
 	Title.TextSize = 13.000
