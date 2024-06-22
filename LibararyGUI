@@ -512,13 +512,17 @@ Tabholder.ZIndex = 2
 		UICorner.Parent = TabButton
 
 		-- Create TabFrame
-		local TabFrame = Instance.new("Frame")
-		TabFrame.Name = tabName .. "_Frame"
-		TabFrame.Parent = Tabs
-		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TabFrame.BorderSizePixel = 0
-		TabFrame.Size = UDim2.new(1, 0, 1, 0)  -- Full size to fill the parent
-		TabFrame.Visible = false  -- Initially hide all tab frames
+		local TabFrame = Instance.new("ScrollingFrame")
+TabFrame.Name = tabName .. "_Frame"
+TabFrame.Parent = Tabs
+TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+TabFrame.BorderSizePixel = 0
+TabFrame.Size = UDim2.new(1, 0, 1, 0)  -- Full size to fill the parent
+TabFrame.Visible = false  -- Initially hide all tab frames
+TabFrame.ScrollBarThickness = 8
+TabFrame.CanvasSize = UDim2.new(0, 0, 2, 0)  -- Adjust this based on content
+TabFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y  -- Automatically adjust canvas size based on content
+TabFrame.ScrollBarImageColor3 = Color3.fromRGB(193, 193, 193)
 
 		local TabFLayout = Instance.new("UIListLayout")
 		TabFLayout.Name = "TabLayout"
