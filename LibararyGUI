@@ -534,11 +534,10 @@ TabFrame.ScrollBarImageColor3 = Color3.fromRGB(193, 193, 193)
 		local function activateTab()
 			-- Hide all tab frames
 			for _, frame in pairs(Tabs:GetChildren()) do
-				if frame:IsA("Frame") then
-					frame.Visible = false
-				end
+			if frame:IsA("ScrollingFrame") then
+				frame.Visible = false
 			end
-
+		end
 			-- Reset text color for all tab buttons
 			for _, button in pairs(ActualSide:GetChildren()) do
 				if button:IsA("TextButton") then
