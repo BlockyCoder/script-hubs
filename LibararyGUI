@@ -1,5 +1,3 @@
--- Gui to Lua
--- Version: 3.2
 local Library = {}
 
 
@@ -33,253 +31,306 @@ function Library:Create(xHubName)
 		local tween = TweenService:Create(element, tweenInfo, { BackgroundTransparency = 1 })
 		tween:Play()
 	end
--- Instances:
 
-local ScreenScript = Instance.new("ScreenGui")
-local Main = Instance.new("Frame")
-local Headerframe = Instance.new("Frame")
-local Close = Instance.new("ImageButton")
-local UICorner = Instance.new("UICorner")
-local ImageLabel = Instance.new("ImageLabel")
-local UIScale = Instance.new("UIScale")
-local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
-local UIAspectRatioConstraint_2 = Instance.new("UIAspectRatioConstraint")
-local Title = Instance.new("TextButton")
-local UIPadding = Instance.new("UIPadding")
-local UIAspectRatioConstraint_3 = Instance.new("UIAspectRatioConstraint")
-local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
-local UIAspectRatioConstraint_4 = Instance.new("UIAspectRatioConstraint")
-local FirstSeperator = Instance.new("Frame")
-local UIAspectRatioConstraint_5 = Instance.new("UIAspectRatioConstraint")
-local Siderframe = Instance.new("Frame")
-local UIAspectRatioConstraint_6 = Instance.new("UIAspectRatioConstraint")
-local TextButton = Instance.new("TextButton")
-local UIAspectRatioConstraint_7 = Instance.new("UIAspectRatioConstraint")
-local UITextSizeConstraint_2 = Instance.new("UITextSizeConstraint")
-local ActualSide = Instance.new("ScrollingFrame")
-local ActualSideListLayout = Instance.new("UIListLayout")
-local UIAspectRatioConstraint_8 = Instance.new("UIAspectRatioConstraint")
-local UICorner_2 = Instance.new("UICorner")
-local SecondSeperator = Instance.new("Frame")
-local UIAspectRatioConstraint_9 = Instance.new("UIAspectRatioConstraint")
-local UIAspectRatioConstraint_10 = Instance.new("UIAspectRatioConstraint")
-local Tabholder = Instance.new("Frame")
-local TabLayout = Instance.new("UIListLayout")
-local UIAspectRatioConstraint_11 = Instance.new("UIAspectRatioConstraint")
-local UICorner_3 = Instance.new("UICorner")
-local Tabs = Instance.new("Folder")
-local UIListLayout = Instance.new("UIListLayout")
-local UIAspectRatioConstraint_12 = Instance.new("UIAspectRatioConstraint")
-local ImageButtonK = Instance.new("ImageButton")
-local ImageButtonKCorner = Instance.new("UICorner")
-local UIAspectRatioConstraint_13 = Instance.new("UIAspectRatioConstraint")
-local UIAspectRatioConstraint_14 = Instance.new("UIAspectRatioConstraint")
-	
+
+	-- Instances
+	local ScreenScript = Instance.new("ScreenGui")
 	local LoadingFrame = Instance.new("Frame")
 	local LoadingText = Instance.new("TextLabel")
 	local LoadingSound = Instance.new("Sound")
+	local Main = Instance.new("Frame")
 	local ShadowHolder = Instance.new("Frame")
 	local UmbraShadow = Instance.new("ImageLabel")
 	local PenumbraShadow = Instance.new("ImageLabel")
 	local AmbientShadow = Instance.new("ImageLabel")
---Properties:
+	local Headerframe = Instance.new("Frame")
+	local Close = Instance.new("ImageButton")
+	local ImageLabel = Instance.new("ImageLabel")
+	local UIScale = Instance.new("UIScale")
+	local Title = Instance.new("TextButton")
+	local UIPadding = Instance.new("UIPadding")
+	local FirstSeperator = Instance.new("Frame")
+	local Siderframe = Instance.new("Frame")
+	local ActualSide = Instance.new("ScrollingFrame")
+	local ActualSideListLayout = Instance.new("UIListLayout")
+	local TextButton = Instance.new("TextButton")
+	local UICorner_2 = Instance.new("UICorner")
+	local Tabholder = Instance.new("Frame")
+	local Tabs = Instance.new("Folder")
+	local UICorner_3 = Instance.new("UICorner")
+	local TabLayout = Instance.new("UIListLayout")
+	local ImageButtonK = Instance.new("ImageButton")
+	local ImageButtonKCorner = Instance.new("UICorner")
+	local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 
-ScreenScript.Name = LibraryName
-ScreenScript.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	-- ScreenGui setup
+	ScreenScript.Name = LibraryName
+	ScreenScript.Parent = game.CoreGui
+	ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	ScreenScript.ResetOnSpawn = false
 
-Main.Name = "Main"
-Main.Parent = ScreenScript
-Main.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
-Main.BorderSizePixel = 0
-Main.Position = UDim2.new(0.264115274, 0, 0.286656201, 0)
-Main.Size = UDim2.new(0.479018092, 0, 0.602093697, 0)
+	-- Loading Frame setup
+	LoadingFrame.Name = "LoadingFrame"
+	LoadingFrame.Parent = ScreenScript
+	LoadingFrame.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+	LoadingFrame.BorderSizePixel = 0
+	LoadingFrame.Position = UDim2.new(0.25, 0, 0.25, 0)
+	LoadingFrame.Size = UDim2.new(0.5, 0, 0.5, 0)
 
-Headerframe.Name = "Headerframe"
-Headerframe.Parent = Main
-Headerframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Headerframe.BackgroundTransparency = 1.000
-Headerframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Headerframe.BorderSizePixel = 0
-Headerframe.Size = UDim2.new(1, 0, 0.116352193, 0)
+	LoadingText.Name = "LoadingText"
+	LoadingText.Parent = LoadingFrame
+	LoadingText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	LoadingText.BackgroundTransparency = 1.000
+	LoadingText.Size = UDim2.new(1, 0, 1, 0)
+	LoadingText.Font = Enum.Font.GothamBold
+	LoadingText.Text = "Loading..."
+	LoadingText.TextColor3 = Color3.fromRGB(161, 161, 161)
+	LoadingText.TextScaled = true
+	LoadingText.TextSize = 14.000
+	LoadingText.TextWrapped = true
 
-Close.Name = "Close"
-Close.Parent = Headerframe
-Close.Active = false
-Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Close.BackgroundTransparency = 1.000
-Close.Position = UDim2.new(0.917412579, 0, 0.167417377, 0)
-Close.Selectable = false
-Close.Size = UDim2.new(0.0628571436, 0, 0.594594598, 0)
-
-UICorner.CornerRadius = UDim.new(0, 4)
-UICorner.Parent = Close
-
-ImageLabel.Parent = Close
-ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ImageLabel.BackgroundTransparency = 1.000
-ImageLabel.Position = UDim2.new(0.530303776, 0, 0.545454264, 0)
-ImageLabel.Size = UDim2.new(0.311818153, 0, 0.467727244, 0)
-ImageLabel.Image = "rbxassetid://7743878857"
-
-UIScale.Parent = ImageLabel
-UIScale.Scale = 0.700
-
-UIAspectRatioConstraint.Parent = ImageLabel
-
-UIAspectRatioConstraint_2.Parent = Close
-UIAspectRatioConstraint_2.AspectRatio = 1.500
-
-Title.Name = "Title"
-Title.Parent = Headerframe
-Title.Active = false
-Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Title.BackgroundTransparency = 1.000
-Title.Position = UDim2.new(0.00192685076, 0, 0, 0)
-Title.Selectable = false
-Title.Size = UDim2.new(0.61523807, 0, 0.97297287, 0)
-Title.Font = Enum.Font.GothamMedium
-Title.Text = xHubName
-Title.TextColor3 = Color3.fromRGB(161, 161, 161)
-Title.TextScaled = true
-Title.TextSize = 13.000
-Title.TextWrapped = true
-Title.TextXAlignment = Enum.TextXAlignment.Left
-
-UIPadding.Parent = Title
-UIPadding.PaddingLeft = UDim.new(0, 10)
-
-UIAspectRatioConstraint_3.Parent = Title
-UIAspectRatioConstraint_3.AspectRatio = 8.972
-
-UITextSizeConstraint.Parent = Title
-UITextSizeConstraint.MaxTextSize = 36
-
-UIAspectRatioConstraint_4.Parent = Headerframe
-UIAspectRatioConstraint_4.AspectRatio = 14.189
-
-FirstSeperator.Name = "FirstSeperator"
-FirstSeperator.Parent = Main
-FirstSeperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
-FirstSeperator.BorderSizePixel = 0
-FirstSeperator.Position = UDim2.new(-2.58091513e-05, 0, 0.116352201, 0)
-FirstSeperator.Size = UDim2.new(1, 0, 0.00314465398, 0)
-FirstSeperator.ZIndex = 5
-
-UIAspectRatioConstraint_5.Parent = FirstSeperator
-UIAspectRatioConstraint_5.AspectRatio = 525.000
-
-Siderframe.Name = "Siderframe"
-Siderframe.Parent = Main
-Siderframe.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-Siderframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Siderframe.BorderSizePixel = 0
-Siderframe.Position = UDim2.new(-0.00190473138, 0, 0.119496837, 0)
-Siderframe.Size = UDim2.new(0.365911901, 0, 0.849989712, 0)
-
-UIAspectRatioConstraint_6.Parent = Siderframe
-UIAspectRatioConstraint_6.AspectRatio = 0.711
-
-TextButton.Parent = Siderframe
-TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextButton.BackgroundTransparency = 1.000
-TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextButton.BorderSizePixel = 0
-TextButton.Position = UDim2.new(-0.00502512557, 0, 0.853571415, 0)
-TextButton.Size = UDim2.new(1.00502515, 0, 0.14642857, 0)
-TextButton.Font = Enum.Font.SourceSans
-TextButton.Text = "Place ID"
-TextButton.TextColor3 = Color3.fromRGB(0, 255, 157)
-TextButton.TextScaled = true
-TextButton.TextSize = 14.000
-TextButton.TextWrapped = true
-
-UIAspectRatioConstraint_7.Parent = TextButton
-UIAspectRatioConstraint_7.AspectRatio = 4.878
-
-UITextSizeConstraint_2.Parent = TextButton
-UITextSizeConstraint_2.MaxTextSize = 41
-
-ActualSide.Name = "ActualSide"
-ActualSide.Parent = Siderframe
-ActualSide.Active = true
-ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ActualSide.BackgroundTransparency = 1.000
-ActualSide.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ActualSide.BorderSizePixel = 0
-ActualSide.Size = UDim2.new(0.945614517, 0, 0.81122601, 0)
-ActualSide.ScrollBarThickness = 2
-
-ActualSideListLayout.Name = "ActualSideListLayout"
-ActualSideListLayout.Parent = ActualSide
-ActualSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-UIAspectRatioConstraint_8.Parent = ActualSide
-UIAspectRatioConstraint_8.AspectRatio = 0.828
-
-UICorner_2.CornerRadius = UDim.new(0, 5)
-UICorner_2.Parent = Main
-
-SecondSeperator.Name = "SecondSeperator"
-SecondSeperator.Parent = Main
-SecondSeperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
-SecondSeperator.BorderSizePixel = 0
-SecondSeperator.Position = UDim2.new(0.377142847, 0, 0.119496852, 0)
-SecondSeperator.Size = UDim2.new(0.00190476188, 0, 0.880503118, 0)
-SecondSeperator.ZIndex = 5
-
-UIAspectRatioConstraint_9.Parent = SecondSeperator
-UIAspectRatioConstraint_9.AspectRatio = 0.004
-
-UIAspectRatioConstraint_10.Parent = Main
-UIAspectRatioConstraint_10.AspectRatio = 1.651
-
-Tabholder.Name = "Tabholder"
-Tabholder.Parent = Main
-Tabholder.Active = true
-Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Tabholder.BackgroundTransparency = 1.000
-Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Tabholder.BorderSizePixel = 0
-Tabholder.Position = UDim2.new(0.364007175, 0, 0.119496636, 0)
-Tabholder.Size = UDim2.new(0.621764541, 0, 0.878958523, 0)
-
-TabLayout.Name = "TabLayout"
-TabLayout.Parent = Tabholder
-TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-UIAspectRatioConstraint_11.Parent = Tabholder
-UIAspectRatioConstraint_11.AspectRatio = 1.168
-
-UICorner_3.CornerRadius = UDim.new(0, 12)
-UICorner_3.Parent = Tabholder
-
-Tabs.Name = "Tabs"
-Tabs.Parent = Tabholder
-
-ImageButtonK.Name = "ImageButtonK"
-ImageButtonK.Parent = ScreenScript
-ImageButtonK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ImageButtonK.BackgroundTransparency = 1.000
-ImageButtonK.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ImageButtonK.BorderSizePixel = 0
-ImageButtonK.Position = UDim2.new(0.219957083, 0, 0.0619834736, 0)
-ImageButtonK.Size = UDim2.new(0.0440834574, 0, 0.0651629046, 0)
-ImageButtonK.Image = "rbxassetid://15771991482"
-
-ImageButtonKCorner.CornerRadius = UDim.new(0, 12)
-ImageButtonKCorner.Name = "ImageButtonKCorner"
-ImageButtonKCorner.Parent = ImageButtonK
-
-UIAspectRatioConstraint_13.Parent = ImageButtonK
-UIAspectRatioConstraint_13.AspectRatio = 1.404
-
-UIAspectRatioConstraint_14.Parent = ScreenScript
-	UIAspectRatioConstraint_14.AspectRatio = 2.075
+	LoadingSound.Name = "LoadingSound"
+	LoadingSound.Parent = ScreenScript
+	LoadingSound.Volume = 1
+	LoadingSound.SoundId = "rbxassetid://253277644"  -- Replace with your sound asset ID
+	
+	local UIScale = Instance.new("UIScale")
+	UIScale.Parent = LoadingFrame  -- Example of applying UIScale to Main frame
+	UIScale.Scale = 0.9  -- Adjust the scale factor as needed
 	
 	
+	-- Main Frame setup
+	Main.Name = "Main"
+	Main.Parent = ScreenScript
+	Main.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+	Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Main.BorderSizePixel = 0
+	Main.Position = UDim2.new(0.272804052, 0, 0.243107766, 0)
+	Main.Size = UDim2.new(0.481064528, 0, 0.602093697, 0)
+	Main.ZIndex = 1
+	Main.Visible = false
+	
+	local UIScale2 = Instance.new("UIScale")
+	UIScale2.Parent = Main  -- Example of applying UIScale to Main frame
+	UIScale2.Scale = 0.9  -- Adjust the scale factor as needed
+	
+	local UISizeConstraint2 = Instance.new("UISizeConstraint")
+	UISizeConstraint2.Parent = Main
+	UISizeConstraint2.MaxSize = Vector2.new(0, 600)  -- Set max width and height as needed
+	UISizeConstraint2.MinSize = Vector2.new(0, 400)  -- Set min width and height as needed
+
+	
+	
+	
+	-- Shadow Holder Frame setup
+	ShadowHolder.Name = "ShadowHolder"
+	ShadowHolder.Parent = Main
+	ShadowHolder.BackgroundTransparency = 1.000
+	ShadowHolder.Size = UDim2.new(1, 0, 1, 0)
+	ShadowHolder.ZIndex = 0
+	
+	
+	-- Umbra Shadow setup
+	UmbraShadow.Name = "UmbraShadow"
+	UmbraShadow.Parent = ShadowHolder
+	UmbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	UmbraShadow.BackgroundTransparency = 1.000
+	UmbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	UmbraShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
+	UmbraShadow.ZIndex = 0
+	UmbraShadow.Image = "rbxassetid://1316045217"
+	UmbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	UmbraShadow.ImageTransparency = 0.860
+	UmbraShadow.ScaleType = Enum.ScaleType.Slice
+	UmbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+
+	-- Penumbra Shadow setup
+	PenumbraShadow.Name = "PenumbraShadow"
+	PenumbraShadow.Parent = ShadowHolder
+	PenumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	PenumbraShadow.BackgroundTransparency = 1.000
+	PenumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	PenumbraShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
+	PenumbraShadow.ZIndex = 0
+	PenumbraShadow.Image = "rbxassetid://1316045217"
+	PenumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	PenumbraShadow.ImageTransparency = 0.880
+	PenumbraShadow.ScaleType = Enum.ScaleType.Slice
+	PenumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+
+	-- Ambient Shadow setup
+	AmbientShadow.Name = "AmbientShadow"
+	AmbientShadow.Parent = ShadowHolder
+	AmbientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	AmbientShadow.BackgroundTransparency = 1.000
+	AmbientShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	AmbientShadow.Size = UDim2.new(1, 30, 1, 30)  -- Adjust size to cover Main frame
+	AmbientShadow.ZIndex = 0
+	AmbientShadow.Image = "rbxassetid://1316045217"
+	AmbientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	AmbientShadow.ImageTransparency = 0.880
+	AmbientShadow.ScaleType = Enum.ScaleType.Slice
+	AmbientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+
+	-- Header Frame setup
+	Headerframe.Name = "Headerframe"
+	Headerframe.Parent = Main
+	Headerframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Headerframe.BackgroundTransparency = 1.000
+	Headerframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Headerframe.BorderSizePixel = 0
+	Headerframe.Size = UDim2.new(0, 525, 0, 37)
+	Headerframe.ZIndex = 2
+
+	-- Close Button setup
+	Close.Name = "Close"
+	Close.Parent = Headerframe
+	Close.Active = false
+	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Close.BackgroundTransparency = 1.000
+	Close.Position = UDim2.new(0.917412579, 0, 0.167417377, 0)
+	Close.Selectable = false
+	Close.Size = UDim2.new(0, 33, 0, 22)
+	Close.ZIndex = 3
+
+	ImageLabel.Parent = Close
+	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageLabel.BackgroundTransparency = 1.000
+	ImageLabel.Position = UDim2.new(0.500000775, 1, 0.545454264, 0)
+	ImageLabel.Size = UDim2.new(0, 21, 0, 21)
+	ImageLabel.Image = "rbxassetid://7743878857"
+	ImageLabel.ZIndex = 3
+
+	UIScale.Parent = ImageLabel
+	UIScale.Scale = 0.700
+
+	-- Title setup
+	Title.Name = "Title"
+	Title.Parent = Headerframe
+	Title.Active = false
+	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title.BackgroundTransparency = 1.000
+	Title.Position = UDim2.new(0.00192685076, 0, 0, 0)
+	Title.Selectable = false
+	Title.Size = UDim2.new(0, 323, 0, 36)
+	Title.Font = Enum.Font.GothamMedium
+	Title.Text = xHubName
+	Title.TextColor3 = Color3.fromRGB(161, 161, 161)
+	Title.TextScaled = true
+	Title.TextSize = 13.000
+	Title.TextWrapped = true
+	Title.TextXAlignment = Enum.TextXAlignment.Left
+	Title.ZIndex = 2
+
+	UIPadding.Parent = Title
+	UIPadding.PaddingLeft = UDim.new(0, 10)
+
+	-- First Separator setup
+	FirstSeperator.Name = "FirstSeperator"
+	FirstSeperator.Parent = Main
+	FirstSeperator.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
+	FirstSeperator.BorderSizePixel = 0
+	-- Continuing from the previous snippet...
+
+	FirstSeperator.Position = UDim2.new(-2.58091513e-05, 0, 0.116352201, 0)
+	FirstSeperator.Size = UDim2.new(0, 525, 0, 1)
+	FirstSeperator.ZIndex = 5
+
+	-- Siderframe setup
+	Siderframe.Name = "Siderframe"
+	Siderframe.Parent = Main
+	Siderframe.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+	Siderframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Siderframe.BorderSizePixel = 0
+	Siderframe.Position = UDim2.new(-0.00190476188, 0, 0.119496852, 0)
+	Siderframe.Size = UDim2.new(0, 199, 0, 280)
+	Siderframe.ZIndex = 2
+
+	-- ActualSide ScrollingFrame setup
+	ActualSide.Name = "ActualSide"
+	ActualSide.Parent = Siderframe
+	ActualSide.Active = true
+	ActualSide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ActualSide.BackgroundTransparency = 1.000
+	ActualSide.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ActualSide.BorderSizePixel = 0
+	ActualSide.Size = UDim2.new(0, 198, 0, 239)
+	ActualSide.ScrollBarThickness = 2
+	ActualSide.ZIndex = 2
+
+	-- ActualSideListLayout setup
+	ActualSideListLayout.Name = "ActualSideListLayout"
+	ActualSideListLayout.Parent = ActualSide
+	ActualSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	-- TextButton inside Siderframe setup
+	TextButton.Parent = Siderframe
+	TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextButton.BackgroundTransparency = 1.000
+	TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextButton.BorderSizePixel = 0
+	TextButton.Position = UDim2.new(-0.00502512557, 0, 0.853571415, 0)
+	TextButton.Size = UDim2.new(0, 200, 0, 41)
+	TextButton.Font = Enum.Font.SourceSans
+	TextButton.Text = "Place ID"
+	TextButton.TextColor3 = Color3.fromRGB(0, 255, 157)
+	TextButton.TextScaled = true
+	TextButton.TextSize = 14.000
+	TextButton.TextWrapped = true
+	TextButton.ZIndex = 2
+
+	-- UICorner for TextButton setup
+	UICorner_2.CornerRadius = UDim.new(0, 5)
+	UICorner_2.Parent = TextButton
+
+	-- Tabholder setup
+	Tabholder.Name = "Tabholder"
+	Tabholder.Parent = Main
+	Tabholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Tabholder.BackgroundTransparency = 1.000
+	Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Tabholder.BorderSizePixel = 0
+	Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
+	Tabholder.Size = UDim2.new(0, 327, 0, 280)
+	Tabholder.ZIndex = 2
+
+
+	Tabs.Name = "Tabs"
+	Tabs.Parent = Tabholder
+
+	-- UICorner for Tabholder setup
+	UICorner_3.CornerRadius = UDim.new(0, 12)
+	UICorner_3.Parent = Tabholder
+
+	-- TabLayout setup
+	TabLayout.Name = "TabLayout"
+	TabLayout.Parent = Tabholder
+	TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	-- ImageButtonK setup
+	ImageButtonK.Name = "ImageButtonK"
+	ImageButtonK.Parent = ScreenScript
+	ImageButtonK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageButtonK.BackgroundTransparency = 1.000
+	ImageButtonK.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ImageButtonK.BorderSizePixel = 0
+	ImageButtonK.Position = UDim2.new(0.219957083, 0, 0.0619834736, 0)
+	ImageButtonK.Size = UDim2.new(0.044799991, 0, 0.0651629046, 0)
+	ImageButtonK.Image = "rbxassetid://15771991482"
+	ImageButtonK.Visible = true
+
+	-- UICorner for ImageButtonK setup
+	local ImageButtonKCorner = Instance.new("UICorner")
+	ImageButtonKCorner.CornerRadius = UDim.new(0, 12)
+	ImageButtonKCorner.Name = "ImageButtonKCorner"
+	ImageButtonKCorner.Parent = ImageButtonK
+
+	-- UIAspectRatioConstraint for ImageButtonK setup
+	local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+	UIAspectRatioConstraint.Parent = ImageButtonK
+	UIAspectRatioConstraint.AspectRatio = 1.404
+
 	-- Assuming the fadeIn and fadeOut functions are defined as shown previously
 
 	-- ImageButtonK click handler
@@ -458,57 +509,49 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		tween:Create(Frame, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {Position = UDim2.new(1, 0,0.794, 0)}):Play()
 		ScreenGuiM:Destroy()     
 	end
-	
-	
+
 	local LibraryTabs = {}
 
 	function Library:CreateTab(tabName)
 		-- Create TabButton
-		
-		
-		local TextService = game:GetService("TextService")  -- Retrieve the TextService
-
 		local TabButton = Instance.new("TextButton")
 		TabButton.Parent = ActualSide
 		TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TabButton.Size = UDim2.new(1, 0, 0, 30)  -- Full width of parent, height set to 30 pixels
-		TabButton.AutoButtonColor = false  -- Ensures the button color does not change on hover
+		TabButton.Size = UDim2.new(0, 200, 0, 30)
 		TabButton.Font = Enum.Font.Gotham
 		TabButton.Text = tabName
 		TabButton.TextColor3 = Color3.fromRGB(193, 193, 193)
 		TabButton.TextSize = 14
-		TabButton.TextWrapped = true  -- Allows the text to wrap within the button's boundaries
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
 		UICorner.Parent = TabButton
 
-		-- Adjust the size of the button based on the text content
-		local textSize = TextService:GetTextSize(TabButton.Text, TabButton.TextSize, TabButton.Font, Vector2.new(1000, 1000))
-		TabButton.Size = UDim2.new(0, textSize.X + 20, 0, 30)  -- Adjusted width based on text size, add padding of 20
-
-
 		-- Create TabFrame
 		local TabFrame = Instance.new("ScrollingFrame")
-		
 		TabFrame.Name = tabName .. "_Frame"
 		TabFrame.Parent = Tabs
-		TabFrame.Active = true
-		TabFrame.BackgroundColor3 = Color3.fromRGB(0, 35, 35)
-		TabFrame.BackgroundTransparency = 1.000
-		TabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		TabFrame.BorderSizePixel = 0
-		TabFrame.Size = UDim2.new(1.01563776, 0, 1, 0)
+		TabFrame.Size = UDim2.new(1, 0, 1, 0)  -- Full size to fill the parent
+		TabFrame.Visible = false  -- Initially hide all tab frames
 		TabFrame.ScrollBarThickness = 8
+		TabFrame.CanvasSize = UDim2.new(0, 0, 2, 0)  -- Adjust this based on content
+		TabFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y  -- Automatically adjust canvas size based on content
+		TabFrame.ScrollBarImageColor3 = Color3.fromRGB(193, 193, 193)
 
-		UIListLayout.Parent = TabFrame
-		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		UIListLayout.Padding = UDim.new(0, 5)
-
-		UIAspectRatioConstraint_12.Parent = TabFrame
-		UIAspectRatioConstraint_12.AspectRatio = 1.186
+		local TabFLayout = Instance.new("UIListLayout")
+		TabFLayout.Name = "TabLayout"
+		TabFLayout.Parent = TabFrame
+		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		TabFLayout.Padding = UDim.new(0, 5)
 		
-
+		
+		local UIScale3 = Instance.new("UIScale")
+		UIScale3.Parent = TabFrame  -- Example of applying UIScale to Main frame
+		UIScale3.Scale = 0.9  -- Adjust the scale factor as needed
+		
+		
 		-- Handle tab button click to show corresponding tab frame with animation
 		local function activateTab()
 			-- Hide all tab frames
@@ -542,15 +585,14 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 
 		return TabFrame
 	end
-	
-	
+
 	function Library:CreateButton(tab, buttonName, callback)
 		callback = callback or function() end
 
 		local Button = Instance.new("TextButton")
 		Button.Parent = tab
 		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Button.Size = UDim2.new(1, 0, 0, 31)  -- Adjusted width to 100% of parent's width
+		Button.Size = UDim2.new(0, 315, 0, 31)
 		Button.AutoButtonColor = false
 		Button.Text = ""
 
@@ -562,10 +604,10 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		TextLabel.Parent = Button
 		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.Size = UDim2.new(1, -34, 1, 0)  -- Adjusted width to fill the button width minus the icon width and some padding
+		TextLabel.Size = UDim2.new(0, 194, 0, 31)
 		TextLabel.Position = UDim2.new(0, 10, 0, 0)  -- Adjusted position to the left
 		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = "buttonName"
+		TextLabel.Text = buttonName
 		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
 		TextLabel.TextSize = 12.000
 		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -575,22 +617,8 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		Icon.Parent = Button
 		Icon.BackgroundTransparency = 1.000
 		Icon.Size = UDim2.new(0, 24, 0, 24)
-		Icon.Position = UDim2.new(1, -29, 0.5, -12)  -- Adjusted position to the right and vertically centered
+		Icon.Position = UDim2.new(1, -29, 0.5, -12)  -- Adjusted position to the right
 		Icon.Image = "rbxassetid://7734010488"  -- Example asset ID for a gear icon
-		Icon.ImageColor3 = Color3.fromRGB(193, 193, 193)  -- Optional: Adjust icon color
-
-		-- Adjust the TextLabel's size and position based on the icon
-		TextLabel.Size = UDim2.new(1, -34 - Icon.Size.X.Offset, 1, 0)
-		TextLabel.Position = UDim2.new(0, 10, 0, 0)
-
-		-- Adjust the Button's size based on the combined size of TextLabel and Icon
-		Button.Size = UDim2.new(0, TextLabel.Size.X.Offset + 44, 0, 31)  -- 44 is the total width of TextLabel (Text padding) and Icon
-
-		-- Optionally add a UICorner to the Icon if needed
-		local UICornerIcon = Instance.new("UICorner")
-		UICornerIcon.CornerRadius = UDim.new(0, 5)
-		UICornerIcon.Parent = Icon
-
 
 		-- Button animation
 		Button.MouseEnter:Connect(function()
@@ -603,13 +631,8 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		-- Click animation and callback
 		Button.MouseButton1Click:Connect(function()
 			Button.BackgroundColor3 = Color3.fromRGB(70, 70, 70)  -- Change color on click
-			Icon.ImageColor3 = Color3.fromRGB(150, 150, 150)  -- Change color on click
 			wait(0.1)  -- Short delay
-			Icon.ImageColor3 = Color3.fromRGB(255, 255, 255)  -- Reset color
-			wait(0.1)  -- Short delay
-			Button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)  -- Change color on click
 			callback()
-			wait(0.1)  -- Short delay
 			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)  -- Reset color
 		end)
 
@@ -676,12 +699,11 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 
 	function Library:CreateToggle(tab, toggleName, callback)
 		callback = callback or function() end
-		
-		
+
 		local Toggle = Instance.new("TextButton")
 		Toggle.Parent = tab
 		Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Toggle.Size = UDim2.new(1, 0, 0, 36)  -- Adjusted width to 100% of parent's width
+		Toggle.Size = UDim2.new(0, 315, 0, 36)
 		Toggle.AutoButtonColor = false
 		Toggle.Text = ""
 
@@ -693,7 +715,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		TextLabel.Parent = Toggle
 		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.Size = UDim2.new(1, -40, 1, 0)  -- Adjusted width to fill the button width minus the size of the toggle background
+		TextLabel.Size = UDim2.new(0, 283, 0, 36)
 		TextLabel.Position = UDim2.new(0, 10, 0, 0)
 		TextLabel.Font = Enum.Font.GothamMedium
 		TextLabel.Text = toggleName
@@ -704,7 +726,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		local ToggleBckg = Instance.new("Frame")
 		ToggleBckg.Parent = Toggle
 		ToggleBckg.BackgroundColor3 = Color3.fromRGB(88, 88, 88)
-		ToggleBckg.Position = UDim2.new(1, -35, 0.5, -12)  -- Adjusted position to the right
+		ToggleBckg.Position = UDim2.new(0.9, 0, 0.1, 0)
 		ToggleBckg.Size = UDim2.new(0, 25, 0, 25)
 
 		local UICorner_2 = Instance.new("UICorner")
@@ -722,7 +744,6 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		Icon.ImageColor3 = Color3.fromRGB(0, 0, 0)
 		Icon.ImageTransparency = 1.000
 
-
 		-- Toggle state and animation
 		local ToggleEnabled = false
 
@@ -730,6 +751,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 			ToggleEnabled = not ToggleEnabled
 			ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(88, 88, 88)
 			Icon.ImageTransparency = ToggleEnabled and 0 or 1
+			callback(ToggleEnabled)
 		end)
 
 		return Toggle
@@ -795,7 +817,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		local TextBoxFrame = Instance.new("Frame")
 		TextBoxFrame.Parent = parent
 		TextBoxFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-		TextBoxFrame.Size = UDim2.new(1, 0, 0, 50)  -- Adjusted width to 100% of parent's width
+		TextBoxFrame.Size = UDim2.new(0, 300, 0, 50)  -- Adjusted size to be wider
 		TextBoxFrame.Position = UDim2.new(0.5, -150, 0.5, -25)  -- Centered in parent
 		TextBoxFrame.BorderSizePixel = 0
 
@@ -852,17 +874,9 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		UIPadding.PaddingRight = UDim.new(0, 10)
 		UIPadding.Parent = TextBox
 
-		-- Update text callback function
 		local function UpdateText()
 			callback(TextBox.Text)
 		end
-
-		-- Connect text changed event
-		TextBox.Changed:Connect(function(property)
-			if property == "Text" then
-				UpdateText()
-			end
-		end)
 
 		TextBox.FocusLost:Connect(UpdateText)
 
@@ -1055,9 +1069,9 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Dropdown.Position = UDim2.new(0, 0, 0, 0)
 		Dropdown.Selectable = false
-		Dropdown.Size = UDim2.new(1, 0, 0, 31)  -- Full width of the parent, height set to 31 pixels
+		Dropdown.Size = UDim2.new(0, 380, 0, 31)
 		Dropdown.AutoButtonColor = false
-		Dropdown.Text = dropdownName
+		Dropdown.Text = dropdownName or "Dropdown"
 		Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
 		Dropdown.TextSize = 14
 		Dropdown.Font = Enum.Font.Gotham
@@ -1080,7 +1094,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		DropdownList.Parent = tab
 		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		DropdownList.Position = UDim2.new(0, 0, 0, Dropdown.AbsolutePosition.Y + Dropdown.AbsoluteSize.Y)
-		DropdownList.Size = UDim2.new(1, 0, 0, 0)  -- Full width of the parent, height initially set to 0
+		DropdownList.Size = UDim2.new(0, 380, 0, 0)
 		DropdownList.Visible = false
 		DropdownList.ZIndex = 10
 
@@ -1092,7 +1106,6 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		ListLayout.Parent = DropdownList
 		ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		ListLayout.Padding = UDim.new(0, 5)
-
 
 		for _, optionText in ipairs(options) do
 			local OptionButton = Instance.new("TextButton")
