@@ -1099,7 +1099,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Dropdown.Position = UDim2.new(0, 0, 0, 0)
 		Dropdown.Selectable = false
-		Dropdown.Size = UDim2.new(0, 380, 0, 31)
+		Dropdown.Size = UDim2.new(1, 0, 0, 31)  -- Full width of the parent, height set to 31 pixels
 		Dropdown.AutoButtonColor = false
 		Dropdown.Text = dropdownName or "Dropdown"
 		Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
@@ -1124,7 +1124,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		DropdownList.Parent = tab
 		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		DropdownList.Position = UDim2.new(0, 0, 0, Dropdown.AbsolutePosition.Y + Dropdown.AbsoluteSize.Y)
-		DropdownList.Size = UDim2.new(0, 380, 0, 0)  -- Start with height of 0, visible set to false
+		DropdownList.Size = UDim2.new(1, 0, 0, 0)  -- Full width of the parent, height initially set to 0
 		DropdownList.Visible = false
 		DropdownList.ZIndex = 10
 
@@ -1137,16 +1137,6 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		ListLayout.Padding = UDim.new(0, 5)
 
-		local function closeDropdownList()
-			DropdownList.Visible = false
-			Icon.Image = "rbxassetid://6031091000" -- Closed state icon
-
-			for _, child in ipairs(tab:GetChildren()) do
-				if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
-					child.Visible = true
-				end
-			end
-		end
 
 		for _, optionText in ipairs(options) do
 			local OptionButton = Instance.new("TextButton")
@@ -1161,7 +1151,14 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 			OptionButton.MouseButton1Click:Connect(function()
 				callback(optionText)
 				Dropdown.Text = optionText
-				closeDropdownList()
+				DropdownList.Visible = false
+				Icon.Image = "rbxassetid://6031091000" -- Closed state icon
+
+				for _, child in ipairs(tab:GetChildren()) do
+					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
+						child.Visible = true
+					end
+				end
 			end)
 		end
 
@@ -1177,9 +1174,13 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 				end
 
 				DropdownList.Position = UDim2.new(0, 0, 0, Dropdown.AbsolutePosition.Y + Dropdown.AbsoluteSize.Y)
-				DropdownList.Size = UDim2.new(0, 380, 0, (#options * 30) + (#options - 1) * 5) -- Adjust height based on options count and padding
+				DropdownList.Size = UDim2.new(0, 380, 0, (#options * 30) + ((#options - 1) * 5)) -- Adjust height based on options count and padding
 			else
-				closeDropdownList()
+				for _, child in ipairs(tab:GetChildren()) do
+					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
+						child.Visible = true
+					end
+				end
 			end
 		end)
 
