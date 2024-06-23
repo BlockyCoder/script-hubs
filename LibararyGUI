@@ -770,7 +770,6 @@ function Library:Create(xHubName)
 		Label.TextSize = 14
 		Label.TextXAlignment = Enum.TextXAlignment.Left
 		Label.TextYAlignment = Enum.TextYAlignment.Center
-		Label.Padding = UDim.new(0, 10)
 
 		-- Adding rounded corners
 		local UICorner = Instance.new("UICorner")
