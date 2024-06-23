@@ -65,7 +65,6 @@ local TabLayout = Instance.new("UIListLayout")
 local UIAspectRatioConstraint_11 = Instance.new("UIAspectRatioConstraint")
 local UICorner_3 = Instance.new("UICorner")
 local Tabs = Instance.new("Folder")
-local ScrollingFrame = Instance.new("ScrollingFrame")
 local UIListLayout = Instance.new("UIListLayout")
 local UIAspectRatioConstraint_12 = Instance.new("UIAspectRatioConstraint")
 local ImageButtonK = Instance.new("ImageButton")
@@ -331,21 +330,7 @@ UICorner_3.Parent = Tabholder
 Tabs.Name = "Tabs"
 Tabs.Parent = Tabholder
 
-ScrollingFrame.Parent = Tabs
-ScrollingFrame.Active = true
-ScrollingFrame.BackgroundColor3 = Color3.fromRGB(0, 35, 35)
-ScrollingFrame.BackgroundTransparency = 1.000
-ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ScrollingFrame.BorderSizePixel = 0
-ScrollingFrame.Size = UDim2.new(1.01563776, 0, 1, 0)
-ScrollingFrame.ScrollBarThickness = 8
 
-UIListLayout.Parent = ScrollingFrame
-UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout.Padding = UDim.new(0, 5)
-
-UIAspectRatioConstraint_12.Parent = ScrollingFrame
-UIAspectRatioConstraint_12.AspectRatio = 1.186
 
 ImageButtonK.Name = "ImageButtonK"
 ImageButtonK.Parent = ScreenScript
@@ -555,7 +540,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		local TabButton = Instance.new("TextButton")
 		TabButton.Parent = ActualSide
 		TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TabButton.Size = UDim2.new(0, 200, 0, 30)
+		TabButton.Size = UDim2.new(1, 0, 0, 30) -- Change the width to 100% of the parent's width
 		TabButton.Font = Enum.Font.Gotham
 		TabButton.Text = tabName
 		TabButton.TextColor3 = Color3.fromRGB(193, 193, 193)
@@ -567,22 +552,23 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 
 		-- Create TabFrame
 		local TabFrame = Instance.new("ScrollingFrame")
-		TabFrame.Name = tabName .. "_Frame"
 		TabFrame.Parent = Tabs
-		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		TabFrame.Active = true
+		TabFrame.BackgroundColor3 = Color3.fromRGB(0, 35, 35)
+		TabFrame.BackgroundTransparency = 1.000
+		TabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		TabFrame.BorderSizePixel = 0
-		TabFrame.Size = UDim2.new(1, 0, 1, 0)  -- Full size to fill the parent
-		TabFrame.Visible = false  -- Initially hide all tab frames
+		TabFrame.Size = UDim2.new(1.01563776, 0, 1, 0)
 		TabFrame.ScrollBarThickness = 8
-		TabFrame.CanvasSize = UDim2.new(0, 0, 2, 0)  -- Adjust this based on content
-		TabFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y  -- Automatically adjust canvas size based on content
-		TabFrame.ScrollBarImageColor3 = Color3.fromRGB(193, 193, 193)
+		
+		
+		UIListLayout.Parent = TabFrame
+		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		UIListLayout.Padding = UDim.new(0, 5)
 
-		local TabFLayout = Instance.new("UIListLayout")
-		TabFLayout.Name = "TabLayout"
-		TabFLayout.Parent = TabFrame
-		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		TabFLayout.Padding = UDim.new(0, 5)
+		UIAspectRatioConstraint_12.Parent = TabFrame
+		UIAspectRatioConstraint_12.AspectRatio = 1.186
+		
 
 		-- Handle tab button click to show corresponding tab frame with animation
 		local function activateTab()
@@ -624,7 +610,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		local Button = Instance.new("TextButton")
 		Button.Parent = tab
 		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Button.Size = UDim2.new(0, 315, 0, 31)
+		Button.Size = UDim2.new(1, 0, 0, 31)  -- Adjusted width to 100% of parent's width
 		Button.AutoButtonColor = false
 		Button.Text = ""
 
@@ -636,7 +622,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		TextLabel.Parent = Button
 		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.Size = UDim2.new(0, 194, 0, 31)
+		TextLabel.Size = UDim2.new(1, -34, 1, 0)  -- Adjusted width to fill the button width minus the icon width
 		TextLabel.Position = UDim2.new(0, 10, 0, 0)  -- Adjusted position to the left
 		TextLabel.Font = Enum.Font.GothamMedium
 		TextLabel.Text = buttonName
@@ -668,9 +654,11 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)  -- Reset color
 		end)
 
+
 		return Button
 	end
-
+	
+	
 	function Library:KeySystem(parent, Name, Key, callback)
 		-- Define your key-value pairs here (this can be stored in a database or a table)
 		local keyTable = {
@@ -735,7 +723,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		local Toggle = Instance.new("TextButton")
 		Toggle.Parent = tab
 		Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Toggle.Size = UDim2.new(0, 315, 0, 36)
+		Toggle.Size = UDim2.new(1, 0, 0, 36)  -- Adjusted width to 100% of parent's width
 		Toggle.AutoButtonColor = false
 		Toggle.Text = ""
 
@@ -747,7 +735,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		TextLabel.Parent = Toggle
 		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.Size = UDim2.new(0, 283, 0, 36)
+		TextLabel.Size = UDim2.new(1, -40, 1, 0)  -- Adjusted width to fill the button width minus the size of the toggle background
 		TextLabel.Position = UDim2.new(0, 10, 0, 0)
 		TextLabel.Font = Enum.Font.GothamMedium
 		TextLabel.Text = toggleName
@@ -758,7 +746,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		local ToggleBckg = Instance.new("Frame")
 		ToggleBckg.Parent = Toggle
 		ToggleBckg.BackgroundColor3 = Color3.fromRGB(88, 88, 88)
-		ToggleBckg.Position = UDim2.new(0.9, 0, 0.1, 0)
+		ToggleBckg.Position = UDim2.new(1, -35, 0.5, -12)  -- Adjusted position to the right
 		ToggleBckg.Size = UDim2.new(0, 25, 0, 25)
 
 		local UICorner_2 = Instance.new("UICorner")
@@ -786,6 +774,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 			callback(ToggleEnabled)
 		end)
 
+
 		return Toggle
 	end
 
@@ -808,7 +797,6 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		Label.TextSize = 14
 		Label.TextXAlignment = Enum.TextXAlignment.Left
 		Label.TextYAlignment = Enum.TextYAlignment.Center
-		Label.Padding = UDim.new(0, 10)
 
 		-- Adding rounded corners
 		local UICorner = Instance.new("UICorner")
@@ -849,7 +837,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		local TextBoxFrame = Instance.new("Frame")
 		TextBoxFrame.Parent = parent
 		TextBoxFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-		TextBoxFrame.Size = UDim2.new(0, 300, 0, 50)  -- Adjusted size to be wider
+		TextBoxFrame.Size = UDim2.new(1, 0, 0, 50)  -- Adjusted width to 100% of parent's width
 		TextBoxFrame.Position = UDim2.new(0.5, -150, 0.5, -25)  -- Centered in parent
 		TextBoxFrame.BorderSizePixel = 0
 
@@ -906,9 +894,17 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		UIPadding.PaddingRight = UDim.new(0, 10)
 		UIPadding.Parent = TextBox
 
+		-- Update text callback function
 		local function UpdateText()
 			callback(TextBox.Text)
 		end
+
+		-- Connect text changed event
+		TextBox.Changed:Connect(function(property)
+			if property == "Text" then
+				UpdateText()
+			end
+		end)
 
 		TextBox.FocusLost:Connect(UpdateText)
 
@@ -996,7 +992,8 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		local SliderFrame = Instance.new("Frame")
 		SliderFrame.Parent = parent
 		SliderFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		SliderFrame.Size = UDim2.new(0, 315, 0, 60)
+		SliderFrame.Size = UDim2.new(1, 0, 0, 60)  -- Adjusted width to 100% of parent's width
+		SliderFrame.BorderSizePixel = 0
 
 		local UICorner = Instance.new("UICorner")
 		UICorner.CornerRadius = UDim.new(0, 5)
@@ -1088,6 +1085,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 			end
 		end)
 
+
 		return SliderFrame
 	end
 
@@ -1126,7 +1124,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		DropdownList.Parent = tab
 		DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		DropdownList.Position = UDim2.new(0, 0, 0, Dropdown.AbsolutePosition.Y + Dropdown.AbsoluteSize.Y)
-		DropdownList.Size = UDim2.new(0, 380, 0, 0)
+		DropdownList.Size = UDim2.new(0, 380, 0, 0)  -- Start with height of 0, visible set to false
 		DropdownList.Visible = false
 		DropdownList.ZIndex = 10
 
@@ -1138,6 +1136,17 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 		ListLayout.Parent = DropdownList
 		ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		ListLayout.Padding = UDim.new(0, 5)
+
+		local function closeDropdownList()
+			DropdownList.Visible = false
+			Icon.Image = "rbxassetid://6031091000" -- Closed state icon
+
+			for _, child in ipairs(tab:GetChildren()) do
+				if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
+					child.Visible = true
+				end
+			end
+		end
 
 		for _, optionText in ipairs(options) do
 			local OptionButton = Instance.new("TextButton")
@@ -1152,14 +1161,7 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 			OptionButton.MouseButton1Click:Connect(function()
 				callback(optionText)
 				Dropdown.Text = optionText
-				DropdownList.Visible = false
-				Icon.Image = "rbxassetid://6031091000" -- Closed state icon
-
-				for _, child in ipairs(tab:GetChildren()) do
-					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
-						child.Visible = true
-					end
-				end
+				closeDropdownList()
 			end)
 		end
 
@@ -1175,15 +1177,12 @@ UIAspectRatioConstraint_14.Parent = ScreenScript
 				end
 
 				DropdownList.Position = UDim2.new(0, 0, 0, Dropdown.AbsolutePosition.Y + Dropdown.AbsoluteSize.Y)
-				DropdownList.Size = UDim2.new(0, 380, 0, (#options * 30) + ((#options - 1) * 5)) -- Adjust height based on options count and padding
+				DropdownList.Size = UDim2.new(0, 380, 0, (#options * 30) + (#options - 1) * 5) -- Adjust height based on options count and padding
 			else
-				for _, child in ipairs(tab:GetChildren()) do
-					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "DropdownList" then
-						child.Visible = true
-					end
-				end
+				closeDropdownList()
 			end
 		end)
+
 
 		return Dropdown
 	end
