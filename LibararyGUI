@@ -3,13 +3,36 @@ local Library = {}
 local Utility = {}
 local Objects = {}
 
+local tweeninfo = TweenInfo.new
+local input = game:GetService("UserInputService")
+
 function Library:Create(xHubName)
 
 
 	xHubName = xHubName or "Epic-Hub"
+	
+	local SettingsT = {
 
+	}
+
+	local Name = "EPIC-HUB.JSON"
+
+	pcall(function()
+
+		if not pcall(function() readfile(Name) end) then
+			writefile(Name, game:service'HttpService':JSONEncode(SettingsT))
+		end
+
+		Settings = game:service'HttpService':JSONEncode(readfile(Name))
+	end)
+	
 	local LibraryName = tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000)) .. tostring(math.random(100000, 200000))
-
+	
+	if game.CoreGui:FindFirstChild(LibraryName) then
+		game.CoreGui[LibraryName]:Destroy()
+	end
+	
+	
 	function Library:ToggleUI()
 		if game.CoreGui[LibraryName].Enabled then
 			game.CoreGui[LibraryName].Enabled = false
@@ -17,7 +40,9 @@ function Library:Create(xHubName)
 			game.CoreGui[LibraryName].Enabled = true
 		end
 	end
-
+	
+	
+	
 	local TweenService = game:GetService("TweenService")
 
 	-- Function to animate opacity (fade in)
@@ -410,49 +435,51 @@ function Library:Create(xHubName)
 
 
 	-- Added Library:Drag function
-function Kavo:DraggingEnabled(frame, parent)
-        
-    parent = parent or frame
-    
-    -- stolen from wally or kiriot, kek
-    local dragging = false
-    local dragInput, mousePos, framePos
+	function Library:DraggingEnabled(frame, parent)
 
-    frame.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = true
-            mousePos = input.Position
-            framePos = parent.Position
-            
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
-                    dragging = false
-                end
-            end)
-        end
-    end)
+		parent = parent or frame
 
-    frame.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement then
-            dragInput = input
-        end
-    end)
+		-- stolen from wally or kiriot, kek
+		local dragging = false
+		local dragInput, mousePos, framePos
 
-    input.InputChanged:Connect(function(input)
-        if input == dragInput and dragging then
-            local delta = input.Position - mousePos
-            parent.Position  = UDim2.new(framePos.X.Scale, framePos.X.Offset + delta.X, framePos.Y.Scale, framePos.Y.Offset + delta.Y)
-        end
-    end)
-end
+		frame.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				dragging = true
+				mousePos = input.Position
+				framePos = parent.Position
 
-function Utility:TweenObject(obj, properties, duration, ...)
-    tween:Create(obj, tweeninfo(duration, ...), properties):Play()
-end
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end)
+			end
+		end)
+
+		frame.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement then
+				dragInput = input
+			end
+		end)
+
+		input.InputChanged:Connect(function(input)
+			if input == dragInput and dragging then
+				local delta = input.Position - mousePos
+				parent.Position  = UDim2.new(framePos.X.Scale, framePos.X.Offset + delta.X, framePos.Y.Scale, framePos.Y.Offset + delta.Y)
+			end
+		end)
+	end
+
+	function Utility:TweenObject(obj, properties, duration, ...)
+		TweenService:Create(obj, tweeninfo(duration, ...), properties):Play()
+	end
 
 
-	Library:Drag(Main, Headerframe)
+	Library:DraggingEnabled(Main, Headerframe)
 	--notifcation
+	
+	
 	function Library:Newnotify(Text, Description, Length)
 		local ScreenGuiM = Instance.new("ScreenGui")
 		local Frame = Instance.new("Frame")
@@ -695,7 +722,8 @@ end
 
 	function Library:CreateToggle(tab, toggleName, callback)
 		callback = callback or function() end
-
+		table.insert(SettingsT, toggleName)
+		
 		local Toggle = Instance.new("TextButton")
 		Toggle.Parent = tab
 		Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
