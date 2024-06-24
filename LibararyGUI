@@ -95,7 +95,19 @@ function Library:Create(xHubName)
 	ScreenScript.Parent = game.CoreGui
 	ScreenScript.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	ScreenScript.ResetOnSpawn = false
+	
 
+	local blurFrame = Instance.new("Frame")
+	blurFrame.Name = "blurFrame"
+	blurFrame.Parent = Tabholder
+	blurFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	blurFrame.BackgroundTransparency = 1
+	blurFrame.BorderSizePixel = 0
+	blurFrame.Position = UDim2.new(-0.0222222228, 0, -0.0371747203, 0)
+	blurFrame.Size = UDim2.new(0, 376, 0, 289)
+	blurFrame.ZIndex = 999
+	
+	
 	-- Loading Frame setup
 	LoadingFrame.Name = "LoadingFrame"
 	LoadingFrame.Parent = ScreenScript
