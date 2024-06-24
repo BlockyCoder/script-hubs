@@ -476,7 +476,7 @@ function Library:Create(xHubName)
 	end
 
 
-	Library:DraggingEnabled(Main, Headerframe)
+	Library:DraggingEnabled(Main)
 	--notifcation
 	
 	
