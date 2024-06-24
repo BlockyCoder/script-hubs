@@ -326,7 +326,7 @@ function Library:Create(xHubName)
 	Tabholder.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Tabholder.BorderSizePixel = 0
 	Tabholder.Position = UDim2.new(0.375238091, 0, 0.119496852, 0)
-	Tabholder.Size = UDim2.new(0, 327, 0, 280)
+	Tabholder.Size = UDim2.new(0, 360, 0, 269)
 	Tabholder.ZIndex = 2
 
 
