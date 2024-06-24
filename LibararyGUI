@@ -1,5 +1,7 @@
 local Library = {}
 
+local Utility = {}
+local Objects = {}
 
 function Library:Create(xHubName)
 
@@ -93,12 +95,12 @@ function Library:Create(xHubName)
 	LoadingSound.Parent = ScreenScript
 	LoadingSound.Volume = 1
 	LoadingSound.SoundId = "rbxassetid://253277644"  -- Replace with your sound asset ID
-	
+
 	local UIScale = Instance.new("UIScale")
 	UIScale.Parent = LoadingFrame  -- Example of applying UIScale to Main frame
 	UIScale.Scale = 0.9  -- Adjust the scale factor as needed
-	
-	
+
+
 	-- Main Frame setup
 	Main.Name = "Main"
 	Main.Parent = ScreenScript
@@ -109,21 +111,21 @@ function Library:Create(xHubName)
 	Main.Size = UDim2.new(0, 525, 0, 318)
 	Main.ZIndex = 1
 	Main.Visible = false
-	
+
 	local UIScale2 = Instance.new("UIScale")
 	UIScale2.Parent = Main  -- Example of applying UIScale to Main frame
 	UIScale2.Scale = 0.9  -- Adjust the scale factor as needed
-	
-	
-	
+
+
+
 	-- Shadow Holder Frame setup
 	ShadowHolder.Name = "ShadowHolder"
 	ShadowHolder.Parent = Main
 	ShadowHolder.BackgroundTransparency = 1.000
 	ShadowHolder.Size = UDim2.new(1, 0, 1, 0)
 	ShadowHolder.ZIndex = 0
-	
-	
+
+
 	-- Umbra Shadow setup
 	UmbraShadow.Name = "UmbraShadow"
 	UmbraShadow.Parent = ShadowHolder
@@ -170,7 +172,7 @@ function Library:Create(xHubName)
 	Headerframe.Name = "Headerframe"
 	Headerframe.Parent = Main
 	Headerframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Objects[MainHeader] = "BackgroundColor3"
+	Objects[Headerframe] = "BackgroundColor3"
 	Headerframe.BackgroundTransparency = 1.000
 	Headerframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Headerframe.BorderSizePixel = 0
@@ -540,13 +542,13 @@ Objects[MainHeader] = "BackgroundColor3"
 		TabFLayout.Parent = TabFrame
 		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		TabFLayout.Padding = UDim.new(0, 5)
-		
-		
+
+
 		local UIScale3 = Instance.new("UIScale")
 		UIScale3.Parent = TabFrame  -- Example of applying UIScale to Main frame
 		UIScale3.Scale = 0.9  -- Adjust the scale factor as needed
-		
-		
+
+
 		-- Handle tab button click to show corresponding tab frame with animation
 		local function activateTab()
 			-- Hide all tab frames
