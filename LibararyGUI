@@ -1189,11 +1189,6 @@ function Library:Create(xHubName)
 		return Dropdown
 	end
 
-if ImageButtonK.Visible then
-		Library:Newnotify("Warning!", "The open and close button loaded!", 3)
-	elseif not ImageButtonK.Visible then
-		Library:Newnotify("Warning!", "The open and close button did not load!", 3)
-	end
 
 
 	return Library
