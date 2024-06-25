@@ -149,9 +149,7 @@ function Library:Create(xHubName)
 	Main.ZIndex = 1
 	Main.Visible = false
 
-	local UIScale2 = Instance.new("UIScale")
-	UIScale2.Parent = Main  -- Example of applying UIScale to Main frame
-	UIScale2.Scale = 0.9  -- Adjust the scale factor as needed
+	
 
 
 
