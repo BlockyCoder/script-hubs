@@ -1096,6 +1096,7 @@ function Library:Create(xHubName)
 function Library:CreateDropdown(tab, dropdownName, options, callback)
     callback = callback or function() end
 
+    -- Create the main dropdown frame
     local DropdownFrame = Instance.new("Frame")
     DropdownFrame.Parent = tab
     DropdownFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -1107,6 +1108,7 @@ function Library:CreateDropdown(tab, dropdownName, options, callback)
     UICornerFrame.CornerRadius = UDim.new(0, 5)
     UICornerFrame.Parent = DropdownFrame
 
+    -- Create the dropdown button
     local Dropdown = Instance.new("TextButton")
     Dropdown.Parent = DropdownFrame
     Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -1131,6 +1133,7 @@ function Library:CreateDropdown(tab, dropdownName, options, callback)
     Icon.Image = "rbxassetid://6031091000" -- Closed state icon
     Icon.ScaleType = Enum.ScaleType.Fit
 
+    -- Create the dropdown list
     local DropdownList = Instance.new("Frame")
     DropdownList.Name = "DropdownList"
     DropdownList.Parent = DropdownFrame
@@ -1183,7 +1186,6 @@ function Library:CreateDropdown(tab, dropdownName, options, callback)
 
     return Dropdown
 end
-
 
 
 	return Library
