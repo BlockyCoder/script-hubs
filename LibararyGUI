@@ -491,186 +491,207 @@ function Library:Create(xHubName)
 	
 	
 	function Library:Newnotify(Text, Description, Length)
-		local ScreenGuiM = Instance.new("ScreenGui")
-		local Frame = Instance.new("Frame")
-		local TextLabel = Instance.new("TextLabel")
-		local TextLabel_2 = Instance.new("TextLabel")
+    local ScreenGuiM = Instance.new("ScreenGui")
+    local Frame = Instance.new("Frame")
+    local TextLabel = Instance.new("TextLabel")
+    local TextLabel_2 = Instance.new("TextLabel")
 
-		--Properties:
+    -- Properties:
+    ScreenGuiM.Name = "Notify"
+    ScreenGuiM.Parent = game.CoreGui
+    ScreenGuiM.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    ScreenGuiM.ResetOnSpawn = false
 
-		ScreenGuiM.Parent = game.CoreGui
-		ScreenGuiM.Name = "Notify"
-		ScreenGuiM.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-		ScreenGuiM.ResetOnSpawn = false
+    Frame.Parent = ScreenGuiM
+    Frame.BackgroundColor3 = Color3.fromRGB(43, 43, 43)
+    Frame.BorderColor3 = Color3.fromRGB(255, 255, 255)
+    Frame.BorderSizePixel = 4
+    Frame.Position = UDim2.new(1, -293, 0.748, 0)  -- Start off-screen
+    Frame.Size = UDim2.new(0, 293, 0, 103)
 
-		Frame.Parent = ScreenGuiM
-		Frame.BackgroundColor3 = Color3.fromRGB(43, 43, 43)
-		Frame.BorderColor3 = Color3.fromRGB(255, 255, 255)
-		Frame.BorderSizePixel = 4
-		Frame.Position = UDim2.new(0.801588178, 0, 0.748129725, 0)
-		Frame.Size = UDim2.new(0, 293, 0, 103)
+    TextLabel.Parent = Frame
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.Position = UDim2.new(0.194, 0, 0.412, 0)
+    TextLabel.Size = UDim2.new(0, 200, 0, 50)
+    TextLabel.Font = Enum.Font.SourceSans
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 24
+    TextLabel.Text = Description
+    TextLabel.TextStrokeColor3 = Color3.fromRGB(129, 129, 129)
+    TextLabel.TextStrokeTransparency = 0.3
+    TextLabel.TextWrapped = true
 
-		TextLabel.Parent = Frame
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.Position = UDim2.new(0.194539249, 0, 0.411764711, 0)
-		TextLabel.Size = UDim2.new(0, 200, 0, 50)
-		TextLabel.Font = Enum.Font.SourceSans
-		TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.TextSize = 24.000
-		TextLabel.Text = Description
-		TextLabel.TextStrokeColor3 = Color3.fromRGB(129, 129, 129)
-		TextLabel.TextStrokeTransparency = 3.000
-		TextLabel.TextWrapped = true
+    TextLabel_2.Parent = Frame
+    TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_2.BackgroundTransparency = 1.000
+    TextLabel_2.BorderSizePixel = 0
+    TextLabel_2.Position = UDim2.new(0.194, 0, 0, 0)
+    TextLabel_2.Size = UDim2.new(0, 200, 0, 50)
+    TextLabel_2.Font = Enum.Font.SourceSans
+    TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_2.TextSize = 25
+    TextLabel_2.Text = Text
+    TextLabel_2.TextStrokeColor3 = Color3.fromRGB(75, 75, 75)
+    TextLabel_2.TextStrokeTransparency = 0.3
+    TextLabel_2.TextWrapped = true
 
-		TextLabel_2.Parent = Frame
-		TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel_2.BackgroundTransparency = 1.000
-		TextLabel_2.BorderSizePixel = 0
-		TextLabel_2.Position = UDim2.new(0.194539249, 0, 0, 0)
-		TextLabel_2.Size = UDim2.new(0, 200, 0, 50)
-		TextLabel_2.Font = Enum.Font.SourceSans
-		TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel_2.TextSize = 25.000
-		TextLabel_2.Text = Text
-		TextLabel_2.TextStrokeColor3 = Color3.fromRGB(75, 75, 75)
-		TextLabel_2.TextStrokeTransparency = 0.300
-		TextLabel_2.TextWrapped = true
-		local tween = game:GetService("TweenService")
-		tween:Create(Frame, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {Position = UDim2.new(0.802, 0,0.748, 0)}):Play()
-		task.wait(Length)
-		tween:Create(Frame, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {Position = UDim2.new(1, 0,0.794, 0)}):Play()
-		ScreenGuiM:Destroy()     
-	end
+    -- Animation using TweenService
+    local tweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
+    local endPosition = UDim2.new(1, -293, 0.794, 0)
+
+    local tweenIn = game:GetService("TweenService"):Create(Frame, tweenInfo, {Position = UDim2.new(1, -293, 0.748, 0)})
+    tweenIn:Play()
+
+    -- Destroy after specified length
+    task.wait(Length or 3)  -- Default length of 3 seconds
+    local tweenOut = game:GetService("TweenService"):Create(Frame, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {Position = endPosition})
+    tweenOut:Play()
+
+    -- Clean up
+    tweenOut.Completed:Wait()
+    ScreenGuiM:Destroy()
+end
 
 	local LibraryTabs = {}
 
-	function Library:CreateTab(tabName)
-		-- Create TabButton
-		local TabButton = Instance.new("TextButton")
-		TabButton.Parent = ActualSide
-		TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TabButton.Size = UDim2.new(0, 200, 0, 30)
-		TabButton.Font = Enum.Font.Gotham
-		TabButton.Text = tabName
-		TabButton.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TabButton.TextSize = 14
+function Library:CreateTab(tabName)
+    -- Create TabButton
+    local TabButton = Instance.new("TextButton")
+    TabButton.Parent = ActualSide
+    TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    TabButton.Size = UDim2.new(0, 200, 0, 30)
+    TabButton.Font = Enum.Font.Gotham
+    TabButton.Text = tabName
+    TabButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+    TabButton.TextSize = 14
 
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = TabButton
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = TabButton
 
-		-- Create TabFrame
-		local TabFrame = Instance.new("ScrollingFrame")
-		TabFrame.Name = tabName .. "_Frame"
-		TabFrame.Parent = Tabs
-		TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		TabFrame.BorderSizePixel = 0
-		TabFrame.Size = UDim2.new(1, 0, 1, 0)  -- Full size to fill the parent
-		TabFrame.Visible = false  -- Initially hide all tab frames
-		TabFrame.ScrollBarThickness = 8
-		TabFrame.CanvasSize = UDim2.new(0, 0, 2, 0)  -- Adjust this based on content
-		TabFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y  -- Automatically adjust canvas size based on content
-		TabFrame.ScrollBarImageColor3 = Color3.fromRGB(193, 193, 193)
+    -- Create TabFrame
+    local TabFrame = Instance.new("ScrollingFrame")
+    TabFrame.Name = tabName .. "_Frame"
+    TabFrame.Parent = Tabs
+    TabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    TabFrame.BorderSizePixel = 0
+    TabFrame.Size = UDim2.new(1, 0, 1, 0)  -- Full size to fill the parent
+    TabFrame.Visible = false  -- Initially hide all tab frames
+    TabFrame.ScrollBarThickness = 8
+    TabFrame.CanvasSize = UDim2.new(0, 0, 2, 0)  -- Adjust this based on content
+    TabFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y  -- Automatically adjust canvas size based on content
+    TabFrame.ScrollBarImageColor3 = Color3.fromRGB(193, 193, 193)
 
-		local TabFLayout = Instance.new("UIListLayout")
-		TabFLayout.Name = "TabLayout"
-		TabFLayout.Parent = TabFrame
-		TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		TabFLayout.Padding = UDim.new(0, 5)
+    local TabFLayout = Instance.new("UIListLayout")
+    TabFLayout.Name = "TabLayout"
+    TabFLayout.Parent = TabFrame
+    TabFLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    TabFLayout.Padding = UDim.new(0, 5)
+
+    -- Example of applying UIScale to TabFrame
+    local UIScale3 = Instance.new("UIScale")
+    UIScale3.Parent = TabFrame
+    UIScale3.Scale = 0.9  -- Adjust the scale factor as needed
+
+    -- Handle tab button click to show corresponding tab frame with animation
+    local function activateTab()
+        -- Hide all tab frames
+        for _, frame in pairs(Tabs:GetChildren()) do
+            if frame:IsA("ScrollingFrame") then
+                frame.Visible = false
+            end
+        end
+        -- Reset text color for all tab buttons
+        for _, button in pairs(ActualSide:GetChildren()) do
+            if button:IsA("TextButton") then
+                button.TextColor3 = Color3.fromRGB(193, 193, 193)
+            end
+        end
+
+        -- Show the clicked tab frame and update button text color
+        TabFrame.Visible = true
+        TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    end
+
+    -- Connect button click to activation function
+    TabButton.MouseButton1Click:Connect(activateTab)
+
+    -- Hover effects for TabButton
+    local function animateButton(color)
+        TabButton.BackgroundColor3 = color
+    end
+
+    TabButton.MouseEnter:Connect(function()
+        animateButton(Color3.fromRGB(50, 50, 50))
+    end)
+
+    TabButton.MouseLeave:Connect(function()
+        animateButton(Color3.fromRGB(35, 35, 35))
+    end)
+
+    return TabFrame
+end
 
 
-		local UIScale3 = Instance.new("UIScale")
-		UIScale3.Parent = TabFrame  -- Example of applying UIScale to Main frame
-		UIScale3.Scale = 0.9  -- Adjust the scale factor as needed
+function Library:CreateButton(tab, buttonName, callback)
+    callback = callback or function() end
 
+    local Button = Instance.new("TextButton")
+    Button.Parent = tab
+    Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Button.Size = UDim2.new(0, 315, 0, 36)  -- Increased height for better clickability
+    Button.AutoButtonColor = false
+    Button.Text = ""
 
-		-- Handle tab button click to show corresponding tab frame with animation
-		local function activateTab()
-			-- Hide all tab frames
-			for _, frame in pairs(Tabs:GetChildren()) do
-				if frame:IsA("ScrollingFrame") then
-					frame.Visible = false
-				end
-			end
-			-- Reset text color for all tab buttons
-			for _, button in pairs(ActualSide:GetChildren()) do
-				if button:IsA("TextButton") then
-					button.TextColor3 = Color3.fromRGB(193, 193, 193)
-				end
-			end
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = Button
 
-			-- Show the clicked tab frame and update button text color
-			TabFrame.Visible = true
-			TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-		end
+    local TextLabel = Instance.new("TextLabel")
+    TextLabel.Parent = Button
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.Size = UDim2.new(0, 194, 0, 36)  -- Matched button height
+    TextLabel.Position = UDim2.new(0, 10, 0, 0)  -- Adjusted position for left alignment
+    TextLabel.Font = Enum.Font.GothamMedium
+    TextLabel.Text = buttonName
+    TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+    TextLabel.TextSize = 12.000
+    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		-- Connect button click to activation function
-		TabButton.MouseButton1Click:Connect(activateTab)
+    -- Add icon to the button
+    local Icon = Instance.new("ImageLabel")
+    Icon.Parent = Button
+    Icon.BackgroundTransparency = 1.000
+    Icon.Size = UDim2.new(0, 24, 0, 24)
+    Icon.Position = UDim2.new(1, -32, 0.5, -12)  -- Adjusted position for better alignment
+    Icon.Image = "rbxassetid://7734010488"  -- Example asset ID for a gear icon
 
-		-- Hover effects for TabButton
-		TabButton.MouseEnter:Connect(function()
-			TabButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		end)
-		TabButton.MouseLeave:Connect(function()
-			TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		end)
+    -- Button animation
+    local function animateButton(color)
+        Button.BackgroundColor3 = color
+        wait(0.05)
+        Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    end
 
-		return TabFrame
-	end
+    Button.MouseEnter:Connect(function()
+        animateButton(Color3.fromRGB(50, 50, 50))
+    end)
 
-	function Library:CreateButton(tab, buttonName, callback)
-		callback = callback or function() end
+    Button.MouseLeave:Connect(function()
+        animateButton(Color3.fromRGB(35, 35, 35))
+    end)
 
-		local Button = Instance.new("TextButton")
-		Button.Parent = tab
-		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Button.Size = UDim2.new(0, 315, 0, 31)
-		Button.AutoButtonColor = false
-		Button.Text = ""
+    -- Click animation and callback
+    Button.MouseButton1Click:Connect(function()
+        animateButton(Color3.fromRGB(70, 70, 70))
+        callback()
+    end)
 
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Button
+    return Button
+end
 
-		local TextLabel = Instance.new("TextLabel")
-		TextLabel.Parent = Button
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.Size = UDim2.new(0, 194, 0, 31)
-		TextLabel.Position = UDim2.new(0, 10, 0, 0)  -- Adjusted position to the left
-		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = buttonName
-		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TextLabel.TextSize = 12.000
-		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-		-- Add icon to the button
-		local Icon = Instance.new("ImageLabel")
-		Icon.Parent = Button
-		Icon.BackgroundTransparency = 1.000
-		Icon.Size = UDim2.new(0, 24, 0, 24)
-		Icon.Position = UDim2.new(1, -29, 0.5, -12)  -- Adjusted position to the right
-		Icon.Image = "rbxassetid://7734010488"  -- Example asset ID for a gear icon
-
-		-- Button animation
-		Button.MouseEnter:Connect(function()
-			Button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		end)
-		Button.MouseLeave:Connect(function()
-			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		end)
-
-		-- Click animation and callback
-		Button.MouseButton1Click:Connect(function()
-			Button.BackgroundColor3 = Color3.fromRGB(70, 70, 70)  -- Change color on click
-			wait(0.1)  -- Short delay
-			callback()
-			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)  -- Reset color
-		end)
-
-		return Button
-	end
 
 	function Library:KeySystem(parent, Name, Key, callback)
 		-- Define your key-value pairs here (this can be stored in a database or a table)
@@ -731,190 +752,198 @@ function Library:Create(xHubName)
 	end
 
 	function Library:CreateToggle(tab, toggleName, callback)
-		callback = callback or function() end
-		table.insert(SettingsT, toggleName)
-		
-		local Toggle = Instance.new("TextButton")
-		Toggle.Parent = tab
-		Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Toggle.Size = UDim2.new(0, 315, 0, 36)
-		Toggle.AutoButtonColor = false
-		Toggle.Text = ""
+    callback = callback or function() end
+    table.insert(SettingsT, toggleName)
+    
+    local Toggle = Instance.new("TextButton")
+    Toggle.Parent = tab
+    Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Toggle.Size = UDim2.new(0, 315, 0, 36)
+    Toggle.AutoButtonColor = false
+    Toggle.Text = ""
 
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Toggle
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = Toggle
 
-		local TextLabel = Instance.new("TextLabel")
-		TextLabel.Parent = Toggle
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.Size = UDim2.new(0, 283, 0, 36)
-		TextLabel.Position = UDim2.new(0, 10, 0, 0)
-		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = toggleName
-		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TextLabel.TextSize = 12.000
-		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+    local TextLabel = Instance.new("TextLabel")
+    TextLabel.Parent = Toggle
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.Size = UDim2.new(0, 283, 0, 36)
+    TextLabel.Position = UDim2.new(0, 10, 0, 0)
+    TextLabel.Font = Enum.Font.GothamMedium
+    TextLabel.Text = toggleName
+    TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+    TextLabel.TextSize = 12.000
+    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		local ToggleBckg = Instance.new("Frame")
-		ToggleBckg.Parent = Toggle
-		ToggleBckg.BackgroundColor3 = Color3.fromRGB(88, 88, 88)
-		ToggleBckg.Position = UDim2.new(0.9, 0, 0.1, 0)
-		ToggleBckg.Size = UDim2.new(0, 25, 0, 25)
+    local ToggleBckg = Instance.new("Frame")
+    ToggleBckg.Parent = Toggle
+    ToggleBckg.BackgroundColor3 = Color3.fromRGB(88, 88, 88)
+    ToggleBckg.Position = UDim2.new(0.9, 0, 0.1, 0)
+    ToggleBckg.Size = UDim2.new(0, 25, 0, 25)
 
-		local UICorner_2 = Instance.new("UICorner")
-		UICorner_2.CornerRadius = UDim.new(0, 5)
-		UICorner_2.Parent = ToggleBckg
+    local UICorner_2 = Instance.new("UICorner")
+    UICorner_2.CornerRadius = UDim.new(0, 5)
+    UICorner_2.Parent = ToggleBckg
 
-		local Icon = Instance.new("ImageLabel")
-		Icon.Parent = ToggleBckg
-		Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-		Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Icon.BackgroundTransparency = 1.000
-		Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
-		Icon.Size = UDim2.new(0, 20, 0, 20)
-		Icon.Image = "http://www.roblox.com/asset/?id=13319773302"
-		Icon.ImageColor3 = Color3.fromRGB(0, 0, 0)
-		Icon.ImageTransparency = 1.000
+    local Icon = Instance.new("ImageLabel")
+    Icon.Parent = ToggleBckg
+    Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+    Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Icon.BackgroundTransparency = 1.000
+    Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Icon.Size = UDim2.new(0, 20, 0, 20)
+    Icon.Image = "http://www.roblox.com/asset/?id=13319773302"
+    Icon.ImageColor3 = Color3.fromRGB(255, 255, 255)  -- Adjust as needed
+    Icon.ImageTransparency = 1.000
 
-		-- Toggle state and animation
-		local ToggleEnabled = false
+    local UIStroke = Instance.new("UIStroke")
+    UIStroke.Parent = Toggle
+    UIStroke.Color = Color3.fromRGB(0, 0, 0)
+    UIStroke.Thickness = 2
+    UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
-		Toggle.MouseButton1Click:Connect(function()
-			ToggleEnabled = not ToggleEnabled
-			ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(88, 88, 88)
-			Icon.ImageTransparency = ToggleEnabled and 0 or 1
-			callback(ToggleEnabled)
-		end)
+    -- Toggle state and animation
+    local ToggleEnabled = false
 
-		return Toggle
-	end
+    Toggle.MouseButton1Click:Connect(function()
+        ToggleEnabled = not ToggleEnabled
+        ToggleBckg.BackgroundColor3 = ToggleEnabled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(88, 88, 88)
+        Icon.ImageTransparency = ToggleEnabled and 0 or 1
+        callback(ToggleEnabled)
+    end)
+
+    return Toggle
+end
 
 
 
 
-	function Library:Label(parent, text)
-		text = text or "Label name"
+function Library:Label(parent, text)
+    text = text or "Label name"
 
-		local Label = Instance.new("TextLabel")
-		Label.Name = tostring(text) .. "_Label"
-		Label.Parent = parent
-		Label.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-		Label.BorderSizePixel = 0
-		Label.Size = UDim2.new(1, 0, 0, 25)
-		Label.Position = UDim2.new(0, 0, 0, 0)
-		Label.Font = Enum.Font.GothamMedium
-		Label.Text = text
-		Label.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Label.TextSize = 14
-		Label.TextXAlignment = Enum.TextXAlignment.Left
-		Label.TextYAlignment = Enum.TextYAlignment.Center
+    local Label = Instance.new("TextLabel")
+    Label.Name = tostring(text) .. "_Label"
+    Label.Parent = parent
+    Label.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    Label.BorderSizePixel = 0
+    Label.Size = UDim2.new(1, 0, 0, 25)
+    Label.Position = UDim2.new(0, 0, 0, 0)
+    Label.Font = Enum.Font.GothamMedium
+    Label.Text = text
+    Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Label.TextSize = 14
+    Label.TextXAlignment = Enum.TextXAlignment.Left
+    Label.TextYAlignment = Enum.TextYAlignment.Center
 
-		-- Adding rounded corners
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Label
+    -- Adding rounded corners
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = Label
 
-		-- Adding padding
-		local UIPadding = Instance.new("UIPadding")
-		UIPadding.PaddingLeft = UDim.new(0, 10)
-		UIPadding.Parent = Label
+    -- Adding padding
+    local UIPadding = Instance.new("UIPadding")
+    UIPadding.PaddingLeft = UDim.new(0, 10)
+    UIPadding.Parent = Label
 
-		-- Adding a shadow effect
-		local Shadow = Instance.new("ImageLabel")
-		Shadow.Name = "Shadow"
-		Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
-		Shadow.BackgroundTransparency = 1
-		Shadow.BorderSizePixel = 0
-		Shadow.Position = UDim2.new(0.5, 0, 0.5, 4)
-		Shadow.Size = UDim2.new(1, 8, 1, 8)
-		Shadow.Image = "rbxassetid://1316045217"
-		Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-		Shadow.ImageTransparency = 0.7
-		Shadow.Parent = Label
+    -- Adding a shadow effect
+    local Shadow = Instance.new("ImageLabel")
+    Shadow.Name = "Shadow"
+    Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    Shadow.BackgroundTransparency = 1
+    Shadow.BorderSizePixel = 0
+    Shadow.Position = UDim2.new(0.5, 0, 0.5, 4)
+    Shadow.Size = UDim2.new(1, 8, 1, 8)
+    Shadow.Image = "rbxassetid://1316045217"  -- Replace with your shadow image asset ID
+    Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    Shadow.ImageTransparency = 0.7
+    Shadow.Parent = Label
 
-		local function UpdateLabel(newText)
-			Label.Text = newText
-			Label.Name = tostring(newText) .. "_Label"
-		end
+    local function UpdateLabel(newText)
+        Label.Text = newText
+        Label.Name = tostring(newText) .. "_Label"
+    end
 
-		return {
-			UpdateLabel = UpdateLabel
-		}
-	end
+    return {
+        UpdateLabel = UpdateLabel
+    }
+end
+
 
 	function Library:TextBox(parent, titleText, defaultValue, callback)
-		callback = callback or function() end
+    callback = callback or function() end
 
-		local TextBoxFrame = Instance.new("Frame")
-		TextBoxFrame.Parent = parent
-		TextBoxFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-		TextBoxFrame.Size = UDim2.new(0, 300, 0, 50)  -- Adjusted size to be wider
-		TextBoxFrame.Position = UDim2.new(0.5, -150, 0.5, -25)  -- Centered in parent
-		TextBoxFrame.BorderSizePixel = 0
+    local TextBoxFrame = Instance.new("Frame")
+    TextBoxFrame.Parent = parent
+    TextBoxFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    TextBoxFrame.Size = UDim2.new(0, 300, 0, 50)  -- Adjusted size to be wider
+    TextBoxFrame.Position = UDim2.new(0.5, -150, 0.5, -25)  -- Centered in parent
+    TextBoxFrame.BorderSizePixel = 0
 
-		-- Adding rounded corners to the frame
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = TextBoxFrame
+    -- Adding rounded corners to the frame
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = TextBoxFrame
 
-		-- Adding a shadow effect to the frame
-		local Shadow = Instance.new("ImageLabel")
-		Shadow.Name = "Shadow"
-		Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
-		Shadow.BackgroundTransparency = 1
-		Shadow.BorderSizePixel = 0
-		Shadow.Position = UDim2.new(0.5, 0, 0.5, 4)
-		Shadow.Size = UDim2.new(1, 8, 1, 8)
-		Shadow.Image = "rbxassetid://1316045217"
-		Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-		Shadow.ImageTransparency = 0.7
-		Shadow.Parent = TextBoxFrame
+    -- Adding a shadow effect to the frame
+    local Shadow = Instance.new("ImageLabel")
+    Shadow.Name = "Shadow"
+    Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    Shadow.BackgroundTransparency = 1
+    Shadow.BorderSizePixel = 0
+    Shadow.Position = UDim2.new(0.5, 0, 0.5, 4)
+    Shadow.Size = UDim2.new(1, 8, 1, 8)
+    Shadow.Image = "rbxassetid://1316045217"
+    Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    Shadow.ImageTransparency = 0.7
+    Shadow.Parent = TextBoxFrame
 
-		local TitleLabel = Instance.new("TextLabel")
-		TitleLabel.Parent = TextBoxFrame
-		TitleLabel.Text = titleText
-		TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-		TitleLabel.TextSize = 14
-		TitleLabel.Font = Enum.Font.GothamMedium
-		TitleLabel.Size = UDim2.new(1, -20, 0, 20)
-		TitleLabel.Position = UDim2.new(0, 10, 0, 5)
-		TitleLabel.BackgroundTransparency = 1
-		TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    local TitleLabel = Instance.new("TextLabel")
+    TitleLabel.Parent = TextBoxFrame
+    TitleLabel.Text = titleText
+    TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TitleLabel.TextSize = 14
+    TitleLabel.Font = Enum.Font.GothamMedium
+    TitleLabel.Size = UDim2.new(1, -20, 0, 20)
+    TitleLabel.Position = UDim2.new(0, 10, 0, 5)
+    TitleLabel.BackgroundTransparency = 1
+    TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		local TextBox = Instance.new("TextBox")
-		TextBox.Parent = TextBoxFrame
-		TextBox.Text = defaultValue or ""
-		TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-		TextBox.PlaceholderText = "Enter text..."
-		TextBox.Size = UDim2.new(1, -20, 0, 20)
-		TextBox.Position = UDim2.new(0, 10, 0, 25)
-		TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		TextBox.BorderSizePixel = 0
-		TextBox.ClearTextOnFocus = false
-		TextBox.Font = Enum.Font.Gotham
-		TextBox.TextSize = 14
+    local TextBox = Instance.new("TextBox")
+    TextBox.Parent = TextBoxFrame
+    TextBox.Text = defaultValue or ""
+    TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextBox.PlaceholderText = "Enter text..."
+    TextBox.Size = UDim2.new(1, -20, 0, 20)
+    TextBox.Position = UDim2.new(0, 10, 0, 25)
+    TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    TextBox.BorderSizePixel = 0
+    TextBox.ClearTextOnFocus = false
+    TextBox.Font = Enum.Font.Gotham
+    TextBox.TextSize = 14
 
-		-- Adding rounded corners to the TextBox
-		local TextBoxUICorner = Instance.new("UICorner")
-		TextBoxUICorner.CornerRadius = UDim.new(0, 5)
-		TextBoxUICorner.Parent = TextBox
+    -- Adding rounded corners to the TextBox
+    local TextBoxUICorner = Instance.new("UICorner")
+    TextBoxUICorner.CornerRadius = UDim.new(0, 5)
+    TextBoxUICorner.Parent = TextBox
 
-		-- Adding padding inside the TextBox
-		local UIPadding = Instance.new("UIPadding")
-		UIPadding.PaddingLeft = UDim.new(0, 10)
-		UIPadding.PaddingRight = UDim.new(0, 10)
-		UIPadding.Parent = TextBox
+    -- Adding padding inside the TextBox
+    local UIPadding = Instance.new("UIPadding")
+    UIPadding.PaddingLeft = UDim.new(0, 10)
+    UIPadding.PaddingRight = UDim.new(0, 10)
+    UIPadding.Parent = TextBox
 
-		local function UpdateText()
-			callback(TextBox.Text)
-		end
+    local function UpdateText()
+        callback(TextBox.Text)
+    end
 
-		TextBox.FocusLost:Connect(UpdateText)
+    TextBox.FocusLost:Connect(UpdateText)
 
-		return TextBox, UpdateText
-	end
+    return TextBox, UpdateText
+end
+
 
 
 
