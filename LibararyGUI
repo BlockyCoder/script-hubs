@@ -1119,7 +1119,6 @@ function Library:CreateDropdown(tab, dropdownName, options, callback)
     Dropdown.TextSize = 14
     Dropdown.Font = Enum.Font.Gotham
     Dropdown.TextXAlignment = Enum.TextXAlignment.Left
-    Dropdown.ClipsDescendants = true
 
     local UICorner = Instance.new("UICorner")
     UICorner.CornerRadius = UDim.new(0, 5)
@@ -1129,6 +1128,7 @@ function Library:CreateDropdown(tab, dropdownName, options, callback)
     Icon.Parent = Dropdown
     Icon.Size = UDim2.new(0, 24, 0, 24)
     Icon.Position = UDim2.new(1, -30, 0.5, -12)
+    Icon.AnchorPoint = Vector2.new(0.5, 0.5)
     Icon.BackgroundTransparency = 1
     Icon.Image = "rbxassetid://6031091000" -- Closed state icon
     Icon.ScaleType = Enum.ScaleType.Fit
@@ -1136,7 +1136,7 @@ function Library:CreateDropdown(tab, dropdownName, options, callback)
     -- Create the dropdown list
     local DropdownList = Instance.new("Frame")
     DropdownList.Name = "DropdownList"
-    DropdownList.Parent = DropdownFrame
+    DropdownList.Parent = tab
     DropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     DropdownList.BorderSizePixel = 0
     DropdownList.Position = UDim2.new(0, 0, 1, 0)
@@ -1186,6 +1186,7 @@ function Library:CreateDropdown(tab, dropdownName, options, callback)
 
     return Dropdown
 end
+
 
 
 	return Library
