@@ -11,7 +11,7 @@ function Library:Notify(Name, Desc, Duration)
 	local UICorner = Instance.new("UICorner")
 
 	-- Set properties for GUI elements
-	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	ScreenGui.Parent = game.CoreGui
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	Main.Name = "Main"
@@ -118,7 +118,7 @@ function Library:KeyS(KName, validKey, Link, dislink, callback, whitelist)
 	--Properties:
 
 	KeySystem.Name = "Key System"
-	KeySystem.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	KeySystem.Parent = game.CoreGui
 
 	Frame.Parent = KeySystem
 	Frame.AnchorPoint = Vector2.new(0.5, 0.5)
