@@ -85,6 +85,9 @@ function Library:Notify(Name, Desc, Duration)
 	spawn(removeNotification)
 end
 
+if game.CoreGui:FindFirstChild("KeySystem") then
+    game.CoreGui.KeySystem:Destroy()
+end
 -- Function to handle Key System with advanced features
 function Library:KeyS(KName, validKey, Link, dislink, callback, whitelist)
 	local KeySystem = Instance.new("ScreenGui")
@@ -117,8 +120,8 @@ function Library:KeyS(KName, validKey, Link, dislink, callback, whitelist)
 
 	--Properties:
 
-	KeySystem.Name = "Key System"
 	KeySystem.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	Frame.Parent = KeySystem
 	Frame.AnchorPoint = Vector2.new(0.5, 0.5)
