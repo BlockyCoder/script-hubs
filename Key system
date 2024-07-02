@@ -1,12 +1,94 @@
--- Gui to Lua
--- Version: 3.2
-
 -- Instances:
 local Library = {}
 
-local RayfieldFolder = "Key Epic"
+-- Function to create a notification with tween animation
+function Library:Notify(Name, Desc, Duration)
+	-- Create GUI elements
+	local ScreenGui = Instance.new("ScreenGui")
+	local Main = Instance.new("Frame")
+	local Title = Instance.new("TextLabel")
+	local desc = Instance.new("TextLabel")
+	local UICorner = Instance.new("UICorner")
 
-function Library:KeyS(KName, validKey, Link, callback)
+	-- Set properties for GUI elements
+	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	Main.Name = "Main"
+	Main.Parent = ScreenGui
+	Main.BackgroundColor3 = Color3.fromRGB(23, 23, 25)
+	Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Main.BorderSizePixel = 0
+	Main.Size = UDim2.new(0, 360, 0, 124)
+	Main.Position = UDim2.new(1, -360, 0.789889395, 0) -- Start off-screen
+
+	Title.Name = "Title"
+	Title.Parent = Main
+	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title.BackgroundTransparency = 1.000
+	Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Title.BorderSizePixel = 0
+	Title.Size = UDim2.new(1, 0, 0, 37)
+	Title.Font = Enum.Font.SourceSans
+	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Title.TextScaled = true
+	Title.TextSize = 14.000
+	Title.TextWrapped = true
+	Title.Text = Name -- Set notification title
+
+	desc.Name = "desc"
+	desc.Parent = Main
+	desc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	desc.BackgroundTransparency = 1.000
+	desc.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	desc.BorderSizePixel = 0
+	desc.Size = UDim2.new(1, 0, 0, 70)
+	desc.Position = UDim2.new(0, 0, 0.435483873, 0)
+	desc.Font = Enum.Font.SourceSans
+	desc.TextColor3 = Color3.fromRGB(255, 255, 255)
+	desc.TextScaled = true
+	desc.TextSize = 14.000
+	desc.TextWrapped = true
+	desc.Text = Desc -- Set notification description
+
+	UICorner.CornerRadius = UDim.new(0, 12)
+	UICorner.Parent = Main
+
+	-- Function to animate notification appearance using TweenService
+	local function animateNotification()
+		local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out, 0, false)
+		local goal = {}
+		goal.Position = UDim2.new(0.681170881, 0, 0.789889395, 0)
+
+		local tween = game:GetService("TweenService"):Create(Main, tweenInfo, goal)
+		tween:Play()
+	end
+
+	-- Function to remove the notification after a specified duration
+	local function removeNotification()
+		wait(Duration)
+
+		local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.In, 0, false)
+		local goal = {}
+		goal.Position = UDim2.new(1, 0, 0.789889395, 0)
+
+		local tween = game:GetService("TweenService"):Create(Main, tweenInfo, goal)
+		tween:Play()
+
+		tween.Completed:Connect(function()
+			ScreenGui:Destroy()
+		end)
+	end
+
+	-- Start the animations
+	animateNotification()
+	spawn(removeNotification)
+end
+
+
+
+
+function Library:KeyS(KName, validKey, Link, callback, whitelist)
 	local KeySystem = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
 	local Topbar = Instance.new("Frame")
@@ -36,7 +118,6 @@ function Library:KeyS(KName, validKey, Link, callback)
 	local ambientShadow = Instance.new("ImageLabel")
 
 	--Properties:
-
 	KeySystem.Name = "Key System"
 	KeySystem.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
@@ -169,10 +250,11 @@ function Library:KeyS(KName, validKey, Link, callback)
 	TextLabel_4.BackgroundTransparency = 1.000
 	TextLabel_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	TextLabel_4.BorderSizePixel = 0
-	TextLabel_4.Size = UDim2.new(0, 89, 0, 25)
+	TextLabel_4.Position = UDim2.new(0, 0, 0.119999997, 0)
+	TextLabel_4.Size = UDim2.new(0, 89, 0, 19)
 	TextLabel_4.Font = Enum.Font.Unknown
 	TextLabel_4.Text = "Join Discord"
-	TextLabel_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_4.TextColor3 = Color3.fromRGB(200, 200, 200)
 	TextLabel_4.TextSize = 14.000
 
 	EnterKey.Name = "Enter Key"
@@ -181,9 +263,9 @@ function Library:KeyS(KName, validKey, Link, callback)
 	EnterKey.BackgroundColor3 = Color3.fromRGB(22, 22, 24)
 	EnterKey.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	EnterKey.BorderSizePixel = 0
-	EnterKey.Position = UDim2.new(0.0461532846, 0, 0.487179458, 0)
+	EnterKey.Position = UDim2.new(0.0430763587, 0, 0.43589744, 0)
 	EnterKey.Selectable = false
-	EnterKey.Size = UDim2.new(0, 287, 0, 25)
+	EnterKey.Size = UDim2.new(0, 129, 0, 31)
 	EnterKey.Text = ""
 
 	UICorner_3.CornerRadius = UDim.new(0, 2)
@@ -194,10 +276,10 @@ function Library:KeyS(KName, validKey, Link, callback)
 	TextLabel_5.BackgroundTransparency = 1.000
 	TextLabel_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	TextLabel_5.BorderSizePixel = 0
-	TextLabel_5.Size = UDim2.new(0, 287, 0, 25)
+	TextLabel_5.Size = UDim2.new(0, 129, 0, 31)
 	TextLabel_5.Font = Enum.Font.Unknown
 	TextLabel_5.Text = "Enter Key"
-	TextLabel_5.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_5.TextColor3 = Color3.fromRGB(200, 200, 200)
 	TextLabel_5.TextSize = 14.000
 
 	GetKey.Name = "Get Key"
@@ -206,9 +288,9 @@ function Library:KeyS(KName, validKey, Link, callback)
 	GetKey.BackgroundColor3 = Color3.fromRGB(22, 22, 24)
 	GetKey.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	GetKey.BorderSizePixel = 0
-	GetKey.Position = UDim2.new(0.0461532846, 0, 0.660256386, 0)
+	GetKey.Position = UDim2.new(0.569230795, 0, 0.43589744, 0)
 	GetKey.Selectable = false
-	GetKey.Size = UDim2.new(0, 176, 0, 25)
+	GetKey.Size = UDim2.new(0, 129, 0, 31)
 	GetKey.Text = ""
 
 	UICorner_4.CornerRadius = UDim.new(0, 2)
@@ -219,98 +301,108 @@ function Library:KeyS(KName, validKey, Link, callback)
 	TextLabel_6.BackgroundTransparency = 1.000
 	TextLabel_6.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	TextLabel_6.BorderSizePixel = 0
-	TextLabel_6.Size = UDim2.new(0, 176, 0, 25)
+	TextLabel_6.Size = UDim2.new(0, 129, 0, 31)
 	TextLabel_6.Font = Enum.Font.Unknown
 	TextLabel_6.Text = "Get Key"
-	TextLabel_6.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_6.TextColor3 = Color3.fromRGB(200, 200, 200)
 	TextLabel_6.TextSize = 14.000
 
 	shadowHolder.Name = "shadowHolder"
 	shadowHolder.Parent = KeySystem
+	shadowHolder.AnchorPoint = Vector2.new(0.5, 0.5)
+	shadowHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	shadowHolder.BackgroundTransparency = 1.000
-	shadowHolder.Size = UDim2.new(1, 0, 1, 0)
+	shadowHolder.BorderSizePixel = 0
+	shadowHolder.Position = UDim2.new(0.5, 0, 0.5, 0)
+	shadowHolder.Size = UDim2.new(0, 325, 0, 192)
 
 	umbraShadow.Name = "umbraShadow"
 	umbraShadow.Parent = shadowHolder
 	umbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	umbraShadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	umbraShadow.BackgroundTransparency = 1.000
-	umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 5)
-	umbraShadow.Size = UDim2.new(1, 18, 1, 18)
-	umbraShadow.ZIndex = 0
-	umbraShadow.Image = "rbxassetid://1316045217"
+	umbraShadow.BorderSizePixel = 0
+	umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	umbraShadow.Size = UDim2.new(1, 16, 1, 16)
+	umbraShadow.Image = "rbxassetid://6031509222"
 	umbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	umbraShadow.ImageTransparency = 0.860
+	umbraShadow.ScaleType = Enum.ScaleType.Slice
+	umbraShadow.SliceCenter = Rect.new(24, 24, 216, 216)
 
 	penumbraShadow.Name = "penumbraShadow"
 	penumbraShadow.Parent = shadowHolder
 	penumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	penumbraShadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	penumbraShadow.BackgroundTransparency = 1.000
-	penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 5)
-	penumbraShadow.Size = UDim2.new(1, 18, 1, 18)
-	penumbraShadow.ZIndex = 0
-	penumbraShadow.Image = "rbxassetid://1316045217"
+	penumbraShadow.BorderSizePixel = 0
+	penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	penumbraShadow.Size = UDim2.new(1, 16, 1, 16)
+	penumbraShadow.Image = "rbxassetid://6031509222"
 	penumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	penumbraShadow.ImageTransparency = 0.880
+	penumbraShadow.ImageTransparency = 0.800
+	penumbraShadow.ScaleType = Enum.ScaleType.Slice
+	penumbraShadow.SliceCenter = Rect.new(24, 24, 216, 216)
 
 	ambientShadow.Name = "ambientShadow"
 	ambientShadow.Parent = shadowHolder
 	ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	ambientShadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	ambientShadow.BackgroundTransparency = 1.000
-	ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 5)
-	ambientShadow.Size = UDim2.new(1, 18, 1, 18)
-	ambientShadow.ZIndex = 0
-	ambientShadow.Image = "rbxassetid://1316045217"
-	ambientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	ambientShadow.ImageTransparency = 0.880
+	ambientShadow.BorderSizePixel = 0
+	ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	ambientShadow.Size = UDim2.new(1, 16, 1, 16)
+	ambientShadow.Image = "rbxassetid://6031509222"
+	ambientShadow.ImageTransparency = 1.000
+	ambientShadow.ScaleType = Enum.ScaleType.Slice
+	ambientShadow.SliceCenter = Rect.new(24, 24, 216, 216)
 
-	-- Scripts:
-
-	Close.MouseButton1Click:Connect(function()
-		KeySystem:Destroy()
-	end)
-
-	JoinDiscord.MouseButton1Click:Connect(function()
-		-- Add your logic to open the Discord link
-		if Link then
-			-- This would be handled by the player's browser
-			setclipboard(Link) -- Copies the link to the clipboard so the player can paste it into their browser
-			print("Discord link copied to clipboard.")
-		end
-	end)
-
-	EnterKey.MouseButton1Click:Connect(function()
-		if TextBox.Text == validKey then
-			-- Check if the key folder exists, create if not
-			local keyFolder = RayfieldFolder .. "/Key System"
-			if not isfolder(keyFolder) then
-				makefolder(keyFolder)
-			end
-
-			-- Check if the key file already exists
-			local keyFilePath = keyFolder .. "/" .. validKey .. ".txt"
-			if not isfile(keyFilePath) then
-				-- If not, create it (or handle the logic appropriately)
-				local keyFile = Instance.new("StringValue")
-				keyFile.Name = validKey
-				keyFile.Parent = workspace
-				KeySystem:Destroy()
-				callback(true)
-			end
+	-- Functions:
+	local function ValidateKey(input)
+		-- Check if the input matches the validKey
+		if input == validKey then
+			return true
 		else
-			callback(false)
+			return false
+		end
+	end
+
+	-- Whitelist check function
+	local function IsInWhitelist(player)
+		if whitelist[player.UserId] then
+			return true
+		else
+			return false
+		end
+	end
+
+	-- Event connections:
+	EnterKey.MouseButton1Click:Connect(function()
+		local input = TextBox.Text
+		if input ~= "" then
+			if ValidateKey(input) then
+				callback(true) -- Call the callback function with true for success
+			else
+				-- Handle incorrect key entry
+				-- Example: Display an error message or change TextBox color
+				TextBox.PlaceholderText = "Incorrect Key"
+				TextBox.TextColor3 = Color3.fromRGB(255, 0, 0)
+			end
 		end
 	end)
 
 	GetKey.MouseButton1Click:Connect(function()
-		-- Add your logic to get the key
-		-- Example: redirect to a website to get the key
-		if Link then
-			setclipboard(Link) -- Copies the link to the clipboard so the player can paste it into their browser
-			print("Key link copied to clipboard.")
-		end
+		-- Open a link to get a key, like a Discord invite link
+		game:GetService("GuiService"):OpenBrowserWindow(Link)
+	end)
+
+	JoinDiscord.MouseButton1Click:Connect(function()
+		-- Open a link to join a Discord server
+		game:GetService("GuiService"):OpenBrowserWindow(Link)
+	end)
+
+	Close.MouseButton1Click:Connect(function()
+		KeySystem:Destroy()
 	end)
 end
-
-
 
 return Library
