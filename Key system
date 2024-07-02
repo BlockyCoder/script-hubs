@@ -381,12 +381,14 @@ function Library:KeyS(KName, validKey, Link, dislink, callback, whitelist)
 		if input ~= "" then
 			if ValidateKey(input) then
 				callback(true) -- Call the callback function with true for success
+				KeySystem:Destroy()
 			else
 				-- Handle incorrect key entry
 				-- Example: Display an error message or change TextBox color
 				TextBox.PlaceholderText = "Incorrect Key"
 				TextBox.TextColor3 = Color3.fromRGB(255, 0, 0)
 				wait(1)
+				TextBox.PlaceholderText = "Enter Key"
 				TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 			end
 		end
