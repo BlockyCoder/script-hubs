@@ -4,7 +4,7 @@
 -- Instances:
 local Library = {}
 
-function Library:KeyS(KName, validKeys, Link, discordLink, callback)
+function Library:KeyS(KName, validKey, Link, callback)
 	local KeySystem = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
 	local Topbar = Instance.new("Frame")
@@ -262,78 +262,22 @@ function Library:KeyS(KName, validKeys, Link, discordLink, callback)
 	ambientShadow.ImageTransparency = 0.880
 
 	-- Scripts:
-	
 
-
-	-- Save key to file function
-	local function saveKeyToFile(key)
-		local fileName = "valid_key.txt"
-		local file = io.open(fileName, "w")
-		if file then
-			file:write(key)
-			file:close()
-			print("Key saved to file:", key)
-		else
-			warn("Failed to save key to file.")
-		end
-	end
-
-	-- Read key from file function
-	local function readKeyFromFile()
-		local fileName = "valid_key.txt"
-		local file = io.open(fileName, "r")
-		if file then
-			local key = file:read("*all")
-			file:close()
-			return key
-		else
-			warn("Failed to read key from file.")
-			return nil
-		end
-	end
-	
-	
-	-- Whitelist check function
-	local function isKeyValid(enteredKey)
-		-- Check against validKeys list
-		for _, key in pairs(validKeys) do
-			if enteredKey == key then
-				return true
-			end
-		end
-
-		-- Check against key saved in file
-		local fileKey = readKeyFromFile()
-		if enteredKey == fileKey then
-			return true
-		end
-
-		return false
-	end
-	
-	-- Scripts:
 	Close.MouseButton1Click:Connect(function()
 		KeySystem:Destroy()
 	end)
 
 	JoinDiscord.MouseButton1Click:Connect(function()
 		-- Add your logic to open the Discord link
-		if discordLink then
+		if Link then
 			-- This would be handled by the player's browser
-			setclipboard(discordLink) -- Copies the link to the clipboard so the player can paste it into their browser
+			setclipboard(Link) -- Copies the link to the clipboard so the player can paste it into their browser
 			print("Discord link copied to clipboard.")
 		end
 	end)
 
 	EnterKey.MouseButton1Click:Connect(function()
-		local enteredKey = TextBox.Text
-
-		if isKeyValid(enteredKey) then
-			-- Save key to file (only if enteredKey matches validKeys or fileKey)
-			if not readKeyFromFile() then
-				saveKeyToFile(enteredKey)
-			end
-
+		if TextBox.Text == validKey then
 			KeySystem:Destroy()
 			callback(true)
 		else
@@ -350,5 +294,7 @@ function Library:KeyS(KName, validKeys, Link, discordLink, callback)
 		end
 	end)
 end
+
+
 
 return Library
