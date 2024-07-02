@@ -263,23 +263,7 @@ function Library:KeyS(KName, validKeys, Link, discordLink, callback)
 
 	-- Scripts:
 	
-	-- Whitelist check function
-	local function isKeyValid(enteredKey)
-		-- Check against validKeys list
-		for _, key in pairs(validKeys) do
-			if enteredKey == key then
-				return true
-			end
-		end
 
-		-- Check against key saved in file
-		local fileKey = readKeyFromFile()
-		if enteredKey == fileKey then
-			return true
-		end
-
-		return false
-	end
 
 	-- Save key to file function
 	local function saveKeyToFile(key)
@@ -307,7 +291,26 @@ function Library:KeyS(KName, validKeys, Link, discordLink, callback)
 			return nil
 		end
 	end
+	
+	
+	-- Whitelist check function
+	local function isKeyValid(enteredKey)
+		-- Check against validKeys list
+		for _, key in pairs(validKeys) do
+			if enteredKey == key then
+				return true
+			end
+		end
 
+		-- Check against key saved in file
+		local fileKey = readKeyFromFile()
+		if enteredKey == fileKey then
+			return true
+		end
+
+		return false
+	end
+	
 	-- Scripts:
 	Close.MouseButton1Click:Connect(function()
 		KeySystem:Destroy()
