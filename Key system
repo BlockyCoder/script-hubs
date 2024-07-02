@@ -1,418 +1,339 @@
--- Instances:
 local Library = {}
 
--- Function to create a notification with tween animation
 function Library:Notify(Name, Desc, Duration)
-	-- Create GUI elements
-	local ScreenGui = Instance.new("ScreenGui")
-	local Main = Instance.new("Frame")
-	local Title = Instance.new("TextLabel")
-	local desc = Instance.new("TextLabel")
-	local UICorner = Instance.new("UICorner")
+    local ScreenGui = Instance.new("ScreenGui")
+    local Main = Instance.new("Frame")
+    local Title = Instance.new("TextLabel")
+    local desc = Instance.new("TextLabel")
+    local UICorner = Instance.new("UICorner")
 
-	-- Set properties for GUI elements
-	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-	Main.Name = "Main"
-	Main.Parent = ScreenGui
-	Main.BackgroundColor3 = Color3.fromRGB(23, 23, 25)
-	Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Main.BorderSizePixel = 0
-	Main.Size = UDim2.new(0, 360, 0, 124)
-	Main.Position = UDim2.new(1, -360, 0.789889395, 0) -- Start off-screen
+    Main.Name = "Main"
+    Main.Parent = ScreenGui
+    Main.BackgroundColor3 = Color3.fromRGB(23, 23, 25)
+    Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Main.BorderSizePixel = 0
+    Main.Size = UDim2.new(0, 360, 0, 124)
+    Main.Position = UDim2.new(1, -360, 0.789889395, 0)
 
-	Title.Name = "Title"
-	Title.Parent = Main
-	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Title.BackgroundTransparency = 1.000
-	Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Title.BorderSizePixel = 0
-	Title.Size = UDim2.new(1, 0, 0, 37)
-	Title.Font = Enum.Font.SourceSans
-	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Title.TextScaled = true
-	Title.TextSize = 14.000
-	Title.TextWrapped = true
-	Title.Text = Name -- Set notification title
+    Title.Name = "Title"
+    Title.Parent = Main
+    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Title.BackgroundTransparency = 1.000
+    Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Title.BorderSizePixel = 0
+    Title.Size = UDim2.new(1, 0, 0, 37)
+    Title.Font = Enum.Font.SourceSans
+    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Title.TextScaled = true
+    Title.TextSize = 14.000
+    Title.TextWrapped = true
+    Title.Text = Name
 
-	desc.Name = "desc"
-	desc.Parent = Main
-	desc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	desc.BackgroundTransparency = 1.000
-	desc.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	desc.BorderSizePixel = 0
-	desc.Size = UDim2.new(1, 0, 0, 70)
-	desc.Position = UDim2.new(0, 0, 0.435483873, 0)
-	desc.Font = Enum.Font.SourceSans
-	desc.TextColor3 = Color3.fromRGB(255, 255, 255)
-	desc.TextScaled = true
-	desc.TextSize = 14.000
-	desc.TextWrapped = true
-	desc.Text = Desc -- Set notification description
+    desc.Name = "desc"
+    desc.Parent = Main
+    desc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    desc.BackgroundTransparency = 1.000
+    desc.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    desc.BorderSizePixel = 0
+    desc.Size = UDim2.new(1, 0, 0, 70)
+    desc.Position = UDim2.new(0, 0, 0.435483873, 0)
+    desc.Font = Enum.Font.SourceSans
+    desc.TextColor3 = Color3.fromRGB(255, 255, 255)
+    desc.TextScaled = true
+    desc.TextSize = 14.000
+    desc.TextWrapped = true
+    desc.Text = Desc
 
-	UICorner.CornerRadius = UDim.new(0, 12)
-	UICorner.Parent = Main
+    UICorner.CornerRadius = UDim.new(0, 12)
+    UICorner.Parent = Main
 
-	-- Function to animate notification appearance using TweenService
-	local function animateNotification()
-		local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out, 0, false)
-		local goal = {}
-		goal.Position = UDim2.new(0.681170881, 0, 0.789889395, 0)
+    local function animateNotification()
+        local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out, 0, false)
+        local goal = {
+            Position = UDim2.new(0.681170881, 0, 0.789889395, 0)
+        }
+        local tween = game:GetService("TweenService"):Create(Main, tweenInfo, goal)
+        tween:Play()
+    end
 
-		local tween = game:GetService("TweenService"):Create(Main, tweenInfo, goal)
-		tween:Play()
-	end
+    local function removeNotification()
+        wait(Duration)
+        local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.In, 0, false)
+        local goal = {
+            Position = UDim2.new(1, 0, 0.789889395, 0)
+        }
+        local tween = game:GetService("TweenService"):Create(Main, tweenInfo, goal)
+        tween:Play()
+        tween.Completed:Connect(function()
+            ScreenGui:Destroy()
+        end)
+    end
 
-	-- Function to remove the notification after a specified duration
-	local function removeNotification()
-		wait(Duration)
-
-		local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.In, 0, false)
-		local goal = {}
-		goal.Position = UDim2.new(1, 0, 0.789889395, 0)
-
-		local tween = game:GetService("TweenService"):Create(Main, tweenInfo, goal)
-		tween:Play()
-
-		tween.Completed:Connect(function()
-			ScreenGui:Destroy()
-		end)
-	end
-
-	-- Start the animations
-	animateNotification()
-	spawn(removeNotification)
+    animateNotification()
+    spawn(removeNotification)
 end
 
-
-
-
 function Library:KeyS(KName, validKey, Link, dislink, callback, whitelist)
-	local KeySystem = Instance.new("ScreenGui")
-	local Frame = Instance.new("Frame")
-	local Topbar = Instance.new("Frame")
-	local Frame_2 = Instance.new("Frame")
-	local TextLabel = Instance.new("TextLabel")
-	local UIPadding = Instance.new("UIPadding")
-	local Close = Instance.new("ImageButton")
-	local Container = Instance.new("Frame")
-	local TextLabel_2 = Instance.new("TextLabel")
-	local TextboxHolder = Instance.new("Frame")
-	local UICorner = Instance.new("UICorner")
-	local TextBox = Instance.new("TextBox")
-	local UIPadding_2 = Instance.new("UIPadding")
-	local TextLabel_3 = Instance.new("TextLabel")
-	local JoinDiscord = Instance.new("TextButton")
-	local UICorner_2 = Instance.new("UICorner")
-	local TextLabel_4 = Instance.new("TextLabel")
-	local EnterKey = Instance.new("TextButton")
-	local UICorner_3 = Instance.new("UICorner")
-	local TextLabel_5 = Instance.new("TextLabel")
-	local GetKey = Instance.new("TextButton")
-	local UICorner_4 = Instance.new("UICorner")
-	local TextLabel_6 = Instance.new("TextLabel")
-	local shadowHolder = Instance.new("Frame")
-	local umbraShadow = Instance.new("ImageLabel")
-	local penumbraShadow = Instance.new("ImageLabel")
-	local ambientShadow = Instance.new("ImageLabel")
+    local KeySystem = Instance.new("ScreenGui")
+    local Frame = Instance.new("Frame")
+    local Topbar = Instance.new("Frame")
+    local Frame_2 = Instance.new("Frame")
+    local TextLabel = Instance.new("TextLabel")
+    local UIPadding = Instance.new("UIPadding")
+    local Close = Instance.new("ImageButton")
+    local Container = Instance.new("Frame")
+    local TextLabel_2 = Instance.new("TextLabel")
+    local TextboxHolder = Instance.new("Frame")
+    local UICorner = Instance.new("UICorner")
+    local TextBox = Instance.new("TextBox")
+    local UIPadding_2 = Instance.new("UIPadding")
+    local TextLabel_3 = Instance.new("TextLabel")
+    local JoinDiscord = Instance.new("TextButton")
+    local UICorner_2 = Instance.new("UICorner")
+    local EnterKey = Instance.new("TextButton")
+    local UICorner_3 = Instance.new("UICorner")
+    local GetKey = Instance.new("TextButton")
+    local UICorner_4 = Instance.new("UICorner")
+    local shadowHolder = Instance.new("Frame")
+    local umbraShadow = Instance.new("ImageLabel")
+    local penumbraShadow = Instance.new("ImageLabel")
+    local ambientShadow = Instance.new("ImageLabel")
 
-	--Properties:
-	KeySystem.Name = "Key System"
-	KeySystem.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    KeySystem.Name = "Key System"
+    KeySystem.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-	Frame.Parent = KeySystem
-	Frame.AnchorPoint = Vector2.new(0.5, 0.5)
-	Frame.BackgroundColor3 = Color3.fromRGB(23, 23, 25)
-	Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Frame.BorderSizePixel = 0
-	Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
-	Frame.Size = UDim2.new(0, 325, 0, 190)
+    Frame.Parent = KeySystem
+    Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+    Frame.BackgroundColor3 = Color3.fromRGB(23, 23, 25)
+    Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Frame.BorderSizePixel = 0
+    Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Frame.Size = UDim2.new(0, 325, 0, 190)
 
-	Topbar.Name = "Topbar"
-	Topbar.Parent = Frame
-	Topbar.BackgroundColor3 = Color3.fromRGB(20, 20, 23)
-	Topbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Topbar.BorderSizePixel = 0
-	Topbar.Size = UDim2.new(0, 325, 0, 33)
+    Topbar.Name = "Topbar"
+    Topbar.Parent = Frame
+    Topbar.BackgroundColor3 = Color3.fromRGB(20, 20, 23)
+    Topbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Topbar.BorderSizePixel = 0
+    Topbar.Size = UDim2.new(0, 325, 0, 33)
 
-	Frame_2.Parent = Topbar
-	Frame_2.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-	Frame_2.BorderColor3 = Color3.fromRGB(11, 56, 15)
-	Frame_2.BorderSizePixel = 0
-	Frame_2.Position = UDim2.new(0, 0, 1, 0)
-	Frame_2.Size = UDim2.new(0, 325, 0, 1)
+    Frame_2.Parent = Topbar
+    Frame_2.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Frame_2.BorderColor3 = Color3.fromRGB(11, 56, 15)
+    Frame_2.BorderSizePixel = 0
+    Frame_2.Position = UDim2.new(0, 0, 1, 0)
+    Frame_2.Size = UDim2.new(0, 325, 0, 1)
 
-	TextLabel.Parent = Topbar
-	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel.BackgroundTransparency = 1.000
-	TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextLabel.BorderSizePixel = 0
-	TextLabel.Size = UDim2.new(0, 286, 0, 33)
-	TextLabel.Font = Enum.Font.Unknown
-	TextLabel.Text = KName
-	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel.TextSize = 12.000
-	TextLabel.TextTransparency = 0.200
-	TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+    TextLabel.Parent = Topbar
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel.BorderSizePixel = 0
+    TextLabel.Size = UDim2.new(0, 286, 0, 33)
+    TextLabel.Font = Enum.Font.Unknown
+    TextLabel.Text = KName
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 12.000
+    TextLabel.TextTransparency = 0.200
+    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-	UIPadding.Parent = TextLabel
-	UIPadding.PaddingLeft = UDim.new(0, 10)
+    UIPadding.Parent = TextLabel
+    UIPadding.PaddingLeft = UDim.new(0, 10)
 
-	Close.Name = "Close"
-	Close.Parent = Topbar
-	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Close.BackgroundTransparency = 1.000
-	Close.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Close.LayoutOrder = -1
-	Close.Position = UDim2.new(0.927671075, 0, 0.25, 0)
-	Close.Size = UDim2.new(0, 16, 0, 16)
-	Close.Image = "rbxassetid://6031094678"
-	Close.ImageTransparency = 0.200
-	Close.ScaleType = Enum.ScaleType.Fit
+    Close.Name = "Close"
+    Close.Parent = Topbar
+    Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Close.BackgroundTransparency = 1.000
+    Close.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Close.LayoutOrder = -1
+    Close.Position = UDim2.new(0.927671075, 0, 0.25, 0)
+    Close.Size = UDim2.new(0, 16, 0, 16)
+    Close.Image = "rbxassetid://6031094678"
+    Close.ImageTransparency = 1.000
 
-	Container.Name = "Container"
-	Container.Parent = Frame
-	Container.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Container.BackgroundTransparency = 1.000
-	Container.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Container.BorderSizePixel = 0
-	Container.Position = UDim2.new(0, 0, 0.178947374, 0)
-	Container.Size = UDim2.new(0, 325, 0, 156)
+    Container.Name = "Container"
+    Container.Parent = Frame
+    Container.BackgroundColor3 = Color3.fromRGB(27, 27, 29)
+    Container.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Container.Position = UDim2.new(0, 0, 0.173000008, 0)
+    Container.Size = UDim2.new(0, 325, 0, 150)
 
-	TextLabel_2.Parent = Container
-	TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel_2.BackgroundTransparency = 1.000
-	TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextLabel_2.BorderSizePixel = 0
-	TextLabel_2.Position = UDim2.new(0.0461532846, 0, 0.0961538479, 0)
-	TextLabel_2.Size = UDim2.new(0, 286, 0, 13)
-	TextLabel_2.Font = Enum.Font.Unknown
-	TextLabel_2.Text = "Input Key:"
-	TextLabel_2.TextColor3 = Color3.fromRGB(138, 138, 138)
-	TextLabel_2.TextSize = 14.000
-	TextLabel_2.TextXAlignment = Enum.TextXAlignment.Left
+    TextLabel_2.Parent = Container
+    TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_2.BackgroundTransparency = 1.000
+    TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel_2.BorderSizePixel = 0
+    TextLabel_2.Position = UDim2.new(0, 0, 0, 10)
+    TextLabel_2.Size = UDim2.new(0, 325, 0, 26)
+    TextLabel_2.Font = Enum.Font.SourceSans
+    TextLabel_2.Text = "Info"
+    TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_2.TextSize = 18.000
+    TextLabel_2.TextWrapped = true
 
-	TextboxHolder.Name = "TextboxHolder"
-	TextboxHolder.Parent = Container
-	TextboxHolder.BackgroundColor3 = Color3.fromRGB(20, 20, 23)
-	TextboxHolder.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextboxHolder.BorderSizePixel = 0
-	TextboxHolder.Position = UDim2.new(0.0430763587, 0, 0.224358976, 0)
-	TextboxHolder.Size = UDim2.new(0, 287, 0, 20)
+    TextboxHolder.Name = "Textbox Holder"
+    TextboxHolder.Parent = Container
+    TextboxHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextboxHolder.BackgroundTransparency = 1.000
+    TextboxHolder.Position = UDim2.new(0.0600000024, 0, 0.5, 0)
+    TextboxHolder.Size = UDim2.new(0, 283, 0, 26)
 
-	UICorner.CornerRadius = UDim.new(0, 2)
-	UICorner.Parent = TextboxHolder
+    UICorner.Parent = TextboxHolder
 
-	TextBox.Parent = TextboxHolder
-	TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TextBox.BackgroundTransparency = 1.000
-	TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextBox.BorderSizePixel = 0
-	TextBox.Size = UDim2.new(0, 287, 0, 20)
-	TextBox.Font = Enum.Font.Unknown
-	TextBox.Text = ""
-	TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-	TextBox.TextSize = 14.000
-	TextBox.TextXAlignment = Enum.TextXAlignment.Left
+    TextBox.Parent = TextboxHolder
+    TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextBox.BackgroundTransparency = 1.000
+    TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextBox.Position = UDim2.new(0.00997352219, 0, 0, 0)
+    TextBox.Size = UDim2.new(0, 282, 0, 26)
+    TextBox.ClearTextOnFocus = false
+    TextBox.Font = Enum.Font.SourceSans
+    TextBox.PlaceholderColor3 = Color3.fromRGB(178, 178, 178)
+    TextBox.PlaceholderText = "Enter the key..."
+    TextBox.Text = ""
+    TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextBox.TextSize = 14.000
+    TextBox.TextStrokeTransparency = 0.000
 
-	UIPadding_2.Parent = TextBox
-	UIPadding_2.PaddingLeft = UDim.new(0, 5)
+    UIPadding_2.Parent = TextLabel_2
+    UIPadding_2.PaddingLeft = UDim.new(0, 10)
 
-	TextLabel_3.Parent = Container
-	TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel_3.BackgroundTransparency = 1.000
-	TextLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextLabel_3.BorderSizePixel = 0
-	TextLabel_3.Position = UDim2.new(0.0461532846, 0, 0.865384638, 0)
-	TextLabel_3.Size = UDim2.new(0, 289, 0, 13)
-	TextLabel_3.Font = Enum.Font.Unknown
-	TextLabel_3.Text = "You can also purchase a permanent key in our discord!"
-	TextLabel_3.TextColor3 = Color3.fromRGB(175, 175, 175)
-	TextLabel_3.TextSize = 11.000
+    TextLabel_3.Parent = Container
+    TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_3.BackgroundTransparency = 1.000
+    TextLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel_3.Position = UDim2.new(0.75999999, 0, 0.670000017, 0)
+    TextLabel_3.Size = UDim2.new(0, 78, 0, 22)
+    TextLabel_3.Font = Enum.Font.SourceSans
+    TextLabel_3.Text = ""
+    TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_3.TextSize = 14.000
+    TextLabel_3.TextWrapped = true
 
-	JoinDiscord.Name = "Join Discord"
-	JoinDiscord.Parent = Container
-	JoinDiscord.Active = false
-	JoinDiscord.BackgroundColor3 = Color3.fromRGB(22, 22, 24)
-	JoinDiscord.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	JoinDiscord.BorderSizePixel = 0
-	JoinDiscord.Position = UDim2.new(0.661538482, 0, 0.660256386, 0)
-	JoinDiscord.Selectable = false
-	JoinDiscord.Size = UDim2.new(0, 89, 0, 25)
-	JoinDiscord.Text = ""
+    JoinDiscord.Parent = Container
+    JoinDiscord.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    JoinDiscord.BorderColor3 = Color3.fromRGB(11, 56, 15)
+    JoinDiscord.BorderSizePixel = 0
+    JoinDiscord.Position = UDim2.new(0.5, 0, 0.900000036, 0)
+    JoinDiscord.Size = UDim2.new(0, 145, 0, 25)
+    JoinDiscord.Font = Enum.Font.SourceSans
+    JoinDiscord.Text = dislink
+    JoinDiscord.TextColor3 = Color3.fromRGB(255, 255, 255)
+    JoinDiscord.TextSize = 18.000
+    JoinDiscord.TextWrapped = true
 
-	UICorner_2.CornerRadius = UDim.new(0, 2)
-	UICorner_2.Parent = JoinDiscord
+    UICorner_2.CornerRadius = UDim.new(0, 12)
+    UICorner_2.Parent = JoinDiscord
 
-	TextLabel_4.Parent = JoinDiscord
-	TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel_4.BackgroundTransparency = 1.000
-	TextLabel_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextLabel_4.BorderSizePixel = 0
-	TextLabel_4.Position = UDim2.new(0, 0, 0.119999997, 0)
-	TextLabel_4.Size = UDim2.new(0, 89, 0, 19)
-	TextLabel_4.Font = Enum.Font.Unknown
-	TextLabel_4.Text = "Join Discord"
-	TextLabel_4.TextColor3 = Color3.fromRGB(200, 200, 200)
-	TextLabel_4.TextSize = 14.000
+    EnterKey.Name = "Enter Key"
+    EnterKey.Parent = Container
+    EnterKey.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    EnterKey.BorderColor3 = Color3.fromRGB(11, 56, 15)
+    EnterKey.BorderSizePixel = 0
+    EnterKey.Position = UDim2.new(0.0255078268, 0, 0.699980378, 0)
+    EnterKey.Size = UDim2.new(0, 145, 0, 25)
+    EnterKey.Font = Enum.Font.SourceSans
+    EnterKey.Text = validKey
+    EnterKey.TextColor3 = Color3.fromRGB(255, 255, 255)
+    EnterKey.TextSize = 18.000
+    EnterKey.TextWrapped = true
 
-	EnterKey.Name = "Enter Key"
-	EnterKey.Parent = Container
-	EnterKey.Active = false
-	EnterKey.BackgroundColor3 = Color3.fromRGB(22, 22, 24)
-	EnterKey.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	EnterKey.BorderSizePixel = 0
-	EnterKey.Position = UDim2.new(0.0430763587, 0, 0.43589744, 0)
-	EnterKey.Selectable = false
-	EnterKey.Size = UDim2.new(0, 129, 0, 31)
-	EnterKey.Text = ""
+    UICorner_3.CornerRadius = UDim.new(0, 12)
+    UICorner_3.Parent = EnterKey
 
-	UICorner_3.CornerRadius = UDim.new(0, 2)
-	UICorner_3.Parent = EnterKey
+    GetKey.Name = "Get Key"
+    GetKey.Parent = Container
+    GetKey.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    GetKey.BorderColor3 = Color3.fromRGB(11, 56, 15)
+    GetKey.BorderSizePixel = 0
+    GetKey.Position = UDim2.new(0.50999999, 0, 0.699980378, 0)
+    GetKey.Size = UDim2.new(0, 145, 0, 25)
+    GetKey.Font = Enum.Font.SourceSans
+    GetKey.Text = "Get Key"
+    GetKey.TextColor3 = Color3.fromRGB(255, 255, 255)
+    GetKey.TextSize = 18.000
+    GetKey.TextWrapped = true
 
-	TextLabel_5.Parent = EnterKey
-	TextLabel_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel_5.BackgroundTransparency = 1.000
-	TextLabel_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextLabel_5.BorderSizePixel = 0
-	TextLabel_5.Size = UDim2.new(0, 129, 0, 31)
-	TextLabel_5.Font = Enum.Font.Unknown
-	TextLabel_5.Text = "Enter Key"
-	TextLabel_5.TextColor3 = Color3.fromRGB(200, 200, 200)
-	TextLabel_5.TextSize = 14.000
+    UICorner_4.CornerRadius = UDim.new(0, 12)
+    UICorner_4.Parent = GetKey
 
-	GetKey.Name = "Get Key"
-	GetKey.Parent = Container
-	GetKey.Active = false
-	GetKey.BackgroundColor3 = Color3.fromRGB(22, 22, 24)
-	GetKey.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	GetKey.BorderSizePixel = 0
-	GetKey.Position = UDim2.new(0.569230795, 0, 0.43589744, 0)
-	GetKey.Selectable = false
-	GetKey.Size = UDim2.new(0, 129, 0, 31)
-	GetKey.Text = ""
+    shadowHolder.Name = "shadowHolder"
+    shadowHolder.Parent = Frame
+    shadowHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    shadowHolder.BackgroundTransparency = 1.000
+    shadowHolder.Position = UDim2.new(0, 0, 0.839999974, 0)
+    shadowHolder.Size = UDim2.new(0, 325, 0, 1)
 
-	UICorner_4.CornerRadius = UDim.new(0, 2)
-	UICorner_4.Parent = GetKey
+    umbraShadow.Name = "umbraShadow"
+    umbraShadow.Parent = shadowHolder
+    umbraShadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    umbraShadow.BackgroundTransparency = 1.000
+    umbraShadow.Size = UDim2.new(1, 0, 1, 6)
+    umbraShadow.Image = "rbxassetid://1316045217"
+    umbraShadow.ImageTransparency = 0.800
 
-	TextLabel_6.Parent = GetKey
-	TextLabel_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel_6.BackgroundTransparency = 1.000
-	TextLabel_6.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextLabel_6.BorderSizePixel = 0
-	TextLabel_6.Size = UDim2.new(0, 129, 0, 31)
-	TextLabel_6.Font = Enum.Font.Unknown
-	TextLabel_6.Text = "Get Key"
-	TextLabel_6.TextColor3 = Color3.fromRGB(200, 200, 200)
-	TextLabel_6.TextSize = 14.000
+    penumbraShadow.Name = "penumbraShadow"
+    penumbraShadow.Parent = shadowHolder
+    penumbraShadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    penumbraShadow.BackgroundTransparency = 1.000
+    penumbraShadow.Size = UDim2.new(1, 0, 1, 6)
+    penumbraShadow.Image = "rbxassetid://1316045217"
+    penumbraShadow.ImageTransparency = 0.800
 
-	shadowHolder.Name = "shadowHolder"
-	shadowHolder.Parent = KeySystem
-	shadowHolder.AnchorPoint = Vector2.new(0.5, 0.5)
-	shadowHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	shadowHolder.BackgroundTransparency = 1.000
-	shadowHolder.BorderSizePixel = 0
-	shadowHolder.Position = UDim2.new(0.5, 0, 0.5, 0)
-	shadowHolder.Size = UDim2.new(0, 325, 0, 192)
+    ambientShadow.Name = "ambientShadow"
+    ambientShadow.Parent = shadowHolder
+    ambientShadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ambientShadow.BackgroundTransparency = 1.000
+    ambientShadow.Size = UDim2.new(1, 0, 1, 6)
+    ambientShadow.Image = "rbxassetid://1316045217"
+    ambientShadow.ImageTransparency = 0.800
 
-	umbraShadow.Name = "umbraShadow"
-	umbraShadow.Parent = shadowHolder
-	umbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-	umbraShadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	umbraShadow.BackgroundTransparency = 1.000
-	umbraShadow.BorderSizePixel = 0
-	umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-	umbraShadow.Size = UDim2.new(1, 16, 1, 16)
-	umbraShadow.Image = "rbxassetid://6031509222"
-	umbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	umbraShadow.ScaleType = Enum.ScaleType.Slice
-	umbraShadow.SliceCenter = Rect.new(24, 24, 216, 216)
+    Frame.Active = true
+    Frame.Draggable = true
 
-	penumbraShadow.Name = "penumbraShadow"
-	penumbraShadow.Parent = shadowHolder
-	penumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-	penumbraShadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	penumbraShadow.BackgroundTransparency = 1.000
-	penumbraShadow.BorderSizePixel = 0
-	penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-	penumbraShadow.Size = UDim2.new(1, 16, 1, 16)
-	penumbraShadow.Image = "rbxassetid://6031509222"
-	penumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	penumbraShadow.ImageTransparency = 0.800
-	penumbraShadow.ScaleType = Enum.ScaleType.Slice
-	penumbraShadow.SliceCenter = Rect.new(24, 24, 216, 216)
+    JoinDiscord.MouseButton1Click:Connect(function()
+        game:GetService("HttpService"):GetAsync(Link)
+    end)
 
-	ambientShadow.Name = "ambientShadow"
-	ambientShadow.Parent = shadowHolder
-	ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-	ambientShadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	ambientShadow.BackgroundTransparency = 1.000
-	ambientShadow.BorderSizePixel = 0
-	ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-	ambientShadow.Size = UDim2.new(1, 16, 1, 16)
-	ambientShadow.Image = "rbxassetid://6031509222"
-	ambientShadow.ImageTransparency = 1.000
-	ambientShadow.ScaleType = Enum.ScaleType.Slice
-	ambientShadow.SliceCenter = Rect.new(24, 24, 216, 216)
+    Close.MouseButton1Click:Connect(function()
+        KeySystem:Destroy()
+    end)
 
-	-- Functions:
-	local function ValidateKey(input)
-		-- Check if the input matches the validKey
-		if input == validKey then
-			return true
-		else
-			return false
-		end
-	end
+    local Debounce = false
 
-	-- Whitelist check function
-	local function IsInWhitelist(player)
-		if whitelist[player.UserId] then
-			return true
-		else
-			return false
-		end
-	end
+    EnterKey.MouseButton1Click:Connect(function()
+        if not Debounce then
+            Debounce = true
+            if TextBox.Text == validKey then
+                TextLabel_3.Text = "Key Is Valid"
+                TextLabel_3.TextColor3 = Color3.fromRGB(51, 204, 51)
+                callback()
+                wait(2)
+                KeySystem:Destroy()
+                Debounce = false
+            else
+                TextLabel_3.Text = "Key Is Invalid"
+                TextLabel_3.TextColor3 = Color3.fromRGB(255, 51, 51)
+                wait(2)
+                TextLabel_3.Text = ""
+                Debounce = false
+            end
+        end
+    end)
 
-	-- Event connections:
-	EnterKey.MouseButton1Click:Connect(function()
-		local input = TextBox.Text
-		if input ~= "" then
-			if ValidateKey(input) then
-				callback(true) -- Call the callback function with true for success
-				KeySystem:Destroy()
-			else
-				-- Handle incorrect key entry
-				-- Example: Display an error message or change TextBox color
-				TextBox.PlaceholderText = "Incorrect Key"
-				TextBox.TextColor3 = Color3.fromRGB(255, 0, 0)
-				wait(1)
-				TextBox.PlaceholderText = "Enter Key"
-				TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-			end
-		end
-	end)
+    GetKey.MouseButton1Click:Connect(function()
+        if whitelist then
+            game:GetService("HttpService"):GetAsync("https://www.google.com/")
+            game:GetService("HttpService"):GetAsync(Link)
+        else
+            KeySystem:Destroy()
+        end
+    end)
 
-	GetKey.MouseButton1Click:Connect(function()
-		if Link then
-			-- This would be handled by the player's browser
-			setclipboard(Link) -- Copies the link to the clipboard so the player can paste it into their browser
-			print("Discord link copied to clipboard.")
-		end
-	end)
-
-	JoinDiscord.MouseButton1Click:Connect(function()
-		if Link then
-			-- This would be handled by the player's browser
-			setclipboard(dislink) -- Copies the link to the clipboard so the player can paste it into their browser
-			print("Discord link copied to clipboard.")
-		end
-	end)
-
-	Close.MouseButton1Click:Connect(function()
-		KeySystem:Destroy()
-	end)
+    return KeySystem
 end
 
 return Library
