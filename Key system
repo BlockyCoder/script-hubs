@@ -4,6 +4,8 @@
 -- Instances:
 local Library = {}
 
+local RayfieldFolder = "Key Epic"
+
 function Library:KeyS(KName, validKey, Link, callback)
 	local KeySystem = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
@@ -278,8 +280,22 @@ function Library:KeyS(KName, validKey, Link, callback)
 
 	EnterKey.MouseButton1Click:Connect(function()
 		if TextBox.Text == validKey then
-			KeySystem:Destroy()
-			callback(true)
+			-- Check if the key folder exists, create if not
+			local keyFolder = RayfieldFolder .. "/Key System"
+			if not isfolder(keyFolder) then
+				makefolder(keyFolder)
+			end
+
+			-- Check if the key file already exists
+			local keyFilePath = keyFolder .. "/" .. validKey .. ".txt"
+			if not isfile(keyFilePath) then
+				-- If not, create it (or handle the logic appropriately)
+				local keyFile = Instance.new("StringValue")
+				keyFile.Name = validKey
+				keyFile.Parent = workspace
+				KeySystem:Destroy()
+				callback(true)
+			end
 		else
 			callback(false)
 		end
