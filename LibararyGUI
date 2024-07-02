@@ -1122,98 +1122,100 @@ function Library:Create(xHubName)
 
 
 	function Library:CreateDropdown(tab, dropdownName, options, callback)
-		callback = callback or function() end
+    callback = callback or function() end
 
-		-- Create the main dropdown frame
-		local DropdownFrame = Instance.new("Frame")
-		DropdownFrame.Parent = tab
-		DropdownFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		DropdownFrame.Position = UDim2.new(0, 0, 0, 0)
-		DropdownFrame.Size = UDim2.new(0, 380, 0, 31)
-		DropdownFrame.ClipsDescendants = true
+    -- Create the main dropdown frame
+    local DropdownFrame = Instance.new("Frame")
+    DropdownFrame.Parent = tab
+    DropdownFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    DropdownFrame.Position = UDim2.new(0, 0, 0, 0)
+    DropdownFrame.Size = UDim2.new(0, 380, 0, 31)
+    DropdownFrame.ClipsDescendants = true
 
-		local UICornerFrame = Instance.new("UICorner")
-		UICornerFrame.CornerRadius = UDim.new(0, 5)
-		UICornerFrame.Parent = DropdownFrame
+    local UICornerFrame = Instance.new("UICorner")
+    UICornerFrame.CornerRadius = UDim.new(0, 5)
+    UICornerFrame.Parent = DropdownFrame
 
-		-- Create the dropdown button
-		local Dropdown = Instance.new("TextButton")
-		Dropdown.Parent = DropdownFrame
-		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Dropdown.Size = UDim2.new(1, 0, 1, 0)
-		Dropdown.AutoButtonColor = false
-		Dropdown.Text = dropdownName or "Select an option"
-		Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
-		Dropdown.TextSize = 14
-		Dropdown.Font = Enum.Font.Gotham
-		Dropdown.TextXAlignment = Enum.TextXAlignment.Left
+    -- Create the dropdown button
+    local Dropdown = Instance.new("TextButton")
+    Dropdown.Parent = DropdownFrame
+    Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Dropdown.Size = UDim2.new(1, 0, 1, 0)
+    Dropdown.AutoButtonColor = false
+    Dropdown.Text = dropdownName or "Select an option"
+    Dropdown.TextColor3 = Color3.fromRGB(193, 193, 193)
+    Dropdown.TextSize = 14
+    Dropdown.Font = Enum.Font.Gotham
+    Dropdown.TextXAlignment = Enum.TextXAlignment.Left
+    Dropdown.TextXAlignment = Enum.TextXAlignment.Right -- Adjust text alignment to avoid overlap with the icon
 
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Dropdown
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = Dropdown
 
-		local Icon = Instance.new("ImageLabel")
-		Icon.Parent = Dropdown
-		Icon.Size = UDim2.new(0, 24, 0, 24)
-		Icon.Position = UDim2.new(1, -30, 0.5, -12)
-		Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-		Icon.BackgroundTransparency = 1
-		Icon.Image = "rbxassetid://6031091000" -- Closed state icon
-		Icon.ScaleType = Enum.ScaleType.Fit
+    local Icon = Instance.new("ImageLabel")
+    Icon.Parent = Dropdown
+    Icon.Size = UDim2.new(0, 24, 0, 24)
+    Icon.Position = UDim2.new(0, 6, 0.5, -12) -- Adjust position to the left
+    Icon.AnchorPoint = Vector2.new(0, 0.5)
+    Icon.BackgroundTransparency = 1
+    Icon.Image = "rbxassetid://6031091000" -- Closed state icon
+    Icon.ScaleType = Enum.ScaleType.Fit
 
-		-- Create the dropdown list
-		local DropdownList = Instance.new("Frame")
-		DropdownList.Name = "DropdownList"
-		DropdownList.Parent = tab
-		DropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-		DropdownList.BorderSizePixel = 0
-		DropdownList.Position = UDim2.new(0, 0, 1, 0)
-		DropdownList.Size = UDim2.new(1, 0, 0, 0)
-		DropdownList.Visible = false
-		DropdownList.ZIndex = 10
-		DropdownList.ClipsDescendants = true
+    -- Create the dropdown list
+    local DropdownList = Instance.new("Frame")
+    DropdownList.Name = "DropdownList"
+    DropdownList.Parent = tab
+    DropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    DropdownList.BorderSizePixel = 0
+    DropdownList.Position = UDim2.new(0, 0, 1, 0)
+    DropdownList.Size = UDim2.new(1, 0, 0, 0)
+    DropdownList.Visible = false
+    DropdownList.ZIndex = 10
+    DropdownList.ClipsDescendants = true
 
-		local UICornerList = Instance.new("UICorner")
-		UICornerList.CornerRadius = UDim.new(0, 5)
-		UICornerList.Parent = DropdownList
+    local UICornerList = Instance.new("UICorner")
+    UICornerList.CornerRadius = UDim.new(0, 5)
+    UICornerList.Parent = DropdownList
 
-		local ListLayout = Instance.new("UIListLayout")
-		ListLayout.Parent = DropdownList
-		ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		ListLayout.Padding = UDim.new(0, 5)
+    local ListLayout = Instance.new("UIListLayout")
+    ListLayout.Parent = DropdownList
+    ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    ListLayout.Padding = UDim.new(0, 5)
 
-		for _, optionText in ipairs(options) do
-			local OptionButton = Instance.new("TextButton")
-			OptionButton.Parent = DropdownList
-			OptionButton.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
-			OptionButton.Size = UDim2.new(1, 0, 0, 30)
-			OptionButton.Font = Enum.Font.Gotham
-			OptionButton.Text = optionText
-			OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
-			OptionButton.TextWrapped = true
+    for _, optionText in ipairs(options) do
+        local OptionButton = Instance.new("TextButton")
+        OptionButton.Parent = DropdownList
+        OptionButton.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+        OptionButton.Size = UDim2.new(1, 0, 0, 30)
+        OptionButton.Font = Enum.Font.Gotham
+        OptionButton.Text = optionText
+        OptionButton.TextColor3 = Color3.fromRGB(193, 193, 193)
+        OptionButton.TextWrapped = true
 
-			OptionButton.MouseButton1Click:Connect(function()
-				callback(optionText)
-				Dropdown.Text = optionText
-				DropdownList.Visible = false
-				DropdownList:TweenSize(UDim2.new(1, 0, 0, 0), "Out", "Quad", 0.2, true)
-				Icon.Image = "rbxassetid://6031091000" -- Closed state icon
-			end)
-		end
+        OptionButton.MouseButton1Click:Connect(function()
+            callback(optionText)
+            Dropdown.Text = optionText
+            DropdownList.Visible = false
+            DropdownList:TweenSize(UDim2.new(1, 0, 0, 0), "Out", "Quad", 0.2, true)
+            Icon.Image = "rbxassetid://6031091000" -- Closed state icon
+        end)
+    end
 
-		Dropdown.MouseButton1Click:Connect(function()
-			DropdownList.Visible = not DropdownList.Visible
-			Icon.Image = DropdownList.Visible and "rbxassetid://6031090999" or "rbxassetid://6031091000"
+    Dropdown.MouseButton1Click:Connect(function()
+        DropdownList.Visible = not DropdownList.Visible
+        Icon.Image = DropdownList.Visible and "rbxassetid://6031090999" or "rbxassetid://6031091000"
 
-			if DropdownList.Visible then
-				DropdownList:TweenSize(UDim2.new(1, 0, 0, (#options * 35) + ((#options - 1) * 5)), "Out", "Quad", 0.2, true)
-			else
-				DropdownList:TweenSize(UDim2.new(1, 0, 0, 0), "Out", "Quad", 0.2, true)
-			end
-		end)
+        if DropdownList.Visible then
+            local totalHeight = (#options * 35) + ((#options - 1) * 5)
+            DropdownList:TweenSize(UDim2.new(1, 0, 0, totalHeight), "Out", "Quad", 0.2, true)
+        else
+            DropdownList:TweenSize(UDim2.new(1, 0, 0, 0), "Out", "Quad", 0.2, true)
+        end
+    end)
 
-		return Dropdown
-	end
+    return Dropdown
+end
 
 
 
