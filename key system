@@ -103,8 +103,10 @@ function Library:KeyS(KName, validKey, Link, dislink, callback, whitelist)
 	local TextLabel_3 = Instance.new("TextLabel")
 	local JoinDiscord = Instance.new("TextButton")
 	local UICorner_2 = Instance.new("UICorner")
+	local TextLabel_4 = Instance.new("TextLabel")
 	local EnterKey = Instance.new("TextButton")
 	local UICorner_3 = Instance.new("UICorner")
+	local TextLabel_5 = Instance.new("TextLabel")
 	local GetKey = Instance.new("TextButton")
 	local UICorner_4 = Instance.new("UICorner")
 	local TextLabel_6 = Instance.new("TextLabel")
@@ -113,7 +115,8 @@ function Library:KeyS(KName, validKey, Link, dislink, callback, whitelist)
 	local penumbraShadow = Instance.new("ImageLabel")
 	local ambientShadow = Instance.new("ImageLabel")
 
-	-- Properties:
+	--Properties:
+
 	KeySystem.Name = "Key System"
 	KeySystem.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
@@ -145,7 +148,7 @@ function Library:KeyS(KName, validKey, Link, dislink, callback, whitelist)
 	TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	TextLabel.BorderSizePixel = 0
 	TextLabel.Size = UDim2.new(0, 286, 0, 33)
-	TextLabel.Font = Enum.Font.SourceSans
+	TextLabel.Font = Enum.Font.Unknown
 	TextLabel.Text = KName
 	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 	TextLabel.TextSize = 12.000
@@ -181,24 +184,23 @@ function Library:KeyS(KName, validKey, Link, dislink, callback, whitelist)
 	TextLabel_2.BackgroundTransparency = 1.000
 	TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	TextLabel_2.BorderSizePixel = 0
-	TextLabel_2.Position = UDim2.new(0.0199999996, 0, 0.0899999961, 0)
-	TextLabel_2.Size = UDim2.new(0, 318, 0, 37)
-	TextLabel_2.Font = Enum.Font.SourceSans
-	TextLabel_2.Text = "Input a Key"
-	TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel_2.TextScaled = true
+	TextLabel_2.Position = UDim2.new(0.0461532846, 0, 0.0961538479, 0)
+	TextLabel_2.Size = UDim2.new(0, 286, 0, 13)
+	TextLabel_2.Font = Enum.Font.Unknown
+	TextLabel_2.Text = "Input Key:"
+	TextLabel_2.TextColor3 = Color3.fromRGB(138, 138, 138)
 	TextLabel_2.TextSize = 14.000
-	TextLabel_2.TextWrapped = true
+	TextLabel_2.TextXAlignment = Enum.TextXAlignment.Left
 
 	TextboxHolder.Name = "TextboxHolder"
 	TextboxHolder.Parent = Container
-	TextboxHolder.BackgroundColor3 = Color3.fromRGB(23, 23, 25)
+	TextboxHolder.BackgroundColor3 = Color3.fromRGB(20, 20, 23)
 	TextboxHolder.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	TextboxHolder.BorderSizePixel = 0
-	TextboxHolder.Position = UDim2.new(0.0199999996, 0, 0.360000014, 0)
-	TextboxHolder.Size = UDim2.new(0, 318, 0, 33)
+	TextboxHolder.Position = UDim2.new(0.0430763587, 0, 0.224358976, 0)
+	TextboxHolder.Size = UDim2.new(0, 287, 0, 20)
 
-	UICorner.CornerRadius = UDim.new(0, 12)
+	UICorner.CornerRadius = UDim.new(0, 2)
 	UICorner.Parent = TextboxHolder
 
 	TextBox.Parent = TextboxHolder
@@ -206,130 +208,140 @@ function Library:KeyS(KName, validKey, Link, dislink, callback, whitelist)
 	TextBox.BackgroundTransparency = 1.000
 	TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	TextBox.BorderSizePixel = 0
-	TextBox.Size = UDim2.new(1, 0, 1, 0)
-	TextBox.Font = Enum.Font.SourceSans
-	TextBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
-	TextBox.PlaceholderText = "Key"
+	TextBox.Size = UDim2.new(0, 287, 0, 20)
+	TextBox.Font = Enum.Font.Unknown
 	TextBox.Text = ""
 	TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-	TextBox.TextScaled = true
 	TextBox.TextSize = 14.000
-	TextBox.TextWrapped = true
+	TextBox.TextXAlignment = Enum.TextXAlignment.Left
 
 	UIPadding_2.Parent = TextBox
-	UIPadding_2.PaddingLeft = UDim.new(0, 10)
+	UIPadding_2.PaddingLeft = UDim.new(0, 5)
 
 	TextLabel_3.Parent = Container
 	TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	TextLabel_3.BackgroundTransparency = 1.000
 	TextLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	TextLabel_3.BorderSizePixel = 0
-	TextLabel_3.Position = UDim2.new(0.0199999996, 0, 0.689999998, 0)
-	TextLabel_3.Size = UDim2.new(0, 318, 0, 30)
-	TextLabel_3.Font = Enum.Font.SourceSans
-	TextLabel_3.Text = "Join Discord for a Key"
-	TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel_3.TextScaled = true
-	TextLabel_3.TextSize = 14.000
-	TextLabel_3.TextWrapped = true
+	TextLabel_3.Position = UDim2.new(0.0461532846, 0, 0.865384638, 0)
+	TextLabel_3.Size = UDim2.new(0, 289, 0, 13)
+	TextLabel_3.Font = Enum.Font.Unknown
+	TextLabel_3.Text = "You can also purchase a permanent key in our discord!"
+	TextLabel_3.TextColor3 = Color3.fromRGB(175, 175, 175)
+	TextLabel_3.TextSize = 11.000
 
-	JoinDiscord.Name = "JoinDiscord"
+	JoinDiscord.Name = "Join Discord"
 	JoinDiscord.Parent = Container
-	JoinDiscord.BackgroundColor3 = Color3.fromRGB(20, 20, 23)
+	JoinDiscord.Active = false
+	JoinDiscord.BackgroundColor3 = Color3.fromRGB(22, 22, 24)
 	JoinDiscord.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	JoinDiscord.Position = UDim2.new(0.0199999996, 0, 0.910000026, 0)
-	JoinDiscord.Size = UDim2.new(0, 318, 0, 26)
-	JoinDiscord.Font = Enum.Font.SourceSans
-	JoinDiscord.Text = "Join Discord"
-	JoinDiscord.TextColor3 = Color3.fromRGB(255, 255, 255)
-	JoinDiscord.TextScaled = true
-	JoinDiscord.TextSize = 14.000
-	JoinDiscord.TextWrapped = true
-	JoinDiscord.AutoButtonColor = false
+	JoinDiscord.BorderSizePixel = 0
+	JoinDiscord.Position = UDim2.new(0.661538482, 0, 0.660256386, 0)
+	JoinDiscord.Selectable = false
+	JoinDiscord.Size = UDim2.new(0, 89, 0, 25)
+	JoinDiscord.Text = ""
 
-	UICorner_2.CornerRadius = UDim.new(0, 12)
+	UICorner_2.CornerRadius = UDim.new(0, 2)
 	UICorner_2.Parent = JoinDiscord
 
-	EnterKey.Name = "EnterKey"
-	EnterKey.Parent = Container
-	EnterKey.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-	EnterKey.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	EnterKey.Position = UDim2.new(0.0199999996, 0, 0.5, 0)
-	EnterKey.Size = UDim2.new(0, 155, 0, 30)
-	EnterKey.Font = Enum.Font.SourceSans
-	EnterKey.Text = "Enter"
-	EnterKey.TextColor3 = Color3.fromRGB(255, 255, 255)
-	EnterKey.TextScaled = true
-	EnterKey.TextSize = 14.000
-	EnterKey.TextWrapped = true
-	EnterKey.AutoButtonColor = false
+	TextLabel_4.Parent = JoinDiscord
+	TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_4.BackgroundTransparency = 1.000
+	TextLabel_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel_4.BorderSizePixel = 0
+	TextLabel_4.Size = UDim2.new(0, 89, 0, 25)
+	TextLabel_4.Font = Enum.Font.Unknown
+	TextLabel_4.Text = "Join Discord"
+	TextLabel_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_4.TextSize = 14.000
 
-	UICorner_3.CornerRadius = UDim.new(0, 12)
+	EnterKey.Name = "Enter Key"
+	EnterKey.Parent = Container
+	EnterKey.Active = false
+	EnterKey.BackgroundColor3 = Color3.fromRGB(22, 22, 24)
+	EnterKey.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	EnterKey.BorderSizePixel = 0
+	EnterKey.Position = UDim2.new(0.0461532846, 0, 0.487179458, 0)
+	EnterKey.Selectable = false
+	EnterKey.Size = UDim2.new(0, 287, 0, 25)
+	EnterKey.Text = ""
+
+	UICorner_3.CornerRadius = UDim.new(0, 2)
 	UICorner_3.Parent = EnterKey
 
-	GetKey.Name = "GetKey"
-	GetKey.Parent = Container
-	GetKey.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-	GetKey.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	GetKey.Position = UDim2.new(0.519999981, 0, 0.5, 0)
-	GetKey.Size = UDim2.new(0, 155, 0, 30)
-	GetKey.Font = Enum.Font.SourceSans
-	GetKey.Text = "Get Key"
-	GetKey.TextColor3 = Color3.fromRGB(255, 255, 255)
-	GetKey.TextScaled = true
-	GetKey.TextSize = 14.000
-	GetKey.TextWrapped = true
-	GetKey.AutoButtonColor = false
+	TextLabel_5.Parent = EnterKey
+	TextLabel_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_5.BackgroundTransparency = 1.000
+	TextLabel_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel_5.BorderSizePixel = 0
+	TextLabel_5.Size = UDim2.new(0, 287, 0, 25)
+	TextLabel_5.Font = Enum.Font.Unknown
+	TextLabel_5.Text = "Enter Key"
+	TextLabel_5.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_5.TextSize = 14.000
 
-	UICorner_4.CornerRadius = UDim.new(0, 12)
+	GetKey.Name = "Get Key"
+	GetKey.Parent = Container
+	GetKey.Active = false
+	GetKey.BackgroundColor3 = Color3.fromRGB(22, 22, 24)
+	GetKey.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	GetKey.BorderSizePixel = 0
+	GetKey.Position = UDim2.new(0.0461532846, 0, 0.660256386, 0)
+	GetKey.Selectable = false
+	GetKey.Size = UDim2.new(0, 176, 0, 25)
+	GetKey.Text = ""
+
+	UICorner_4.CornerRadius = UDim.new(0, 2)
 	UICorner_4.Parent = GetKey
 
-	TextLabel_6.Parent = Container
+	TextLabel_6.Parent = GetKey
 	TextLabel_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	TextLabel_6.BackgroundTransparency = 1.000
 	TextLabel_6.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	TextLabel_6.BorderSizePixel = 0
-	TextLabel_6.Position = UDim2.new(0.0199999996, 0, 0.5, 0)
-	TextLabel_6.Size = UDim2.new(0, 0, 0, 14)
-	TextLabel_6.Font = Enum.Font.SourceSans
-	TextLabel_6.Text = ""
+	TextLabel_6.Size = UDim2.new(0, 176, 0, 25)
+	TextLabel_6.Font = Enum.Font.Unknown
+	TextLabel_6.Text = "Get Key"
 	TextLabel_6.TextColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel_6.TextScaled = true
 	TextLabel_6.TextSize = 14.000
-	TextLabel_6.TextWrapped = true
 
 	shadowHolder.Name = "shadowHolder"
-	shadowHolder.Parent = Frame
-	shadowHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	shadowHolder.Parent = KeySystem
 	shadowHolder.BackgroundTransparency = 1.000
 	shadowHolder.Size = UDim2.new(1, 0, 1, 0)
 
 	umbraShadow.Name = "umbraShadow"
 	umbraShadow.Parent = shadowHolder
+	umbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
 	umbraShadow.BackgroundTransparency = 1.000
-	umbraShadow.Size = UDim2.new(1, 12, 1, 12)
-	umbraShadow.Image = "rbxassetid://3832925684"
+	umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 5)
+	umbraShadow.Size = UDim2.new(1, 18, 1, 18)
+	umbraShadow.ZIndex = 0
+	umbraShadow.Image = "rbxassetid://1316045217"
 	umbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	umbraShadow.ScaleType = Enum.ScaleType.Slice
-	umbraShadow.SliceCenter = Rect.new(24, 24, 24, 24)
+	umbraShadow.ImageTransparency = 0.860
 
 	penumbraShadow.Name = "penumbraShadow"
 	penumbraShadow.Parent = shadowHolder
+	penumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
 	penumbraShadow.BackgroundTransparency = 1.000
-	penumbraShadow.Size = UDim2.new(1, 12, 1, 12)
-	penumbraShadow.Image = "rbxassetid://3832925684"
+	penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 5)
+	penumbraShadow.Size = UDim2.new(1, 18, 1, 18)
+	penumbraShadow.ZIndex = 0
+	penumbraShadow.Image = "rbxassetid://1316045217"
 	penumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	penumbraShadow.ScaleType = Enum.ScaleType.Slice
-	penumbraShadow.SliceCenter = Rect.new(24, 24, 24, 24)
+	penumbraShadow.ImageTransparency = 0.880
 
 	ambientShadow.Name = "ambientShadow"
 	ambientShadow.Parent = shadowHolder
+	ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
 	ambientShadow.BackgroundTransparency = 1.000
-	ambientShadow.Size = UDim2.new(1, 12, 1, 12)
-	ambientShadow.Image = "rbxassetid://3832925684"
+	ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 5)
+	ambientShadow.Size = UDim2.new(1, 18, 1, 18)
+	ambientShadow.ZIndex = 0
+	ambientShadow.Image = "rbxassetid://1316045217"
 	ambientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	ambientShadow.ScaleType = Enum.ScaleType.Slice
-	ambientShadow.SliceCenter = Rect.new(24, 24, 24, 24)
+	ambientShadow.ImageTransparency = 0.880
 	
 	local correctsound = Instance.new("Sound")
 	correctsound.Name = "correct sound"
