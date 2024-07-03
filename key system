@@ -375,7 +375,7 @@ function Library:KeyS(KName, validKey, Link, dislink, callback, whitelist)
 		
 		if Link then
 			-- This would be handled by the player's browser
-			setclipboard(Link)
+			setclipboard(dislink)
 			print("Discord link copied to clipboard.")
 		end
 	end)
