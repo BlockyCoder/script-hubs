@@ -162,9 +162,6 @@ Close.Selectable = false
 Close.Size = UDim2.new(0, 21, 0, 21)
 Close.Text = ""
 Close.TextTransparency = 1.000
-Close.MouseButton1Click:Connect(function()
-	ScreenGui:Destroy()
-end)
 
 
 UICorner_4.CornerRadius = UDim.new(0, 4)
@@ -221,6 +218,14 @@ ExampleContainer.Size = UDim2.new(0, 300, 0, 280)
 PageHold.Name = "PageHold"
 PageHold.Parent = ExampleContainer
 
+
+	Close.MouseButton1Click:Connect(function()
+		--fadeOut(Main, 0.3)
+		wait(0.3)  -- Delay to ensure fade out completes
+		ScreenGui:Destroy()  -- Destroy the ScreenScript
+	end)
+	
+	
 	Library:Drag(Menu, Topbar)
 	
 	
@@ -287,7 +292,7 @@ PageHold.Parent = ExampleContainer
 		--Properties:
 
 		Left.Name = "Left"
-		Left.Parent = game.StarterGui.ScreenGui.Menu.ExampleContainer.PageHold
+		Left.Parent = PageHold
 		Left.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Left.BackgroundTransparency = 1.000
 		Left.BorderColor3 = Color3.fromRGB(27, 42, 53)
