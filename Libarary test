@@ -79,7 +79,7 @@ local UICorner_4 = Instance.new("UICorner")
 local ImageLabel_2 = Instance.new("ImageLabel")
 local UIScale_2 = Instance.new("UIScale")
 local TabHold = Instance.new("Frame")
-local Holder = Instance.new("ScrollingFrame")
+local Holder2 = Instance.new("ScrollingFrame")
 local UIListLayout = Instance.new("UIListLayout")
 local UIPadding_2 = Instance.new("UIPadding")
 local ExampleContainer = Instance.new("Frame")
@@ -189,22 +189,22 @@ TabHold.BorderSizePixel = 0
 TabHold.Position = UDim2.new(0.00190476188, 0, 0.113207549, 0)
 TabHold.Size = UDim2.new(0, 218, 0, 282)
 
-Holder.Name = "Holder"
-Holder.Parent = TabHold
-Holder.Active = true
-Holder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Holder.BackgroundTransparency = 1.000
-Holder.BorderColor3 = Color3.fromRGB(27, 42, 53)
-Holder.Size = UDim2.new(1, 0, 0.996453881, 1)
-Holder.ZIndex = 3
-Holder.ScrollBarThickness = 0
+Holder2.Name = "Holder"
+Holder2.Parent = TabHold
+Holder2.Active = true
+Holder2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Holder2.BackgroundTransparency = 1.000
+	Holder2.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Holder2.Size = UDim2.new(1, 0, 0.996453881, 1)
+	Holder2.ZIndex = 3
+	Holder2.ScrollBarThickness = 0
 
-UIListLayout.Parent = Holder
+	UIListLayout.Parent = Holder2
 UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UIListLayout.Padding = UDim.new(0, 6)
 
-UIPadding_2.Parent = Holder
+	UIPadding_2.Parent = Holder2
 UIPadding_2.PaddingTop = UDim.new(0, 10)
 
 ExampleContainer.Name = "ExampleContainer"
@@ -220,7 +220,7 @@ PageHold.Parent = ExampleContainer
 
 
 	Close.MouseButton1Click:Connect(function()
-		--fadeOut(Main, 0.3)
+		
 		wait(0.3)  -- Delay to ensure fade out completes
 		ScreenGui:Destroy()  -- Destroy the ScreenScript
 	end)
@@ -245,7 +245,7 @@ PageHold.Parent = ExampleContainer
 		--Properties:
 
 		Example.Name = TabNam
-		Example.Parent = Holder
+		Example.Parent = Holder2
 		Example.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Example.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		Example.Position = UDim2.new(0.105504587, 0, 0, 0)
@@ -350,31 +350,17 @@ PageHold.Parent = ExampleContainer
 		UIPadding_2.PaddingTop = UDim.new(0, 5)
 
 
-
-		
-		-- Handle tab button click to show corresponding tab frame with animation
-		local function activateTab()
-			-- Hide all tab frames
+		-- Connect button click to activation function
+		Example.MouseButton1Click:Connect(function()
+			-- Hide all other tab frames
 			for _, frame in pairs(PageHold:GetChildren()) do
 				if frame:IsA("ScrollingFrame") then
 					frame.Visible = false
 				end
 			end
-			-- Reset text color for all tab buttons
-			for _, button in pairs(Holder:GetChildren()) do
-				if button:IsA("TextButton") then
-					button.TextColor3 = Color3.fromRGB(193, 193, 193)
-				end
-			end
-
-			-- Show the clicked tab frame and update button text color
+			-- Show the selected tab frame
 			Left.Visible = true
-			Example.TextColor3 = Color3.fromRGB(255, 255, 255)
-		end
-
-		-- Connect button click to activation function
-		Example.MouseButton1Click:Connect(activateTab)
-
+		end)
 	end
 	
 	
