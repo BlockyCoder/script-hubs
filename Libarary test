@@ -361,7 +361,6 @@ PageHold.Parent = ExampleContainer
 			-- Show the selected tab frame
 			Left.Visible = true
 		end)
-	end
 	
 	
 	local Elements = {}
@@ -618,4 +617,7 @@ return {
 	Elements  = Elements
 }
 end
+	return Library
+end
+
 return Library
