@@ -229,11 +229,9 @@ PageHold.Parent = ExampleContainer
 	Library:Drag(Menu, Topbar)
 	
 	
-	
-	local xTabs = {}
 
 
-	function xTabs:Tab(TabNam)
+	function Library:Tab(TabNam)
 		local TabNam = TabNam or "Tab"
 
 --Tab button
