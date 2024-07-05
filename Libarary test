@@ -359,11 +359,10 @@ PageHold.Parent = ExampleContainer
 			-- Show the selected tab frame
 			Left.Visible = true
 		end)
+
+end
 	
-	
-	local Elements = {}
-	
-	function Elements:Button(ButName,Callback)
+		function Library:Button(Parent, ButName,Callback)
 		local ButName = ButName or "Button"
 		local ButtonFunction = {}
 		local Callback = Callback or function () end
@@ -385,7 +384,7 @@ PageHold.Parent = ExampleContainer
 		--Properties:
 
 		Button.Name = "Button"
-		Button.Parent = Holder
+		Button.Parent = Parent
 		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Button.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		Button.Position = UDim2.new(0, 0, 0.439393938, 0)
@@ -448,12 +447,12 @@ PageHold.Parent = ExampleContainer
 		
 	end
 	
-	function Elements:Label(LabelText)
+		function Library:Label(parent, LabelText)
 		local LabelText = LabelText or "Label"
 
 		local Label = Instance.new("TextLabel")
 		Label.Name = "Label"
-		Label.Parent = Holder
+		Label.Parent = parent
 		Label.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Label.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		Label.Size = UDim2.new(0, 231, 0, 21)
@@ -468,7 +467,7 @@ PageHold.Parent = ExampleContainer
 
 
 
-	function Elements:Slider(Name, Min, Max, Callback)
+		function Library:Slider(parent, Name, Min, Max, Callback)
 		local Name = Name or "Slider"
 		local Callback = Callback or function() end
 		local Max = Max or 500
@@ -496,7 +495,7 @@ PageHold.Parent = ExampleContainer
 		-- Properties:
 
 		Slider.Name = "Slider"
-		Slider.Parent = Holder
+			Slider.Parent = parent
 		Slider.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Slider.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		Slider.Position = UDim2.new(0, 0, 0.241610736, 0)
@@ -606,16 +605,8 @@ PageHold.Parent = ExampleContainer
 				end)
 			end
 		end)
+			return Slider
+		end
 
-		return Slider
-	end
 
-return {
-	xTabs = xTabs,
-	Elements  = Elements
-}
-end
-	return Library
-end
-
-return Library
+		return Library
