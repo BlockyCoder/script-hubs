@@ -361,7 +361,7 @@ PageHold.Parent = ExampleContainer
 			Example.TextColor3 = Color3.fromRGB(255, 255, 255)
 			Example.BackgroundColor = Color3.fromRGB(0, 0, 0)
 		end)
-
+ return Holder
 end
 	
 		function Library:Button(Parent, ButName, Callback)
