@@ -358,6 +358,8 @@ PageHold.Parent = ExampleContainer
 			end
 			-- Show the selected tab frame
 			Left.Visible = true
+			Example.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Example.BackgroundColor = Color3.fromRGB(0, 0, 255)
 		end)
 
 end
@@ -456,7 +458,6 @@ end
 		Label.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Label.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		Label.Size = UDim2.new(0, 231, 0, 21)
-		Label.AutoButtonColor = false
 		Label.Text = LabelText
 		Label.TextColor3 = Color3.fromRGB(193, 193, 193)
 		Label.TextSize = 12
