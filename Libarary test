@@ -364,90 +364,53 @@ PageHold.Parent = ExampleContainer
 
 end
 	
-		function Library:Button(Parent, ButName,Callback)
-		local ButName = ButName or "Button"
-		local ButtonFunction = {}
-		local Callback = Callback or function () end
-		
-		-- Gui to Lua
-		-- Version: 3.2
+		function Library:Button(Parent, ButName, Callback)
+	local ButName = ButName or "Button"
+	local Callback = Callback or function() end
 
-		-- Instances:
+	-- Instances
+	local Button = Instance.new("TextButton")
+	local UICorner = Instance.new("UICorner")
+	local TextLabel = Instance.new("TextLabel")
+	local UIPadding = Instance.new("UIPadding")
 
-		local Button = Instance.new("TextButton")
-		local UICorner = Instance.new("UICorner")
-		local TextLabel = Instance.new("TextLabel")
-		local UIPadding = Instance.new("UIPadding")
-		local Status = Instance.new("Frame")
-		local ActualThing = Instance.new("Frame")
-		local ImageLabel = Instance.new("ImageLabel")
-		local UIScale = Instance.new("UIScale")
+	-- Button properties
+	Button.Name = ButName
+	Button.Parent = Parent
+	Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	Button.Size = UDim2.new(0, 231, 0, 31)
+	Button.AutoButtonColor = false
+	Button.Text = ""
 
-		--Properties:
+	-- UICorner properties
+	UICorner.CornerRadius = UDim.new(0, 5)
+	UICorner.Parent = Button
 
-		Button.Name = "Button"
-		Button.Parent = Parent
-		Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Button.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Button.Position = UDim2.new(0, 0, 0.439393938, 0)
-		Button.Selectable = false
-		Button.Size = UDim2.new(0, 231, 0, 31)
-		Button.AutoButtonColor = false
-		Button.Text = ""
+	-- TextLabel properties
+	TextLabel.Parent = Button
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.Size = UDim2.new(1, 0, 1, 0)
+	TextLabel.Font = Enum.Font.GothamMedium
+	TextLabel.Text = ButName
+	TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+	TextLabel.TextSize = 12.000
+	TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Button
+	-- UIPadding properties
+	UIPadding.Parent = TextLabel
+	UIPadding.PaddingLeft = UDim.new(0, 10)
 
-		TextLabel.Parent = Button
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		TextLabel.Size = UDim2.new(0, 194, 0, 31)
-		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = ButName
-		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TextLabel.TextSize = 12.000
-		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+	-- Button click event
+	Button.MouseButton1Click:Connect(function()
+		print("Button clicked: " .. ButName)
+		Callback()
+	end)
 
-		UIPadding.Parent = TextLabel
-		UIPadding.PaddingLeft = UDim.new(0, 10)
+	print("Button created: " .. ButName .. " in " .. Parent.Name)
+end
 
-		Status.Name = "Status"
-		Status.Parent = Button
-		Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Status.BackgroundTransparency = 1.000
-		Status.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Status.Position = UDim2.new(0.839826822, 0, 0, 0)
-		Status.Size = UDim2.new(0, 37, 0, 31)
 
-		ActualThing.Name = "ActualThing"
-		ActualThing.Parent = Status
-		ActualThing.AnchorPoint = Vector2.new(0.5, 0.5)
-		ActualThing.BackgroundColor3 = Color3.fromRGB(106, 0, 255)
-		ActualThing.BackgroundTransparency = 1.000
-		ActualThing.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		ActualThing.Position = UDim2.new(0.5, 0, 0.5, 0)
-		ActualThing.Size = UDim2.new(0, 20, 0, 20)
-
-		ImageLabel.Parent = ActualThing
-		ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-		ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		ImageLabel.BackgroundTransparency = 1.000
-		ImageLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-		ImageLabel.Size = UDim2.new(0, 20, 0, 20)
-		ImageLabel.Image = "rbxassetid://7734010488"
-		ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
-
-		UIScale.Parent = ImageLabel
-		UIScale.Scale = 0.800
-		
-		Button.MouseButton1Click:Connect(function()
-			--animateButton(Color3.fromRGB(70, 70, 70))
-			pcall(Callback())
-		end)
-		
-	end
 	
 		function Library:Label(parent, LabelText)
 		local LabelText = LabelText or "Label"
