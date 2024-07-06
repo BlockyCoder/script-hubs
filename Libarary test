@@ -359,7 +359,7 @@ PageHold.Parent = ExampleContainer
 			-- Show the selected tab frame
 			Left.Visible = true
 			Example.TextColor3 = Color3.fromRGB(255, 255, 255)
-			Example.BackgroundColor = Color3.fromRGB(0, 0, 255)
+			Example.BackgroundColor = Color3.fromRGB(0, 0, 0)
 		end)
 
 end
