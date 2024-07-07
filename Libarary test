@@ -378,7 +378,7 @@ end
 	Button.Name = ButName
 	Button.Parent = Parent
 	Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-	Button.Size = UDim2.new(0, 231, 0, 31)
+	Button.Size = UDim2.new(1, -20, 0, 31)
 	Button.AutoButtonColor = false
 	Button.Text = ""
 
@@ -420,7 +420,7 @@ end
 		Label.Parent = parent
 		Label.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Label.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Label.Size = UDim2.new(0, 231, 0, 21)
+		Label.Size = UDim2.new(1, 0, 0, 31)
 		Label.Text = LabelText
 		Label.TextColor3 = Color3.fromRGB(193, 193, 193)
 		Label.TextSize = 12
@@ -463,7 +463,7 @@ end
 		Slider.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Slider.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		Slider.Position = UDim2.new(0, 0, 0.241610736, 0)
-		Slider.Size = UDim2.new(0, 231, 0, 41)
+		Slider.Size = UDim2.new(1, 0, 0, 41)  -- Adjusted to fit within parent width
 
 		UICorner.CornerRadius = UDim.new(0, 5)
 		UICorner.Parent = Slider
@@ -474,7 +474,7 @@ end
 		Title.BackgroundTransparency = 1.000
 		Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		Title.Position = UDim2.new(0.0389610386, 0, 0, 0)
-		Title.Size = UDim2.new(0, 200, 0, 21)
+		Title.Size = UDim2.new(1, 0, 0, 31)  -- Adjusted to fit within Slider width
 		Title.Font = Enum.Font.GothamMedium
 		Title.Text = Name
 		Title.TextColor3 = Color3.fromRGB(193, 193, 193)
@@ -518,7 +518,7 @@ end
 		Value.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Value.BackgroundTransparency = 1.000
 		Value.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Value.Position = UDim2.new(0.324675322, 0, 0, 0)
+		Value.Position = UDim2.new(0.85, 0, 0, 0)  -- Adjusted to align right within Slider
 		Value.Size = UDim2.new(0, 33, 0, 21)
 		Value.Font = Enum.Font.Gotham
 		Value.Text = tostring(Min)
