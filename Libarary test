@@ -551,6 +551,90 @@ function Library:Create(xHubName)
 	end
 
 
+	function Library:Toggle(tab, toggleName, callback)
+		-- Create the toggle structure
+		local Toggle = Instance.new("TextButton")
+		Toggle.Name = "Toggle"
+		Toggle.Parent = tab
+		Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Toggle.BorderColor3 = Color3.fromRGB(27, 42, 53)
+		Toggle.Size = UDim2.new(0, 231, 0, 31)
+		Toggle.AutoButtonColor = false
+		Toggle.Text = ""
+
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = Toggle
+
+		local TextLabel = Instance.new("TextLabel")
+		TextLabel.Parent = Toggle
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.BackgroundTransparency = 1.000
+		TextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
+		TextLabel.Size = UDim2.new(0, 194, 0, 31)
+		TextLabel.Font = Enum.Font.GothamMedium
+		TextLabel.Text = toggleName
+		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+		TextLabel.TextSize = 12.000
+		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+		local UIPadding = Instance.new("UIPadding")
+		UIPadding.Parent = TextLabel
+		UIPadding.PaddingLeft = UDim.new(0, 10)
+
+		local Status = Instance.new("Frame")
+		Status.Name = "Status"
+		Status.Parent = Toggle
+		Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Status.BackgroundTransparency = 1.000
+		Status.BorderColor3 = Color3.fromRGB(27, 42, 53)
+		Status.Position = UDim2.new(0.839826822, 0, 0, 0)
+		Status.Size = UDim2.new(0, 37, 0, 31)
+
+		local ToggleBckg = Instance.new("Frame")
+		ToggleBckg.Name = "ToggleBckg"
+		ToggleBckg.Parent = Status
+		ToggleBckg.AnchorPoint = Vector2.new(0.5, 0.5)
+		ToggleBckg.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+		ToggleBckg.BorderColor3 = Color3.fromRGB(27, 42, 53)
+		ToggleBckg.Position = UDim2.new(0.5, 0, 0.5, 0)
+		ToggleBckg.Size = UDim2.new(0, 20, 0, 20)
+
+		local UICorner_2 = Instance.new("UICorner")
+		UICorner_2.CornerRadius = UDim.new(0, 5)
+		UICorner_2.Parent = ToggleBckg
+
+		local Icon = Instance.new("ImageLabel")
+		Icon.Name = "Icon"
+		Icon.Parent = ToggleBckg
+		Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+		Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Icon.BackgroundTransparency = 1.000
+		Icon.BorderColor3 = Color3.fromRGB(27, 42, 53)
+		Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
+		Icon.Size = UDim2.new(0, 20, 0, 20)
+		Icon.Image = "http://www.roblox.com/asset/?id=13319773302"
+		Icon.ImageColor3 = Color3.fromRGB(0, 0, 0)
+		Icon.ImageTransparency = 1.000
+
+		local UIScale = Instance.new("UIScale")
+		UIScale.Parent = Icon
+		UIScale.Scale = 0.800
+
+		-- Function to toggle the icon visibility
+		local isToggled = false
+		local function updateToggleState()
+			isToggled = not isToggled
+			Icon.ImageTransparency = isToggled and 0 or 1
+			callback(isToggled)
+		end
+
+		Toggle.MouseButton1Click:Connect(updateToggleState)
+
+		return Toggle
+	end
+
+
 
 	function Library:Slider(parent, Name, Min, Max, Callback)
 		Name = Name or "Slider"
@@ -795,7 +879,6 @@ function Library:Create(xHubName)
 	end
 
 
-	-- Function to create the dropdown
 	function Library:Dropdown(tab, dropdownName, options, callback)
 		-- Create the dropdown structure
 		local Dropdown = Instance.new("TextButton")
@@ -803,7 +886,7 @@ function Library:Create(xHubName)
 		Dropdown.Parent = tab
 		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Dropdown.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Dropdown.Size = UDim2.new(1, 0, 0, 31) -- Adjusted width to fit parent, height remains 31
+		Dropdown.Size = UDim2.new(0, 150, 0, 31) -- Adjusted width to a smaller size
 		Dropdown.AutoButtonColor = false
 		Dropdown.Text = ""
 
@@ -813,7 +896,7 @@ function Library:Create(xHubName)
 		Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Main.BackgroundTransparency = 1.000
 		Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Main.Size = UDim2.new(1, 0, 1, 0) -- Adjusted width and height to fit parent
+		Main.Size = UDim2.new(1, 0, 1, 0) -- Adjusted to match the dropdown button size
 
 		-- Icon Frame
 		local IconFrame = Instance.new("Frame")
@@ -821,7 +904,8 @@ function Library:Create(xHubName)
 		IconFrame.Parent = Main
 		IconFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		IconFrame.BackgroundTransparency = 1.000
-		IconFrame.Size = UDim2.new(0, 31, 1, 0) -- Adjusted width and height to fit parent
+		IconFrame.Size = UDim2.new(0, 31, 0, 31)
+		IconFrame.Position = UDim2.new(1, -31, 0, 0) -- Adjust icon position to the right end
 
 		-- Icon ImageLabel
 		local Icon = Instance.new("ImageLabel")
@@ -840,8 +924,7 @@ function Library:Create(xHubName)
 		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Title.BackgroundTransparency = 1.000
 		Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Title.Size = UDim2.new(1, -31, 1, 0) -- Adjusted width and height to fit parent, leaving space for the icon
-		Title.Position = UDim2.new(0, 31, 0, 0) -- Adjusted position to accommodate the icon
+		Title.Size = UDim2.new(1, -35, 1, 0) -- Adjusted to fit within Dropdown width
 		Title.Font = Enum.Font.GothamMedium
 		Title.Text = dropdownName -- Set the dropdown name
 		Title.TextColor3 = Color3.fromRGB(193, 193, 193)
@@ -851,12 +934,12 @@ function Library:Create(xHubName)
 		local List = Instance.new("Frame")
 		List.Name = "List"
 		List.Parent = tab
-		List.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		List.BackgroundTransparency = 1.000
+		List.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		List.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		List.Position = UDim2.new(0, 0, 1, 0) -- Move list below the title bar
 		List.Visible = false
-		List.Size = UDim2.new(1, 0, 0, 0) -- Start with zero height
+		List.Size = UDim2.new(0, 150, 0, 0) -- Start with zero height
+		List.ClipsDescendants = true
 
 		local UIListLayout = Instance.new("UIListLayout")
 		UIListLayout.Parent = List
@@ -868,11 +951,12 @@ function Library:Create(xHubName)
 			Option.Name = "Option"
 			Option.Parent = List
 			Option.BackgroundTransparency = 1
-			--Option.BorderColor3 = Color3.fromRGB(27, 42, 53)
 			Option.BorderSizePixel = 0
 			Option.Size = UDim2.new(1, 0, 0, 25) -- Customize height as needed
 			Option.AutoButtonColor = false
 			Option.Text = optionText
+			Option.TextColor3 = Color3.fromRGB(193, 193, 193)
+			Option.TextWrapped = true
 
 			Option.MouseButton1Click:Connect(function()
 				-- Handle option selection
@@ -889,19 +973,17 @@ function Library:Create(xHubName)
 			isOpen = not isOpen
 			List.Visible = isOpen
 			-- Change icon state
-			if isOpen then
-				Icon.ImageColor3 = Color3.fromRGB(255, 255, 255) -- Change to open state color
-				Icon.Image = "rbxassetid://6031090999" 
-			else
-				Icon.ImageColor3 = Color3.fromRGB(109, 109, 109) -- Change to closed state color
-				Icon.Image = "rbxassetid://6031091000" 
-			end
+			Icon.Image = List.Visible and "rbxassetid://6031090999" or "rbxassetid://6031091000"
 		end)
 
 		return Dropdown
 	end
 
 
+
 	return Library
 end
 return Library
+
+
+--UDim2.new(0.5, 0, 0.5, 0)
