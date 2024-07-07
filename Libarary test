@@ -626,6 +626,8 @@ function Library:Create(xHubName)
 		local function updateToggleState()
 			isToggled = not isToggled
 			Icon.ImageTransparency = isToggled and 0 or 1
+			ToggleBckg.BackgroundColor3 = isToggled and Color3.fromRGB(255, 100, 100) or Color3.fromRGB(29, 29, 29)
+
 			callback(isToggled)
 		end
 
@@ -878,7 +880,6 @@ function Library:Create(xHubName)
 		return Keybind
 	end
 
-
 	function Library:Dropdown(tab, dropdownName, options, callback)
 		-- Create the dropdown structure
 		local Dropdown = Instance.new("TextButton")
@@ -886,7 +887,7 @@ function Library:Create(xHubName)
 		Dropdown.Parent = tab
 		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Dropdown.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Dropdown.Size = UDim2.new(0, 150, 0, 31) -- Adjusted width to a smaller size
+		Dropdown.Size = UDim2.new(0, 200, 0, 31) -- Adjusted width to fit content better
 		Dropdown.AutoButtonColor = false
 		Dropdown.Text = ""
 
@@ -896,7 +897,7 @@ function Library:Create(xHubName)
 		Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Main.BackgroundTransparency = 1.000
 		Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Main.Size = UDim2.new(1, 0, 1, 0) -- Adjusted to match the dropdown button size
+		Main.Size = UDim2.new(1, 0, 1, 0) -- Full size inside the button
 
 		-- Icon Frame
 		local IconFrame = Instance.new("Frame")
@@ -905,7 +906,7 @@ function Library:Create(xHubName)
 		IconFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		IconFrame.BackgroundTransparency = 1.000
 		IconFrame.Size = UDim2.new(0, 31, 0, 31)
-		IconFrame.Position = UDim2.new(1, -31, 0, 0) -- Adjust icon position to the right end
+		IconFrame.Position = UDim2.new(1, -31, 0, 0) -- Align to the right end
 
 		-- Icon ImageLabel
 		local Icon = Instance.new("ImageLabel")
@@ -938,7 +939,7 @@ function Library:Create(xHubName)
 		List.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		List.Position = UDim2.new(0, 0, 1, 0) -- Move list below the title bar
 		List.Visible = false
-		List.Size = UDim2.new(0, 150, 0, 0) -- Start with zero height
+		List.Size = UDim2.new(1, 0, 0, 0) -- Start with zero height and full width
 		List.ClipsDescendants = true
 
 		local UIListLayout = Instance.new("UIListLayout")
