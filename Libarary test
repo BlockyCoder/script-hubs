@@ -891,7 +891,7 @@ function Library:Dropdown(tab, dropdownName, options, callback)
     Dropdown.Parent = tab
     Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     Dropdown.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Dropdown.Size = UDim2.new(0, 200, 0, 31) -- Adjusted width to fit content better
+    Dropdown.Size = UDim2.new(0, 200, 0, 31) -- Initial size
     Dropdown.AutoButtonColor = false
     Dropdown.Text = ""
 
@@ -950,6 +950,13 @@ function Library:Dropdown(tab, dropdownName, options, callback)
     UIListLayout.Parent = List
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
+    -- Function to update the size of the dropdown
+    local function updateDropdownSize()
+        local newHeight = math.min(#options * 25, 150) -- Adjust the 150 limit as needed
+        List.Size = isOpen and UDim2.new(1, 0, 0, newHeight) or UDim2.new(1, 0, 0, 0)
+        Dropdown.Size = UDim2.new(0, 200, 0, 31 + (isOpen and newHeight or 0))
+    end
+
     -- Populate options
     for i, optionText in ipairs(options) do
         local Option = Instance.new("TextButton")
@@ -968,8 +975,10 @@ function Library:Dropdown(tab, dropdownName, options, callback)
             callback(optionText)
             Title.Text = optionText
             Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
+Icon.Image = "rbxassetid://6031091000" -- Closed state icon
             List.Visible = false
             isOpen = false
+            updateDropdownSize()
         end)
     end
 
@@ -980,12 +989,12 @@ function Library:Dropdown(tab, dropdownName, options, callback)
         List.Visible = isOpen
         -- Change icon state
         Icon.Image = isOpen and "rbxassetid://6031090999" or "rbxassetid://6031091000"
-        -- Adjust list size based on the number of options
-        List.Size = isOpen and UDim2.new(1, 0, 0, #options * 25) or UDim2.new(1, 0, 0, 0)
+        updateDropdownSize()
     end)
 
     return Dropdown
 end
+
 
 
 
