@@ -295,6 +295,7 @@ function Library:Create(xHubName)
 		Left.BackgroundTransparency = 1.000
 		Left.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		Left.Size = UDim2.new(0, 301, 0, 282)
+		Left.Visible = false
 		Left.ScrollBarThickness = 0
 
 		UIListLayout.Parent = Left
@@ -552,16 +553,12 @@ function Library:Create(xHubName)
 
 
 	function Library:Slider(parent, Name, Min, Max, Callback)
-		local Name = Name or "Slider"
-		local Callback = Callback or function() end
-		local Max = Max or 500
-		local Min = Min or 16
+		Name = Name or "Slider"
+		Callback = Callback or function() end
+		Max = Max or 500
+		Min = Min or 16
 
-		-- Gui to Lua
-		-- Version: 3.2
-
-		-- Instances:
-
+		-- Create UI elements
 		local Slider = Instance.new("Frame")
 		local UICorner = Instance.new("UICorner")
 		local Title = Instance.new("TextLabel")
@@ -576,26 +573,25 @@ function Library:Create(xHubName)
 		local UIPadding_2 = Instance.new("UIPadding")
 		local UIPadding_3 = Instance.new("UIPadding")
 
-		--Properties:
-
+		-- Slider properties
 		Slider.Name = "Slider"
 		Slider.Parent = parent
 		Slider.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Slider.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		Slider.Position = UDim2.new(0, 0, 0.4, 0)  -- Adjusted vertical position within parent
-		Slider.Size = UDim2.new(1, 0, 0, 41)  -- Adjusted to fit within parent width
-
+		Slider.Size = UDim2.new(0, 240, 0, 41)  -- Adjusted width to fit nicely within parent
 
 		UICorner.CornerRadius = UDim.new(0, 5)
 		UICorner.Parent = Slider
 
+		-- Title properties
 		Title.Name = "Title"
 		Title.Parent = Slider
 		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Title.BackgroundTransparency = 1.000
 		Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Title.Position = UDim2.new(-0.0452488698, 0, 0, 0)
-		Title.Size = UDim2.new(1, 0, 0, 31)  -- Adjusted to fit within Slider width
+		Title.Position = UDim2.new(0, 0, 0, 0)
+		Title.Size = UDim2.new(0.7, 0, 0, 31)  -- Adjusted width to fit within Slider
 		Title.Font = Enum.Font.GothamMedium
 		Title.Text = Name
 		Title.TextColor3 = Color3.fromRGB(193, 193, 193)
@@ -605,26 +601,28 @@ function Library:Create(xHubName)
 		UIPadding.Parent = Title
 		UIPadding.PaddingLeft = UDim.new(0, 10)
 
+		-- Bar properties
 		Bar.Name = "Bar"
 		Bar.Parent = Slider
 		Bar.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 		Bar.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Bar.Position = UDim2.new(-0.00216440065, 0, 0.658536613, 0)
-		Bar.Size = UDim2.new(0, 212, 0, 4)
+		Bar.Position = UDim2.new(0, 10, 0.75, 0)
+		Bar.Size = UDim2.new(0.9, -20, 0, 4)  -- Adjusted to fit within Slider
 
 		UICorner_2.CornerRadius = UDim.new(0, 5)
 		UICorner_2.Parent = Bar
 
+		-- Progress properties
 		Progress.Name = "Progress"
 		Progress.Parent = Bar
 		Progress.BackgroundColor3 = Color3.fromRGB(0, 213, 255)
 		Progress.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Progress.Position = UDim2.new(0, 0, -0.0426864624, 0)
-		Progress.Size = UDim2.new(0, 170, 0, 4)
+		Progress.Size = UDim2.new(0, 0, 1, 0)
 
 		UICorner_3.CornerRadius = UDim.new(0, 5)
 		UICorner_3.Parent = Progress
 
+		-- Circle properties
 		Circle.Name = "Circle"
 		Circle.Parent = Progress
 		Circle.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -636,16 +634,16 @@ function Library:Create(xHubName)
 		UICorner_4.CornerRadius = UDim.new(1, 0)
 		UICorner_4.Parent = Circle
 
+		-- Value properties
 		Value.Name = "Value"
 		Value.Parent = Slider
 		Value.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Value.BackgroundTransparency = 1.000
 		Value.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Value.Position = UDim2.new(0.85, 0, 0, 0)  -- Adjusted to align right within Slider
-
-		Value.Size = UDim2.new(0, 43, 0, 31)
+		Value.Position = UDim2.new(0.85, 0, 0, 0)
+		Value.Size = UDim2.new(0.15, 0, 0, 31)
 		Value.Font = Enum.Font.GothamMedium
-		Value.Text = tostring(Min).."%"
+		Value.Text = tostring(Min)
 		Value.TextColor3 = Color3.fromRGB(124, 124, 124)
 		Value.TextSize = 12.000
 		Value.TextXAlignment = Enum.TextXAlignment.Right
@@ -657,12 +655,11 @@ function Library:Create(xHubName)
 		UIPadding_3.PaddingLeft = UDim.new(0, 10)
 
 		-- Slider logic
-
 		local function updateValue(mouseX)
 			local percent = math.clamp((mouseX - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X, 0, 1)
 			local newValue = math.floor(percent * (Max - Min) + Min)
 			Progress.Size = UDim2.new(percent, 0, 1, 0)
-			Circle.Position = UDim2.new(percent, 0, 0.122132942, 0)
+			Circle.Position = UDim2.new(percent, 0, 0.5, 0)
 			Value.Text = tostring(newValue)
 			Callback(newValue)
 		end
@@ -670,7 +667,7 @@ function Library:Create(xHubName)
 		local function setProgress(value)
 			local percent = math.clamp((value - Min) / (Max - Min), 0, 1)
 			Progress.Size = UDim2.new(percent, 0, 1, 0)
-			Circle.Position = UDim2.new(percent, 0, 0.122132942, 0)
+			Circle.Position = UDim2.new(percent, 0, 0.5, 0)
 			Value.Text = tostring(value)
 		end
 
@@ -693,8 +690,13 @@ function Library:Create(xHubName)
 				end)
 			end
 		end)
+
+		-- Initial setup
+		setProgress(Min)
+
 		return Slider
 	end
+
 
 
 	-- Assume Library is already defined as your GUI library
@@ -792,58 +794,6 @@ function Library:Create(xHubName)
 		return Keybind
 	end
 
-	function Library:ColorPicker(tab, pickerName, defaultColor, callback)
-		-- Create the color picker structure
-		local ColorPicker = Instance.new("TextButton")
-		ColorPicker.Name = pickerName
-		ColorPicker.Parent = tab
-		ColorPicker.BackgroundColor3 = defaultColor or Color3.fromRGB(255, 255, 255)
-		ColorPicker.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		ColorPicker.Position = UDim2.new(0, 0, 0, 0)
-		ColorPicker.Size = UDim2.new(0, 50, 0, 50)
-		ColorPicker.AutoButtonColor = false
-		ColorPicker.Text = ""
-
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = ColorPicker
-
-		local UIPadding = Instance.new("UIPadding")
-		UIPadding.PaddingLeft = UDim.new(0, 10)
-		UIPadding.Parent = ColorPicker
-
-		-- Trigger callback on click to open color picker dialog
-		ColorPicker.MouseButton1Click:Connect(function()
-			local ColorPickerDialog = Instance.new("ColorPickerFram")
-			ColorPickerDialog.Name = "ColorPickerDialog"
-			ColorPickerDialog.Parent = tab
-			ColorPickerDialog.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			ColorPickerDialog.BorderColor3 = Color3.fromRGB(27, 42, 53)
-			ColorPickerDialog.Position = UDim2.new(0, 50, 0, 0) -- Adjust position as needed
-			ColorPickerDialog.Size = UDim2.new(0, 200, 0, 200)
-			ColorPickerDialog.Visible = true
-
-			-- Set initial color based on defaultColor or current ColorPicker color
-			ColorPickerDialog.Color = Color3.fromRGB(255, 255, 255)
-
-			-- Listen for color selection changes
-			ColorPickerDialog.ColorChanged:Connect(function(color)
-				-- Update ColorPicker color
-				ColorPicker.BackgroundColor3 = color
-				-- Trigger callback with selected color
-				callback(color)
-			end)
-
-			-- Close color picker dialog on selection
-			ColorPickerDialog.MouseButton1Click:Connect(function()
-				ColorPickerDialog.Visible = false
-				ColorPickerDialog:Destroy()
-			end)
-		end)
-
-		return ColorPicker
-	end
-
 
 	-- Function to create the dropdown
 	function Library:Dropdown(tab, dropdownName, options, callback)
@@ -853,7 +803,7 @@ function Library:Create(xHubName)
 		Dropdown.Parent = tab
 		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 		Dropdown.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Dropdown.Size = UDim2.new(0, 231, 0, 31) -- Adjusted height to fit icon
+		Dropdown.Size = UDim2.new(1, 0, 0, 31) -- Adjusted width to fit parent, height remains 31
 		Dropdown.AutoButtonColor = false
 		Dropdown.Text = ""
 
@@ -863,7 +813,7 @@ function Library:Create(xHubName)
 		Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Main.BackgroundTransparency = 1.000
 		Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Main.Size = UDim2.new(0, 231, 0, 31)
+		Main.Size = UDim2.new(1, 0, 1, 0) -- Adjusted width and height to fit parent
 
 		-- Icon Frame
 		local IconFrame = Instance.new("Frame")
@@ -871,8 +821,7 @@ function Library:Create(xHubName)
 		IconFrame.Parent = Main
 		IconFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		IconFrame.BackgroundTransparency = 1.000
-		IconFrame.Size = UDim2.new(0, 31, 0, 31)
-		IconFrame.Position = UDim2.new(0, 200, 0, 0) -- Adjust icon position
+		IconFrame.Size = UDim2.new(0, 31, 1, 0) -- Adjusted width and height to fit parent
 
 		-- Icon ImageLabel
 		local Icon = Instance.new("ImageLabel")
@@ -891,7 +840,8 @@ function Library:Create(xHubName)
 		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Title.BackgroundTransparency = 1.000
 		Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Title.Size = UDim2.new(0, 194, 0, 31)
+		Title.Size = UDim2.new(1, -31, 1, 0) -- Adjusted width and height to fit parent, leaving space for the icon
+		Title.Position = UDim2.new(0, 31, 0, 0) -- Adjusted position to accommodate the icon
 		Title.Font = Enum.Font.GothamMedium
 		Title.Text = dropdownName -- Set the dropdown name
 		Title.TextColor3 = Color3.fromRGB(193, 193, 193)
@@ -905,7 +855,8 @@ function Library:Create(xHubName)
 		List.BackgroundTransparency = 1.000
 		List.BorderColor3 = Color3.fromRGB(27, 42, 53)
 		List.Position = UDim2.new(0, 0, 1, 0) -- Move list below the title bar
-		List.Size = UDim2.new(0, 231, 0, 0) -- Start with zero height
+		List.Visible = false
+		List.Size = UDim2.new(1, 0, 0, 0) -- Start with zero height
 
 		local UIListLayout = Instance.new("UIListLayout")
 		UIListLayout.Parent = List
@@ -916,8 +867,8 @@ function Library:Create(xHubName)
 			local Option = Instance.new("TextButton")
 			Option.Name = "Option"
 			Option.Parent = List
-			Option.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			Option.BorderColor3 = Color3.fromRGB(27, 42, 53)
+			Option.BackgroundTransparency = 1
+			--Option.BorderColor3 = Color3.fromRGB(27, 42, 53)
 			Option.BorderSizePixel = 0
 			Option.Size = UDim2.new(1, 0, 0, 25) -- Customize height as needed
 			Option.AutoButtonColor = false
@@ -926,9 +877,9 @@ function Library:Create(xHubName)
 			Option.MouseButton1Click:Connect(function()
 				-- Handle option selection
 				callback(optionText)
-				Dropdown.Text = optionText
+				Title.Text = optionText
 				Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
-				List.Size = UDim2.new(0, 231, 0, 0)
+				List.Visible = false
 			end)
 		end
 
@@ -936,7 +887,7 @@ function Library:Create(xHubName)
 		local isOpen = false
 		Dropdown.MouseButton1Click:Connect(function()
 			isOpen = not isOpen
-			List.Size = isOpen and UDim2.new(0, 231, 0, #options * 25) or UDim2.new(0, 231, 0, 0)
+			List.Visible = isOpen
 			-- Change icon state
 			if isOpen then
 				Icon.ImageColor3 = Color3.fromRGB(255, 255, 255) -- Change to open state color
