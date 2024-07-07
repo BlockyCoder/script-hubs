@@ -883,6 +883,7 @@ end
 
 		return Keybind
 	end
+
 function Library:Dropdown(tab, dropdownName, options, callback)
     -- Create the dropdown structure
     local Dropdown = Instance.new("TextButton")
@@ -937,7 +938,7 @@ function Library:Dropdown(tab, dropdownName, options, callback)
 
     local List = Instance.new("Frame")
     List.Name = "List"
-    List.Parent = Dropdown -- Parent the list to the dropdown for better positioning
+    List.Parent = tab -- Parent the list to the dropdown for better positioning
     List.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     List.BorderColor3 = Color3.fromRGB(27, 42, 53)
     List.Position = UDim2.new(0, 0, 1, 0) -- Move list below the dropdown button
