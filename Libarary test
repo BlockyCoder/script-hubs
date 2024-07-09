@@ -943,7 +943,7 @@ function Library:Dropdown(tab, dropdownName, options, callback)
     List.BorderColor3 = Color3.fromRGB(27, 42, 53)
     List.Position = UDim2.new(0, 0, 1, 0) -- Move list below the dropdown button
     List.Visible = false
-    List.Size = UDim2.new(1, 0, 0, 0) -- Start with zero height and full width
+    List.Size = UDim2.new(0, 200, 0, 0) -- Start with zero height and full width
     List.ClipsDescendants = true
 
     local UIListLayout = Instance.new("UIListLayout")
@@ -954,7 +954,6 @@ function Library:Dropdown(tab, dropdownName, options, callback)
     local function updateDropdownSize()
         local newHeight = math.min(#options * 25, 150) -- Adjust the 150 limit as needed
         List.Size = isOpen and UDim2.new(1, 0, 0, newHeight) or UDim2.new(1, 0, 0, 0)
-        Dropdown.Size = UDim2.new(0, 200, 0, 31 + (isOpen and newHeight or 0))
     end
 
     -- Populate options
@@ -975,7 +974,7 @@ function Library:Dropdown(tab, dropdownName, options, callback)
             callback(optionText)
             Title.Text = optionText
             Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
-Icon.Image = "rbxassetid://6031091000" -- Closed state icon
+            Icon.Image = "rbxassetid://6031091000" -- Closed state icon
             List.Visible = false
             isOpen = false
             updateDropdownSize()
@@ -994,6 +993,7 @@ Icon.Image = "rbxassetid://6031091000" -- Closed state icon
 
     return Dropdown
 end
+
 
 
 
