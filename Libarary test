@@ -938,23 +938,17 @@ function Library:Dropdown(tab, dropdownName, options, callback)
 
     local List = Instance.new("Frame")
     List.Name = "List"
-    List.Parent = tab -- Parent the list to the dropdown for better positioning
+    List.Parent = Dropdown -- Parent the list to the dropdown for better positioning
     List.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     List.BorderColor3 = Color3.fromRGB(27, 42, 53)
     List.Position = UDim2.new(0, 0, 1, 0) -- Move list below the dropdown button
     List.Visible = false
-    List.Size = UDim2.new(0, 200, 0, 0) -- Start with zero height and full width
+    List.Size = UDim2.new(1, 0, 0, #options * 25) -- Adjust height based on options
     List.ClipsDescendants = true
 
     local UIListLayout = Instance.new("UIListLayout")
     UIListLayout.Parent = List
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-    -- Function to update the size of the dropdown
-    local function updateDropdownSize()
-        local newHeight = math.min(#options * 25, 150) -- Adjust the 150 limit as needed
-        List.Size = isOpen and UDim2.new(1, 0, 0, newHeight) or UDim2.new(1, 0, 0, 0)
-    end
 
     -- Populate options
     for i, optionText in ipairs(options) do
@@ -977,7 +971,6 @@ function Library:Dropdown(tab, dropdownName, options, callback)
             Icon.Image = "rbxassetid://6031091000" -- Closed state icon
             List.Visible = false
             isOpen = false
-            updateDropdownSize()
         end)
     end
 
@@ -988,7 +981,6 @@ function Library:Dropdown(tab, dropdownName, options, callback)
         List.Visible = isOpen
         -- Change icon state
         Icon.Image = isOpen and "rbxassetid://6031090999" or "rbxassetid://6031091000"
-        updateDropdownSize()
     end)
 
     return Dropdown
