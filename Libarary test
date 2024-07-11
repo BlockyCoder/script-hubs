@@ -471,85 +471,89 @@ end
 		return Label
 	end
 
-	local function TextBox(parent, titleText, defaultValue, callback)
-	-- Create GUI elements
-	local Input = Instance.new("Frame")
-	local UICorner = Instance.new("UICorner")
-	local Title = Instance.new("TextLabel")
-	local InputFrame = Instance.new("Frame")
-	local InputBox = Instance.new("TextBox")
-	local UICorner_2 = Instance.new("UICorner")
+	function Library:TextBox(parent, titleText, defaultValue, callback)
+		-- Create main Textbox container
+		local Textbox = Instance.new("TextButton")
+		Textbox.Name = "Textbox"
+		Textbox.Parent = parent
+		Textbox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		Textbox.BorderColor3 = Color3.fromRGB(27, 42, 53)
+		Textbox.Position = UDim2.new(0, 0, 0.706586838, 0)
+		Textbox.Selectable = false
+		Textbox.Size = UDim2.new(1, 0, 0, 51)  -- Adjusted width to fit parent dynamically
+		Textbox.AutoButtonColor = false
+		Textbox.Text = ""
 
-	-- Set up properties for each element
-	Input.Name = "Input"
-	Input.Parent = parent
-	Input.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-	Input.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Input.BorderSizePixel = 0
-	Input.Position = UDim2.new(0.0263157897, 0, 0.657587588, 0) -- Adjust position
-	Input.Size = UDim2.new(1, -20, 0, 40) -- Adjust size
+		-- Apply corner radius to Textbox
+		local UICorner = Instance.new("UICorner")
+		UICorner.CornerRadius = UDim.new(0, 2)
+		UICorner.Parent = Textbox
 
-	UICorner.CornerRadius = UDim.new(0, 4)
-	UICorner.Parent = Input
+		-- Create and configure TextLabel
+		local TextLabel = Instance.new("TextLabel")
+		TextLabel.Parent = Textbox
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.BackgroundTransparency = 1.000
+		TextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
+		TextLabel.Size = UDim2.new(1, 0, 0, 31)  -- Adjusted width to fit parent dynamically
+		TextLabel.Font = Enum.Font.GothamMedium
+		TextLabel.Text = titleText
+		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+		TextLabel.TextSize = 12.000
+		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-	Title.Name = "Title"
-	Title.Parent = Input
-	Title.AnchorPoint = Vector2.new(0, 0.5)
-	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Title.BackgroundTransparency = 1.000
-	Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Title.BorderSizePixel = 0
-	Title.Position = UDim2.new(0.02, 0, 0.5, 0) -- Adjust position
-	Title.Size = UDim2.new(0, 200, 0, 14)
-	Title.Font = Enum.Font.GothamMedium
-	Title.Text = titleText or "Title"
-	Title.TextColor3 = Color3.fromRGB(240, 240, 240)
-	Title.TextScaled = true
-	Title.TextSize = 14.000
-	Title.TextWrapped = true
-	Title.TextXAlignment = Enum.TextXAlignment.Left
+		-- Apply padding to TextLabel
+		local UIPadding = Instance.new("UIPadding")
+		UIPadding.Parent = TextLabel
+		UIPadding.PaddingLeft = UDim.new(0, 10)
 
-	InputFrame.Name = "InputFrame"
-	InputFrame.Parent = Input
-	InputFrame.AnchorPoint = Vector2.new(1, 0.5)
-	InputFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-	InputFrame.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	InputFrame.BorderSizePixel = 0
-	InputFrame.Position = UDim2.new(1, -7, 0.5, 0) -- Adjust position
-	InputFrame.Size = UDim2.new(0, 120, 0, 30)
+		-- Create and configure Status frame
+		local Status = Instance.new("Frame")
+		Status.Name = "Status"
+		Status.Parent = Textbox
+		Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Status.BackgroundTransparency = 1.000
+		Status.BorderColor3 = Color3.fromRGB(27, 42, 53)
+		Status.Position = UDim2.new(0, 0, 0.5, 0)  -- Adjusted position to center vertically
+		Status.Size = UDim2.new(1, 0, 0, 28)
 
-	InputBox.Name = "InputBox"
-	InputBox.Parent = InputFrame
-	InputBox.AnchorPoint = Vector2.new(0.5, 0.5)
-	InputBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	InputBox.BackgroundTransparency = 1.000
-	InputBox.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	InputBox.BorderSizePixel = 0
-	InputBox.Position = UDim2.new(0.5, 0, 0.5, 0)
-	InputBox.Size = UDim2.new(1, -15, 0, 14)
-	InputBox.ClearTextOnFocus = false
-	InputBox.Font = Enum.Font.GothamMedium
-	InputBox.PlaceholderText = defaultValue or "Enter text..."
-	InputBox.Text = ""
-	InputBox.TextColor3 = Color3.fromRGB(240, 240, 240)
-	InputBox.TextSize = 14.000
+		-- Create and configure TextBox
+		local TextBox = Instance.new("TextBox")
+		TextBox.Parent = Status
+		TextBox.Active = false
+		TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+		TextBox.BorderColor3 = Color3.fromRGB(27, 42, 53)
+		TextBox.ClipsDescendants = true
+		TextBox.Position = UDim2.new(0, 10, 0.5, -8)  -- Adjusted position to center vertically
+		TextBox.Size = UDim2.new(1, -20, 0, 17)  -- Adjusted width to fit parent dynamically
+		TextBox.ClearTextOnFocus = false
+		TextBox.Font = Enum.Font.Gotham
+		TextBox.PlaceholderColor3 = Color3.fromRGB(104, 104, 104)
+		TextBox.PlaceholderText = defaultValue
+		TextBox.Text = ""
+		TextBox.TextColor3 = Color3.fromRGB(177, 177, 177)
+		TextBox.TextSize = 12.000
 
-	UICorner_2.CornerRadius = UDim.new(0, 5)
-	UICorner_2.Parent = InputFrame
+		-- Apply corner radius to TextBox
+		local UICorner_2 = Instance.new("UICorner")
+		UICorner_2.CornerRadius = UDim.new(0, 2)
+		UICorner_2.Parent = TextBox
 
-	-- Callback function for handling input changes
-	InputBox.FocusLost:Connect(function(enterPressed)
-		if enterPressed then
-			local newText = InputBox.Text
-			if callback then
-				callback(newText)
-			end
+		-- Event handling for TextBox text changed
+		TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+			callback(TextBox.Text)
+		end)
+
+		local function UpdateText()
+			callback(TextBox.Text)
 		end
-	end)
 
-	return InputBox
-end
+		TextBox.FocusLost:Connect(UpdateText)
 
+
+
+		return TextBox, UpdateText  -- Return TextBox in case further manipulation is needed
+	end
 
 
 	function Library:Toggle(tab, toggleName, callback)
@@ -641,133 +645,150 @@ end
 
 
 
-	
-function Library:Slider(parent, sliderName, minValue, maxValue, defaultValue, callback)
-	sliderName = sliderName or "Slider"
-	callback = callback or function() end
-	maxValue = maxValue or 500
-	minValue = minValue or 16
+	function Library:Slider(parent, Name, Min, Max, Callback)
+    Name = Name or "Slider"
+    Callback = Callback or function() end
+    Max = Max or 500
+    Min = Min or 16
 
-	-- Create instances
-	local Template = Instance.new("Frame")
-	local UICorner = Instance.new("UICorner")
-	local Progress = Instance.new("Frame")
-	local UICorner_2 = Instance.new("UICorner")
-	local Information = Instance.new("TextLabel")
-	local Shadow = Instance.new("ImageLabel")
-	local UICorner_3 = Instance.new("UICorner")
-	local Interact = Instance.new("TextButton")
+    -- Create UI elements
+    local Slider = Instance.new("Frame")
+    local UICorner = Instance.new("UICorner")
+    local Title = Instance.new("TextLabel")
+    local UIPadding = Instance.new("UIPadding")
+    local Bar = Instance.new("Frame")
+    local UICorner_2 = Instance.new("UICorner")
+    local Progress = Instance.new("Frame")
+    local UICorner_3 = Instance.new("UICorner")
+    local Circle = Instance.new("Frame")
+    local UICorner_4 = Instance.new("UICorner")
+    local Value = Instance.new("TextLabel")
+    local UIPadding_2 = Instance.new("UIPadding")
+    local UIPadding_3 = Instance.new("UIPadding")
 
-	-- Set properties
-	Template.Name = sliderName
-	Template.Parent = parent
-	Template.BackgroundColor3 = Color3.fromRGB(44, 153, 93)
-	Template.BackgroundTransparency = 0.800
-	Template.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Template.BorderSizePixel = 0
-	Template.Position = UDim2.new(0, 0, 0.439393938, 0) -- Match Button position
-	Template.Size = UDim2.new(1, -20, 0, 31) -- Match Button size
-	Template.ZIndex = 150
+    -- Slider properties
+    Slider.Name = "Slider"
+    Slider.Parent = parent
+    Slider.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Slider.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Slider.Position = UDim2.new(0, 10, 0.4, 0)  -- Adjusted vertical position within parent
+    Slider.Size = UDim2.new(0, 240, 0, 41)  -- Adjusted width to fit nicely within parent
 
-	UICorner.Parent = Template
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = Slider
 
-	Progress.Name = "Progress"
-	Progress.Parent = Template
-	Progress.BackgroundColor3 = Color3.fromRGB(44, 153, 93)
-	Progress.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Progress.BorderSizePixel = 0
-	Progress.Size = UDim2.new((defaultValue - minValue) / (maxValue - minValue), 0, 1, 0)
-	Progress.ZIndex = 150
+    -- Title properties
+    Title.Name = "Title"
+    Title.Parent = Slider
+    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Title.BackgroundTransparency = 1.000
+    Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Title.Position = UDim2.new(0, 0, 0, 0)
+    Title.Size = UDim2.new(0.7, 0, 0, 31)  -- Adjusted width to fit within Slider
+    Title.Font = Enum.Font.GothamMedium
+    Title.Text = Name
+    Title.TextColor3 = Color3.fromRGB(193, 193, 193)
+    Title.TextSize = 12.000
+    Title.TextXAlignment = Enum.TextXAlignment.Left
 
-	UICorner_2.Parent = Progress
+    UIPadding.Parent = Title
+    UIPadding.PaddingLeft = UDim.new(0, 10)
 
-	Information.Name = "Information"
-	Information.Parent = Template
-	Information.AnchorPoint = Vector2.new(0.5, 0.5)
-	Information.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Information.BackgroundTransparency = 1.000
-	Information.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Information.BorderSizePixel = 0
-	Information.Position = UDim2.new(0.5, 0, 0.5, 0)
-	Information.Size = UDim2.new(0, 169, 0, 15)
-	Information.ZIndex = 150
-	Information.Font = Enum.Font.SourceSans
-	Information.Text = sliderName .. ": " .. tostring(defaultValue)
-	Information.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Information.TextScaled = true
-	Information.TextSize = 14.000
-	Information.TextTransparency = 0.300
-	Information.TextWrapped = true
-	Information.TextXAlignment = Enum.TextXAlignment.Left
+    -- Bar properties
+    Bar.Name = "Bar"
+    Bar.Parent = Slider
+    Bar.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    Bar.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Bar.Position = UDim2.new(0, 10, 0.75, 0)
+    Bar.Size = UDim2.new(0.9, -20, 0, 4)  -- Adjusted to fit within Slider
 
-	Shadow.Name = "Shadow"
-	Shadow.Parent = Template
-	Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
-	Shadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Shadow.BackgroundTransparency = 1.000
-	Shadow.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Shadow.BorderSizePixel = 0
-	Shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-	Shadow.Size = UDim2.new(0.999999642, 0, 1.00000012, 0)
-	Shadow.ZIndex = 150
-	Shadow.Image = "rbxassetid://3602733521"
-	Shadow.ImageColor3 = Color3.fromRGB(20, 20, 20)
-	Shadow.ImageTransparency = 0.600
+    UICorner_2.CornerRadius = UDim.new(0, 5)
+    UICorner_2.Parent = Bar
 
-	UICorner_3.CornerRadius = UDim.new(0, 6)
-	UICorner_3.Parent = Shadow
+    -- Progress properties
+    Progress.Name = "Progress"
+    Progress.Parent = Bar
+    Progress.BackgroundColor3 = Color3.fromRGB(0, 213, 255)
+    Progress.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Progress.Size = UDim2.new(0, 0, 1, 0)
 
-	Interact.Name = "Interact"
-	Interact.Parent = Template
-	Interact.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Interact.BackgroundTransparency = 1.000
-	Interact.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Interact.Size = UDim2.new(1, 0, 1, 0)
-	Interact.ZIndex = 151
-	Interact.Font = Enum.Font.SourceSans
-	Interact.Text = ""
-	Interact.TextColor3 = Color3.fromRGB(0, 0, 0)
-	Interact.TextSize = 14.000
+    UICorner_3.CornerRadius = UDim.new(0, 5)
+    UICorner_3.Parent = Progress
 
-	-- Function to update the slider
-	local function updateSlider(input)
-		local scale = (input.Position.X - Template.AbsolutePosition.X) / Template.AbsoluteSize.X
-		scale = math.clamp(scale, 0, 1)
-		local value = math.floor(minValue + (scale * (maxValue - minValue) + 0.5))
-		Progress.Size = UDim2.new(scale, 0, 1, 0)
-		Information.Text = sliderName .. ": " .. tostring(value)
-		if callback then
-			callback(value)
-		end
-	end
+    -- Circle properties
+    Circle.Name = "Circle"
+    Circle.Parent = Progress
+    Circle.AnchorPoint = Vector2.new(0.5, 0.5)
+    Circle.BackgroundColor3 = Color3.fromRGB(0, 213, 255)
+    Circle.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Circle.Position = UDim2.new(1, 0, 0.5, 0)
+    Circle.Size = UDim2.new(0, 10, 0, 10)
 
-	-- Function to handle input release
-	local function onInputEnded(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			if releaseConnection then
-				releaseConnection:Disconnect()
-			end
-			if moveConnection then
-				moveConnection:Disconnect()
-			end
-		end
-	end
+    UICorner_4.CornerRadius = UDim.new(1, 0)
+    UICorner_4.Parent = Circle
 
-	-- Event listeners for interaction
-	Interact.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			updateSlider(input)
-			moveConnection = game:GetService("UserInputService").InputChanged:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseMovement then
-					updateSlider(input)
-				end
-			end)
-			releaseConnection = game:GetService("UserInputService").InputEnded:Connect(onInputEnded)
-		end
-	end)
+    -- Value properties
+    Value.Name = "Value"
+    Value.Parent = Slider
+    Value.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Value.BackgroundTransparency = 1.000
+    Value.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Value.Position = UDim2.new(0.85, 0, 0, 0)
+    Value.Size = UDim2.new(0.15, 0, 0, 31)
+    Value.Font = Enum.Font.GothamMedium
+    Value.Text = tostring(Min)
+    Value.TextColor3 = Color3.fromRGB(124, 124, 124)
+    Value.TextSize = 12.000
+    Value.TextXAlignment = Enum.TextXAlignment.Right
+
+    UIPadding_2.Parent = Value
+    UIPadding_2.PaddingRight = UDim.new(0, 10)
+
+    UIPadding_3.Parent = Slider
+    UIPadding_3.PaddingLeft = UDim.new(0, 10)
+
+    -- Slider logic
+    local function updateValue(mouseX)
+        local percent = math.clamp((mouseX - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X, 0, 1)
+        local newValue = math.floor(percent * (Max - Min) + Min)
+        Progress.Size = UDim2.new(percent, 0, 1, 0)
+        Circle.Position = UDim2.new(percent, 0, 0.5, 0)
+        Value.Text = tostring(newValue)
+        Callback(newValue)
+    end
+
+    local function setProgress(value)
+        local percent = math.clamp((value - Min) / (Max - Min), 0, 1)
+        Progress.Size = UDim2.new(percent, 0, 1, 0)
+        Circle.Position = UDim2.new(percent, 0, 0.5, 0)
+        Value.Text = tostring(value)
+    end
+
+    local moveConn
+    local releaseConn
+
+    Slider.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            updateValue(input.Position.X)
+            moveConn = Slider.InputChanged:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseMovement then
+                    updateValue(input.Position.X)
+                end
+            end)
+            releaseConn = game:GetService("UserInputService").InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    moveConn:Disconnect()
+                    releaseConn:Disconnect()
+                end
+            end)
+        end
+    end)
+
+    -- Initial setup
+    setProgress(Min)
+
+    return Slider
 end
-
-
 
 
 
@@ -864,201 +885,106 @@ end
 
 
 function Library:Dropdown(tab, dropdownName, options, callback)
-	-- Create Dropdown Template
-	local DropdownTemplate = Instance.new("Frame")
-	local UICorner = Instance.new("UICorner")
-	local List = Instance.new("ScrollingFrame")
-	local UIListLayout = Instance.new("UIListLayout")
-	local Placeholder = Instance.new("Frame")
-	local Selected = Instance.new("TextLabel")
-	local Toggle = Instance.new("ImageButton")
-	local Interact_2 = Instance.new("TextButton")
-	local Title_2 = Instance.new("TextLabel")
+    -- Create the dropdown structure
+    local Dropdown = Instance.new("TextButton")
+    Dropdown.Name = dropdownName
+    Dropdown.Parent = tab
+    Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Dropdown.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Dropdown.Size = UDim2.new(0, 200, 0, 31) -- Initial size
+    Dropdown.AutoButtonColor = false
+    Dropdown.Text = ""
 
-	-- Set Dropdown Template properties
-	DropdownTemplate.Name = "DropdownTemplate"
-	DropdownTemplate.Parent = tab
-	DropdownTemplate.BackgroundColor3 = Color3.fromRGB(35, 35, 35) -- Match button background color
-	DropdownTemplate.BackgroundTransparency = 0.900
-	DropdownTemplate.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	DropdownTemplate.BorderSizePixel = 0
-	DropdownTemplate.Position = UDim2.new(0, 0, 0.439393938, 0) -- Match button position
-	DropdownTemplate.Size = UDim2.new(1, -20, 0, 40) -- Match button size
-	DropdownTemplate.ZIndex = 205
+    local Main = Instance.new("Frame")
+    Main.Name = "Main"
+    Main.Parent = Dropdown
+    Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Main.BackgroundTransparency = 1.000
+    Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Main.Size = UDim2.new(1, 0, 1, 0) -- Full size inside the button
 
-	UICorner.CornerRadius = UDim.new(0, 5)
-	UICorner.Parent = DropdownTemplate
+    -- Icon Frame
+    local IconFrame = Instance.new("Frame")
+    IconFrame.Name = "IconFrame"
+    IconFrame.Parent = Main
+    IconFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    IconFrame.BackgroundTransparency = 1.000
+    IconFrame.Size = UDim2.new(0, 31, 0, 31)
+    IconFrame.Position = UDim2.new(1, -31, 0, 0) -- Align to the right end
 
-	List.Name = "List"
-	List.Parent = DropdownTemplate
-	List.Active = true
-	List.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	List.BackgroundTransparency = 1.000
-	List.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	List.BorderSizePixel = 0
-	List.Position = UDim2.new(0, 0, 1, 0) -- Initially off-screen
-	List.Size = UDim2.new(1, 0, 0, 116)
-	List.Visible = false
-	List.ZIndex = 205
-	List.ScrollBarThickness = 2
+    -- Icon ImageLabel
+    local Icon = Instance.new("ImageLabel")
+    Icon.Name = "Icon"
+    Icon.Parent = IconFrame
+    Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+    Icon.BackgroundTransparency = 1.000
+    Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Icon.Size = UDim2.new(0, 25, 0, 25) -- Adjust icon size
+    Icon.Image = "rbxassetid://6031091000" -- Replace with your closed state icon ID
+    Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
 
-	UIListLayout.Parent = List
-	UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	UIListLayout.Padding = UDim.new(0, 5)
+    local Title = Instance.new("TextLabel")
+    Title.Name = "Title"
+    Title.Parent = Main
+    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Title.BackgroundTransparency = 1.000
+    Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Title.Size = UDim2.new(1, -35, 1, 0) -- Adjusted to fit within Dropdown width
+    Title.Font = Enum.Font.GothamMedium
+    Title.Text = dropdownName -- Set the dropdown name
+    Title.TextColor3 = Color3.fromRGB(193, 193, 193)
+    Title.TextSize = 12.000
+    Title.TextXAlignment = Enum.TextXAlignment.Left
 
-	Placeholder.Name = "Placeholder"
-	Placeholder.Parent = List
-	Placeholder.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-	Placeholder.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Placeholder.BorderSizePixel = 0
-	Placeholder.LayoutOrder = -100
-	Placeholder.Position = UDim2.new(0.392, 0, 0, 0)
-	Placeholder.ZIndex = 205
+    local List = Instance.new("Frame")
+    List.Name = "List"
+    List.Parent = Dropdown.Parent -- Attach to the same parent as Dropdown
+    List.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    List.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    List.Position = UDim2.new(0, 0, 0, 31) -- Move list below the dropdown button
+    List.Visible = false
+    List.Size = UDim2.new(1, 0, 0, #options * 25) -- Adjust height based on options
+    List.ClipsDescendants = true
 
-	Selected.Name = "Selected"
-	Selected.Parent = DropdownTemplate
-	Selected.AnchorPoint = Vector2.new(0.5, 0)
-	Selected.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Selected.BackgroundTransparency = 1.000
-	Selected.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Selected.BorderSizePixel = 0
-	Selected.Position = UDim2.new(0, 0, 0, 0) -- Adjust as needed
-	Selected.Size = UDim2.new(1, 0, 0, 16)
-	Selected.ZIndex = 205
-	Selected.Font = Enum.Font.GothamMedium
-	Selected.Text = options[1]
-	Selected.TextColor3 = Color3.fromRGB(240, 240, 240)
-	Selected.TextScaled = true
-	Selected.TextSize = 14.000
-	Selected.TextTransparency = 0.500
-	Selected.TextWrapped = true
-	Selected.TextXAlignment = Enum.TextXAlignment.Left
+    local UIListLayout = Instance.new("UIListLayout")
+    UIListLayout.Parent = List
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-	Toggle.Name = "Toggle"
-	Toggle.Parent = DropdownTemplate
-	Toggle.AnchorPoint = Vector2.new(0.5, 0.5)
-	Toggle.BackgroundTransparency = 1.000
-	Toggle.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Toggle.BorderSizePixel = 0
-	Toggle.Position = UDim2.new(1, -20, 0, 0) -- Adjust as needed
-	Toggle.Size = UDim2.new(0, 32, 0, 32)
-	Toggle.ZIndex = 205
-	Toggle.Image = "rbxassetid://3926305904"
-	Toggle.ImageColor3 = Color3.fromRGB(240, 240, 240)
-	Toggle.ImageRectOffset = Vector2.new(564, 284)
-	Toggle.ImageRectSize = Vector2.new(36, 36)
-	Toggle.ImageTransparency = 0.500
+    -- Populate options
+    for i, optionText in ipairs(options) do
+        local Option = Instance.new("TextButton")
+        Option.Name = "Option"
+        Option.Parent = List
+        Option.BackgroundTransparency = 1
+        Option.BorderSizePixel = 0
+        Option.Size = UDim2.new(1, 0, 0, 25) -- Customize height as needed
+        Option.AutoButtonColor = false
+        Option.Text = optionText
+        Option.TextColor3 = Color3.fromRGB(193, 193, 193)
+        Option.TextWrapped = true
 
-	Interact_2.Name = "Interact"
-	Interact_2.Parent = DropdownTemplate
-	Interact_2.AnchorPoint = Vector2.new(0.5, 0.5)
-	Interact_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Interact_2.BackgroundTransparency = 1.000
-	Interact_2.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Interact_2.BorderSizePixel = 0
-	Interact_2.Position = UDim2.new(0, 203, 0, 21)
-	Interact_2.Size = UDim2.new(0, 406, 0, 43)
-	Interact_2.ZIndex = 210
-	Interact_2.Font = Enum.Font.SourceSans
-	Interact_2.Text = ""
-	Interact_2.TextColor3 = Color3.fromRGB(0, 0, 0)
-	Interact_2.TextSize = 14.000
-	Interact_2.TextTransparency = 1.000
+        Option.MouseButton1Click:Connect(function()
+            -- Handle option selection
+            callback(optionText)
+            Title.Text = optionText
+            Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
+            Icon.Image = "rbxassetid://6031091000" -- Closed state icon
+            List.Visible = false
+            isOpen = false
+        end)
+    end
 
-	Title_2.Name = "Title"
-	Title_2.Parent = DropdownTemplate
-	Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Title_2.BackgroundTransparency = 1.000
-	Title_2.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	Title_2.BorderSizePixel = 0
-	Title_2.Position = UDim2.new(0, 18, 0, 12)
-	Title_2.Size = UDim2.new(0, 333, 0, 16)
-	Title_2.ZIndex = 205
-	Title_2.Font = Enum.Font.GothamMedium
-	Title_2.Text = dropdownName
-	Title_2.TextColor3 = Color3.fromRGB(240, 240, 240)
-	Title_2.TextScaled = true
-	Title_2.TextSize = 14.000
-	Title_2.TextWrapped = true
-	Title_2.TextXAlignment = Enum.TextXAlignment.Left
+    -- Toggle dropdown visibility
+    local isOpen = false
+    Dropdown.MouseButton1Click:Connect(function()
+        isOpen = not isOpen
+        List.Visible = isOpen
+        -- Change icon state
+        Icon.Image = isOpen and "rbxassetid://6031090999" or "rbxassetid://6031091000"
+    end)
 
-	-- Function to toggle dropdown visibility
-	local function toggleDropdown()
-		List.Visible = not List.Visible
-	end
-
-	-- Connect the toggle function to the button
-	Toggle.MouseButton1Click:Connect(toggleDropdown)
-	Interact_2.MouseButton1Click:Connect(toggleDropdown)
-
-	-- Function to update the selected option
-	local function updateSelected(option)
-		Selected.Text = option
-		List.Visible = false
-		if callback then
-			callback(option)
-		end
-	end
-
-	-- Populate the dropdown with options
-	for _, option in ipairs(options) do
-		local OptionTemplate = Instance.new("Frame")
-		local UICorner_2 = Instance.new("UICorner")
-		local Title = Instance.new("TextLabel")
-		local Interact = Instance.new("TextButton")
-
-		OptionTemplate.Name = "OptionTemplate"
-		OptionTemplate.Parent = List
-		OptionTemplate.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-		OptionTemplate.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		OptionTemplate.BorderSizePixel = 0
-		OptionTemplate.Size = UDim2.new(1, 0, 0, 38)
-		OptionTemplate.ZIndex = 205
-
-		UICorner_2.CornerRadius = UDim.new(0, 5)
-		UICorner_2.Parent = OptionTemplate
-
-		Title.Name = "Title"
-		Title.Parent = OptionTemplate
-		Title.AnchorPoint = Vector2.new(0.5, 0.5)
-		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Title.BackgroundTransparency = 1.000
-		Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Title.BorderSizePixel = 0
-		Title.Position = UDim2.new(0.5, 0, 0.5, 0)
-		Title.Size = UDim2.new(0, 297, 0, 14)
-		Title.ZIndex = 205
-		Title.Font = Enum.Font.GothamMedium
-		Title.Text = option
-		Title.TextColor3 = Color3.fromRGB(240, 240, 240)
-		Title.TextScaled = true
-		Title.TextSize = 14.000
-		Title.TextWrapped = true
-		Title.TextXAlignment = Enum.TextXAlignment.Left
-
-		Interact.Name = "Interact"
-		Interact.Parent = OptionTemplate
-		Interact.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Interact.BackgroundTransparency = 1.000
-		Interact.Size = UDim2.new(1, 0, 1, 0)
-		 Interact.ZIndex = 210
-		Interact.Font = Enum.Font.SourceSans
-		Interact.Text = ""
-		Interact.TextColor3 = Color3.fromRGB(0, 0, 0)
-		Interact.TextSize = 1.000
-
-		-- Connect the option click event
-		Interact.MouseButton1Click:Connect(function()
-			updateSelected(option)
-		end)
-	end
-
-	-- Return the dropdown template
-	return DropdownTemplate
+    return Dropdown
 end
-
-
 
 
 
