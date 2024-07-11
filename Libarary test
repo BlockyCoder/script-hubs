@@ -868,106 +868,200 @@ end
 
 
 function Library:Dropdown(tab, dropdownName, options, callback)
-    -- Create the dropdown structure
-    local Dropdown = Instance.new("TextButton")
-    Dropdown.Name = dropdownName
-    Dropdown.Parent = tab
-    Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    Dropdown.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Dropdown.Size = UDim2.new(0, 200, 0, 31) -- Initial size
-    Dropdown.AutoButtonColor = false
-    Dropdown.Text = ""
-
-    local Main = Instance.new("Frame")
-    Main.Name = "Main"
-    Main.Parent = Dropdown
-    Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Main.BackgroundTransparency = 1.000
-    Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Main.Size = UDim2.new(1, 0, 1, 0) -- Full size inside the button
-
-    -- Icon Frame
-    local IconFrame = Instance.new("Frame")
-    IconFrame.Name = "IconFrame"
-    IconFrame.Parent = Main
-    IconFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    IconFrame.BackgroundTransparency = 1.000
-    IconFrame.Size = UDim2.new(0, 31, 0, 31)
-    IconFrame.Position = UDim2.new(1, -31, 0, 0) -- Align to the right end
-
-    -- Icon ImageLabel
-    local Icon = Instance.new("ImageLabel")
-    Icon.Name = "Icon"
-    Icon.Parent = IconFrame
-    Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-    Icon.BackgroundTransparency = 1.000
-    Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
-    Icon.Size = UDim2.new(0, 25, 0, 25) -- Adjust icon size
-    Icon.Image = "rbxassetid://6031091000" -- Replace with your closed state icon ID
-    Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
-
-    local Title = Instance.new("TextLabel")
-    Title.Name = "Title"
-    Title.Parent = Main
-    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Title.BackgroundTransparency = 1.000
-    Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Title.Size = UDim2.new(1, -35, 1, 0) -- Adjusted to fit within Dropdown width
-    Title.Font = Enum.Font.GothamMedium
-    Title.Text = dropdownName -- Set the dropdown name
-    Title.TextColor3 = Color3.fromRGB(193, 193, 193)
-    Title.TextSize = 12.000
-    Title.TextXAlignment = Enum.TextXAlignment.Left
-
-    local List = Instance.new("Frame")
-    List.Name = "List"
-    List.Parent = Dropdown.Parent -- Attach to the same parent as Dropdown
-    List.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    List.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    List.Position = UDim2.new(0, 0, 0, 31) -- Move list below the dropdown button
-    List.Visible = false
-    List.Size = UDim2.new(1, 0, 0, #options * 25) -- Adjust height based on options
-    List.ClipsDescendants = true
-
+    -- Create Dropdown Template
+    local DropdownTemplate = Instance.new("Frame")
+    local UICorner = Instance.new("UICorner")
+    local List = Instance.new("ScrollingFrame")
     local UIListLayout = Instance.new("UIListLayout")
+    local Placeholder = Instance.new("Frame")
+    local Selected = Instance.new("TextLabel")
+    local Toggle = Instance.new("ImageButton")
+    local Interact_2 = Instance.new("TextButton")
+    local Title_2 = Instance.new("TextLabel")
+
+    -- Set Dropdown Template properties
+    DropdownTemplate.Name = "DropdownTemplate"
+    DropdownTemplate.Parent = tab
+    DropdownTemplate.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+    DropdownTemplate.BackgroundTransparency = 0.900
+    DropdownTemplate.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    DropdownTemplate.BorderSizePixel = 0
+    DropdownTemplate.Position = UDim2.new(0.026, 0, 0, 0)
+    DropdownTemplate.Size = UDim2.new(0, 558, 0, 40)
+    DropdownTemplate.ZIndex = 205
+
+    UICorner.CornerRadius = UDim.new(0, 4)
+    UICorner.Parent = DropdownTemplate
+
+    List.Name = "List"
+    List.Parent = DropdownTemplate
+    List.Active = true
+    List.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    List.BackgroundTransparency = 1.000
+    List.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    List.BorderSizePixel = 0
+    List.Position = UDim2.new(0, 0, 0.205, 0)
+    List.Size = UDim2.new(0, 576, 0, 116)
+    List.Visible = false
+    List.ZIndex = 205
+    List.ScrollBarThickness = 2
+
     UIListLayout.Parent = List
+    UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.Padding = UDim.new(0, 5)
 
-    -- Populate options
-    for i, optionText in ipairs(options) do
-        local Option = Instance.new("TextButton")
-        Option.Name = "Option"
-        Option.Parent = List
-        Option.BackgroundTransparency = 1
-        Option.BorderSizePixel = 0
-        Option.Size = UDim2.new(1, 0, 0, 25) -- Customize height as needed
-        Option.AutoButtonColor = false
-        Option.Text = optionText
-        Option.TextColor3 = Color3.fromRGB(193, 193, 193)
-        Option.TextWrapped = true
+    Placeholder.Name = "Placeholder"
+    Placeholder.Parent = List
+    Placeholder.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    Placeholder.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Placeholder.BorderSizePixel = 0
+    Placeholder.LayoutOrder = -100
+    Placeholder.Position = UDim2.new(0.392, 0, 0, 0)
+    Placeholder.ZIndex = 205
 
-        Option.MouseButton1Click:Connect(function()
-            -- Handle option selection
-            callback(optionText)
-            Title.Text = optionText
-            Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
-            Icon.Image = "rbxassetid://6031091000" -- Closed state icon
-            List.Visible = false
-            isOpen = false
+    Selected.Name = "Selected"
+    Selected.Parent = DropdownTemplate
+    Selected.AnchorPoint = Vector2.new(0.5, 0)
+    Selected.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Selected.BackgroundTransparency = 1.000
+    Selected.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Selected.BorderSizePixel = 0
+    Selected.Position = UDim2.new(0, 443, 0, 12)
+    Selected.Size = UDim2.new(0, 151, 0, 16)
+    Selected.ZIndex = 205
+    Selected.Font = Enum.Font.GothamMedium
+    Selected.Text = options[1]
+    Selected.TextColor3 = Color3.fromRGB(240, 240, 240)
+    Selected.TextScaled = true
+    Selected.TextSize = 14.000
+    Selected.TextTransparency = 0.500
+    Selected.TextWrapped = true
+    Selected.TextXAlignment = Enum.TextXAlignment.Right
+
+    Toggle.Name = "Toggle"
+    Toggle.Parent = DropdownTemplate
+    Toggle.AnchorPoint = Vector2.new(0.5, 0.5)
+    Toggle.BackgroundTransparency = 1.000
+    Toggle.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Toggle.BorderSizePixel = 0
+    Toggle.Position = UDim2.new(0, 535, 0, 20)
+    Toggle.Size = UDim2.new(0, 32, 0, 28)
+    Toggle.ZIndex = 205
+    Toggle.Image = "rbxassetid://3926305904"
+    Toggle.ImageColor3 = Color3.fromRGB(240, 240, 240)
+    Toggle.ImageRectOffset = Vector2.new(564, 284)
+    Toggle.ImageRectSize = Vector2.new(36, 36)
+    Toggle.ImageTransparency = 0.500
+
+    Interact_2.Name = "Interact"
+    Interact_2.Parent = DropdownTemplate
+    Interact_2.AnchorPoint = Vector2.new(0.5, 0.5)
+    Interact_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Interact_2.BackgroundTransparency = 1.000
+    Interact_2.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Interact_2.BorderSizePixel = 0
+    Interact_2.Position = UDim2.new(0, 203, 0, 21)
+    Interact_2.Size = UDim2.new(0, 406, 0, 43)
+    Interact_2.ZIndex = 210
+    Interact_2.Font = Enum.Font.SourceSans
+    Interact_2.Text = ""
+    Interact_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+    Interact_2.TextSize = 14.000
+    Interact_2.TextTransparency = 1.000
+
+    Title_2.Name = "Title"
+    Title_2.Parent = DropdownTemplate
+    Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Title_2.BackgroundTransparency = 1.000
+    Title_2.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Title_2.BorderSizePixel = 0
+    Title_2.Position = UDim2.new(0, 18, 0, 12)
+    Title_2.Size = UDim2.new(0, 333, 0, 16)
+    Title_2.ZIndex = 205
+    Title_2.Font = Enum.Font.GothamMedium
+    Title_2.Text = dropdownName
+    Title_2.TextColor3 = Color3.fromRGB(240, 240, 240)
+    Title_2.TextScaled = true
+    Title_2.TextSize = 14.000
+    Title_2.TextWrapped = true
+    Title_2.TextXAlignment = Enum.TextXAlignment.Left
+
+    -- Function to toggle dropdown visibility
+    local function toggleDropdown()
+        List.Visible = not List.Visible
+    end
+
+    -- Connect the toggle function to the button
+    Toggle.MouseButton1Click:Connect(toggleDropdown)
+    Interact_2.MouseButton1Click:Connect(toggleDropdown)
+
+    -- Function to update the selected option
+    local function updateSelected(option)
+        Selected.Text = option
+        List.Visible = false
+        if callback then
+            callback(option)
+        end
+    end
+
+    -- Populate the dropdown with options
+    for _, option in ipairs(options) do
+        local OptionTemplate = Instance.new("Frame")
+        local UICorner_2 = Instance.new("UICorner")
+        local Title = Instance.new("TextLabel")
+        local Interact = Instance.new("TextButton")
+
+        OptionTemplate.Name = "OptionTemplate"
+        OptionTemplate.Parent = List
+        OptionTemplate.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+        OptionTemplate.BorderColor3 = Color3.fromRGB(27, 42, 53)
+        OptionTemplate.BorderSizePixel = 0
+        OptionTemplate.Size = UDim2.new(0.970, 0, 0, 38)
+        OptionTemplate.ZIndex = 205
+
+        UICorner_2.CornerRadius = UDim.new(0, 5)
+        UICorner_2.Parent = OptionTemplate
+
+        Title.Name = "Title"
+        Title.Parent = OptionTemplate
+        Title.AnchorPoint = Vector2.new(0.5, 0.5)
+        Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Title.BackgroundTransparency = 1.000
+        Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
+        Title.BorderSizePixel = 0
+        Title.Position = UDim2.new(0.5, 0, 0.5, 0)
+        Title.Size = UDim2.new(0, 297, 0, 14)
+        Title.ZIndex = 205
+        Title.Font = Enum.Font.GothamMedium
+        Title.Text = option
+        Title.TextColor3 = Color3.fromRGB(240, 240, 240)
+        Title.TextScaled = true
+        Title.TextSize = 14.000
+        Title.TextWrapped = true
+        Title.TextXAlignment = Enum.TextXAlignment.Left
+
+        Interact.Name = "Interact"
+        Interact.Parent = OptionTemplate
+        Interact.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Interact.BackgroundTransparency = 1.000
+        Interact.Size = UDim2.new(1, 0, 1, 0)
+        Interact.ZIndex = 210
+        Interact.Font = Enum.Font.SourceSans
+        Interact.Text = ""
+        Interact.TextColor3 = Color3.fromRGB(0, 0, 0)
+        Interact.TextSize = 1.000
+
+        -- Connect the option click event
+        Interact.MouseButton1Click:Connect(function()
+            updateSelected(option)
         end)
     end
 
-    -- Toggle dropdown visibility
-    local isOpen = false
-    Dropdown.MouseButton1Click:Connect(function()
-        isOpen = not isOpen
-        List.Visible = isOpen
-        -- Change icon state
-        Icon.Image = isOpen and "rbxassetid://6031090999" or "rbxassetid://6031091000"
-    end)
-
-    return Dropdown
+    -- Return the dropdown template
+    return DropdownTemplate
 end
+
 
 
 
