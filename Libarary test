@@ -472,88 +472,83 @@ end
 	end
 
 	function Library:TextBox(parent, titleText, defaultValue, callback)
-		-- Create main Textbox container
-		local Textbox = Instance.new("TextButton")
-		Textbox.Name = "Textbox"
-		Textbox.Parent = parent
-		Textbox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Textbox.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Textbox.Position = UDim2.new(0, 0, 0.706586838, 0)
-		Textbox.Selectable = false
-		Textbox.Size = UDim2.new(1, 0, 0, 51)  -- Adjusted width to fit parent dynamically
-		Textbox.AutoButtonColor = false
-		Textbox.Text = ""
+    -- Create main Textbox container
+    local Textbox = Instance.new("TextButton")
+    Textbox.Name = "Textbox"
+    Textbox.Parent = parent
+    Textbox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Textbox.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Textbox.Position = UDim2.new(0, 0, 0.439393938, 0) -- Adjusted position to match other components
+    Textbox.Selectable = false
+    Textbox.Size = UDim2.new(1, -20, 0, 51)  -- Adjusted width to fit parent dynamically
+    Textbox.AutoButtonColor = false
+    Textbox.Text = ""
 
-		-- Apply corner radius to Textbox
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 2)
-		UICorner.Parent = Textbox
+    -- Apply corner radius to Textbox
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 5)
+    UICorner.Parent = Textbox
 
-		-- Create and configure TextLabel
-		local TextLabel = Instance.new("TextLabel")
-		TextLabel.Parent = Textbox
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		TextLabel.Size = UDim2.new(1, 0, 0, 31)  -- Adjusted width to fit parent dynamically
-		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = titleText
-		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TextLabel.TextSize = 12.000
-		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+    -- Create and configure TextLabel
+    local TextLabel = Instance.new("TextLabel")
+    TextLabel.Parent = Textbox
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    TextLabel.Size = UDim2.new(1, -20, 0, 31)  -- Adjusted width to fit parent dynamically
+    TextLabel.Position = UDim2.new(0, 10, 0, 0)  -- Adjusted position
+    TextLabel.Font = Enum.Font.GothamMedium
+    TextLabel.Text = titleText
+    TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+    TextLabel.TextSize = 12.000
+    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		-- Apply padding to TextLabel
-		local UIPadding = Instance.new("UIPadding")
-		UIPadding.Parent = TextLabel
-		UIPadding.PaddingLeft = UDim.new(0, 10)
+    -- Create and configure Status frame
+    local Status = Instance.new("Frame")
+    Status.Name = "Status"
+    Status.Parent = Textbox
+    Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Status.BackgroundTransparency = 1.000
+    Status.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Status.Position = UDim2.new(0, 0, 1, -28)  -- Adjusted position to bottom
+    Status.Size = UDim2.new(1, 0, 0, 28)
 
-		-- Create and configure Status frame
-		local Status = Instance.new("Frame")
-		Status.Name = "Status"
-		Status.Parent = Textbox
-		Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Status.BackgroundTransparency = 1.000
-		Status.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Status.Position = UDim2.new(0, 0, 0.5, 0)  -- Adjusted position to center vertically
-		Status.Size = UDim2.new(1, 0, 0, 28)
+    -- Create and configure TextBox
+    local TextBox = Instance.new("TextBox")
+    TextBox.Parent = Status
+    TextBox.Active = false
+    TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    TextBox.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    TextBox.ClipsDescendants = true
+    TextBox.Position = UDim2.new(0, 10, 0.5, -8)  -- Adjusted position to center vertically
+    TextBox.Size = UDim2.new(1, -20, 0, 17)  -- Adjusted width to fit parent dynamically
+    TextBox.ClearTextOnFocus = false
+    TextBox.Font = Enum.Font.Gotham
+    TextBox.PlaceholderColor3 = Color3.fromRGB(104, 104, 104)
+    TextBox.PlaceholderText = defaultValue
+    TextBox.Text = ""
+    TextBox.TextColor3 = Color3.fromRGB(177, 177, 177)
+    TextBox.TextSize = 12.000
 
-		-- Create and configure TextBox
-		local TextBox = Instance.new("TextBox")
-		TextBox.Parent = Status
-		TextBox.Active = false
-		TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-		TextBox.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		TextBox.ClipsDescendants = true
-		TextBox.Position = UDim2.new(0, 10, 0.5, -8)  -- Adjusted position to center vertically
-		TextBox.Size = UDim2.new(1, -20, 0, 17)  -- Adjusted width to fit parent dynamically
-		TextBox.ClearTextOnFocus = false
-		TextBox.Font = Enum.Font.Gotham
-		TextBox.PlaceholderColor3 = Color3.fromRGB(104, 104, 104)
-		TextBox.PlaceholderText = defaultValue
-		TextBox.Text = ""
-		TextBox.TextColor3 = Color3.fromRGB(177, 177, 177)
-		TextBox.TextSize = 12.000
+    -- Apply corner radius to TextBox
+    local UICorner_2 = Instance.new("UICorner")
+    UICorner_2.CornerRadius = UDim.new(0, 2)
+    UICorner_2.Parent = TextBox
 
-		-- Apply corner radius to TextBox
-		local UICorner_2 = Instance.new("UICorner")
-		UICorner_2.CornerRadius = UDim.new(0, 2)
-		UICorner_2.Parent = TextBox
+    -- Event handling for TextBox text changed
+    TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+        callback(TextBox.Text)
+    end)
 
-		-- Event handling for TextBox text changed
-		TextBox:GetPropertyChangedSignal("Text"):Connect(function()
-			callback(TextBox.Text)
-		end)
+    local function UpdateText()
+        callback(TextBox.Text)
+    end
 
-		local function UpdateText()
-			callback(TextBox.Text)
-		end
+    TextBox.FocusLost:Connect(UpdateText)
 
-		TextBox.FocusLost:Connect(UpdateText)
+    return TextBox, UpdateText  -- Return TextBox in case further manipulation is needed
+end
 
-
-
-		return TextBox, UpdateText  -- Return TextBox in case further manipulation is needed
-	end
 
 
 	function Library:Toggle(tab, toggleName, callback)
@@ -808,9 +803,9 @@ function Library:Keybind(tab, keybindName, defaultKey, callback)
     Keybind.Parent = tab
     Keybind.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     Keybind.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Keybind.Position = UDim2.new(0, 0, 0.4, 0)  -- Adjusted vertical position within parent
+    Keybind.Position = UDim2.new(0, 0, 0.439393938, 0)  -- Adjusted vertical position to match other components
     Keybind.Selectable = false
-    Keybind.Size = UDim2.new(0, 240, 0, 31)  -- Adjusted width to fit nicely within parent
+    Keybind.Size = UDim2.new(1, -20, 0, 31)  -- Adjusted width to fit nicely within parent
     Keybind.AutoButtonColor = false
     Keybind.Text = ""
 
@@ -884,6 +879,7 @@ function Library:Keybind(tab, keybindName, defaultKey, callback)
 end
 
 
+
 function Library:Dropdown(tab, dropdownName, options, callback)
     -- Create the dropdown structure
     local Dropdown = Instance.new("TextButton")
@@ -891,7 +887,8 @@ function Library:Dropdown(tab, dropdownName, options, callback)
     Dropdown.Parent = tab
     Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     Dropdown.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Dropdown.Size = UDim2.new(0, 200, 0, 31) -- Initial size
+    Dropdown.Position = UDim2.new(0, 0, 0.439393938, 0) -- Adjusted position
+    Dropdown.Size = UDim2.new(1, -20, 0, 31) -- Initial size
     Dropdown.AutoButtonColor = false
     Dropdown.Text = ""
 
@@ -941,9 +938,9 @@ function Library:Dropdown(tab, dropdownName, options, callback)
     List.Parent = Dropdown.Parent -- Attach to the same parent as Dropdown
     List.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     List.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    List.Position = UDim2.new(0, 0, 0, 31) -- Move list below the dropdown button
+    List.Position = UDim2.new(0, 0, 0.469696969, 0) -- Adjusted position below the dropdown button
     List.Visible = false
-    List.Size = UDim2.new(1, 0, 0, #options * 25) -- Adjust height based on options
+    List.Size = UDim2.new(1, -20, 0, #options * 25) -- Adjust height based on options
     List.ClipsDescendants = true
 
     local UIListLayout = Instance.new("UIListLayout")
