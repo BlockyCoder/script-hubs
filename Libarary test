@@ -645,150 +645,123 @@ end
 
 
 
-	function Library:Slider(parent, Name, Min, Max, Callback)
-    Name = Name or "Slider"
-    Callback = Callback or function() end
-    Max = Max or 500
-    Min = Min or 16
+	
+function Library:Slider(parent, sliderName, minValue, maxValue, defaultValue, callback)
+	sliderName = sliderName or "Slider"
+	callback = callback or function() end
+	maxValue = maxValue or 500
+	minValue = minValue or 16
+	
+	
+	
+	-- Create instances
+	local Template = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local Progress = Instance.new("Frame")
+	local UICorner_2 = Instance.new("UICorner")
+	local Information = Instance.new("TextLabel")
+	local Shadow = Instance.new("ImageLabel")
+	local UICorner_3 = Instance.new("UICorner")
+	local Interact = Instance.new("TextButton")
 
-    -- Create UI elements
-    local Slider = Instance.new("Frame")
-    local UICorner = Instance.new("UICorner")
-    local Title = Instance.new("TextLabel")
-    local UIPadding = Instance.new("UIPadding")
-    local Bar = Instance.new("Frame")
-    local UICorner_2 = Instance.new("UICorner")
-    local Progress = Instance.new("Frame")
-    local UICorner_3 = Instance.new("UICorner")
-    local Circle = Instance.new("Frame")
-    local UICorner_4 = Instance.new("UICorner")
-    local Value = Instance.new("TextLabel")
-    local UIPadding_2 = Instance.new("UIPadding")
-    local UIPadding_3 = Instance.new("UIPadding")
+	-- Set properties
+	Template.Name = sliderName
+	Template.Parent = parent
+	Template.AnchorPoint = Vector2.new(0.5, 0.5)
+	Template.BackgroundColor3 = Color3.fromRGB(44, 153, 93)
+	Template.BackgroundTransparency = 0.800
+	Template.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Template.BorderSizePixel = 0
+	Template.Position = UDim2.new(0.5, 0, 0.5, 0) -- Centered in the parent
+	Template.Size = UDim2.new(0, 222, 0, 32)
+	Template.ZIndex = 150
 
-    -- Slider properties
-    Slider.Name = "Slider"
-    Slider.Parent = parent
-    Slider.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    Slider.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Slider.Position = UDim2.new(0, 10, 0.4, 0)  -- Adjusted vertical position within parent
-    Slider.Size = UDim2.new(0, 240, 0, 41)  -- Adjusted width to fit nicely within parent
+	UICorner.Parent = Template
 
-    UICorner.CornerRadius = UDim.new(0, 5)
-    UICorner.Parent = Slider
+	Progress.Name = "Progress"
+	Progress.Parent = Template
+	Progress.BackgroundColor3 = Color3.fromRGB(44, 153, 93)
+	Progress.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Progress.BorderSizePixel = 0
+	Progress.Size = UDim2.new((defaultValue - minValue) / (maxValue - minValue), 0, 1, 0)
+	Progress.ZIndex = 150
 
-    -- Title properties
-    Title.Name = "Title"
-    Title.Parent = Slider
-    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Title.BackgroundTransparency = 1.000
-    Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Title.Position = UDim2.new(0, 0, 0, 0)
-    Title.Size = UDim2.new(0.7, 0, 0, 31)  -- Adjusted width to fit within Slider
-    Title.Font = Enum.Font.GothamMedium
-    Title.Text = Name
-    Title.TextColor3 = Color3.fromRGB(193, 193, 193)
-    Title.TextSize = 12.000
-    Title.TextXAlignment = Enum.TextXAlignment.Left
+	UICorner_2.Parent = Progress
 
-    UIPadding.Parent = Title
-    UIPadding.PaddingLeft = UDim.new(0, 10)
+	Information.Name = "Information"
+	Information.Parent = Template
+	Information.AnchorPoint = Vector2.new(0.5, 0.5)
+	Information.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Information.BackgroundTransparency = 1.000
+	Information.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Information.BorderSizePixel = 0
+	Information.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Information.Size = UDim2.new(0, 169, 0, 15)
+	Information.ZIndex = 150
+	Information.Font = Enum.Font.SourceSans -- Changed to a defined font
+	Information.Text = sliderName .. ": " .. tostring(defaultValue)
+	Information.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Information.TextScaled = true
+	Information.TextSize = 14.000
+	Information.TextTransparency = 0.300
+	Information.TextWrapped = true
+	Information.TextXAlignment = Enum.TextXAlignment.Left
 
-    -- Bar properties
-    Bar.Name = "Bar"
-    Bar.Parent = Slider
-    Bar.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    Bar.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Bar.Position = UDim2.new(0, 10, 0.75, 0)
-    Bar.Size = UDim2.new(0.9, -20, 0, 4)  -- Adjusted to fit within Slider
+	Shadow.Name = "Shadow"
+	Shadow.Parent = Template
+	Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	Shadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Shadow.BackgroundTransparency = 1.000
+	Shadow.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Shadow.BorderSizePixel = 0
+	Shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Shadow.Size = UDim2.new(0.999999642, 0, 1.00000012, 0)
+	Shadow.ZIndex = 150
+	Shadow.Image = "rbxassetid://3602733521"
+	Shadow.ImageColor3 = Color3.fromRGB(20, 20, 20)
+	Shadow.ImageTransparency = 0.600
 
-    UICorner_2.CornerRadius = UDim.new(0, 5)
-    UICorner_2.Parent = Bar
+	UICorner_3.CornerRadius = UDim.new(0, 6)
+	UICorner_3.Parent = Shadow
 
-    -- Progress properties
-    Progress.Name = "Progress"
-    Progress.Parent = Bar
-    Progress.BackgroundColor3 = Color3.fromRGB(0, 213, 255)
-    Progress.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Progress.Size = UDim2.new(0, 0, 1, 0)
+	Interact.Name = "Interact"
+	Interact.Parent = Template
+	Interact.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Interact.BackgroundTransparency = 1.000
+	Interact.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Interact.Size = UDim2.new(1, 0, 1, 0)
+	Interact.ZIndex = 151
+	Interact.Font = Enum.Font.SourceSans
+	Interact.Text = ""
+	Interact.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Interact.TextSize = 14.000
 
-    UICorner_3.CornerRadius = UDim.new(0, 5)
-    UICorner_3.Parent = Progress
+	-- Function to update the slider
+	local function updateSlider(input)
+		local scale = (input.Position.X - Template.AbsolutePosition.X) / Template.AbsoluteSize.X
+		scale = math.clamp(scale, 0, 1)
+		local value = math.floor(minValue + (scale * (maxValue - minValue) + 0.5))
+		Progress.Size = UDim2.new(scale, 0, 1, 0)
+		Information.Text = sliderName .. ": " .. tostring(value)
+		if callback then
+			callback(value)
+		end
+	end
 
-    -- Circle properties
-    Circle.Name = "Circle"
-    Circle.Parent = Progress
-    Circle.AnchorPoint = Vector2.new(0.5, 0.5)
-    Circle.BackgroundColor3 = Color3.fromRGB(0, 213, 255)
-    Circle.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Circle.Position = UDim2.new(1, 0, 0.5, 0)
-    Circle.Size = UDim2.new(0, 10, 0, 10)
+	-- Event listener for interaction
+	Interact.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			updateSlider(input)
+		end
+	end)
 
-    UICorner_4.CornerRadius = UDim.new(1, 0)
-    UICorner_4.Parent = Circle
-
-    -- Value properties
-    Value.Name = "Value"
-    Value.Parent = Slider
-    Value.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Value.BackgroundTransparency = 1.000
-    Value.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Value.Position = UDim2.new(0.85, 0, 0, 0)
-    Value.Size = UDim2.new(0.15, 0, 0, 31)
-    Value.Font = Enum.Font.GothamMedium
-    Value.Text = tostring(Min)
-    Value.TextColor3 = Color3.fromRGB(124, 124, 124)
-    Value.TextSize = 12.000
-    Value.TextXAlignment = Enum.TextXAlignment.Right
-
-    UIPadding_2.Parent = Value
-    UIPadding_2.PaddingRight = UDim.new(0, 10)
-
-    UIPadding_3.Parent = Slider
-    UIPadding_3.PaddingLeft = UDim.new(0, 10)
-
-    -- Slider logic
-    local function updateValue(mouseX)
-        local percent = math.clamp((mouseX - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X, 0, 1)
-        local newValue = math.floor(percent * (Max - Min) + Min)
-        Progress.Size = UDim2.new(percent, 0, 1, 0)
-        Circle.Position = UDim2.new(percent, 0, 0.5, 0)
-        Value.Text = tostring(newValue)
-        Callback(newValue)
-    end
-
-    local function setProgress(value)
-        local percent = math.clamp((value - Min) / (Max - Min), 0, 1)
-        Progress.Size = UDim2.new(percent, 0, 1, 0)
-        Circle.Position = UDim2.new(percent, 0, 0.5, 0)
-        Value.Text = tostring(value)
-    end
-
-    local moveConn
-    local releaseConn
-
-    Slider.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            updateValue(input.Position.X)
-            moveConn = Slider.InputChanged:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseMovement then
-                    updateValue(input.Position.X)
-                end
-            end)
-            releaseConn = game:GetService("UserInputService").InputEnded:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                    moveConn:Disconnect()
-                    releaseConn:Disconnect()
-                end
-            end)
-        end
-    end)
-
-    -- Initial setup
-    setProgress(Min)
-
-    return Slider
+	Interact.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			updateSlider(input)
+		end
+	end)
 end
+
 
 
 
