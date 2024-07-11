@@ -651,9 +651,7 @@ function Library:Slider(parent, sliderName, minValue, maxValue, defaultValue, ca
 	callback = callback or function() end
 	maxValue = maxValue or 500
 	minValue = minValue or 16
-	
-	
-	
+
 	-- Create instances
 	local Template = Instance.new("Frame")
 	local UICorner = Instance.new("UICorner")
@@ -667,13 +665,12 @@ function Library:Slider(parent, sliderName, minValue, maxValue, defaultValue, ca
 	-- Set properties
 	Template.Name = sliderName
 	Template.Parent = parent
-	Template.AnchorPoint = Vector2.new(0.5, 0.5)
 	Template.BackgroundColor3 = Color3.fromRGB(44, 153, 93)
 	Template.BackgroundTransparency = 0.800
 	Template.BorderColor3 = Color3.fromRGB(27, 42, 53)
 	Template.BorderSizePixel = 0
-	Template.Position = UDim2.new(0.5, 0, 0.5, 0) -- Centered in the parent
-	Template.Size = UDim2.new(0, 222, 0, 32)
+	Template.Position = UDim2.new(0, 0, 0.439393938, 0) -- Match Button position
+	Template.Size = UDim2.new(1, -20, 0, 31) -- Match Button size
 	Template.ZIndex = 150
 
 	UICorner.Parent = Template
@@ -698,7 +695,7 @@ function Library:Slider(parent, sliderName, minValue, maxValue, defaultValue, ca
 	Information.Position = UDim2.new(0.5, 0, 0.5, 0)
 	Information.Size = UDim2.new(0, 169, 0, 15)
 	Information.ZIndex = 150
-	Information.Font = Enum.Font.SourceSans -- Changed to a defined font
+	Information.Font = Enum.Font.SourceSans
 	Information.Text = sliderName .. ": " .. tostring(defaultValue)
 	Information.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Information.TextScaled = true
@@ -748,19 +745,32 @@ function Library:Slider(parent, sliderName, minValue, maxValue, defaultValue, ca
 		end
 	end
 
-	-- Event listener for interaction
+	-- Function to handle input release
+	local function onInputEnded(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if releaseConnection then
+				releaseConnection:Disconnect()
+			end
+			if moveConnection then
+				moveConnection:Disconnect()
+			end
+		end
+	end
+
+	-- Event listeners for interaction
 	Interact.InputBegan:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			updateSlider(input)
-		end
-	end)
-
-	Interact.InputChanged:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			updateSlider(input)
+			moveConnection = game:GetService("UserInputService").InputChanged:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseMovement then
+					updateSlider(input)
+				end
+			end)
+			releaseConnection = game:GetService("UserInputService").InputEnded:Connect(onInputEnded)
 		end
 	end)
 end
+
 
 
 
