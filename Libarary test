@@ -471,89 +471,85 @@ end
 		return Label
 	end
 
-	function Library:TextBox(parent, titleText, defaultValue, callback)
-		-- Create main Textbox container
-		local Textbox = Instance.new("TextButton")
-		Textbox.Name = "Textbox"
-		Textbox.Parent = parent
-		Textbox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Textbox.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Textbox.Position = UDim2.new(0, 0, 0.706586838, 0)
-		Textbox.Selectable = false
-		Textbox.Size = UDim2.new(1, 0, 0, 51)  -- Adjusted width to fit parent dynamically
-		Textbox.AutoButtonColor = false
-		Textbox.Text = ""
+	local function TextBox(parent, titleText, defaultValue, callback)
+	-- Create GUI elements
+	local Input = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local Title = Instance.new("TextLabel")
+	local InputFrame = Instance.new("Frame")
+	local InputBox = Instance.new("TextBox")
+	local UICorner_2 = Instance.new("UICorner")
 
-		-- Apply corner radius to Textbox
-		local UICorner = Instance.new("UICorner")
-		UICorner.CornerRadius = UDim.new(0, 2)
-		UICorner.Parent = Textbox
+	-- Set up properties for each element
+	Input.Name = "Input"
+	Input.Parent = parent
+	Input.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	Input.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Input.BorderSizePixel = 0
+	Input.Position = UDim2.new(0.0263157897, 0, 0.657587588, 0) -- Adjust position
+	Input.Size = UDim2.new(1, -20, 0, 40) -- Adjust size
 
-		-- Create and configure TextLabel
-		local TextLabel = Instance.new("TextLabel")
-		TextLabel.Parent = Textbox
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		TextLabel.Size = UDim2.new(1, 0, 0, 31)  -- Adjusted width to fit parent dynamically
-		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = titleText
-		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TextLabel.TextSize = 12.000
-		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+	UICorner.CornerRadius = UDim.new(0, 4)
+	UICorner.Parent = Input
 
-		-- Apply padding to TextLabel
-		local UIPadding = Instance.new("UIPadding")
-		UIPadding.Parent = TextLabel
-		UIPadding.PaddingLeft = UDim.new(0, 10)
+	Title.Name = "Title"
+	Title.Parent = Input
+	Title.AnchorPoint = Vector2.new(0, 0.5)
+	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title.BackgroundTransparency = 1.000
+	Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Title.BorderSizePixel = 0
+	Title.Position = UDim2.new(0.02, 0, 0.5, 0) -- Adjust position
+	Title.Size = UDim2.new(0, 200, 0, 14)
+	Title.Font = Enum.Font.GothamMedium
+	Title.Text = titleText or "Title"
+	Title.TextColor3 = Color3.fromRGB(240, 240, 240)
+	Title.TextScaled = true
+	Title.TextSize = 14.000
+	Title.TextWrapped = true
+	Title.TextXAlignment = Enum.TextXAlignment.Left
 
-		-- Create and configure Status frame
-		local Status = Instance.new("Frame")
-		Status.Name = "Status"
-		Status.Parent = Textbox
-		Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Status.BackgroundTransparency = 1.000
-		Status.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Status.Position = UDim2.new(0, 0, 0.5, 0)  -- Adjusted position to center vertically
-		Status.Size = UDim2.new(1, 0, 0, 28)
+	InputFrame.Name = "InputFrame"
+	InputFrame.Parent = Input
+	InputFrame.AnchorPoint = Vector2.new(1, 0.5)
+	InputFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	InputFrame.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	InputFrame.BorderSizePixel = 0
+	InputFrame.Position = UDim2.new(1, -7, 0.5, 0) -- Adjust position
+	InputFrame.Size = UDim2.new(0, 120, 0, 30)
 
-		-- Create and configure TextBox
-		local TextBox = Instance.new("TextBox")
-		TextBox.Parent = Status
-		TextBox.Active = false
-		TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-		TextBox.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		TextBox.ClipsDescendants = true
-		TextBox.Position = UDim2.new(0, 10, 0.5, -8)  -- Adjusted position to center vertically
-		TextBox.Size = UDim2.new(1, -20, 0, 17)  -- Adjusted width to fit parent dynamically
-		TextBox.ClearTextOnFocus = false
-		TextBox.Font = Enum.Font.Gotham
-		TextBox.PlaceholderColor3 = Color3.fromRGB(104, 104, 104)
-		TextBox.PlaceholderText = defaultValue
-		TextBox.Text = ""
-		TextBox.TextColor3 = Color3.fromRGB(177, 177, 177)
-		TextBox.TextSize = 12.000
+	InputBox.Name = "InputBox"
+	InputBox.Parent = InputFrame
+	InputBox.AnchorPoint = Vector2.new(0.5, 0.5)
+	InputBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	InputBox.BackgroundTransparency = 1.000
+	InputBox.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	InputBox.BorderSizePixel = 0
+	InputBox.Position = UDim2.new(0.5, 0, 0.5, 0)
+	InputBox.Size = UDim2.new(1, -15, 0, 14)
+	InputBox.ClearTextOnFocus = false
+	InputBox.Font = Enum.Font.GothamMedium
+	InputBox.PlaceholderText = defaultValue or "Enter text..."
+	InputBox.Text = ""
+	InputBox.TextColor3 = Color3.fromRGB(240, 240, 240)
+	InputBox.TextSize = 14.000
 
-		-- Apply corner radius to TextBox
-		local UICorner_2 = Instance.new("UICorner")
-		UICorner_2.CornerRadius = UDim.new(0, 2)
-		UICorner_2.Parent = TextBox
+	UICorner_2.CornerRadius = UDim.new(0, 5)
+	UICorner_2.Parent = InputFrame
 
-		-- Event handling for TextBox text changed
-		TextBox:GetPropertyChangedSignal("Text"):Connect(function()
-			callback(TextBox.Text)
-		end)
-
-		local function UpdateText()
-			callback(TextBox.Text)
+	-- Callback function for handling input changes
+	InputBox.FocusLost:Connect(function(enterPressed)
+		if enterPressed then
+			local newText = InputBox.Text
+			if callback then
+				callback(newText)
+			end
 		end
+	end)
 
-		TextBox.FocusLost:Connect(UpdateText)
+	return InputBox
+end
 
-
-
-		return TextBox, UpdateText  -- Return TextBox in case further manipulation is needed
-	end
 
 
 	function Library:Toggle(tab, toggleName, callback)
