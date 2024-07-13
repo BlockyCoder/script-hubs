@@ -9,13 +9,6 @@ local LibraryName = tostring(math.random(100000,200000))..tostring(math.random(1
 
 
 
-function Library:Toggle()
-	if game.CoreGui:FindFirstChild(LibraryName).Enabled then 
-		game.CoreGui:FindFirstChild(LibraryName).Enabled = false
-	else 
-		game.CoreGui:FindFirstChild(LibraryName).Enabled = true
-	end
-end
 
 function Library:Drag(obj)
 	local UserInputService = game:GetService("UserInputService")
@@ -223,6 +216,14 @@ end
 	PageHold.Parent = ExampleContainer
 
 
+function Library:Toggle()
+	if game.CoreGui:FindFirstChild(xHubName).Enabled then 
+		game.CoreGui:FindFirstChild(xHubName).Enabled = false
+	else 
+		game.CoreGui:FindFirstChild(xHubName).Enabled = true
+	end
+end
+
 	Close.MouseButton1Click:Connect(function()
 
 		wait(0.3)  -- Delay to ensure fade out completes
@@ -231,7 +232,6 @@ end
 
 
 	Library:Drag(Menu, Topbar)
-
 
 
 
