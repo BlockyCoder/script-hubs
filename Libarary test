@@ -235,139 +235,148 @@ end
 
 
 
-	function Library:Tab(TabNam)
-		local TabNam = TabNam or "Tab"
+function Library:Tab(TabNam)
+	local TabNam = TabNam or "Tab"
 
-		--Tab button
+	--Tab button
 
-		local Example = Instance.new("TextButton")
-		local UICorner = Instance.new("UICorner")
-		local TextLabel = Instance.new("TextLabel")
+	local Example = Instance.new("TextButton")
+	local UICorner = Instance.new("UICorner")
+	local TextLabel = Instance.new("TextLabel")
 
-		--Properties:
+	--Properties:
 
-		Example.Name = TabNam
-		Example.Parent = Holder2
-		Example.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Example.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Example.Position = UDim2.new(0.105504587, 0, 0, 0)
-		Example.Selectable = false
-		Example.Size = UDim2.new(0, 201, 0, 31)
-		Example.ZIndex = 6
-		Example.AutoButtonColor = false
-		Example.Text = ""
+	Example.Name = TabNam
+	Example.Parent = Holder2
+	Example.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	Example.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Example.Position = UDim2.new(0.105504587, 0, 0, 0)
+	Example.Selectable = false
+	Example.Size = UDim2.new(0, 201, 0, 31)
+	Example.ZIndex = 6
+	Example.AutoButtonColor = false
+	Example.Text = ""
 
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = Example
+	UICorner.CornerRadius = UDim.new(0, 5)
+	UICorner.Parent = Example
 
-		TextLabel.Parent = Example
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		TextLabel.Position = UDim2.new(0.0945273638, 0, 0, 0)
-		TextLabel.Size = UDim2.new(0, 172, 0, 31)
-		TextLabel.ZIndex = 7
-		TextLabel.Font = Enum.Font.GothamMedium
-		TextLabel.Text = TabNam
-		TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
-		TextLabel.TextSize = 12.000
+	TextLabel.Parent = Example
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	TextLabel.Position = UDim2.new(0.0945273638, 0, 0, 0)
+	TextLabel.Size = UDim2.new(0, 172, 0, 31)
+	TextLabel.ZIndex = 7
+	TextLabel.Font = Enum.Font.GothamMedium
+	TextLabel.Text = TabNam
+	TextLabel.TextColor3 = Color3.fromRGB(193, 193, 193)
+	TextLabel.TextSize = 12.000
 
+	---Tab frame
 
-		---Tab frame
+	-- Gui to Lua
+	-- Version: 3.2
 
-		-- Gui to Lua
-		-- Version: 3.2
+	-- Instances:
 
-		-- Instances:
+	local Left = Instance.new("ScrollingFrame")
+	local UIListLayout = Instance.new("UIListLayout")
+	local ExampleSection = Instance.new("Frame")
+	local Title = Instance.new("Frame")
+	local TextLabel = Instance.new("TextLabel")
+	local UIListLayout_2 = Instance.new("UIListLayout")
+	local UIPadding = Instance.new("UIPadding")
+	local Holder = Instance.new("Frame")
+	local UIListLayout_3 = Instance.new("UIListLayout")
+	local UIPadding_2 = Instance.new("UIPadding")
 
-		local Left = Instance.new("ScrollingFrame")
-		local UIListLayout = Instance.new("UIListLayout")
-		local ExampleSection = Instance.new("Frame")
-		local Title = Instance.new("Frame")
-		local TextLabel = Instance.new("TextLabel")
-		local UIListLayout_2 = Instance.new("UIListLayout")
-		local UIPadding = Instance.new("UIPadding")
-		local Holder = Instance.new("Frame")
-		local UIListLayout_3 = Instance.new("UIListLayout")
-		local UIPadding_2 = Instance.new("UIPadding")
+	--Properties:
 
-		--Properties:
+	Left.Name = "Left"
+	Left.Parent = PageHold
+	Left.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Left.BackgroundTransparency = 1.000
+	Left.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Left.Size = UDim2.new(0, 301, 0, 282)
+	Left.Visible = false
+	Left.ScrollBarThickness = 0
 
-		Left.Name = "Left"
-		Left.Parent = PageHold
-		Left.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Left.BackgroundTransparency = 1.000
-		Left.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Left.Size = UDim2.new(0, 301, 0, 282)
-		Left.Visible = false
-		Left.ScrollBarThickness = 0
+	UIListLayout.Parent = Left
+	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-		UIListLayout.Parent = Left
-		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	ExampleSection.Name = "Section"
+	ExampleSection.Parent = Left
+	ExampleSection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ExampleSection.BackgroundTransparency = 1.000
+	ExampleSection.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	ExampleSection.Size = UDim2.new(0, 301, 0, 277)
 
-		ExampleSection.Name = "Section"
-		ExampleSection.Parent = Left
-		ExampleSection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		ExampleSection.BackgroundTransparency = 1.000
-		ExampleSection.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		ExampleSection.Size = UDim2.new(0, 301, 0, 277)
+	Title.Name = "Title"
+	Title.Parent = ExampleSection
+	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title.BackgroundTransparency = 1.000
+	Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Title.LayoutOrder = -1
+	Title.Size = UDim2.new(0, 255, 0, 29)
 
-		Title.Name = "Title"
-		Title.Parent = ExampleSection
-		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Title.BackgroundTransparency = 1.000
-		Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Title.LayoutOrder = -1
-		Title.Size = UDim2.new(0, 255, 0, 29)
+	TextLabel.Parent = Title
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	TextLabel.Size = UDim2.new(0, 255, 0, 34)
+	TextLabel.Font = Enum.Font.Gotham
+	TextLabel.Text = TabNam
+	TextLabel.TextColor3 = Color3.fromRGB(130, 130, 130)
+	TextLabel.TextSize = 12.000
+	TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		TextLabel.Parent = Title
-		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		TextLabel.BackgroundTransparency = 1.000
-		TextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		TextLabel.Size = UDim2.new(0, 255, 0, 34)
-		TextLabel.Font = Enum.Font.Gotham
-		TextLabel.Text = TabNam
-		TextLabel.TextColor3 = Color3.fromRGB(130, 130, 130)
-		TextLabel.TextSize = 12.000
-		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+	UIListLayout_2.Parent = ExampleSection
+	UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 
-		UIListLayout_2.Parent = ExampleSection
-		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+	UIPadding.Parent = ExampleSection
+	UIPadding.PaddingLeft = UDim.new(0, 20)
 
-		UIPadding.Parent = ExampleSection
-		UIPadding.PaddingLeft = UDim.new(0, 20)
+	Holder.Name = "Holder"
+	Holder.Parent = ExampleSection
+	Holder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Holder.BackgroundTransparency = 1.000
+	Holder.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	Holder.Position = UDim2.new(-0.00355871883, 0, 0.104693137, 0)
+	Holder.Size = UDim2.new(1.01067615, 0, 0.870036125, 0)
 
-		Holder.Name = "Holder"
-		Holder.Parent = ExampleSection
-		Holder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Holder.BackgroundTransparency = 1.000
-		Holder.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Holder.Position = UDim2.new(-0.00355871883, 0, 0.104693137, 0)
-		Holder.Size = UDim2.new(1.01067615, 0, 0.870036125, 0)
+	UIListLayout_3.Parent = Holder
+	UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
+	UIListLayout_3.Padding = UDim.new(0, 5)
 
-		UIListLayout_3.Parent = Holder
-		UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
-		UIListLayout_3.Padding = UDim.new(0, 5)
+	UIPadding_2.Parent = Left
+	UIPadding_2.PaddingTop = UDim.new(0, 5)
 
-		UIPadding_2.Parent = Left
-		UIPadding_2.PaddingTop = UDim.new(0, 5)
+	-- Store the original color
+	local originalBackgroundColor = Example.BackgroundColor3
 
-
-		-- Connect button click to activation function
-		Example.MouseButton1Click:Connect(function()
-			-- Hide all other tab frames
-			for _, frame in pairs(PageHold:GetChildren()) do
-				if frame:IsA("ScrollingFrame") then
-					frame.Visible = false
-				end
+	-- Connect button click to activation function
+	Example.MouseButton1Click:Connect(function()
+		-- Hide all other tab frames and reset their button colors
+		for _, frame in pairs(PageHold:GetChildren()) do
+			if frame:IsA("ScrollingFrame") then
+				frame.Visible = false
 			end
-			-- Show the selected tab frame
-			Left.Visible = true
-			Example.TextColor3 = Color3.fromRGB(255, 255, 255)
-			Example.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-		end)
-		return Holder
-	end
+		end
+		for _, button in pairs(Holder2:GetChildren()) do
+			if button:IsA("TextButton") then
+				button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+				button.TextColor3 = Color3.fromRGB(193, 193, 193)
+			end
+		end
+		-- Show the selected tab frame
+		Left.Visible = true
+		Example.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Example.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	end)
+
+	return Holder
+end
+
 
 
 	function Library:Button(Parent, ButName, Callback)
