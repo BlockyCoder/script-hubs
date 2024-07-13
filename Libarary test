@@ -887,8 +887,8 @@ function Library:Dropdown(tab, dropdownName, options, callback)
     Dropdown.Parent = tab
     Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     Dropdown.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Dropdown.Position = UDim2.new(0, 0, 0.439393938, 0) -- Adjusted position
-    Dropdown.Size = UDim2.new(1, -20, 0, 31) -- Initial size
+    Dropdown.Position = UDim2.new(0, 0, 0.439393938, 0)
+    Dropdown.Size = UDim2.new(1, -20, 0, 31)
     Dropdown.AutoButtonColor = false
     Dropdown.Text = ""
 
@@ -898,26 +898,24 @@ function Library:Dropdown(tab, dropdownName, options, callback)
     Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Main.BackgroundTransparency = 1.000
     Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Main.Size = UDim2.new(1, 0, 1, 0) -- Full size inside the button
+    Main.Size = UDim2.new(1, 0, 1, 0)
 
-    -- Icon Frame
     local IconFrame = Instance.new("Frame")
     IconFrame.Name = "IconFrame"
     IconFrame.Parent = Main
     IconFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     IconFrame.BackgroundTransparency = 1.000
     IconFrame.Size = UDim2.new(0, 31, 0, 31)
-    IconFrame.Position = UDim2.new(1, -31, 0, 0) -- Align to the right end
+    IconFrame.Position = UDim2.new(1, -31, 0, 0)
 
-    -- Icon ImageLabel
     local Icon = Instance.new("ImageLabel")
     Icon.Name = "Icon"
     Icon.Parent = IconFrame
     Icon.AnchorPoint = Vector2.new(0.5, 0.5)
     Icon.BackgroundTransparency = 1.000
     Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
-    Icon.Size = UDim2.new(0, 25, 0, 25) -- Adjust icon size
-    Icon.Image = "rbxassetid://6031091000" -- Replace with your closed state icon ID
+    Icon.Size = UDim2.new(0, 25, 0, 25)
+    Icon.Image = "rbxassetid://6031091000"
     Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
 
     local Title = Instance.new("TextLabel")
@@ -926,58 +924,68 @@ function Library:Dropdown(tab, dropdownName, options, callback)
     Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Title.BackgroundTransparency = 1.000
     Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    Title.Size = UDim2.new(1, -35, 1, 0) -- Adjusted to fit within Dropdown width
+    Title.Size = UDim2.new(1, -35, 1, 0)
     Title.Font = Enum.Font.GothamMedium
-    Title.Text = dropdownName -- Set the dropdown name
+    Title.Text = dropdownName
     Title.TextColor3 = Color3.fromRGB(193, 193, 193)
     Title.TextSize = 12.000
     Title.TextXAlignment = Enum.TextXAlignment.Left
 
     local List = Instance.new("Frame")
     List.Name = "List"
-    List.Parent = Dropdown.Parent -- Attach to the same parent as Dropdown
+    List.Parent = Dropdown.Parent
     List.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     List.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    List.Position = UDim2.new(0, 0, 0.469696969, 0) -- Adjusted position below the dropdown button
+    List.Position = UDim2.new(0, 0, 0.469696969, 0)
     List.Visible = false
-    List.Size = UDim2.new(1, -20, 0, #options * 25) -- Adjust height based on options
+    List.Size = UDim2.new(1, -20, 0, #options * 25)
     List.ClipsDescendants = true
 
     local UIListLayout = Instance.new("UIListLayout")
     UIListLayout.Parent = List
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-    -- Populate options
     for i, optionText in ipairs(options) do
         local Option = Instance.new("TextButton")
         Option.Name = "Option"
         Option.Parent = List
         Option.BackgroundTransparency = 1
         Option.BorderSizePixel = 0
-        Option.Size = UDim2.new(1, 0, 0, 25) -- Customize height as needed
+        Option.Size = UDim2.new(1, 0, 0, 25)
         Option.AutoButtonColor = false
         Option.Text = optionText
         Option.TextColor3 = Color3.fromRGB(193, 193, 193)
         Option.TextWrapped = true
 
         Option.MouseButton1Click:Connect(function()
-            -- Handle option selection
             callback(optionText)
             Title.Text = optionText
             Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
-            Icon.Image = "rbxassetid://6031091000" -- Closed state icon
+            Icon.Image = "rbxassetid://6031091000"
             List.Visible = false
             isOpen = false
+
+            -- Show all other elements
+            for _, child in ipairs(tab:GetChildren()) do
+                if child ~= Dropdown and child ~= List then
+                    child.Visible = true
+                end
+            end
         end)
     end
 
-    -- Toggle dropdown visibility
     local isOpen = false
     Dropdown.MouseButton1Click:Connect(function()
         isOpen = not isOpen
         List.Visible = isOpen
-        -- Change icon state
         Icon.Image = isOpen and "rbxassetid://6031090999" or "rbxassetid://6031091000"
+
+        -- Hide or show all other elements
+        for _, child in ipairs(tab:GetChildren()) do
+            if child ~= Dropdown and child ~= List then
+                child.Visible = not isOpen
+            end
+        end
     end)
 
     return Dropdown
