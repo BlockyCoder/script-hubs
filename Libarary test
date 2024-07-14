@@ -892,115 +892,118 @@ function Library:Create(xHubName)
 
 
 	function Library:Dropdown(tab, dropdownName, options, callback)
-		-- Create the dropdown structure
-		local Dropdown = Instance.new("TextButton")
-		Dropdown.Name = dropdownName
-		Dropdown.Parent = tab
-		Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		Dropdown.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Dropdown.Position = UDim2.new(0, 0, 0.439393938, 0)
-		Dropdown.Size = UDim2.new(1, -20, 0, 31)
-		Dropdown.AutoButtonColor = false
-		Dropdown.Text = ""
+    -- Validate options
+    assert(type(options) == "table" and #options > 0, "Options should be a non-empty table.")
 
-		local Main = Instance.new("Frame")
-		Main.Name = "Main"
-		Main.Parent = Dropdown
-		Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Main.BackgroundTransparency = 1.000
-		Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Main.Size = UDim2.new(1, 0, 1, 0)
+    -- Create the dropdown structure
+    local Dropdown = Instance.new("TextButton")
+    Dropdown.Name = dropdownName
+    Dropdown.Parent = tab
+    Dropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Dropdown.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Dropdown.Position = UDim2.new(0, 0, 0.439393938, 0)
+    Dropdown.Size = UDim2.new(1, -20, 0, 31)
+    Dropdown.AutoButtonColor = false
+    Dropdown.Text = ""
 
-		local IconFrame = Instance.new("Frame")
-		IconFrame.Name = "IconFrame"
-		IconFrame.Parent = Main
-		IconFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		IconFrame.BackgroundTransparency = 1.000
-		IconFrame.Size = UDim2.new(0, 31, 0, 31)
-		IconFrame.Position = UDim2.new(1, -31, 0, 0)
+    local Main = Instance.new("Frame")
+    Main.Name = "Main"
+    Main.Parent = Dropdown
+    Main.BackgroundTransparency = 1.000
+    Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Main.Size = UDim2.new(1, 0, 1, 0)
 
-		local Icon = Instance.new("ImageLabel")
-		Icon.Name = "Icon"
-		Icon.Parent = IconFrame
-		Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-		Icon.BackgroundTransparency = 1.000
-		Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
-		Icon.Size = UDim2.new(0, 25, 0, 25)
-		Icon.Image = "rbxassetid://6031091000"
-		Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
+    local IconFrame = Instance.new("Frame")
+    IconFrame.Name = "IconFrame"
+    IconFrame.Parent = Main
+    IconFrame.BackgroundTransparency = 1.000
+    IconFrame.Size = UDim2.new(0, 31, 0, 31)
+    IconFrame.Position = UDim2.new(1, -31, 0, 0)
 
-		local Title = Instance.new("TextLabel")
-		Title.Name = "Title"
-		Title.Parent = Main
-		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Title.BackgroundTransparency = 1.000
-		Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		Title.Size = UDim2.new(1, -35, 1, 0)
-		Title.Font = Enum.Font.GothamMedium
-		Title.Text = dropdownName
-		Title.TextColor3 = Color3.fromRGB(193, 193, 193)
-		Title.TextSize = 12.000
-		Title.TextXAlignment = Enum.TextXAlignment.Left
+    local Icon = Instance.new("ImageLabel")
+    Icon.Name = "Icon"
+    Icon.Parent = IconFrame
+    Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+    Icon.BackgroundTransparency = 1.000
+    Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Icon.Size = UDim2.new(0, 25, 0, 25)
+    Icon.Image = "rbxassetid://6031091000"
+    Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
 
-		local List = Instance.new("Frame")
-		List.Name = "List"
-		List.Parent = Dropdown.Parent
-		List.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		List.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		List.Position = UDim2.new(0, 0, 0.469696969, 0)
-		List.Visible = false
-		List.Size = UDim2.new(1, 0, 0, 0)
-		List.ClipsDescendants = true
+    local Title = Instance.new("TextLabel")
+    Title.Name = "Title"
+    Title.Parent = Main
+    Title.BackgroundTransparency = 1.000
+    Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Title.Size = UDim2.new(1, -35, 1, 0)
+    Title.Font = Enum.Font.GothamMedium
+    Title.Text = dropdownName
+    Title.TextColor3 = Color3.fromRGB(193, 193, 193)
+    Title.TextSize = 12.000
+    Title.TextXAlignment = Enum.TextXAlignment.Left
 
-		local UIListLayout = Instance.new("UIListLayout")
-		UIListLayout.Parent = List
-		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    local List = Instance.new("ScrollingFrame")
+    List.Name = "List"
+    List.Parent = Dropdown.Parent
+    List.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    List.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    List.Position = UDim2.new(0, 0, 0.469696969, 0)
+    List.Size = UDim2.new(1, -20, 0, 200)  -- Adjust height as needed
+    List.ClipsDescendants = true
+    List.CanvasSize = UDim2.new(0, 0, 0, #options * 25)
+    List.ScrollBarThickness = 6
+    List.ScrollingDirection = Enum.ScrollingDirection.Y
+    List.Visible = false
 
-		for i, optionText in ipairs(options) do
-			local Option = Instance.new("TextButton")
-			Option.Name = "Option"
-			Option.Parent = List
-			Option.BackgroundTransparency = 1
-			Option.BorderSizePixel = 0
-			Option.Size = UDim2.new(1, 0, 0, 25)
-			Option.AutoButtonColor = false
-			Option.Text = optionText
-			Option.TextColor3 = Color3.fromRGB(193, 193, 193)
-			Option.TextWrapped = true
+    local UIListLayout = Instance.new("UIListLayout")
+    UIListLayout.Parent = List
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-			Option.MouseButton1Click:Connect(function()
-				callback(optionText)
-				Title.Text = optionText
-				Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
-				Icon.Image = "rbxassetid://6031091000"
-				List.Visible = false
-				isOpen = false
+    for i, optionText in ipairs(options) do
+        local Option = Instance.new("TextButton")
+        Option.Name = "Option"
+        Option.Parent = List
+        Option.BackgroundTransparency = 1
+        Option.BorderSizePixel = 0
+        Option.Size = UDim2.new(1, 0, 0, 25)
+        Option.AutoButtonColor = false
+        Option.Text = optionText
+        Option.TextColor3 = Color3.fromRGB(193, 193, 193)
+        Option.TextWrapped = true
 
-				-- Show all other elements
-				for _, child in ipairs(tab:GetChildren()) do
-					if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "List" then
-						child.Visible = true
-					end
-				end
-			end)
-		end
+        Option.MouseButton1Click:Connect(function()
+            callback(optionText)
+            Title.Text = optionText
+            Icon.ImageColor3 = Color3.fromRGB(109, 109, 109)
+            Icon.Image = "rbxassetid://6031091000"
+            List.Visible = false
+            isOpen = false
 
-		local isOpen = false
-		Dropdown.MouseButton1Click:Connect(function()
-			isOpen = not isOpen
-			List.Visible = isOpen
-			Icon.Image = isOpen and "rbxassetid://6031090999" or "rbxassetid://6031091000"
+            -- Show all other elements
+            for _, child in ipairs(tab:GetChildren()) do
+                if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "List" then
+                    child.Visible = true
+                end
+            end
+        end)
+    end
 
-			-- Hide or show all other elements
-			for _, child in ipairs(tab:GetChildren()) do
-				if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "List" then
-					child.Visible = not isOpen
-				end
-			end
-		end)
+    local isOpen = false
+    Dropdown.MouseButton1Click:Connect(function()
+        isOpen = not isOpen
+        List.Visible = isOpen
+        Icon.Image = isOpen and "rbxassetid://6031090999" or "rbxassetid://6031091000"
 
-		return Dropdown
-	end
+        -- Hide or show all other elements
+        for _, child in ipairs(tab:GetChildren()) do
+            if child:IsA("GuiObject") and child ~= Dropdown and child.Name ~= "List" then
+                child.Visible = not isOpen
+            end
+        end
+    end)
+
+    return Dropdown
+end
 
 	
 
