@@ -387,10 +387,11 @@ function Library:Create(xHubName)
 	end)
 
 	-- Initial state: show loading frame, hide main and shadow
+	local isloading = true
 	LoadingFrame.Visible = true
-	Main.Visible = false
-	ImageButtonK.Visible = false
-	ShadowHolder.Visible = false
+	--Main.Visible = false
+--	ImageButtonK.Visible = false
+--	ShadowHolder.Visible = false
 
 	-- Simulate loading process
 	print("Starting loading...")
@@ -488,6 +489,11 @@ function Library:Create(xHubName)
 
 	Library:DraggingEnabled(Main)
 	--notifcation
+
+	local function createOtherGUIElements()
+		if LoadingFrame.Visible then
+			return
+		end
 
 
 	function Library:Newnotify(Text, Description, Length)
