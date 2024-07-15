@@ -674,8 +674,8 @@ function Library:Slider(parent, Name, Min, Max, Callback)
 	Slider.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 	Slider.BorderColor3 = Color3.fromRGB(27, 42, 53)
 	Slider.BorderSizePixel = 0
-	Slider.Position = UDim2.new(0.0105263162, 0, 0.450381666, 0)
-	Slider.Size = UDim2.new(1, -10, 0, 35)  -- Responsive width with fixed height
+	Slider.Position = UDim2.new(0, 0, 0.45, 0)  -- Adjusted vertical position to match other components
+	Slider.Size = UDim2.new(1, -20, 0, 35)  -- Responsive width with fixed height
 
 	UICorner.CornerRadius = UDim.new(0, 4)
 	UICorner.Parent = Slider
@@ -683,13 +683,13 @@ function Library:Slider(parent, Name, Min, Max, Callback)
 	-- Title properties
 	Title.Name = "Title"
 	Title.Parent = Slider
-	Title.AnchorPoint = Vector2.new(0.5, 0.5)
+	Title.AnchorPoint = Vector2.new(0, 0.5)
 	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Title.BackgroundTransparency = 1.000
 	Title.BorderColor3 = Color3.fromRGB(27, 42, 53)
 	Title.BorderSizePixel = 0
-	Title.Position = UDim2.new(0.25, 0, 0.5, 0)
-	Title.Size = UDim2.new(0, 200, 0, 14)
+	Title.Position = UDim2.new(0, 10, 0.5, 0)  -- Adjusted left padding
+	Title.Size = UDim2.new(0.3, 0, 0, 14)
 	Title.Font = Enum.Font.GothamMedium
 	Title.Text = Name
 	Title.TextColor3 = Color3.fromRGB(240, 240, 240)
@@ -701,13 +701,13 @@ function Library:Slider(parent, Name, Min, Max, Callback)
 	-- Main bar properties
 	Main.Name = "Main"
 	Main.Parent = Slider
-	Main.AnchorPoint = Vector2.new(0.5, 0.5)
+	Main.AnchorPoint = Vector2.new(1, 0.5)
 	Main.BackgroundColor3 = Color3.fromRGB(43, 105, 159)
 	Main.BackgroundTransparency = 0.800
 	Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
 	Main.BorderSizePixel = 0
-	Main.Position = UDim2.new(0.739, 0, 0.5, 0)
-	Main.Size = UDim2.new(0, 222, 0, 30)
+	Main.Position = UDim2.new(1, -10, 0.5, 0)
+	Main.Size = UDim2.new(0.65, 0, 0, 30)  -- Adjusted to be more responsive
 
 	UICorner_2.CornerRadius = UDim.new(0, 6)
 	UICorner_2.Parent = Main
@@ -718,7 +718,7 @@ function Library:Slider(parent, Name, Min, Max, Callback)
 	Progress.BackgroundColor3 = Color3.fromRGB(43, 105, 159)
 	Progress.BorderColor3 = Color3.fromRGB(27, 42, 53)
 	Progress.BorderSizePixel = 0
-	Progress.Size = UDim2.new(0.8, 0, 1, 0)
+	Progress.Size = UDim2.new(0.5, 0, 1, 0)  -- Initial progress
 
 	UICorner_3.CornerRadius = UDim.new(0, 6)
 	UICorner_3.Parent = Progress
@@ -731,8 +731,8 @@ function Library:Slider(parent, Name, Min, Max, Callback)
 	Information.BackgroundTransparency = 1.000
 	Information.BorderColor3 = Color3.fromRGB(27, 42, 53)
 	Information.BorderSizePixel = 0
-	Information.Position = UDim2.new(0.453598171, 0, 0.5, 0)
-	Information.Size = UDim2.new(0, 168, 0, 15)
+	Information.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Information.Size = UDim2.new(1, 0, 1, 0)
 	Information.ZIndex = 5
 	Information.Font = Enum.Font.GothamMedium
 	Information.Text = tostring(Min)
@@ -741,7 +741,7 @@ function Library:Slider(parent, Name, Min, Max, Callback)
 	Information.TextSize = 14.000
 	Information.TextTransparency = 0.400
 	Information.TextWrapped = true
-	Information.TextXAlignment = Enum.TextXAlignment.Left
+	Information.TextXAlignment = Enum.TextXAlignment.Center
 
 	-- Shadow properties
 	Shadow.Name = "Shadow"
@@ -815,6 +815,7 @@ function Library:Slider(parent, Name, Min, Max, Callback)
 
 	return Slider
 end
+
 
 
 
