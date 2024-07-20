@@ -265,14 +265,22 @@ function Library:Create(xHubName)
 	Image.ImageTransparency = 0.400
 
 
+  local minimized = false
+    local originalSize = Menu.Size
+    local minimizedSize = UDim2.new(0, 525, 0, 36)
 
+    Minimize.MouseButton1Click:Connect(function()
+        if minimized then
+            Menu:TweenSize(originalSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.3, true)
+        else
+            Menu:TweenSize(minimizedSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.3, true)
+        end
+        minimized = not minimized
+    end)
 
-
-	Close.MouseButton1Click:Connect(function()
-
-		wait(0.3)  -- Delay to ensure fade out completes
-		ScreenGui:Destroy()  -- Destroy the ScreenScript
-	end)
+    Close.MouseButton1Click:Connect(function()
+        ScreenGui:Destroy()
+    end)
 
 
 	Library:Drag(Menu, Topbar)
