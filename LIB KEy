@@ -248,17 +248,16 @@ pageHold.Size = UDim2.new(0, 294, 0, 438)
 pages.Name = "pages"
 pages.Parent = pageHold
 	
-	-- Visibility toggle functions
-	local function toggleVisibility()
-		if ScreenGui.Parent then
-			ScreenGui.Parent = nil
-		else
-			ScreenGui.Parent = game.CoreGui
-		end
+	local function closegui()
+		Main:Destroy()
 	end
-
-	Close.MouseButton1Click:Connect(toggleVisibility)
-	Minimize.MouseButton1Click:Connect(toggleVisibility)
+	
+	local function Mingui()
+		Main:Destroy()
+	end
+	
+	Close.MouseButton1Click:Connect(closegui)
+	Minimize.MouseButton1Click:Connect(Mingui)
 
 	-- Add drag functionality to MainFrame
 	Library:Drag(MainFrame)
@@ -415,10 +414,36 @@ pages.Parent = pageHold
 		UIListLayout.Parent = ScrollElem
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		
+		local originalBackgroundColor = Example.BackgroundColor3
+
+		-- Connect button click to activation function
+		Example.MouseButton1Click:Connect(function()
+			-- Hide all other tab frames and reset their button colors
+			for _, frame in pairs(pages:GetChildren()) do
+				if frame:IsA("Frame") then
+					frame.Visible = false
+				end
+			end
+			for _, button in pairs(Holder:GetChildren()) do
+				if button:IsA("TextButton") then
+					button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+					button.TextColor3 = Color3.fromRGB(193, 193, 193)
+				end
+			end
+			-- Show the selected tab frame
+			Elemenfram.Visible = true
+			Example.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Example.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		end)
+
+		return Holder
+	end
+		
+		
 		local elements = {}
 		
 		
-		function elements:Button(ButName, Callback)
+		function elements:Button(parent, ButName, Callback)
 			local ButName = ButName or "Button"
 			local ButtonFunction = {}
 			local Callback = Callback or function() end
@@ -436,7 +461,7 @@ pages.Parent = pageHold
 			--Properties:
 
 			Button.Name = "Button"
-			Button.Parent = ScrollElem
+			Button.Parent = parent
 			Button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 			Button.BorderColor3 = Color3.fromRGB(27, 42, 53)
 			Button.Position = UDim2.new(0, 0, 0.439393938, 0)
@@ -490,11 +515,25 @@ pages.Parent = pageHold
 			ImageLabel.ImageColor3 = Color3.fromRGB(104, 104, 104)
 
 			UIScale.Parent = ImageLabel
-			UIScale.Scale = 0.800
+		UIScale.Scale = 0.800
 		
+		
+		-- Button click event
+		Button.MouseButton1Click:Connect(function()
+			print("Button clicked: " .. ButName)
+			Callback()
+		end)
 
-			
-		function elements:KeySystem(KeyName, subname, Desc, key, Link)
+		print("Button created: " .. ButName .. " in " .. parent.Name)
+
+		function ButtonFunction:UpdateButton(newTitle)
+			TextLabel.Text = newTitle
+		end
+		return ButtonFunction
+	end
+	
+	
+		function elements:KeySystem(parent, KeyName, subname, Desc, key, Link)
 		
 				local FileName = xHubName.."-Keys.JSON"
 				
@@ -581,7 +620,7 @@ pages.Parent = pageHold
 			--Properties:
 
 				MainKey.Name = "Main-Key"
-				MainKey.Parent = ScreenGui
+				MainKey.Parent = parent or game.coregui 
 				MainKey.AnchorPoint = Vector2.new(0.5, 0.5)
 				MainKey.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 				MainKey.BorderColor3 = Color3.fromRGB(27, 42, 53)
@@ -784,22 +823,7 @@ pages.Parent = pageHold
 			
 			
 			end
-			
-		end
-		-- Return the instance
-		return {
-			TabHolder = TabHolder,
-			MainHolder = MainHolder,
-			Holder = Holder,
-			Title = Title,
-			Close = Close,
-			Minimize = Minimize,
-			pageHold = pageHold,
-			pages = pages,
-			ElementF = elements
-		}
-	
-end
+
 	return Library
 end
 return Library
