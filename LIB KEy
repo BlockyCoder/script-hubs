@@ -50,9 +50,20 @@ function Library:Drag(obj)
 end
 
 function Library:CheckKeyVis(xHubName)
-	local keyframe = game.Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild(xHubName):FindFirstChild("Main-Key")
-	return keyframe and true or false
+	local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	local hub = playerGui:FindFirstChild(xHubName)
+
+	if hub then
+		local keyframe = hub:FindFirstChild("Main-Key")
+		if keyframe then
+			return true
+		end
+	end
+
+	return false
 end
+
+
 
 
 
@@ -243,6 +254,22 @@ pageHold.Size = UDim2.new(0, 294, 0, 438)
 
 pages.Name = "pages"
 pages.Parent = pageHold
+	
+	-- Visibility toggle functions
+	local function toggleVisibility()
+		if ScreenGui.Parent then
+			ScreenGui.Parent = nil
+		else
+			ScreenGui.Parent = game.CoreGui
+		end
+	end
+
+	Close.MouseButton1Click:Connect(toggleVisibility)
+	Minimize.MouseButton1Click:Connect(toggleVisibility)
+
+	-- Add drag functionality to MainFrame
+	Library:Drag(MainFrame)
+	
 	
 	-- Function to create a notification with tween animation
 	function Library:ShowNotify(Name, Desc, Duration)
@@ -766,9 +793,19 @@ pages.Parent = pageHold
 			end
 			
 		end
-		
-		
-		return elements
+		-- Return the instance
+		return {
+			TabHolder = TabHolder,
+			MainHolder = MainHolder,
+			Holder = Holder,
+			Title = Title,
+			Close = Close,
+			Minimize = Minimize,
+			pageHold = pageHold,
+			pages = pages,
+			ElementF = elements
+		}
+	
 end
 	return Library
 end
