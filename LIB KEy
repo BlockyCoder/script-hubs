@@ -436,7 +436,7 @@ pages.Parent = pageHold
 			Example.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 		end)
 
-		return Holder
+		return ScrollElem
 	end
 
 		
@@ -530,7 +530,7 @@ pages.Parent = pageHold
 	end
 	
 	
-	function Library:KeySystem(parent, KeyName, subname, Desc, key, Link)
+	function Library:KeySystem(KeyName, subname, Desc, key, Link)
 		
 				local FileName = xHubName.."-Keys.JSON"
 				
@@ -598,8 +598,9 @@ pages.Parent = pageHold
 						Library:ShowNotify("Fetch Error", "Failed to fetch script source: " .. (scriptError or "Unknown error"), 5)
 					end
 				end
-
-
+		
+		
+			local ScreenGuiKey = Instance.new("ScreenGui")
 			local MainKey = Instance.new("Frame")
 			local Title = Instance.new("TextLabel")
 			local UICorner = Instance.new("UICorner")
@@ -615,15 +616,21 @@ pages.Parent = pageHold
 			local Hide = Instance.new("ImageButton")
 
 			--Properties:
-
+		
+			ScreenGuiKey.Name = "keysystem"
+			ScreenGuiKey.Parent =  game.CoreGui
+			ScreenGuiKey.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		
+		
 				MainKey.Name = "Main-Key"
-			MainKey.Parent = parent or game.CoreGui
+				MainKey.Parent = Main
 				MainKey.AnchorPoint = Vector2.new(0.5, 0.5)
 				MainKey.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 				MainKey.BorderColor3 = Color3.fromRGB(27, 42, 53)
 				MainKey.BorderSizePixel = 0
 				MainKey.Position = UDim2.new(0.5, 0, 0.5, 0)
-				MainKey.Size = UDim2.new(0, 500, 0, 187)
+		MainKey.Size = UDim2.new(0, 500, 0, 187)
+		MainKey.Visible = true
 
 			Title.Name = "Title"
 				Title.Parent = MainKey
