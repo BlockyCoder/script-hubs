@@ -50,7 +50,7 @@ function Library:Drag(obj)
 end
 
 function Library:CheckKeyVis(xHubName)
-	local keyframe = game.Players:WaitForChild("LocalPlayer"):WaitForChild("PlayerGui"):WaitForChild(xHubName):FindFirstChild("Main-Key")
+	local keyframe = game.Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild(xHubName):FindFirstChild("Main-Key")
 	return keyframe and true or false
 end
 
@@ -221,7 +221,7 @@ Title.Position = UDim2.new(0.00192678231, 0, 0, 0)
 Title.Selectable = false
 Title.Size = UDim2.new(0, 200, 0, 36)
 Title.Font = Enum.Font.GothamMedium
-Title.Text = "Zen X's Library"
+Title.Text = "Name: "..xHubName.." Game: "..xGameName
 Title.TextColor3 = Color3.fromRGB(161, 161, 161)
 Title.TextSize = 13.000
 Title.TextXAlignment = Enum.TextXAlignment.Left
