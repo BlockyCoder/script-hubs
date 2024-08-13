@@ -438,12 +438,9 @@ pages.Parent = pageHold
 
 		return Holder
 	end
+
 		
-		
-		local elements = {}
-		
-		
-		function elements:Button(parent, ButName, Callback)
+	function Library:Button(parent, ButName, Callback)
 			local ButName = ButName or "Button"
 			local ButtonFunction = {}
 			local Callback = Callback or function() end
@@ -533,7 +530,7 @@ pages.Parent = pageHold
 	end
 	
 	
-		function elements:KeySystem(parent, KeyName, subname, Desc, key, Link)
+	function Library:KeySystem(parent, KeyName, subname, Desc, key, Link)
 		
 				local FileName = xHubName.."-Keys.JSON"
 				
@@ -620,7 +617,7 @@ pages.Parent = pageHold
 			--Properties:
 
 				MainKey.Name = "Main-Key"
-				MainKey.Parent = parent or game.coregui 
+			MainKey.Parent = parent or game.CoreGui
 				MainKey.AnchorPoint = Vector2.new(0.5, 0.5)
 				MainKey.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 				MainKey.BorderColor3 = Color3.fromRGB(27, 42, 53)
