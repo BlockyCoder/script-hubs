@@ -50,7 +50,7 @@ function Library:Drag(obj)
 end
 
 function Library:CheckKeyVis(xHubName)
-	local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	local playerGui = game.CoreGui
 	local hub = playerGui:FindFirstChild(xHubName)
 
 	if hub then
