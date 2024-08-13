@@ -71,8 +71,6 @@ function Library:Create(xHubName,xGameName)
 	local xHubName = xHubName or "UI Library"
 	local xGameName = xGameName or "UI LIb IDK :)"
 	
-	
-	local ScreenGui = Instance.new("ScreenGui")
 local Main = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local TabHolder = Instance.new("Frame")
@@ -97,11 +95,6 @@ local pageHold = Instance.new("Frame")
 local pages = Instance.new("Folder")
 
 --Properties:
-
-	ScreenGui.Parent = game.CoreGui
-	ScreenGui.ResetOnSpawn = false 
-	ScreenGui.Name = xHubName
-	
 	
 	-- Example usage:
 	local isVisible = Library:CheckKeyVis(xHubName)
@@ -114,8 +107,8 @@ local pages = Instance.new("Folder")
 	end
 	
 	
-Main.Name = "Main"
-	Main.Parent = ScreenGui
+	Main.Name = xHubName
+	Main.Parent = game.CoreGui
 Main.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 MainFrame.Name = "MainFrame"
