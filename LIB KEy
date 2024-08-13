@@ -96,16 +96,6 @@ local pages = Instance.new("Folder")
 
 --Properties:
 	
-	-- Example usage:
-	local isVisible = Library:CheckKeyVis(xHubName)
-
-	if isVisible then
-		print("The key is visible.")
-		return
-	else
-		print("The key is not visible.")
-	end
-	
 	
 	Main.Name = xHubName
 	Main.Parent = game.CoreGui
