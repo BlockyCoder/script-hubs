@@ -380,8 +380,8 @@ function xTabs:Tab(TName, iconID)
 	PageHold.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
 	PageHold.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	PageHold.BorderSizePixel = 0
-	PageHold.Position = UDim2.new(0.315040648, 0, 0.128526747, 0)
-	PageHold.Size = UDim2.new(0, 336, 0, 278)
+		PageHold.Position = UDim2.new(-0.021, 0, -0.045, 0)
+	PageHold.Size = UDim2.new(1, 0, 1, 0)
 	PageHold.Visible = false
 	PageHold.ScrollBarThickness = 3
 
@@ -418,7 +418,7 @@ function xTabs:Tab(TName, iconID)
 	local Elements = {}
 
 	function Elements:Label(LName, desc)
-		local Name = LName or "Label"
+		local NameLAB = LName or "Label"
 		local desc = desc or "This is some text"
 		local LabelFunction = {}
 		
@@ -447,7 +447,7 @@ function xTabs:Tab(TName, iconID)
 		Nametext.Position = UDim2.new(0.0164630879, 0, 0.0798921138, 0)
 		Nametext.Size = UDim2.new(0, 327, 0, 35)
 		Nametext.Font = Enum.Font.SourceSansBold
-		Nametext.Text = LName
+		Nametext.Text = NameLAB
 		Nametext.TextColor3 = Color3.fromRGB(150, 150, 150)
 		Nametext.TextSize = 14.000
 		Nametext.TextWrapped = true
