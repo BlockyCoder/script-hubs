@@ -107,7 +107,7 @@ TopBar.BorderColor3 = Color3.fromRGB(30, 30, 30)
 TopBar.Size = UDim2.new(0, 492, 0, 41)
 
 	Minimize.Name = "Minimize"
-	Minimize.Parent = game.StarterGui.ScreenGUI.Main.TopBar
+	Minimize.Parent = TopBar
 	Minimize.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Minimize.BackgroundTransparency = 1.000
 	Minimize.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -117,7 +117,7 @@ TopBar.Size = UDim2.new(0, 492, 0, 41)
 	Minimize.Image = "rbxassetid://11293980042"
 
 	Close.Name = "Close"
-	Close.Parent = game.StarterGui.ScreenGUI.Main.TopBar
+	Close.Parent = TopBar
 	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Close.BackgroundTransparency = 1.000
 	Close.BorderColor3 = Color3.fromRGB(0, 0, 0)
