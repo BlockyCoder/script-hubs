@@ -1,0 +1,569 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+local Library = {}
+-- Random UI Name
+local LibraryName = tostring(math.random(100000,200000))..tostring(math.random(100000,200000))..tostring(math.random(100000,200000))
+
+function Library:Toggle()
+	if game.CoreGui:FindFirstChild(LibraryName).Enabled then 
+		game.CoreGui:FindFirstChild(LibraryName).Enabled = false
+	else 
+		game.CoreGui:FindFirstChild(LibraryName).Enabled = true
+	end
+end
+
+function Library:Drag(obj)
+	local UserInputService = game:GetService("UserInputService")
+
+	local gui = obj
+
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end
+
+
+
+function Library:Create(Name)
+	local NameHUB = Name or "UI Library"
+	
+	
+local ScreenGUI = Instance.new("ScreenGui")
+local Main = Instance.new("Frame")
+local Corner = Instance.new("UICorner")
+local TopBar = Instance.new("Frame")
+local Close = Instance.new("ImageLabel")
+local Minimize = Instance.new("ImageLabel")
+local TitleHub = Instance.new("TextLabel")
+local Shadow = Instance.new("Frame")
+local Image = Instance.new("ImageLabel")
+local Side = Instance.new("Frame")
+local TopBar_2 = Instance.new("Frame")
+local CloseTab = Instance.new("ImageLabel")
+local SearchBox = Instance.new("TextBox")
+local TabHolder = Instance.new("Frame")
+local HolderT = Instance.new("ScrollingFrame")
+local TabListLayout = Instance.new("UIListLayout")
+local TabPadding = Instance.new("UIPadding")
+local TextButton = Instance.new("TextButton")
+local Page = Instance.new("Frame")
+local PageFold = Instance.new("Folder")
+
+--Properties:
+
+	ScreenGUI.Parent = game.CoreGui
+	ScreenGUI.ResetOnSpawn = false 
+	ScreenGUI.Name = NameHUB
+
+Main.Name = "Main"
+Main.Parent = ScreenGUI
+Main.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
+Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Main.BorderSizePixel = 0
+Main.Position = UDim2.new(0.120999999, 0, 0.298999995, 0)
+Main.Size = UDim2.new(0, 492, 0, 319)
+
+Corner.Name = "Corner"
+Corner.Parent = Main
+
+TopBar.Name = "TopBar"
+TopBar.Parent = Main
+TopBar.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
+TopBar.BorderColor3 = Color3.fromRGB(30, 30, 30)
+TopBar.Size = UDim2.new(0, 492, 0, 41)
+
+Close.Name = "Close"
+Close.Parent = TopBar
+Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Close.BackgroundTransparency = 1.000
+Close.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Close.BorderSizePixel = 0
+Close.Position = UDim2.new(0.951122761, 0, 0.317073166, 0)
+Close.Size = UDim2.new(0, 15, 0, 15)
+Close.Image = "rbxassetid://11293981586"
+Close.ImageColor3 = Color3.fromRGB(150, 150, 150)
+
+Minimize.Name = "Minimize"
+Minimize.Parent = TopBar
+Minimize.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Minimize.BackgroundTransparency = 1.000
+Minimize.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Minimize.BorderSizePixel = 0
+Minimize.Position = UDim2.new(0.897212207, 0, 0.316999853, 0)
+Minimize.Size = UDim2.new(0, 15, 0, 15)
+Minimize.Image = "rbxassetid://11293980042"
+Minimize.ImageColor3 = Color3.fromRGB(150, 150, 150)
+
+TitleHub.Name = "TitleHub"
+TitleHub.Parent = TopBar
+TitleHub.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TitleHub.BackgroundTransparency = 1.000
+TitleHub.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TitleHub.BorderSizePixel = 0
+TitleHub.Position = UDim2.new(-6.20275955e-08, 0, 0, 0)
+TitleHub.Size = UDim2.new(0, 402, 0, 41)
+TitleHub.Font = Enum.Font.SourceSansBold
+TitleHub.Text = NameHUB
+TitleHub.TextColor3 = Color3.fromRGB(120, 120, 120)
+TitleHub.TextSize = 14.000
+TitleHub.TextXAlignment = Enum.TextXAlignment.Left
+
+Shadow.Name = "Shadow"
+Shadow.Parent = Main
+Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+Shadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Shadow.BackgroundTransparency = 1.000
+Shadow.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Shadow.BorderSizePixel = 0
+Shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+Shadow.Size = UDim2.new(1, 35, 1, 35)
+Shadow.ZIndex = 0
+
+Image.Name = "Image"
+Image.Parent = Shadow
+Image.AnchorPoint = Vector2.new(0.5, 0.5)
+Image.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Image.BackgroundTransparency = 1.000
+Image.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Image.BorderSizePixel = 0
+Image.Position = UDim2.new(0.507476628, 0, 0.509803951, 0)
+Image.Size = UDim2.new(1.60000002, 0, 1.29999995, 0)
+Image.ZIndex = 0
+Image.Image = "rbxassetid://5587865193"
+Image.ImageColor3 = Color3.fromRGB(20, 20, 20)
+Image.ImageTransparency = 0.400
+
+Side.Name = "Side"
+Side.Parent = Main
+Side.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Side.BackgroundTransparency = 1.000
+Side.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Side.BorderSizePixel = 0
+Side.Position = UDim2.new(0, 0, 0.128526643, 0)
+Side.Size = UDim2.new(0, 168, 0, 278)
+
+TopBar_2.Name = "TopBar"
+TopBar_2.Parent = Side
+TopBar_2.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
+TopBar_2.BorderColor3 = Color3.fromRGB(30, 30, 30)
+TopBar_2.Size = UDim2.new(0, 148, 0, 41)
+
+CloseTab.Name = "CloseTab"
+CloseTab.Parent = TopBar_2
+CloseTab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CloseTab.BackgroundTransparency = 1.000
+CloseTab.BorderColor3 = Color3.fromRGB(0, 0, 0)
+CloseTab.BorderSizePixel = 0
+CloseTab.Position = UDim2.new(0.0592803955, 0, 0.301219672, 0)
+CloseTab.Size = UDim2.new(0, 15, 0, 15)
+CloseTab.Image = "rbxassetid://11326672122"
+CloseTab.ImageColor3 = Color3.fromRGB(150, 150, 150)
+
+SearchBox.Name = "SearchBox"
+SearchBox.Parent = TopBar_2
+SearchBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+SearchBox.BackgroundTransparency = 1.000
+SearchBox.BorderColor3 = Color3.fromRGB(255, 255, 255)
+SearchBox.BorderSizePixel = 0
+SearchBox.Position = UDim2.new(0.210945755, 0, 0.310000151, 0)
+SearchBox.Size = UDim2.new(0, 116, 0, 19)
+SearchBox.Font = Enum.Font.SourceSans
+SearchBox.PlaceholderColor3 = Color3.fromRGB(150, 150, 150)
+SearchBox.PlaceholderText = "Search Tabs.."
+SearchBox.Text = ""
+SearchBox.TextColor3 = Color3.fromRGB(150, 150, 150)
+SearchBox.TextSize = 14.000
+SearchBox.TextXAlignment = Enum.TextXAlignment.Left
+SearchBox.TextYAlignment = Enum.TextYAlignment.Top
+
+TabHolder.Name = "TabHolder"
+TabHolder.Parent = Side
+TabHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TabHolder.BackgroundTransparency = 1.000
+TabHolder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TabHolder.BorderSizePixel = 0
+TabHolder.Position = UDim2.new(0, 0, 0.157534316, 0)
+TabHolder.Size = UDim2.new(0.998584926, 0, 0.842465758, 0)
+
+HolderT.Name = "HolderT"
+HolderT.Parent = TabHolder
+HolderT.Active = true
+HolderT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+HolderT.BackgroundTransparency = 1.000
+HolderT.BorderColor3 = Color3.fromRGB(0, 0, 0)
+HolderT.BorderSizePixel = 0
+HolderT.Size = UDim2.new(1, 0, 1, 0)
+HolderT.CanvasPosition = Vector2.new(0, 750)
+HolderT.CanvasSize = UDim2.new(0, 0, 222, 0)
+
+TabListLayout.Name = "TabListLayout"
+TabListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+TabListLayout.Parent = HolderT
+TabListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+TabListLayout.Padding = UDim.new(0, 5)
+
+TabPadding.Name = "TabPadding"
+TabPadding.Parent = HolderT
+TabPadding.PaddingTop = UDim.new(0, 10)
+
+
+
+TextButton.Parent = HolderT
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Size = UDim2.new(0, 200, 0, 50)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.TextSize = 14.000
+
+Page.Name = "Page"
+Page.Parent = Main
+Page.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Page.BackgroundTransparency = 1.000
+Page.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Page.BorderSizePixel = 0
+Page.Position = UDim2.new(0.315040469, 0, 0.166144207, 0)
+Page.Size = UDim2.new(0, 336, 0, 266)
+
+
+PageFold.Name = "PageFold"
+PageFold.Parent = Page
+
+
+local UIStroke = Instance.new("UIStroke")
+
+-- Applying UIStroke to various elements
+UIStroke.Parent = Main
+UIStroke.Color = Color3.fromRGB(50, 50, 50)
+UIStroke.Thickness = 2
+
+UIStroke:Clone().Parent = TopBar
+
+UIStroke:Clone().Parent = TopBar_2
+	
+	
+	
+local xTabs = {}
+
+function xTabs:Tab(TName, iconID)
+	local Name = TName or "Tab"
+	
+	--Tab button
+	
+	local TabButton = Instance.new("TextButton")
+	local NameT = Instance.new("TextLabel")
+	local Icon = Instance.new("ImageLabel")
+
+	--Properties:
+
+	TabButton.Name = "TabButton"
+	TabButton.Parent = HolderT
+	TabButton.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
+	TabButton.BorderColor3 = Color3.fromRGB(30, 30, 30)
+	TabButton.Position = UDim2.new(0.00324264634, 0, 0, 0)
+	TabButton.Size = UDim2.new(0, 147, 0, 41)
+	TabButton.Font = Enum.Font.SourceSans
+	TabButton.Text = ""
+	TabButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+	TabButton.TextSize = 14.000
+
+	NameT.Name = "Name"
+	NameT.Parent = TabButton
+	NameT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	NameT.BackgroundTransparency = 1.000
+	NameT.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	NameT.BorderSizePixel = 0
+	NameT.Position = UDim2.new(0.209459454, 0, 0, 0)
+	NameT.Size = UDim2.new(0, 117, 0, 40)
+	NameT.Font = Enum.Font.SourceSansBold
+	NameT.Text = TName
+	NameT.TextColor3 = Color3.fromRGB(150, 150, 150)
+	NameT.TextSize = 15.000
+	NameT.TextXAlignment = Enum.TextXAlignment.Left
+
+	Icon.Name = "Icon"
+	Icon.Parent = TabButton
+	Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Icon.BackgroundTransparency = 1.000
+	Icon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Icon.BorderSizePixel = 0
+	Icon.Position = UDim2.new(0, 5, 0.244000003, 0)
+	Icon.Size = UDim2.new(0, 20, 0, 20)
+	Icon.Image = "rbxassetid://"..iconID
+	Icon.ImageColor3 = Color3.fromRGB(150, 150, 150)
+	
+	local uistrokeTab = Instance.new("UIStroke")
+	uistrokeTab.Color = Color3.fromRGB(50, 50, 50)
+	uistrokeTab.ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual
+	uistrokeTab.Thickness = 2
+	uistrokeTab.Parent = NameT
+	
+	--yab scrolling frame
+	
+	
+	local PageHold = Instance.new("ScrollingFrame")
+	local UIListLayout = Instance.new("UIListLayout")
+
+	--Properties:
+
+	PageHold.Name = TName.."'s Page"
+	PageHold.Parent = PageFold
+	PageHold.Active = true
+	PageHold.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
+	PageHold.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	PageHold.BorderSizePixel = 0
+	PageHold.Position = UDim2.new(0.315040648, 0, 0.128526747, 0)
+	PageHold.Size = UDim2.new(0, 336, 0, 278)
+	PageHold.Visible = false
+	PageHold.ScrollBarThickness = 3
+
+	UIListLayout.Parent = PageHold
+	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	
+	
+	-- Store the original color
+	local originalBackgroundColor = TabButton.BackgroundColor3
+
+	-- Connect button click to activation function
+	TabButton.MouseButton1Click:Connect(function()
+		-- Hide all other tab frames and reset their button colors
+		for _, frame in pairs(PageHold:GetChildren()) do
+			if frame:IsA("ScrollingFrame") then
+				frame.Visible = false
+			end
+		end
+		for _, button in pairs(HolderT:GetChildren()) do
+			if button:IsA("TextButton") then
+				button.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+				button.TextColor3 = Color3.fromRGB(193, 193, 193)
+				uistrokeTab.Color = Color3.fromRGB(50, 50, 50)
+			end
+		end
+		-- Show the selected tab frame
+		PageHold.Visible = true
+		TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		uistrokeTab.Color = Color3.fromRGB(3, 118, 226)
+		TabButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+	end)
+	
+	
+	local Elements = {}
+
+	function Elements:Label(LName, desc)
+		local Name = LName or "Label"
+		local desc = desc or "This is some text"
+		local LabelFunction = {}
+		
+		
+		
+		local Text = Instance.new("Frame")
+		local Nametext = Instance.new("TextLabel")
+		local Description = Instance.new("TextLabel")
+		local Icon = Instance.new("ImageLabel")
+
+		--Properties:
+
+		Text.Name = tostring(Name).."_Label"
+		Text.Parent = PageHold
+		Text.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
+		Text.BorderColor3 = Color3.fromRGB(30, 30, 30)
+		Text.Position = UDim2.new(0.119918697, 0, 0.291536063, 0)
+		Text.Size = UDim2.new(1, 0, 0, 1)
+
+		Nametext.Name = "Name"
+		Nametext.Parent = Text
+		Nametext.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Nametext.BackgroundTransparency = 1.000
+		Nametext.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Nametext.BorderSizePixel = 0
+		Nametext.Position = UDim2.new(0.0164630879, 0, 0.0798921138, 0)
+		Nametext.Size = UDim2.new(0, 327, 0, 35)
+		Nametext.Font = Enum.Font.SourceSansBold
+		Nametext.Text = LName
+		Nametext.TextColor3 = Color3.fromRGB(150, 150, 150)
+		Nametext.TextSize = 14.000
+		Nametext.TextWrapped = true
+		Nametext.TextXAlignment = Enum.TextXAlignment.Left
+		Nametext.TextYAlignment = Enum.TextYAlignment.Top
+
+		Description.Name = "Description"
+		Description.Parent = Name
+		Description.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Description.BackgroundTransparency = 1.000
+		Description.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Description.BorderSizePixel = 0
+		Description.Position = UDim2.new(0, 0, 0.460496724, 0)
+		Description.Size = UDim2.new(0, 235, 0, 16)
+		Description.Font = Enum.Font.SourceSansSemibold
+		Description.Text = desc
+		Description.TextColor3 = Color3.fromRGB(130, 130, 130)
+		Description.TextSize = 12.000
+		Description.TextWrapped = true
+		Description.TextXAlignment = Enum.TextXAlignment.Left
+		Description.TextYAlignment = Enum.TextYAlignment.Top
+
+		Icon.Name = "Icon"
+		Icon.Parent = Text
+		Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Icon.BackgroundTransparency = 1.000
+		Icon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Icon.BorderSizePixel = 0
+		Icon.Position = UDim2.new(0.924932957, 0, 0.227822438, 0)
+		Icon.Size = UDim2.new(0, 20, 0, 20)
+		Icon.Image = "rbxassetid://11432857440"
+		Icon.ImageColor3 = Color3.fromRGB(150, 150, 150)
+		
+		
+		function LabelFunction:UpdateLabel(Name)
+			Nametext.Text = Name
+			Text.Name = tostring(Name).."_Label"
+		end
+		return LabelFunction
+		
+	end
+
+
+
+	function Elements:Button(BName, desc, Callback)
+		local NameBt = BName or "Button"
+		
+		local Desc = desc or "Button does funny stuff"
+		
+		
+		local ButtonFunction = {}
+		local Callback = Callback or function () end
+
+
+	local Button = Instance.new("TextButton")
+	local NameB = Instance.new("TextLabel")
+	local Description = Instance.new("TextLabel")
+	local Icon = Instance.new("ImageLabel")
+
+	--Properties:
+
+	Button.Name = BName
+	Button.Parent = PageHold
+	Button.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
+	Button.BorderColor3 = Color3.fromRGB(30, 30, 30)
+	Button.Position = UDim2.new(0.119918697, 0, 0.423197478, 0)
+	Button.Size = UDim2.new(1, 0, 0, 1)
+	Button.Font = Enum.Font.SourceSans
+	Button.Text = ""
+	Button.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Button.TextSize = 14.000
+
+		NameB.Name = "Name"
+		NameB.Parent = Button
+		NameB.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		NameB.BackgroundTransparency = 1.000
+		NameB.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		NameB.BorderSizePixel = 0
+		NameB.Position = UDim2.new(0.0190000962, 0, 0.0794285387, 0)
+		NameB.Size = UDim2.new(0, 327, 0, 35)
+		NameB.Font = Enum.Font.SourceSansBold
+		NameB.Text = NameBt
+		NameB.TextColor3 = Color3.fromRGB(150, 150, 150)
+		NameB.TextSize = 14.000
+		NameB.TextWrapped = true
+		NameB.TextXAlignment = Enum.TextXAlignment.Left
+		NameB.TextYAlignment = Enum.TextYAlignment.Top
+
+	Description.Name = "Description"
+	Description.Parent = Name
+	Description.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Description.BackgroundTransparency = 1.000
+	Description.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Description.BorderSizePixel = 0
+	Description.Position = UDim2.new(0, 0, 0.460496306, 0)
+	Description.Size = UDim2.new(0, 235, 0, 14)
+	Description.Font = Enum.Font.SourceSansSemibold
+	Description.Text = Desc
+	Description.TextColor3 = Color3.fromRGB(130, 130, 130)
+	Description.TextSize = 12.000
+	Description.TextWrapped = true
+	Description.TextXAlignment = Enum.TextXAlignment.Left
+	Description.TextYAlignment = Enum.TextYAlignment.Top
+
+	Icon.Name = "Icon"
+	Icon.Parent = Button
+	Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Icon.BackgroundTransparency = 1.000
+	Icon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Icon.BorderSizePixel = 0
+	Icon.Position = UDim2.new(0.924932957, 0, 0.227822438, 0)
+	Icon.Size = UDim2.new(0, 20, 0, 20)
+	Icon.Image = "rbxassetid://12974400533"
+	Icon.ImageColor3 = Color3.fromRGB(150, 150, 150)
+
+		-- Button click event
+		Button.MouseButton1Click:Connect(function()
+			print("Button clicked: " .. NameBt)
+			--ImageLabel.ImageColor3 = Color3.fromRGB(255, 255, 255)
+			Callback()
+			Icon.ImageColor3 = Color3.fromRGB(104, 104, 104)
+		end)
+
+		Button.MouseEnter:Connect(function()
+			game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+				BackgroundColor3 = Color3.fromRGB(145, 145, 145)
+			}):Play()
+		end)
+
+		Button.MouseLeave:Connect(function()
+			game:GetService("TweenService"):Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+				BackgroundColor3 = Color3.fromRGB(5, 5, 5)
+			}):Play()
+		end)
+		
+		print("Button created: " .. NameBt .. " in " .. Button.Parent.Name)
+		
+		function ButtonFunction:UpdateButton(Name)
+			NameB.Text = Name
+			Button.Name = tostring(Name).."_Button"
+		end
+		return ButtonFunction
+		
+		end
+
+		return Elements
+		end
+		return xTabs
+	end
+
+return Library
+
