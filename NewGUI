@@ -66,8 +66,8 @@ local ScreenGUI = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
 local Corner = Instance.new("UICorner")
 local TopBar = Instance.new("Frame")
-local Close = Instance.new("ImageLabel")
-local Minimize = Instance.new("ImageLabel")
+	local Minimize = Instance.new("ImageButton")
+	local Close = Instance.new("ImageButton")
 local TitleHub = Instance.new("TextLabel")
 local Shadow = Instance.new("Frame")
 local Image = Instance.new("ImageLabel")
@@ -106,28 +106,29 @@ TopBar.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
 TopBar.BorderColor3 = Color3.fromRGB(30, 30, 30)
 TopBar.Size = UDim2.new(0, 492, 0, 41)
 
-Close.Name = "Close"
-Close.Parent = TopBar
-Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Close.BackgroundTransparency = 1.000
-Close.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Close.BorderSizePixel = 0
-Close.Position = UDim2.new(0.951122761, 0, 0.317073166, 0)
-Close.Size = UDim2.new(0, 15, 0, 15)
-Close.Image = "rbxassetid://11293981586"
-Close.ImageColor3 = Color3.fromRGB(150, 150, 150)
+	Minimize.Name = "Minimize"
+	Minimize.Parent = game.StarterGui.ScreenGUI.Main.TopBar
+	Minimize.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Minimize.BackgroundTransparency = 1.000
+	Minimize.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Minimize.BorderSizePixel = 0
+	Minimize.Position = UDim2.new(0.897212207, 0, 0.316999853, 0)
+	Minimize.Size = UDim2.new(0, 15, 0, 15)
+	Minimize.Image = "rbxassetid://11293980042"
 
-Minimize.Name = "Minimize"
-Minimize.Parent = TopBar
-Minimize.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Minimize.BackgroundTransparency = 1.000
-Minimize.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Minimize.BorderSizePixel = 0
-Minimize.Position = UDim2.new(0.897212207, 0, 0.316999853, 0)
-Minimize.Size = UDim2.new(0, 15, 0, 15)
-Minimize.Image = "rbxassetid://11293980042"
-Minimize.ImageColor3 = Color3.fromRGB(150, 150, 150)
-
+	Close.Name = "Close"
+	Close.Parent = game.StarterGui.ScreenGUI.Main.TopBar
+	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Close.BackgroundTransparency = 1.000
+	Close.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Close.BorderSizePixel = 0
+	Close.Position = UDim2.new(0.951122761, 0, 0.317073166, 0)
+	Close.Size = UDim2.new(0, 15, 0, 15)
+	Close.Image = "rbxassetid://11293981586"
+	
+	
+	
+	
 TitleHub.Name = "TitleHub"
 TitleHub.Parent = TopBar
 TitleHub.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -276,6 +277,38 @@ UIStroke:Clone().Parent = TopBar
 
 UIStroke:Clone().Parent = TopBar_2
 	
+	
+	Close.MouseButton1Click:Connect(function()
+		ScreenGUI:Destroy()
+	end)
+	
+	local minimized = false
+	local originalSize = Main.Size
+	local minimizedSize = UDim2.new(0, 525, 0, 36)
+	
+	
+	Minimize.MouseButton1Click:Connect(function()
+		if minimized then
+			Main:TweenSize(originalSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.3, true)
+			for _, child in pairs(Main:GetChildren()) do
+				if child:IsA("Frame") or child:IsA("ScrollingFrame") then
+					child.Visible = true
+				end
+			end
+		else
+			Main:TweenSize(minimizedSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.3, true)
+			for _, child in pairs(Main:GetChildren()) do
+				if child:IsA("Frame") or child:IsA("ScrollingFrame") then
+					child.Visible = false
+				end
+			end
+			TopBar.Visible = true -- Ensure the Topbar remains visible
+		end
+		minimized = not minimized
+	end)
+	
+	
+	Library:Drag(Main)
 	
 	
 local xTabs = {}
@@ -566,4 +599,15 @@ function xTabs:Tab(TName, iconID)
 	end
 
 return Library
+
+
+
+
+
+
+
+
+
+
+
 
